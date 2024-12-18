@@ -1,0 +1,66 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# Eclipse-specific files
+/.settings/
+/.project
+/.classpath
+
+
+/allure-results/
+# Maven-specific files
+/target/
+/.mvn/
+/pom.xml.tag
+/pom.xml.releaseBackup
+/pom.xml.versionsBackup
+/logs/
+/dependency-reduced-pom.xml
+/release.properties
+
+# Cucumber-specific files
+/cucumber-html-reports/
+/cucumber.json
+/cucumber.log
+
+# Test execution reports
+/test-output/
+/extent-reports/
+/*.log
+/screenshots/
+
+# IDE-specific files
+/.idea/
+/*.iml
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+
+# Java-specific files
+*.class
+
+# Log files
+*.log
+
+# Git-related files
+!.gitignore
+
+# Node and NPM-related files (if applicable)
+/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cache and build files
+/.cache/
+/build/
+
+# Appium logs (if used)
+/appium-logs/
