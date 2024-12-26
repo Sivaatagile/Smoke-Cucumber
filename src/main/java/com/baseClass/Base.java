@@ -15,13 +15,19 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Store;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import org.jsoup.Jsoup;
@@ -594,7 +600,7 @@ public class Base {
 		String host = "imap.gmail.com"; // Email server host
 		String mailStoreType = "imap"; // Email protocol
 		String username = "testmobileacs@gmail.com"; // Email username
-		String password = "abpycwivqjnzffqv"; // Email password
+		String password = "tdrckyprwbzwinlg"; // Email password
 		try {
 			Properties properties = new Properties(); // Properties for email session
 			properties.put("mail.store.protocol", "imaps");
@@ -821,5 +827,48 @@ public class Base {
 		}
 
 	}
+	
+	 public static void sendEmailWithReport(String toEmail, String subject, String body, String reportPath) {
+	        final String fromEmail = "testmobileacs@gmail.com"; // Change with your email
+	        final String password = "tdrckyprwbzwinlg"; // Change with your email password
+	        Properties props = new Properties();
+	        props.put("mail.smtp.host", "smtp.gmail.com"); // For Gmail
+	        props.put("mail.smtp.port", "587");
+	        props.put("mail.smtp.auth", "true");
+	        props.put("mail.smtp.starttls.enable", "true");
+
+	        Session session = Session.getInstance(props, new Authenticator() {
+	            protected PasswordAuthentication getPasswordAuthentication() {
+	                return new PasswordAuthentication(fromEmail, password);
+	            }
+	        });
+
+	        try {
+	            MimeMessage message = new MimeMessage(session);
+	            message.setFrom(new InternetAddress(fromEmail));
+	            message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+	            message.setSubject(subject);
+
+	            // Create Mime Body Part for Report Attachment
+	            MimeBodyPart messageBodyPart = new MimeBodyPart();
+	            messageBodyPart.setText(body);
+
+	            // Add Attachment
+	            MimeBodyPart attachmentPart = new MimeBodyPart();
+	            attachmentPart.attachFile(new File(reportPath));
+
+	            Multipart multipart = new MimeMultipart();
+	            multipart.addBodyPart(messageBodyPart);
+	            multipart.addBodyPart(attachmentPart);
+
+	            message.setContent(multipart);
+
+	            // Send Email
+	            Transport.send(message);
+	            System.out.println("Email sent successfully!");
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
 
 }

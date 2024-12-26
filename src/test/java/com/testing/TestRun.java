@@ -1,5 +1,7 @@
 package com.testing;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -144,16 +146,16 @@ public class TestRun extends Base {
 
 	
 	public static void main(String[] args) throws Exception {
-		WE_Info info = new WE_Info(driver);
-		method1("First");
-		Latest_StagingAPK_download();
-		Application();
-//		OpenApplication();
-		Login_Details.signupCustomer();
-		Info.User_Data();
-		Thread.sleep(2000);
-		Info.Pet_Data();
-		info.getcloseApp();
+		  // Construct the path to the HTML file
+		 Thread.sleep(10000);
+		 
+	        String reportPath = System.getProperty("user.dir")+"/target/cucumber-reports123/index.html"; // Update with your report path
+	        Base.sendEmailWithReport(
+	                "sivagopaljen@gmail.com",
+	                "Cucumber Test Report",
+	                "Please find the attached test report.",
+	                reportPath
+	        );
 	}
 
 }
