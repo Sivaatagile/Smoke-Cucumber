@@ -225,7 +225,7 @@ public class Booking extends Base {
 			// Click on checkbox and ConfirmANDPay to go to the next page
 			ClickonElement(booking.getCheckBox());
 			System.setProperty("webdriver.chrome.driver",
-					"C:\\Users\\ACS\\eclipse-workspace\\sanity_booking_app\\ChromeDriver\\chromedriver.exe");
+					"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
 			ClickonElement(booking.getConfirmANDPay());
 			// Run the appropriate Stripe payment function based on totalAmount value
 			if (totalAmount == 0.00) {

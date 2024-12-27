@@ -1,11 +1,11 @@
 Feature: Login the User
 
- Scenario: Laungh application in emulator
+ Scenario: Launch application in emulator
     Given PropertyFile Loaded
     And  Configure driver
-    #And  Api configuration
-    #And  Open the application
-    #Then Successfully navigated to the login screen
+    And  Api configuration
+    And  Open the application
+    Then Successfully navigated to the login screen
     
  #Scenario: User signs up using email as customer
     #Given the user clicks on the Sign Up button
@@ -14,7 +14,7 @@ Feature: Login the User
     #Then the user receives an OTP in their email
     #When the user enters the OTP received in the email
     #Then the user should be signed up successfully
-    
+    #
  #Scenario: User fills out their information after signing up
     #Given the user has successfully signed up
     #When the user is on the user info page
@@ -176,32 +176,32 @@ Feature: Login the User
     #Given the admin navigates to the Settings tab  
     #And the admin clicks on the logout button  
     #Then the admin should be logged out successfully  
-    #
- #Scenario:  User login using email as customer (predefined account)
-    #Given the user enters their predefined "PREDEFINED_CUSTOMER_EMAIL" address
-    #When the user clicks on the Continue button
-    #And the user enters the Predefined Otp "PREDEFINED_CUSTOMER_OTP"
-    #Then the user should be logged in successfully
-    #
- #Scenario: Create a Booking
-    #Given User selects a service
-    #When User fetches the slot list for the selected service using the API
-    #And User selects a random slot from the slot list, scrolling the slot picker if necessary
-    #And User determines the From Date and To Date for the service based on constraints
-    #And User calculates the date range and picks a random date
-    #And User navigates to the random date's month using the right arrow
-    #And User selects the random date and User taps the Request Booking button
-    #Then User should successfully navigate to the Confirm Booking Details page
-    #And User verifies the service name, date, and slot
-    #And User taps the Proceed button
-    #Then User navigates to the Review Booking page
-    #And User reviews the total amount and remaining credit amount
-    #And User taps the checkbox and User taps the Confirm and Pay button
-    #Then User initiates the payment process
-    #Then User navigates to the Booking Request Successful page
-    #And User saves the booking details
-    #And User taps the My Bookings button
-    #Then User navigates to the My Bookings page
-    #And User verifies that the booking is listed on the My Bookings page
+    
+ Scenario:  User login using email as customer (predefined account)
+    Given the user enters their predefined "PREDEFINED_CUSTOMER_EMAIL" address
+    When the user clicks on the Continue button
+    And the user enters the Predefined Otp "PREDEFINED_CUSTOMER_OTP"
+    Then the user should be logged in successfully
+    
+ Scenario: Create a Booking
+    Given User selects a service
+    When User fetches the slot list for the selected service using the API
+    And User selects a random slot from the slot list, scrolling the slot picker if necessary
+    And User determines the From Date and To Date for the service based on constraints
+    And User calculates the date range and picks a random date
+    And User navigates to the random date's month using the right arrow
+    And User selects the random date and User taps the Request Booking button
+    Then User should successfully navigate to the Confirm Booking Details page
+    And User verifies the service name, date, and slot
+    And User taps the Proceed button
+    Then User navigates to the Review Booking page
+    And User reviews the total amount and remaining credit amount
+    And User taps the checkbox and User taps the Confirm and Pay button
+    Then User initiates the payment process
+    Then User navigates to the Booking Request Successful page
+    And User saves the booking details
+    And User taps the My Bookings button
+    Then User navigates to the My Bookings page
+    And User verifies that the booking is listed on the My Bookings page
     
     
