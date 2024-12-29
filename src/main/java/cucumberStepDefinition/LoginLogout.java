@@ -7,6 +7,7 @@ import io.cucumber.java.en.*;
 
 public class LoginLogout extends Base {
 	WE_Login_Details login = new WE_Login_Details(driver);
+	public static String otp_Received ;
 
 	@Given("the admin navigates to the Settings tab")
 	public void theAdminNavigatesToTheSettingsTab() {
@@ -23,4 +24,24 @@ public class LoginLogout extends Base {
 		System.out.println("Check the login  elements  their after logout");
 	}
 
+	@Given("the user enters their  {string} address")
+	public void theUserEntersTheirAddress(String staffEmail) {
+		ClickonElement(login.getContinueWithEmail());
+		passInput(login.getContinueWithEmail(), getProperty(staffEmail));
+		driver.hideKeyboard();
+		
+		
+	}
+	@When("the user enters the Otp")
+	public void theUserEntersTheOtp() throws InterruptedException {
+		Thread.sleep(10000);
+		String otp_Received = getOtpFromSource();
+		System.out.println("The OTP is  : " + otp_Received);
+		Thread.sleep(2000);
+		passInputUsingActions(login.getOTP(), otp_Received);
+		
+	}
+	
+	
+	
 }

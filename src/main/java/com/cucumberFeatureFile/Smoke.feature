@@ -62,13 +62,13 @@ Feature: Login the User
   #	When the admin opens the application
   #	Then the application launches successfully
   #	And the admin is navigated to the login page (or home page if already logged in)
-    #
- #Scenario:  User login using email as admin (predefined account)
-    #Given the user enters their predefined "PREDEFINED_ADMIN_EMAIL" address
-    #When the user clicks on the Continue button
-    #And the user enters the Predefined Otp "PREDEFINED_ADMIN_OTP"
-    #Then the user should be logged in successfully
-    #
+    
+ Scenario:  User login using email as admin (predefined account)
+    Given the user enters their predefined "PREDEFINED_ADMIN_EMAIL" address
+    When the user clicks on the Continue button
+    And the user enters the Predefined Otp "PREDEFINED_ADMIN_OTP"
+    Then the user should be logged in successfully
+    
  #Scenario: Approving a signed-up customer request in the admin portal
     #Given  the admin clicks on the Users tab
     #When clicks on the Pending Requests showall option
@@ -102,28 +102,28 @@ Feature: Login the User
 #		And the admin taps the Home icon
 #		Then the admin is navigated back to the home page
     #
- #Scenario: Adding a new staff through the admin portal
-  #	Given the admin clicks on the Users tab
-  #	When the admin clicks on Staff's Show All
-  #	Then the admin is navigated to the staff list page
- #		When the admin clicks on the + button to add a new staff
-  #	And the admin enters the first name "ADMIN_STAFF_FIRST_NAME"
-  #	And the admin enters the last name "ADMIN_STAFF_LAST_NAME"
-  #	And the admin enters the email "ADMIN_STAFF_EMAIL"
-  #	And the admin selects the gender for Staff
-  #	And the admin enters the Contact number "ADMIN_STAFF_CONTACTNUMBER"
-  #	And the admin enters the additional contact number "ADMIN_STAFF_ADDITIONAL_CONTACT_NUMBER"
-  #	And the admin enters the address line for staff 1
-  #	And the admin enters the address line for staff 2
-  #	And the admin selects the country
-  #	And the admin enters the city or town "ADMIN_STAFF_CITY"
-  #	And the admin enters the post code "ADMIN_STAFF_POSTCODE"
-  #	And the admin clicks on the Skills dropdown and selects the staff's skill
-  #	When the admin clicks on the Save button
-  #	Then the new staff details should be successfully saved
-  #	When the admin clicks on the Back button
-  #	And the admin taps the Home icon
-  #	Then the admin is navigated back to the home page
+ Scenario: Adding a new staff through the admin portal
+  	Given the admin clicks on the Users tab
+  	When the admin clicks on Staff's Show All
+  	Then the admin is navigated to the staff list page
+ 		When the admin clicks on the + button to add a new staff
+  	And the admin enters the first name "ADMIN_STAFF_FIRST_NAME"
+  	And the admin enters the last name "ADMIN_STAFF_LAST_NAME"
+  	And the admin enters the email "ADMIN_STAFF_EMAIL"
+  	And the admin selects the gender for Staff
+  	And the admin enters the Contact number "ADMIN_STAFF_CONTACTNUMBER"
+  	And the admin enters the additional contact number "ADMIN_STAFF_ADDITIONAL_CONTACT_NUMBER"
+  	And the admin enters the address line for staff 1
+  	And the admin enters the address line for staff 2
+  	And the admin selects the country
+  	And the admin enters the city or town "ADMIN_STAFF_CITY"
+  	And the admin enters the post code "ADMIN_STAFF_POSTCODE"
+  	And the admin clicks on the Skills dropdown and selects the staff's skill
+  	When the admin clicks on the Save button
+  	Then the new staff details should be successfully saved
+  	When the admin clicks on the Back button
+  	And the admin taps the Home icon
+  	Then the admin is navigated back to the home page
     #
  #Scenario: Successfully create a tag category  
     #Given the admin clicks on the Users tab
@@ -172,36 +172,42 @@ Feature: Login the User
     #When the admin clicks on the Back button
     #And the admin taps the Home icon
   #
- #Scenario: Successfully log out Admin 
-    #Given the admin navigates to the Settings tab  
-    #And the admin clicks on the logout button  
-    #Then the admin should be logged out successfully  
+ Scenario: Successfully log out Admin 
+    Given the admin navigates to the Settings tab  
+    And the admin clicks on the logout button  
+    Then the admin should be logged out successfully  
+    #
+ #Scenario:  User login using email as customer (predefined account)
+    #Given the user enters their predefined "PREDEFINED_CUSTOMER_EMAIL" address
+    #When the user clicks on the Continue button
+    #And the user enters the Predefined Otp "PREDEFINED_CUSTOMER_OTP"
+    #Then the user should be logged in successfully
+    #
+ #Scenario: Create a Booking
+    #Given User selects a service
+    #When User fetches the slot list for the selected service using the API
+    #And User selects a random slot from the slot list, scrolling the slot picker if necessary
+    #And User determines the From Date and To Date for the service based on constraints
+    #And User calculates the date range and picks a random date
+    #And User navigates to the random date's month using the right arrow
+    #And User selects the random date and User taps the Request Booking button
+    #Then User should successfully navigate to the Confirm Booking Details page
+    #And User verifies the service name, date, and slot
+    #And User taps the Proceed button
+    #Then User navigates to the Review Booking page
+    #And User reviews the total amount and remaining credit amount
+    #And User taps the checkbox and User taps the Confirm and Pay button
+    #Then User initiates the payment process
+    #Then User navigates to the Booking Request Successful page
+    #And User saves the booking details
+    #And User taps the My Bookings button
+    #Then User navigates to the My Bookings page
+    #And User verifies that the booking is listed on the My Bookings page
     
- Scenario:  User login using email as customer (predefined account)
-    Given the user enters their predefined "PREDEFINED_CUSTOMER_EMAIL" address
+    Scenario:  Staff login using email (already created by admin)
+    Given the user enters their  "ADMIN_STAFF_EMAIL" address
     When the user clicks on the Continue button
-    And the user enters the Predefined Otp "PREDEFINED_CUSTOMER_OTP"
+    And the user enters the Otp 
     Then the user should be logged in successfully
-    
- Scenario: Create a Booking
-    Given User selects a service
-    When User fetches the slot list for the selected service using the API
-    And User selects a random slot from the slot list, scrolling the slot picker if necessary
-    And User determines the From Date and To Date for the service based on constraints
-    And User calculates the date range and picks a random date
-    And User navigates to the random date's month using the right arrow
-    And User selects the random date and User taps the Request Booking button
-    Then User should successfully navigate to the Confirm Booking Details page
-    And User verifies the service name, date, and slot
-    And User taps the Proceed button
-    Then User navigates to the Review Booking page
-    And User reviews the total amount and remaining credit amount
-    And User taps the checkbox and User taps the Confirm and Pay button
-    Then User initiates the payment process
-    Then User navigates to the Booking Request Successful page
-    And User saves the booking details
-    And User taps the My Bookings button
-    Then User navigates to the My Bookings page
-    And User verifies that the booking is listed on the My Bookings page
     
     

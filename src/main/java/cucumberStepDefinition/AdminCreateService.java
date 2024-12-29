@@ -85,6 +85,7 @@ public class AdminCreateService extends Base{
 		for (int i = 0; i < 4; i++) {
 			Thread.sleep(3000);
 			Service.getBaseprice().get(i).click();
+			Thread.sleep(5000);
 			passInput(Service.getBaseprice().get(i), getProperty("BASE_PRICE_AMOUNT"));
 			driver.hideKeyboard();
 			Thread.sleep(3000);

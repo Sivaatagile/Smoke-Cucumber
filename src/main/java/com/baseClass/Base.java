@@ -71,6 +71,7 @@ public class Base {
 		options.setDeviceName(getProperty("DEVICE_NAME")); // Set device name
 		options.setApp(Apk); // Set the path to the downloaded APK file
 		options.setCapability("autoGrantPermissions", "true"); // Set capability
+		options.setCapability("chromedriverExecutable","C:\\Users\\ACS\\eclipse-workspace\\sanity_booking_app\\dri\\chromedriver.exe");
 		options.setCapability("newCommandTimeout", 100000);
 		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
 
@@ -114,6 +115,7 @@ public class Base {
 		options.setCapability("appPackage", getProperty("APP_PACKAGE")); // Set app package
 		options.setCapability("appActivity", getProperty("APP_ACTIVITY")); // Set app activity
 		options.setCapability("autoGrantPermissions", "true"); // Set capability
+		options.setCapability("chromedriverExecutable","C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
 
 		options.setCapability("newCommandTimeout", 100000);
 		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
@@ -547,33 +549,33 @@ public class Base {
 
 //	 Downloads the latest staging APK based on the emulator's architecture.
 //	 Waits for 10 seconds, determines the emulator's architecture, sets the appropriate APK URL,and downloads the APK to a specified destination path. Deletes any existing file at that path before downloading.
-	public static void Latest_StagingAPK_download() throws InterruptedException {
+	public static void Latest_StagingAPK_download(String URL) throws InterruptedException {
 		Thread.sleep(10000); // Sleep for 10 seconds
-		String apkUrl = "https://dev.agilecyber.com/_apk/pawpal/PAW-845-Staging-Automation-Testing/app-armeabi-v7a-release.apk"; // Default
+		String apkUrl = URL + "/app-armeabi-v7a-release.apk"; // Default
 																																	// APK
 																																	// URL
 		String getEmulatorArch = getEmulatorArch("Pixel_6_Pro_API_31"); // Get emulator architecture
 		switch (getEmulatorArch) {
 		case "armeabi-v7a":
-			apkUrl = "https://dev.agilecyber.com/_apk/pawpal/PAW-845-Staging-Automation-Testing/app-armeabi-v7a-release.apk"; // URL
+			apkUrl = URL + "/app-armeabi-v7a-release.apk"; // URL
 																																// for
 																																// armeabi-v7a
 			System.out.println("Downloading APK for armeabi-v7a architecture"); // Print message
 			break;
 		case "x86":
-			apkUrl = "https://dev.agilecyber.com/_apk/pawpal/PAW-845-Staging-Automation-Testing/app-x86_64-release.apk"; // URL
+			apkUrl = URL + "/app-x86_64-release.apk"; // URL
 																															// for
 																															// x86
 			System.out.println("Downloading APK for x86 architecture"); // Print message
 			break;
 		case "x86_64":
-			apkUrl = "https://dev.agilecyber.com/_apk/pawpal/PAW-845-Staging-Automation-Testing/app-x86_64-release.apk"; // URL
+			apkUrl = URL + "/app-x86_64-release.apk"; // URL
 																															// for
 																															// x86_64
 			System.out.println("Downloading APK for x86_64 architecture"); // Print message
 			break;
 		case "arm64-v8a":
-			apkUrl = "https://dev.agilecyber.com/_apk/pawpal/PAW-845-Staging-Automation-Testing/app-arm64-v8a-release.apk"; // URL
+			apkUrl = URL + "/app-arm64-v8a-release.apk"; // URL
 																															// for
 																															// arm64-v8a
 			System.out.println("Downloading APK for arm64-v8a architecture"); // Print message
