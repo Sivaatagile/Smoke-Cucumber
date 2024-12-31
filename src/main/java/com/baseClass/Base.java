@@ -1,13 +1,18 @@
 package com.baseClass;
 
 import java.io.*;
+import java.lang.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +62,8 @@ public class Base {
 	public static AndroidDriver driver;
 	public static Boolean target;
 	public static String OTPText;
+	public static String outputAssignedDate;
+
 
 //	----------------------------------------------->  Application details
 
@@ -376,6 +383,33 @@ public class Base {
 			throw e;
 		}
 	}
+	
+	public static void slowScroll() throws Exception {
+	    try {
+	        // Get the screen dimensions
+	        Dimension screenSize = driver.manage().window().getSize();
+	        int screenWidth = screenSize.width;
+	        int screenHeight = screenSize.height;
+
+	        // Calculate start and end points for the scroll
+	        int centerX = screenWidth / 2; // Horizontal center of the screen
+	        int startPoint = (int) (screenHeight * 0.8); // Start at 80% of the screen height
+	        int endPoint = (int) (screenHeight * 0.2); // End at 20% of the screen height
+
+	        // Create a swipe action using PointerInput
+	        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+	        Sequence sequence = new Sequence(finger, 1);
+	        sequence.addAction(finger.createPointerMove(Duration.ofMillis(200), PointerInput.Origin.viewport(), centerX, startPoint));
+	        sequence.addAction(finger.createPointerDown(0));
+	        sequence.addAction(finger.createPointerMove(Duration.ofMillis(1000), PointerInput.Origin.viewport(), centerX, endPoint)); // Slow scroll with 1-second duration
+	        sequence.addAction(finger.createPointerUp(0));
+
+	        // Perform the action
+	        driver.perform(Arrays.asList(sequence));
+	    } catch (Exception e) {
+	        throw e;
+	    }
+	}
 
 	public static void halfscrollUntilElementFound12(WebElement scrollElement, WebElement targetElement)
 			throws Exception {
@@ -480,7 +514,70 @@ public class Base {
 			throw e;
 		}
 	}
+	public static void scrollUntilElementFound(WebElement scrollElement, By targetBy) throws Exception {
+		while (true) {
+			try {
+				WebElement targetElement = driver.findElement(targetBy); // Finds the target element.
+				if (targetElement.isDisplayed()) {
+					target = true;
+					System.out.println("Target element found");
+					Allure.step("Element Found");
+					break; // Exits the loop once target element is found.
+				}
+			} catch (NoSuchElementException e) {
+				target = false;
+				System.out.println("Target element not found, scrolling...");
+				Allure.step("Element not found... Continue Scrolling.");
+				Thread.sleep(1000); // Adds delay between scrolls.
+				scroll(scrollElement); // Scrolls the element to search for target.
+			}
+		}
+	}
 
+	public static void scrollEachElement(WebElement element) throws Exception {
+	    try {
+	        // Get the screen size for mobile (Android or iOS)
+	        org.openqa.selenium.Dimension screenSize = driver.manage().window().getSize(); // Works for mobile devices
+	        int screenHeight = screenSize.height;
+	        int screenWidth = screenSize.width;
+ 
+	        // Calculate 1/4th of the screen height
+	        int scrollDistance = screenHeight / 4;
+ 
+	        // Get the location and size of the element
+	        org.openqa.selenium.Dimension elementSize = element.getSize();
+	        org.openqa.selenium.Point elementLocation = element.getLocation();
+ 
+	        // Calculate the center X position of the element
+	        int centerX = elementLocation.x + (elementSize.width / 2);
+ 
+	        // Calculate the start and end points for the scroll based on 1/4th of the screen height
+	        int startPoint = elementLocation.y + (int) (elementSize.height * 0.80); // Start near the bottom (80% of the element's height)
+	        int endPoint = startPoint - scrollDistance; // End the scroll after 1/4th of the screen height
+ 
+	        // Initialize a PointerInput instance for simulating touch gestures
+	        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+	        Sequence sequence = new Sequence(finger, 1);
+ 
+	        // Move the pointer to the start point of the scroll
+	        sequence.addAction(finger.createPointerMove(Duration.ofMillis(300), PointerInput.Origin.viewport(), centerX, startPoint));
+ 
+	        // Press down at the start point (beginning of scroll gesture)
+	        sequence.addAction(finger.createPointerDown(0));
+ 
+	        // Move the pointer to the end point (scroll action)
+	        sequence.addAction(finger.createPointerMove(Duration.ofMillis(300), PointerInput.Origin.viewport(), centerX, endPoint));
+ 
+	        // Release the pointer (end of scroll gesture)
+	        sequence.addAction(finger.createPointerUp(0));
+ 
+	        // Perform the sequence of gestures (scroll action)
+	        driver.perform(Arrays.asList(sequence));
+	    } catch (Exception e) {
+	        throw e;
+	    }
+	}
+	
 	public static String getAdbPath() {
 		String adbPath;
 		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
@@ -872,5 +969,26 @@ public class Base {
 	            e.printStackTrace();
 	        }
 	    }
+	 
+	 
+	 public static void dateFormatForWorkflow( String inputDate) throws ParseException {
+
+			
+	        // Convert input format to Date object
+	        SimpleDateFormat inputFormat = new SimpleDateFormat("MMM dd, yyyy");
+	        Date date = inputFormat.parse(inputDate);
+
+	        // Create Calendar instance to get the day of the week
+	        Calendar calendar = Calendar.getInstance();
+	        calendar.setTime(date);
+
+	        // Convert Date object to desired format
+	        SimpleDateFormat outputFormat = new SimpleDateFormat("EEE MMM d");
+	        outputAssignedDate = outputFormat.format(calendar.getTime());
+
+	        System.out.println("Converted Date: " + outputAssignedDate);
+		
+		
+	}
 
 }

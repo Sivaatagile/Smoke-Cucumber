@@ -114,7 +114,7 @@ Thread.sleep(2000);
 	
 	
 	
-	public static  void Create_Staff() throws InterruptedException {
+	public static  void Create_Staff() throws Exception {
 	
 		WE_Admin_User user = new WE_Admin_User(driver);
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
@@ -168,10 +168,15 @@ Thread.sleep(2000);
 		ClickonElement(user.getPostCode());
 		passInput(user.getPostCode(), getProperty("ADMIN_STAFF_POSTCODE"));
 		driver.hideKeyboard();
-		
-//		ClickonElement(user.getSkills());
-//		passInput(user.getSkills(), "");
-		
+		Thread.sleep(2000);
+		ClickonElement(user.getSkillsset());
+		if (isElementAvailable(user.ServiceSkill)) {
+			clickOnElementUsingBy(user.ServiceSkill);
+		}else {
+			halfscrollUntilElementFound12(user.getscroll(), user.ServiceSkill);
+			clickOnElementUsingBy(user.ServiceSkill);
+		}
+		ClickonElement(user.getselect());
 		ClickonElement(user.getSave());
 		
 		ClickonElement(info.getBackButton());

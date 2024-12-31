@@ -2,9 +2,11 @@ package cucumberStepDefinition;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
 
@@ -35,6 +37,9 @@ public class Booking extends Base {
 	public static LocalDate maxBookingDate;
 	public static int BookingYear;
 	public static String BookingMonthProperCase;
+	
+	public static String InvoiceNumber;
+	public static String  currentMonth;
 
 	WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 	WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
@@ -351,4 +356,75 @@ public class Booking extends Base {
 		ClickonElement(booking.getCompleteOrder()); // Click on the 'Pay' button
 	}
 
+	@Then("User invoices")
+	public void userInvoices() throws InterruptedException {
+		WE_Customer_Settings invoices = new WE_Customer_Settings(driver);
+		ClickonElement(invoices.getSettingsTab());
+        ClickonElement(invoices.getMyInvoices());
+        Thread.sleep(8000);
+        ClickonElement(invoices.getFirstInvoice());
+        Thread.sleep(6000);
+        By BookedSERVICE = By.xpath("//android.view.View[@content-desc='"+ Booking.Booked_service + "']");
+        System.out.println(BookedSERVICE);
+//        By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmount + "']");
+        By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='"+ Booking.BookingPaidAmountwithdecimal + "']");
+        System.out.println(BookedPAYMENT1);
+
+//        BookingPaidAmountwithdecimal
+        Thread.sleep(4000);
+        if (isElementAvailable(BookedSERVICE)&& isElementAvailable(BookedPAYMENT1)) {
+    	    System.out.println("Booking successfully listed on My Invoices");
+			String attribute = invoices.getFindoutInvoiceNumber().getAttribute("content-desc");
+			System.out.println(attribute);
+		 InvoiceNumber = attribute.replace(" #", "");  // Removes '#'
+			System.out.println(InvoiceNumber);
+    	    
+    	} else {
+    	    System.out.println("Not listed");
+    	}
+        ClickonElement(invoices.getBackButton());
+        ClickonElement(invoices.getBackButton());
+        ClickonElement(invoices.getHomeTab());
+		
+		
+	}
+	@Then("User Statements")
+	public void userStatements() throws Exception {
+	    
+		
+		WE_Customer_Settings statement = new WE_Customer_Settings(driver);
+		ClickonElement(statement.getSettingsTab());
+        ClickonElement(statement.getMyStatements());
+		LocalDate currentDate = LocalDate.now();
+         currentMonth = currentDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+        System.out.println("Current month: " + currentMonth);
+		Thread.sleep(1000);
+        By Current_Month = By.xpath("//android.view.View[@content-desc='"+ currentMonth + "']");
+        Thread.sleep(3000);
+		clickOnElementUsingBy(Current_Month);
+		 Thread.sleep(3000);
+		
+		 Thread.sleep(5000);
+		 System.out.println(InvoiceNumber);
+	        By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='"+ InvoiceNumber + "']");
+	        System.out.println(BookedPAYMENT1);
+		 halfscrollUntilElementFound12(statement.getscroll(),BookedPAYMENT1 );
+		 if (isElementAvailable(BookedPAYMENT1)) {
+	    	    System.out.println("Booking successfully listed on My statements");
+				
+	    	} else {
+	    	    System.out.println("Not listed");
+	    	}
+		  ClickonElement(statement.getBackButton());
+	        ClickonElement(statement.getBackButton());
+	        ClickonElement(statement.getHomeTab());
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 }

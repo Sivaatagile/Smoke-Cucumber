@@ -194,6 +194,19 @@ public class WE_Admin_User extends  Base{
 		return   ContactNumber  ;
 	}
 	
+	@FindBy(xpath = "//android.view.View[@content-desc=\"Select\"]")
+	private WebElement select;
+	public WebElement getselect() {
+		return select;
+	}
+	
+	@FindBy(xpath = "//*[starts-with(@content-desc,'Skills')]/following-sibling::android.view.View[1]")
+	private WebElement Skillsset;
+	public WebElement getSkillsset() {
+		return Skillsset;
+	}
+	public static By ServiceSkill = By.xpath(String.format("//android.widget.CheckBox[contains(@content-desc, '"+getProperty("SERVICE_NAME")+"')]"));
+
 	
 //	------------------------------------------------->  USER APPROVAL
 	

@@ -75,13 +75,15 @@ public  class Customer_Settings extends Base{
         ClickonElement(invoices.getMyInvoices());
         Thread.sleep(8000);
         ClickonElement(invoices.getFirstInvoice());
-        
+        Thread.sleep(8000);
         By BookedSERVICE = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.Booked_service + "']");
+        System.out.println(BookedSERVICE);
 //        By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmount + "']");
         By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmountwithdecimal + "']");
+        System.out.println(BookedPAYMENT1);
 
 //        BookingPaidAmountwithdecimal
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         if (isElementAvailable(BookedSERVICE)&& isElementAvailable(BookedPAYMENT1)) {
     	    System.out.println("Booking successfully listed on My Invoices");
 			String attribute = invoices.getFindoutInvoiceNumber().getAttribute("content-desc");
@@ -93,6 +95,7 @@ public  class Customer_Settings extends Base{
     	    System.out.println("Not listed");
     	}
         ClickonElement(invoices.getBackButton());
+        Thread.sleep(3000);
         ClickonElement(invoices.getBackButton());
         ClickonElement(invoices.getHomeTab());
 	}

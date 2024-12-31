@@ -83,11 +83,11 @@ public class Login_Details extends Base{
 	public static void Predefined_login_Customer() throws InterruptedException {
 		WE_Login_Details login = new WE_Login_Details(driver);
 		ClickonElement(login.getContinueWithEmail());
-		passInput(login.getContinueWithEmail(), getProperty("PREDEFINED_Customer_EMAIL"));
+		passInput(login.getContinueWithEmail(), getProperty("PREDEFINED_CUSTOMER_EMAIL"));
 		driver.hideKeyboard();
 		ClickonElement(login.getContinueButton());
 		waitForElement(login.getEnterORPaste());
-		passInputUsingActions(login.getOTP(), getProperty("PREDEFINED_Customer_OTP"));
+		passInputUsingActions(login.getOTP(), getProperty("PREDEFINED_CUSTOMER_OTP"));
 		driver.hideKeyboard();
 //		ClickonElement(login.getSignInButton());
 	}

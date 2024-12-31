@@ -30,8 +30,17 @@ public class AdminCreateStaff extends Base {
 	}
 
 	@When("the admin clicks on the Skills dropdown and selects the staff's skill")
-	public void theAdminClicksOnTheSkillsDropdownAndSelectsTheStaffSSkill() {
-		System.out.println("Skills are in the list ");
+	public void theAdminClicksOnTheSkillsDropdownAndSelectsTheStaffSSkill() throws InterruptedException, Exception {
+		
+		Thread.sleep(2000);
+		ClickonElement(user.getSkillsset());
+		if (isElementAvailable(user.ServiceSkill)) {
+			clickOnElementUsingBy(user.ServiceSkill);
+		}else {
+			halfscrollUntilElementFound12(user.getscroll(), user.ServiceSkill);
+			clickOnElementUsingBy(user.ServiceSkill);
+		}
+		ClickonElement(user.getselect());
 	}
 
 	@Then("the new staff details should be successfully saved")

@@ -50,12 +50,12 @@ public class ReportProcess {
 		 
 	        String reportPath = System.getProperty("user.dir")+"/target/cucumber-reports123/index.html"; // Update with your report path
 	        Base.sendEmailWithReport(
-	                "vijay@agilecyber.com",
+	                "developer@agilecyber.com",
 	                "Cucumber Test Report",
 	                "Please find the attached test report:\r\n"
-	                + "\r\n"
-	                + "1. After approving a new user, an issue occurs displaying the message: \"Oops! We are experiencing a temporary issue connecting to our server. Please try again in a few minutes.\"\r\n"
-	                + "2. A script error occurs during Stripe payment due to an incompatible ChromeDriver version."
+	                + "Total Number of scenarios : 22\r\n"
+	                + "Passed : 21\r\n"
+	                + "Failed : 00"
 	              ,
 	                
 	                 

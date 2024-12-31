@@ -44,4 +44,19 @@ public class LoginLogout extends Base {
 	
 	
 	
+	@Given("the customer navigates to the Settings tab")
+	public void theCustomerNavigatesToTheSettingsTab() {
+		ClickonElement(login.getSettings());
+	}
+	@Given("the customer clicks on the logout button")
+	public void theCustomerClicksOnTheLogoutButton() {
+		ClickonElement(login.getLogout());
+	}
+	@Then("the customer should be logged out successfully")
+	public void theCustomerShouldBeLoggedOutSuccessfully() throws InterruptedException {
+	   Thread.sleep(10000);
+	   System.out.println("good ");
+	}
+	
+	
 }
