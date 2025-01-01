@@ -312,6 +312,19 @@ public class WE_Admin_WorkFlow extends Base{
 	public By getBookedDateLocator() {
 		return By.xpath("//android.widget.SeekBar[contains(@content-desc,'"+outputAssignedDate+"')]");
 	}
+	
+	@FindBy(xpath = "//android.widget.SeekBar[@content-desc=\"Wed Jun 25\"]")
+	private WebElement pic;
+	// Getter method to access the "Date & Slot" WebElement
+	public WebElement getpic() {
+		return pic;
+	}
+	
+//	public By getBookedDateLocator() {
+//		return By.xpath("");
+//	}
+	
+	
 
 //	 Method to get the locator for a booked slot using dynamic XPath
 	public By getBookedSlotLocator() {

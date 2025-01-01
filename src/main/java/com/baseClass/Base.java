@@ -41,12 +41,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -534,6 +536,63 @@ public class Base {
 		}
 	}
 
+	public static void scrollUntil(WebElement scrollElement, By targetBy) throws Exception {
+		while (true) {
+			try {
+				WebElement targetElement = driver.findElement(targetBy); // Finds the target element.
+				if (targetElement.isDisplayed()) {
+					target = true;
+					System.out.println("Target element found");
+					Allure.step("Element Found");
+					break; // Exits the loop once target element is found.
+				}
+			} catch (NoSuchElementException e) {
+				target = false;
+				System.out.println("Target element not found, scrolling...");
+				Allure.step("Element not found... Continue Scrolling.");
+				Thread.sleep(500); // Adds delay between scrolls.
+				scroll999(scrollElement); // Scrolls the element to search for target.
+			}
+		}
+	}
+	
+	public static void scroll999(WebElement element) throws Exception {
+		try {
+            Dimension elementSize = element.getSize();
+            Point elementLocation = element.getLocation();
+            int centerX = elementLocation.x + (elementSize.width / 2);
+            int startPoint = elementLocation.y + (int) (elementSize.height * 0.85); // Start point closer to bottom
+            int endPoint = elementLocation.y + (int) (elementSize.height * 0.30);  // End point closer to top
+
+            PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+            Sequence sequence = new Sequence(finger, 1);
+            
+            sequence.addAction(finger.createPointerMove(Duration.ofMillis(1), PointerInput.Origin.viewport(), centerX, startPoint));
+            sequence.addAction(finger.createPointerDown(0));
+            sequence.addAction(finger.createPointerMove(Duration.ofMillis(50), PointerInput.Origin.viewport(), centerX, endPoint)); // Faster move
+            sequence.addAction(finger.createPointerUp(0));
+
+            driver.perform(Arrays.asList(sequence)); // Perform the scroll gesture
+        } catch (Exception e) {
+            throw new Exception("Error while scrolling: " + e.getMessage(), e);
+        }
+	}
+	
+	public static void scrollToExactValue(WebElement picker, String targetValue) {
+	    while (true) {
+	        String currentValue = picker.getText(); // Get the current value
+	        if (currentValue.equals(targetValue)) { // Check if it's the target value
+	            break;
+	        }
+	        // Scroll in the desired direction
+	        ((JavascriptExecutor) driver).executeScript("mobile: selectPickerWheelValue", Map.of(
+	            "element", ((RemoteWebElement) picker).getId(),
+	            "order", "next", // Use "next" for up, "previous" for down
+	            "offset", 0.1 // Adjust scrolling speed
+	        ));
+	    }
+	}
+	
 	public static void scrollEachElement(WebElement element) throws Exception {
 	    try {
 	        // Get the screen size for mobile (Android or iOS)
@@ -721,7 +780,7 @@ public class Base {
 			System.out.println("Connected to email store.");
 			Allure.step("Successfully connected to the Email");
 			// Sleep for 10 seconds to wait for emails to load
-			Thread.sleep(10000);
+			Thread.sleep(8000);
 			Folder emailFolder = store.getFolder("INBOX"); // Open the INBOX folder
 			emailFolder.open(Folder.READ_ONLY); // Open the folder in read-only mode
 			Allure.step("Read all the messages in 'INBOX' folder");
@@ -739,7 +798,8 @@ public class Base {
 			});
 			for (Message message : messages) {
 				String subject = message.getSubject(); // Get the subject of the message
-//				Thread.sleep(2000);
+
+				//				Thread.sleep(2000);
 				if (subject != null && subject.contains("OTP Verification")) { // Check if the subject contains "OTP
 																				// Verification"
 					String htmlContent = getTextFromMessage(message); // Extract the HTML content from the message
@@ -990,5 +1050,17 @@ public class Base {
 		
 		
 	}
+	 
+	 public static String getContentDesc(String Content) {
+	        try {
+	            // Locate the element
+	            WebElement element = driver.findElement(By.xpath(Content));
+	            // Return the 'content-desc' attribute
+	            return element.getAttribute("content-desc");
+	        } catch (Exception e) {
+	            System.out.println("Error locating element or fetching content-desc: " + e.getMessage());
+	            return null;
+	        }
+	    }
 
 }

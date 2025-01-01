@@ -16,6 +16,7 @@ public  class Customer_Settings extends Base{
 	
 	public static String InvoiceNumber;
 	public static String  currentMonth;
+	public static String  StatementCreatedDate;
 	
 	public static  void MyBookings() throws InterruptedException { 
 		WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
@@ -122,6 +123,11 @@ public  class Customer_Settings extends Base{
 		 if (isElementAvailable(BookedPAYMENT1)) {
 	    	    System.out.println("Booking successfully listed on My statements");
 				
+	    	    
+	    	    Thread.sleep(3000);
+		    	String AttributeStatementCreatedDate ="//android.view.View[@content-desc='"+ InvoiceNumber + "']/preceding-sibling::android.view.View[1]" ;   
+		    	StatementCreatedDate =getContentDesc(AttributeStatementCreatedDate);
+		    	System.out.println("hhhdhd   :    "+StatementCreatedDate); 
 	    	} else {
 	    	    System.out.println("Not listed");
 	    	}

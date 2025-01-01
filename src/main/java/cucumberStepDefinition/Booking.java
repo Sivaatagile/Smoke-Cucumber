@@ -37,6 +37,7 @@ public class Booking extends Base {
 	public static LocalDate maxBookingDate;
 	public static int BookingYear;
 	public static String BookingMonthProperCase;
+	public static String StatementCreatedDate;
 	
 	public static String InvoiceNumber;
 	public static String  currentMonth;
@@ -411,11 +412,17 @@ public class Booking extends Base {
 		 halfscrollUntilElementFound12(statement.getscroll(),BookedPAYMENT1 );
 		 if (isElementAvailable(BookedPAYMENT1)) {
 	    	    System.out.println("Booking successfully listed on My statements");
-				
+	    	    Thread.sleep(3000);
+	    	String AttributeStatementCreatedDate ="//android.view.View[@content-desc='"+ InvoiceNumber + "']/preceding-sibling::android.view.View[1]" ;   
+	    	StatementCreatedDate =getContentDesc(AttributeStatementCreatedDate);
+	    	System.out.println("hhhdhd   :    "+StatementCreatedDate);  
+	    	
 	    	} else {
 	    	    System.out.println("Not listed");
 	    	}
+		 Thread.sleep(1000);
 		  ClickonElement(statement.getBackButton());
+		  Thread.sleep(2000);
 	        ClickonElement(statement.getBackButton());
 	        ClickonElement(statement.getHomeTab());
 		

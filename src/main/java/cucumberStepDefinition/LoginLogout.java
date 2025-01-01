@@ -10,7 +10,8 @@ public class LoginLogout extends Base {
 	public static String otp_Received ;
 
 	@Given("the admin navigates to the Settings tab")
-	public void theAdminNavigatesToTheSettingsTab() {
+	public void theAdminNavigatesToTheSettingsTab() throws InterruptedException {
+		Thread.sleep(3500);
 		ClickonElement(login.getAdmin_Settings());
 	}
 
@@ -34,7 +35,7 @@ public class LoginLogout extends Base {
 	}
 	@When("the user enters the Otp")
 	public void theUserEntersTheOtp() throws InterruptedException {
-		Thread.sleep(10000);
+		Thread.sleep(5000);
 		String otp_Received = getOtpFromSource();
 		System.out.println("The OTP is  : " + otp_Received);
 		Thread.sleep(2000);
