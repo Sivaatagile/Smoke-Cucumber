@@ -30,7 +30,7 @@ public class PetData extends Base {
 	}
 
 	@When("the user enters the pet's name {string}")
-	public void theUserEntersThePetSName(String PetName ) {
+	public void theUserEntersThePetSName(String PetName) {
 		ClickonElement(PetInfo.getPet_Name());
 		passInput(PetInfo.getPet_Name(), getProperty(PetName));
 	}
@@ -52,7 +52,7 @@ public class PetData extends Base {
 		scrolldownRandomly(PetInfo.getDate_Format().get(1));
 		ClickonElement(PetInfo.getSelect());
 	}
-	
+
 	@When("the user selects the pet's size")
 	public void theUserSelectsThePetSSize() throws InterruptedException {
 		ClickonElement(PetInfo.getSize());
@@ -186,13 +186,13 @@ public class PetData extends Base {
 			System.out.println("snackbar displays");
 			if (isElementAvailable(PetInfo.getProfileWord())) {
 				System.out.println("admin created a pet for a customer completed successfully");
-			}else if (isElementAvailable(PetInfo.getcloseApp())) {
+			} else if (isElementAvailable(PetInfo.getcloseApp())) {
 				System.out.println("Customer signed up successfully");
-			}	
+			}
 		}
-	
+
 	}
-	
+
 	@Given("the user navigates to the landing page")
 	public void theUserNavigatesToTheLandingPage() throws InterruptedException {
 		waitForElement(PetInfo.getcloseApp());

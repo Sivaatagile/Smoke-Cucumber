@@ -84,9 +84,9 @@ public class AdminCreateTag extends Base {
 
 //		waitForElement(user.getSnackbarCreatedTag());
 //		if (isElementAvailable(user.getSnackbarCreatedTag())) {
-			System.out.println("Tag created ");
+		System.out.println("Tag created ");
 //		}
-	
+
 	}
 
 }

@@ -8,7 +8,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class AdminCreateBreed extends Base{
+public class AdminCreateBreed extends Base {
 
 	WE_Admin_Settings settings = new WE_Admin_Settings(driver);
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
@@ -17,24 +17,25 @@ public class AdminCreateBreed extends Base{
 	public void theUserOpensTheManageBreedSection() {
 		ClickonElement(settings.getManageBreeds());
 
-
 	}
+
 	@When("the user clicks on the Plus button to add a new breed")
 	public void theUserClicksOnThePlusButtonToAddANewBreed() {
 		ClickonElement(settings.getFABBreed());
 
-
 	}
+
 	@When("the user enters Breed Name in the breed name field")
 	public void theUserEntersBreedNameInTheBreedNameField() throws InterruptedException {
 		ClickonElement(settings.getBreedName());
 		passInputUsingActions(settings.getBreedName(), "Poodle 1");
 
 	}
+
 	@Then("the user should see a confirmation message of Breed creation")
 	public void theUserShouldSeeAConfirmationMessageOfBreedCreation() {
 
-        System.out.println("snack bar ");
+		System.out.println("snack bar ");
 	}
-	
+
 }

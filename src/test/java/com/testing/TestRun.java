@@ -39,13 +39,14 @@ public class TestRun extends Base {
 		Api.ServiceSlotTimeCount();
 		Api.OverallSlotList();
 	}
+
 //
 	@BeforeTest(dependsOnMethods = { "ApiRunner" })
 	public static void DownloadApk() throws InterruptedException, MalformedURLException {
 		Latest_StagingAPK_download(getProperty("STAGING"));
 		Application();
 	}
-	
+
 //	@Test(priority = 1)
 //	public static void signupCustomer() throws Exception {
 //
@@ -130,10 +131,10 @@ public class TestRun extends Base {
 //
 	@Test(priority = 11)
 	public static void Login_PredefinedCustomer() throws InterruptedException, MalformedURLException {
-		
+
 //		OpenApplication();
 		Login_Details.Predefined_login_Customer();
-	
+
 	}
 
 	@Test(priority = 12)
@@ -146,10 +147,8 @@ public class TestRun extends Base {
 		Customer_Settings.statement();
 	}
 
-	
 	public static void main(String[] args) throws Exception {
-		
-		
+
 		method1("First");
 		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
@@ -158,7 +157,7 @@ public class TestRun extends Base {
 		OpenApplicationWithoutReset();
 		Admin_Workflow.Booking_For_Customer_As_Admin();
 //		Admin_Settings.CreatePricingRule();
-		
+
 //		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 //		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
 //		Api.refreshAdminToken(Api.VerifiedRefreshToken);
@@ -178,11 +177,8 @@ public class TestRun extends Base {
 		Login_Details.login_Admin();
 		Admin_Workflow.Pending_to_UnAssigned();
 		Admin_Workflow.UnAssigned_to_Assigned();
-		
-		
-		
-		
-		  // Construct the path to the HTML file
+
+		// Construct the path to the HTML file
 //		 Thread.sleep(10000);
 //		 
 //	        String reportPath = System.getProperty("user.dir")+"/target/cucumber-reports123/index.html"; // Update with your report path
