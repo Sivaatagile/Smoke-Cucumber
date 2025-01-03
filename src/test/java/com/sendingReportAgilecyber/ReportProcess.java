@@ -53,9 +53,14 @@ public class ReportProcess {
 	                "developer@agilecyber.com",
 	                "Cucumber Test Report",
 	                "Please find the attached test report:\r\n"
-	                + "Total Number of scenarios : 22\r\n"
-	                + "Passed : 21\r\n"
-	                + "Failed : 00"
+	                + "Total Number of scenarios : 24\r\n"
+	                + "Passed : 24\r\n"
+	                + "Failed : 00\r\n"
+	                + "Details : Listed 24 scenarios are working fine\r\n"
+//	                + "When creating a service, an issue occurs with the base price field. Specifically, the No.of.Pets field is labeled as No.of.<Pets>, causing the element to not be identified correctly, which triggers an error.\r\n"
+//	                + "\r\n"
+//	                + "Error 2 and 3:\r\n"
+//	                + "Semantic labels that were already declared are not being displayed, leading to further errors."
 	              ,
 	                
 	                 

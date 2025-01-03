@@ -2,6 +2,7 @@ package com.api;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -14,6 +15,7 @@ import com.baseClass.Base;
 import io.appium.java_client.android.AndroidDriver;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import net.bytebuddy.build.Plugin.Factory.UsingReflection.Priority;
 
 public class Api extends Base {
 
@@ -36,10 +38,12 @@ public class Api extends Base {
 	public static int DAYmaxAdvanceBooking;
 	public static int TotalSlotCount;
 	public static List<String> slotNames;
-	
+	public static List<Integer> priorityList;
+	public static int priorityNumber;
 	public static List<String> tagIds;
 	public static List<String> tagNames;
 	public static int  TotalTagCount;
+	
 
 	public Api(AndroidDriver driver1) {
 		this.driver = driver1;
@@ -185,9 +189,97 @@ public class Api extends Base {
 	
 	
 	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static  void Priority() {
+
+		
+		   // Define the Base URL
+
+        // Verified token variable (replace with actual token)
+
+        // Send GET request using RestAssured
+        Response response = RestAssured
+                .given()
+                .header("X-API-Version", "100")
+                .header("User-Agent", "PostmanRuntime")
+                .header("Content-Type", "application/json") // Add any necessary headers here
+                .header("Authorization", "Bearer " + VerifiedRefreshToken) // Replace with your actual token variable
+                .get(BASE_URL + "service/availability-pricing-rule/list"); // Replace with your actual API endpoint
+
+        // Print the status code to verify the request was successful
+        System.out.println("Response Status Code: " + response.getStatusCode());
+
+        // Convert the response body to a String
+        String responseBody = response.getBody().asString();
+
+        // Parse the response body as a JSONObject
+        JSONObject jsonResponse = new JSONObject(responseBody);
+
+        // Extract the 'data' array
+        JSONArray dataArray = jsonResponse.getJSONArray("data");
+
+        // Initialize separate lists for names and priorities
+        List<String> nameList = new ArrayList<>();
+        priorityList = new ArrayList<>();
+
+        // Loop through the array and extract names and priorities
+        for (int i = 0; i < dataArray.length(); i++) {
+            JSONObject dataObject = dataArray.getJSONObject(i);
+            String name = dataObject.getString("name");
+            int priority = dataObject.getInt("priority");
+
+            // Add values to respective lists
+            nameList.add(name);
+            priorityList.add(priority);
+        }
+
+        // Print the lists
+        System.out.println("Names: " + nameList);
+        System.out.println("Priorities: " + priorityList);
+    
+	}
+	
+	
+	public static  void eliminatefrom100() {
+
+		
+		  List<Integer> rangeList = new ArrayList<>();
+	        for (int i = 0; i <= 100; i++) {
+	            rangeList.add(i);
+	        }
+
+	        // Remove all occurrences of priority numbers from the range list
+	        for (Integer priority : priorityList) {
+	            rangeList.remove(priority);
+	        }
+	        
+	        System.out.println("gggg  :  "+ rangeList);
+	        
+	        
+	        
+	        
+	        if (!rangeList.isEmpty()) {
+	        	priorityNumber = Collections.min(rangeList);
+	            System.out.println("Smallest number in range: " + priorityNumber);
+	        } else {
+	            System.out.println("Range list is empty.");
+	        }
+	}
+
+	
 	public static void OverallTagList() {
 	    // Set the base URI for RestAssured
-	    RestAssured.baseURI = "https://staging.petcaretechnologies.com/api/"; // Replace with your API base URL
 
 	    // Make the API request and capture the response
 	    Response response = RestAssured
@@ -196,7 +288,7 @@ public class Api extends Base {
 	            .header("User-Agent", "PostmanRuntime")
 	            .header("Content-Type", "application/json")  // Add any necessary headers here
 	            .header("Authorization", "Bearer " + VerifiedRefreshToken)  // Replace with your actual token variable
-	            .get("user/list/add_tag_category");  // Replace with your actual API endpoint
+	            .get(BASE_URL + "user/list/add_tag_category");  // Replace with your actual API endpoint
 
 	    // Print the status code to verify the request was successful
 	    System.out.println("Response Status Code: " + response.getStatusCode());
@@ -244,17 +336,21 @@ public class Api extends Base {
 	    for (String line : formattedOutput) {
 	        System.out.println(line);
 	    }
+	    
+	    
+	    System.out.println(formattedOutput);
 	}
 	
-
+	
 	public static void main(String[] args) throws InterruptedException, IOException {
 		method1("First");
 		signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 		verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
-		refreshAdminToken(VerifiedRefreshToken);
-		ServiceSlotTimeCount();
-		OverallSlotList();
 		OverallTagList();
+//		refreshAdminToken(VerifiedRefreshToken);
+//		Priority();
+//		eliminatefrom100();
+		
 	}
 
 }

@@ -14,6 +14,7 @@ import com.WE.WE_Info;
 import com.api.Api;
 import com.baseClass.Base;
 import com.frontend.Admin_Services;
+import com.frontend.Admin_Settings;
 import com.frontend.Admin_User;
 import com.frontend.Admin_Workflow;
 import com.frontend.Customer_Bookingflow;
@@ -150,15 +151,22 @@ public class TestRun extends Base {
 		
 		
 		method1("First");
-		
 		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
-		Api.refreshAdminToken(Api.VerifiedRefreshToken);
 		Api.ServiceSlotTimeCount();
 		Api.OverallSlotList();
+		OpenApplicationWithoutReset();
+		Admin_Workflow.Booking_For_Customer_As_Admin();
+//		Admin_Settings.CreatePricingRule();
 		
-		Latest_StagingAPK_download(getProperty("STAGING"));
-		Application();
+//		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
+//		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
+//		Api.refreshAdminToken(Api.VerifiedRefreshToken);
+//		Api.ServiceSlotTimeCount();
+//		Api.OverallSlotList();
+//		
+//		Latest_StagingAPK_download(getProperty("STAGING"));
+//		Application();
 		Login_Details.Predefined_login_Customer();
 		Api.ServiceSlotTimeCount();
 		Customer_Bookingflow.booking();

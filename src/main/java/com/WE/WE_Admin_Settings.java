@@ -267,12 +267,7 @@ public class WE_Admin_Settings extends Base{
 	public WebElement getPricingCalendar() {
 		return  PricingCalendar   ;
 	}
-//	
-	@FindBy (xpath ="//android.view.View[@content-desc=\"Pricing offset value *\"]/following-sibling::android.widget.EditText[1]")
-	private WebElement PricingOffset   ;
-	public WebElement getPricingOffset() {
-		return  PricingOffset   ;
-	}
+
 	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Accounts\"]")
 	private WebElement Accounts   ;
@@ -372,43 +367,63 @@ public class WE_Admin_Settings extends Base{
 	}
 	
 //	
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Manage Service Pools\"]")
+	private WebElement   ServicePool ;
+	public WebElement getServicePool() {
+		return   ServicePool  ;
+	}
 //	
 //	v122CdpInfo
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
+	@FindBy (xpath ="//android.view.View[contains(@content-desc, \"Name\")]/following-sibling::android.widget.EditText[1]")
+	private WebElement  PoolName  ;
+	public WebElement getPoolName() {
+		return    PoolName ;
+	}
 //
 //	
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
+	@FindBy (xpath ="//android.view.View[contains(@content-desc, \"Remarks\")]/following-sibling::android.widget.EditText[1]")
+	private WebElement  PoolRemarks  ;
+	public WebElement getPoolRemarks() {
+		return   PoolRemarks  ;
+	}
 //	
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
+	
+	@FindBy(xpath = "(//android.widget.ImageView)[1]")
+	private WebElement PoolCapacityRangeFrom;
+	public WebElement getPoolCapacityRangeFrom() {
+	    return PoolCapacityRangeFrom;
+	}
+	
+	@FindBy(xpath = "(//android.widget.ImageView)[2]")
+	private WebElement PoolCapacityRangeTo;
+	public WebElement getPoolCapacityRangeTo() {
+	    return PoolCapacityRangeTo;
+	}
+	
+	@FindBy (xpath ="(//android.widget.ImageView)[2]/following-sibling::android.widget.EditText[1]")
+	private WebElement  PoolCapacity  ;
+	public WebElement getPoolCapacity() {
+		return   PoolCapacity  ;
+	}
+	
+	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Save\"]")
+	private WebElement   save ;
+	public WebElement getsave() {
+		return    save ;
+	}
+	
+	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"Pricing offset value\")]/following-sibling::android.widget.EditText[1]")
+	private WebElement  pricingoffsetvalue  ;
+	public WebElement getpricingoffsetvalue() {
+		return    pricingoffsetvalue ;
+	}
 //	
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Premium\"]")
+	private WebElement   premium ;
+	public WebElement getpremium() {
+		return   premium  ;
+	}
 //	
 //	@FindBy (xpath ="")
 //	private WebElement    ;

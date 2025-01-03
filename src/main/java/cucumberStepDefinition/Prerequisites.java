@@ -16,21 +16,21 @@ public class Prerequisites extends Base{
 	@Given("PropertyFile Loaded")
 	public void propertyfileLoaded() throws IOException {
 		method1("First");
-//		 UpdateEmailProperty("SIGNUP_EMAIL");
-//			UpdateNameProperty("PET_NAME");
-//			UpdateNameProperty("CUSTOMER_FIRSTNAME");
-//			UpdateEmailProperty("CUSTOMER_EMAIL");
-//			UpdateNameProperty("SERVICE_NAME");
-//			UpdateNameProperty("ADDON_PRIVILAGE");
-//			UpdateNameProperty("ADDON_ASSIGNABLE");
-//			UpdateNameProperty("ADDON_SERVICE_NAME");
-//			UpdateNameProperty("ADMIN_STAFF_FIRST_NAME");
-//			UpdateEmailProperty("ADMIN_STAFF_EMAIL");
-//			UpdateNameProperty("ADMIN_ADMIN_FIRST_NAME");
-//			UpdateEmailProperty("ADMIN_ADMIN_EMAIL");
-//			UpdateNameProperty("ADMIN_TAG_CATEGORY_NAME");
-//			UpdateNameProperty("ADMIN_BREED_NAME");
-//			UpdateNameProperty("SLOT_NAME");
+		 UpdateEmailProperty("SIGNUP_EMAIL");
+			UpdateNameProperty("PET_NAME");
+			UpdateNameProperty("CUSTOMER_FIRSTNAME");
+			UpdateEmailProperty("CUSTOMER_EMAIL");
+			UpdateNameProperty("SERVICE_NAME");
+			UpdateNameProperty("ADDON_PRIVILAGE");
+			UpdateNameProperty("ADDON_ASSIGNABLE");
+			UpdateNameProperty("ADDON_SERVICE_NAME");
+			UpdateNameProperty("ADMIN_STAFF_FIRST_NAME");
+			UpdateEmailProperty("ADMIN_STAFF_EMAIL");
+			UpdateNameProperty("ADMIN_ADMIN_FIRST_NAME");
+			UpdateEmailProperty("ADMIN_ADMIN_EMAIL");
+			UpdateNameProperty("ADMIN_TAG_CATEGORY_NAME");
+			UpdateNameProperty("ADMIN_BREED_NAME");
+			UpdateNameProperty("SLOT_NAME");
 			System.out.println("working fine");
 		System.out.println("property loaded");
 	}

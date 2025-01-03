@@ -328,6 +328,7 @@ public class WE_Admin_WorkFlow extends Base{
 
 //	 Method to get the locator for a booked slot using dynamic XPath
 	public By getBookedSlotLocator() {
+		System.out.println(Booking.Selected_Slot);
 		return By.xpath("//android.widget.SeekBar[@content-desc='"+ Booking.Selected_Slot +"']");
 	}
 

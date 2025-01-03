@@ -1062,5 +1062,15 @@ public class Base {
 	            return null;
 	        }
 	    }
+	 
+	 
+	 
+	 public static  String ConvertInttoString(int number) {
+
+		 String str = String.valueOf(number);
+		 System.out.println("Converted String: " + str);
+		 return str;
+		 
+	}
 
 }

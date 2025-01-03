@@ -44,6 +44,9 @@ public class Booking extends Base {
 
 	WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 	WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
+	WE_Customer_Settings invoices = new WE_Customer_Settings(driver);
+	WE_Customer_Settings statement = new WE_Customer_Settings(driver);
+
 	Api api = new Api(driver);
 	Random random = new Random();
 
@@ -262,6 +265,8 @@ public class Booking extends Base {
 				driver.context(nativecontext);
 			}
 		} else {
+			ClickonElement(booking.getCheckBox());
+			ClickonElement(booking.getConfirmANDPay());
 			System.out.println("Total amount is less than or equal to remaining credit. No payment required.");
 		}
 		System.out.println("Check the total amount and remaining credit amount  ");
@@ -427,6 +432,98 @@ public class Booking extends Base {
 	        ClickonElement(statement.getHomeTab());
 		
 	}
+	
+	
+	
+	
+	@When("the user clicks on Invoice")
+	public void theUserClicksOnInvoice() {
+		  ClickonElement(invoices.getMyInvoices());
+	}
+	@When("the user selects the first invoice")
+	public void theUserSelectsTheFirstInvoice() throws InterruptedException {
+	   
+		 Thread.sleep(8000);
+	        ClickonElement(invoices.getFirstInvoice());
+		
+	}
+	@Then("the user checks the service locator and booking date locator")
+	public void theUserChecksTheServiceLocatorAndBookingDateLocator() throws InterruptedException {
+		 Thread.sleep(6000);
+	        By BookedSERVICE = By.xpath("//android.view.View[@content-desc='"+ Booking.Booked_service + "']");
+	        System.out.println(BookedSERVICE);
+//	        By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmount + "']");
+	        By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='"+ Booking.BookingPaidAmountwithdecimal + "']");
+	        System.out.println(BookedPAYMENT1);
+
+//	        BookingPaidAmountwithdecimal
+	        Thread.sleep(4000);
+	        if (isElementAvailable(BookedSERVICE)&& isElementAvailable(BookedPAYMENT1)) {
+	    	    System.out.println("Booking successfully listed on My Invoices");
+				String attribute = invoices.getFindoutInvoiceNumber().getAttribute("content-desc");
+				System.out.println(attribute);
+			 InvoiceNumber = attribute.replace(" #", "");  // Removes '#'
+				System.out.println(InvoiceNumber);
+	    	    
+	    	} else {
+	    	    System.out.println("Not listed");
+	    	}
+		
+	}
+	@Then("the user goes back to the home page")
+	public void theUserGoesBackToTheHomePage() throws InterruptedException {
+		
+		  Thread.sleep(1000);
+		  ClickonElement(invoices.getBackButton());
+		  Thread.sleep(2000);
+	        ClickonElement(invoices.getBackButton());
+	        ClickonElement(invoices.getHomeTab());
+	}
+	
+	
+	
+	@When("the user clicks on Statements")
+	public void theUserClicksOnStatements() {
+		ClickonElement(statement.getMyStatements());
+	}
+	@When("the user selects the current month")
+	public void theUserSelectsTheCurrentMonth() throws InterruptedException {
+		LocalDate currentDate = LocalDate.now();
+        currentMonth = currentDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+       System.out.println("Current month: " + currentMonth);
+		Thread.sleep(1000);
+       By Current_Month = By.xpath("//android.view.View[@content-desc='"+ currentMonth + "']");
+       Thread.sleep(3000);
+		clickOnElementUsingBy(Current_Month);
+		
+	}
+	@Then("the user checks if the saved invoice number is listed")
+	public void theUserChecksIfTheSavedInvoiceNumberIsListed() throws Exception {
+		Thread.sleep(3000);
+		
+		 Thread.sleep(5000);
+		 System.out.println(InvoiceNumber);
+	        By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='"+ InvoiceNumber + "']");
+	        System.out.println(BookedPAYMENT1);
+		 halfscrollUntilElementFound12(statement.getscroll(),BookedPAYMENT1 );
+		 if (isElementAvailable(BookedPAYMENT1)) {
+	    	    System.out.println("Booking successfully listed on My statements");
+	    	    Thread.sleep(3000);
+	    	String AttributeStatementCreatedDate ="//android.view.View[@content-desc='"+ InvoiceNumber + "']/preceding-sibling::android.view.View[1]" ;   
+	    	StatementCreatedDate =getContentDesc(AttributeStatementCreatedDate);
+	    	System.out.println("hhhdhd   :    "+StatementCreatedDate);  
+	    	
+	    	} else {
+	    	    System.out.println("Not listed");
+	    	}
+		
+	}
+
+	
+	
+	
+	
+	
 	
 	
 	

@@ -19,21 +19,21 @@ public class hooks extends Base{
 //	 @AfterAll // Executes after all tests are completed
 //	    public static void sendReport() throws InterruptedException, AWTException, IOException {
 //		 
-////		 try {
-////			 
-////			 String folderPath = System.getProperty("user.dir");
-////			 System.out.println(folderPath);
-////	            Runtime.getRuntime().exec("explorer.exe " + folderPath);
-////	            Robot robot = new Robot();
-////
-////	            Thread.sleep(2000);
-////
-////	            robot.keyPress(KeyEvent.VK_F5);
-////	            robot.keyRelease(KeyEvent.VK_F5);
-////System.out.println("good ");
-////	        } catch (InterruptedException e) {
-////	            e.printStackTrace();
-////	        }
+//		 try {
+//			 
+//			 String folderPath = System.getProperty("user.dir");
+//			 System.out.println(folderPath);
+//	            Runtime.getRuntime().exec("explorer.exe " + folderPath);
+//	            Robot robot = new Robot();
+//
+//	            Thread.sleep(2000);
+//
+//	            robot.keyPress(KeyEvent.VK_F5);
+//	            robot.keyRelease(KeyEvent.VK_F5);
+//System.out.println("good ");
+//	        } catch (InterruptedException e) {
+//	            e.printStackTrace();
+//	        }
 ////		 
 ////		 
 ////		 

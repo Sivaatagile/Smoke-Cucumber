@@ -33,7 +33,13 @@ public class AdminWorkflow extends Base{
 		dateFormatForWorkflow(Booking.Booked_Date);
 		ClickonElement(workflow.getDate_Slot()); // Click on date filter
 //		scrollToExactValue(workflow.getDate(),"Wed Jun 25");
+		By by = workflow.getBookedDateLocator();
+		System.out.println("yvcyswc   "+by);
+		
 		scrollUntil(workflow.getDate(), workflow.getBookedDateLocator()); // Scroll to find booked date
+		By by1 = workflow.getBookedSlotLocator();
+		System.out.println("yvcyswc   "+by1);
+		Thread.sleep(8000);
 		scrollUntilElementFound(workflow.getSlot(), workflow.getBookedSlotLocator()); // Scroll to find booked slot
 		
 		Thread.sleep(5000);
