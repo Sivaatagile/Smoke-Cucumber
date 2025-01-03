@@ -5,9 +5,7 @@ import com.WE.WE_Admin_WorkFlow;
 import com.WE.WE_Info;
 import com.baseClass.Base;
 
-
 import io.qameta.allure.Allure;
-
 
 public class Admin_User extends Base {
 
@@ -15,7 +13,7 @@ public class Admin_User extends Base {
 		WE_Admin_User user = new WE_Admin_User(driver);
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
 		WE_Info info = new WE_Info(driver);
-		
+
 		ClickonElement(workflow.getUsers_navigation_Bar());
 		ClickonElement(user.getShowall_AllAdmin());
 		ClickonElement(user.getFAB());
@@ -65,7 +63,7 @@ public class Admin_User extends Base {
 		driver.hideKeyboard();
 
 		ClickonElement(user.getSave());
-		
+
 		ClickonElement(info.getBackButton());
 
 	}
@@ -92,14 +90,14 @@ public class Admin_User extends Base {
 		driver.hideKeyboard();
 
 		ClickonElement(user.getDecsription());
-		passInput(user.getDecsription(),getProperty("ADMIN_CATEGORY_DESCRIPTION"));
+		passInput(user.getDecsription(), getProperty("ADMIN_CATEGORY_DESCRIPTION"));
 		driver.hideKeyboard();
 		Thread.sleep(2000);
 
 		ClickonElement(user.getTagName());
-		passInput(user.getTagName(),getProperty("ADMIN_TAGS_NAME1") );
+		passInput(user.getTagName(), getProperty("ADMIN_TAGS_NAME1"));
 		driver.hideKeyboard();
-Thread.sleep(2000);
+		Thread.sleep(2000);
 		ClickonElement(user.getTagDescription());
 		passInput(user.getTagDescription(), getProperty("ADMIN_TAGS_DESCRIPTION1"));
 		driver.hideKeyboard();
@@ -111,60 +109,56 @@ Thread.sleep(2000);
 
 	}
 
-	
-	
-	
-	public static  void Create_Staff() throws Exception {
-	
+	public static void Create_Staff() throws Exception {
+
 		WE_Admin_User user = new WE_Admin_User(driver);
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
 		WE_Info info = new WE_Info(driver);
 
-		
 		ClickonElement(workflow.getUsers_navigation_Bar());
 		ClickonElement(user.getShowall_AllStaff());
 		ClickonElement(user.getFAB());
-		
+
 		ClickonElement(user.getFirstName());
 		passInput(user.getFirstName(), getProperty("ADMIN_STAFF_FIRST_NAME"));
 		driver.hideKeyboard();
-		
+
 		ClickonElement(user.getLastName());
 		passInput(user.getLastName(), getProperty("ADMIN_STAFF_LAST_NAME"));
 		driver.hideKeyboard();
-		
+
 		ClickonElement(user.getEmail());
 		passInput(user.getEmail(), getProperty("ADMIN_STAFF_EMAIL"));
 		driver.hideKeyboard();
-		
+
 		ClickonElement(user.getFemale());
 		ClickonElement(user.getMale());
-		
+
 		ClickonElement(user.getContactNumber());
-		passInput(user.getContactNumber(),getProperty("ADMIN_STAFF_CONTACTNUMBER") );
+		passInput(user.getContactNumber(), getProperty("ADMIN_STAFF_CONTACTNUMBER"));
 		driver.hideKeyboard();
-		
+
 		ClickonElement(user.getAdditionalContactNumber());
 		passInput(user.getAdditionalContactNumber(), getProperty("ADMIN_STAFF_ADDITIONAL_CONTACT_NUMBER"));
 		driver.hideKeyboard();
-		
+
 		ClickonElement(user.getAddressLine1());
 		passInput(user.getAddressLine1(), getProperty("ADMIN_STAFF_ADDRESSLINE_1"));
 		driver.hideKeyboard();
-		
+
 		ClickonElement(user.getAddressLine2());
 		passInput(user.getAddressLine2(), getProperty("ADMIN_STAFF_ADDRESSLINE_2"));
 		driver.hideKeyboard();
-		
+
 		ClickonElement(user.getCity());
 		passInput(user.getCity(), getProperty("ADMIN_STAFF_CITY"));
 		driver.hideKeyboard();
-		
+
 		ClickonElement(user.getCountry());
 		ClickonElement(user.getCountryName());
 //		passInput(user.getCountry(), "");
 //		driver.hideKeyboard();
-		
+
 		ClickonElement(user.getPostCode());
 		passInput(user.getPostCode(), getProperty("ADMIN_STAFF_POSTCODE"));
 		driver.hideKeyboard();
@@ -172,24 +166,22 @@ Thread.sleep(2000);
 		ClickonElement(user.getSkillsset());
 		if (isElementAvailable(user.ServiceSkill)) {
 			clickOnElementUsingBy(user.ServiceSkill);
-		}else {
+		} else {
 			halfscrollUntilElementFound12(user.getscroll(), user.ServiceSkill);
 			clickOnElementUsingBy(user.ServiceSkill);
 		}
 		ClickonElement(user.getselect());
 		ClickonElement(user.getSave());
-		
+
 		ClickonElement(info.getBackButton());
 
-	
 	}
-	
-	
+
 	public static void approveUserUsingSearch() throws Exception {
 		WE_Admin_User user = new WE_Admin_User(driver);
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
 		WE_Info info = new WE_Info(driver);
-		
+
 		ClickonElement(workflow.getUsers_navigation_Bar());
 		ClickonElement(user.getShowall_PendingRequest());
 		Thread.sleep(4000);
@@ -228,12 +220,11 @@ Thread.sleep(2000);
 		ClickonElement(user.getConfirm());
 		ClickonElement(info.getBackButton());
 	}
-	
-	
+
 	public static void approvePetUsingSearch() throws InterruptedException, Error {
 		WE_Admin_User user = new WE_Admin_User(driver);
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
-		
+
 		ClickonElement(workflow.getUsers_navigation_Bar());
 		ClickonElement(user.getShowall_PendingRequest());
 		Thread.sleep(4000);
@@ -269,5 +260,4 @@ Thread.sleep(2000);
 
 	}
 
-	
 }

@@ -11,37 +11,36 @@ import org.openqa.selenium.WebElement;
 import com.WE.WE_Customer_Settings;
 import com.baseClass.Base;
 
-public  class Customer_Settings extends Base{
+public class Customer_Settings extends Base {
 
-	
 	public static String InvoiceNumber;
-	public static String  currentMonth;
-	public static String  StatementCreatedDate;
-	
-	public static  void MyBookings() throws InterruptedException { 
+	public static String currentMonth;
+	public static String StatementCreatedDate;
+
+	public static void MyBookings() throws InterruptedException {
 		WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
 		ClickonElement(mybookings.getSettingsTab());
-        ClickonElement(mybookings.getMyBookings());
-        Thread.sleep(3000);
-        
-         By BookedDATE = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.Booked_Date +"']");
-         System.out.println(BookedDATE);
-         By BookedSLOT = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.Selected_Slot + "']");
-         System.out.println(BookedSLOT);
-         By BookedSERVICE = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.Booked_service + "']");
-         System.out.println(BookedSERVICE);
-         By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmount + "']");
-         System.out.println(BookedPAYMENT);
-         System.out.println(Customer_Bookingflow.Selected_Slot);
-        
-         
-         
-         if (isElementAvailable(BookedDATE) && isElementAvailable(BookedSLOT) && isElementAvailable(BookedSERVICE) && isElementAvailable(BookedPAYMENT)) {
-        	    System.out.println("Booking successfully listed on My Bookings");
-        	} else {
-        	    System.out.println("Not listed");
-        	}
-         
+		ClickonElement(mybookings.getMyBookings());
+		Thread.sleep(3000);
+
+		By BookedDATE = By.xpath("//android.view.View[@content-desc='" + Customer_Bookingflow.Booked_Date + "']");
+		System.out.println(BookedDATE);
+		By BookedSLOT = By.xpath("//android.view.View[@content-desc='" + Customer_Bookingflow.Selected_Slot + "']");
+		System.out.println(BookedSLOT);
+		By BookedSERVICE = By.xpath("//android.view.View[@content-desc='" + Customer_Bookingflow.Booked_service + "']");
+		System.out.println(BookedSERVICE);
+		By BookedPAYMENT = By
+				.xpath("//android.view.View[@content-desc='" + Customer_Bookingflow.BookingPaidAmount + "']");
+		System.out.println(BookedPAYMENT);
+		System.out.println(Customer_Bookingflow.Selected_Slot);
+
+		if (isElementAvailable(BookedDATE) && isElementAvailable(BookedSLOT) && isElementAvailable(BookedSERVICE)
+				&& isElementAvailable(BookedPAYMENT)) {
+			System.out.println("Booking successfully listed on My Bookings");
+		} else {
+			System.out.println("Not listed");
+		}
+
 //		if (isElementAvailable(BookedDATE)) {
 //			System.out.println("Booking date available");
 //		}else {
@@ -64,76 +63,72 @@ public  class Customer_Settings extends Base{
 //		}
 		ClickonElement(mybookings.getBackButton());
 		ClickonElement(mybookings.getHomeTab());
-		
-		
-		
+
 	}
-	
-	public static  void Invoices() throws InterruptedException {
+
+	public static void Invoices() throws InterruptedException {
 
 		WE_Customer_Settings invoices = new WE_Customer_Settings(driver);
 		ClickonElement(invoices.getSettingsTab());
-        ClickonElement(invoices.getMyInvoices());
-        Thread.sleep(8000);
-        ClickonElement(invoices.getFirstInvoice());
-        Thread.sleep(8000);
-        By BookedSERVICE = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.Booked_service + "']");
-        System.out.println(BookedSERVICE);
+		ClickonElement(invoices.getMyInvoices());
+		Thread.sleep(8000);
+		ClickonElement(invoices.getFirstInvoice());
+		Thread.sleep(8000);
+		By BookedSERVICE = By.xpath("//android.view.View[@content-desc='" + Customer_Bookingflow.Booked_service + "']");
+		System.out.println(BookedSERVICE);
 //        By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmount + "']");
-        By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmountwithdecimal + "']");
-        System.out.println(BookedPAYMENT1);
+		By BookedPAYMENT1 = By.xpath(
+				"//android.view.View[@content-desc='" + Customer_Bookingflow.BookingPaidAmountwithdecimal + "']");
+		System.out.println(BookedPAYMENT1);
 
 //        BookingPaidAmountwithdecimal
-        Thread.sleep(5000);
-        if (isElementAvailable(BookedSERVICE)&& isElementAvailable(BookedPAYMENT1)) {
-    	    System.out.println("Booking successfully listed on My Invoices");
+		Thread.sleep(5000);
+		if (isElementAvailable(BookedSERVICE) && isElementAvailable(BookedPAYMENT1)) {
+			System.out.println("Booking successfully listed on My Invoices");
 			String attribute = invoices.getFindoutInvoiceNumber().getAttribute("content-desc");
 			System.out.println(attribute);
-		 InvoiceNumber = attribute.replace(" #", "");  // Removes '#'
+			InvoiceNumber = attribute.replace(" #", ""); // Removes '#'
 			System.out.println(InvoiceNumber);
-    	    
-    	} else {
-    	    System.out.println("Not listed");
-    	}
-        ClickonElement(invoices.getBackButton());
-        Thread.sleep(3000);
-        ClickonElement(invoices.getBackButton());
-        ClickonElement(invoices.getHomeTab());
+
+		} else {
+			System.out.println("Not listed");
+		}
+		ClickonElement(invoices.getBackButton());
+		Thread.sleep(3000);
+		ClickonElement(invoices.getBackButton());
+		ClickonElement(invoices.getHomeTab());
 	}
-	
-	
-	public static  void statement() throws Exception 	{
+
+	public static void statement() throws Exception {
 		WE_Customer_Settings statement = new WE_Customer_Settings(driver);
 		ClickonElement(statement.getSettingsTab());
-        ClickonElement(statement.getMyStatements());
+		ClickonElement(statement.getMyStatements());
 		LocalDate currentDate = LocalDate.now();
-         currentMonth = currentDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
-        System.out.println("Current month: " + currentMonth);
+		currentMonth = currentDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+		System.out.println("Current month: " + currentMonth);
 		Thread.sleep(1000);
-        By Current_Month = By.xpath("//android.view.View[@content-desc='"+ currentMonth + "']");
-        Thread.sleep(3000);
+		By Current_Month = By.xpath("//android.view.View[@content-desc='" + currentMonth + "']");
+		Thread.sleep(3000);
 		clickOnElementUsingBy(Current_Month);
-		 Thread.sleep(3000);
-		
-		 Thread.sleep(5000);
-		 System.out.println(InvoiceNumber);
-	        By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='"+ InvoiceNumber + "']");
-	        System.out.println(BookedPAYMENT1);
-		 halfscrollUntilElementFound12(statement.getscroll(),BookedPAYMENT1 );
-		 if (isElementAvailable(BookedPAYMENT1)) {
-	    	    System.out.println("Booking successfully listed on My statements");
-				
-	    	    
-	    	    Thread.sleep(3000);
-		    	String AttributeStatementCreatedDate ="//android.view.View[@content-desc='"+ InvoiceNumber + "']/preceding-sibling::android.view.View[1]" ;   
-		    	StatementCreatedDate =getContentDesc(AttributeStatementCreatedDate);
-		    	System.out.println("hhhdhd   :    "+StatementCreatedDate); 
-	    	} else {
-	    	    System.out.println("Not listed");
-	    	}
-		 
-		 
+		Thread.sleep(3000);
+
+		Thread.sleep(5000);
+		System.out.println(InvoiceNumber);
+		By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='" + InvoiceNumber + "']");
+		System.out.println(BookedPAYMENT1);
+		halfscrollUntilElementFound12(statement.getscroll(), BookedPAYMENT1);
+		if (isElementAvailable(BookedPAYMENT1)) {
+			System.out.println("Booking successfully listed on My statements");
+
+			Thread.sleep(3000);
+			String AttributeStatementCreatedDate = "//android.view.View[@content-desc='" + InvoiceNumber
+					+ "']/preceding-sibling::android.view.View[1]";
+			StatementCreatedDate = getContentDesc(AttributeStatementCreatedDate);
+			System.out.println("hhhdhd   :    " + StatementCreatedDate);
+		} else {
+			System.out.println("Not listed");
+		}
+
 	}
-	
-	
+
 }

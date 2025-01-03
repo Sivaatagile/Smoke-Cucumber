@@ -25,21 +25,21 @@ import com.api.Api;
 import com.api.Error;
 import com.baseClass.Base;
 
-public class Customer_Bookingflow extends Base{
+public class Customer_Bookingflow extends Base {
 
 	public static String BookingPaidAmount;
 	public static String BookingPaymentTime;
 	public static String Selected_Slot;
 	public static String Booked_Date;
-	public static String	Booked_service;
+	public static String Booked_service;
 	public static String BookingPaidAmountwithdecimal;
 	public static LocalDate BookingDate;
-	
+
 	public static void booking() throws Exception {
-		WE_Customer_BookingFlow booking =new WE_Customer_BookingFlow(driver);
+		WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 		Api api = new Api(driver);
 		Random random = new Random();
-		
+
 		if (isElementAvailable(booking.getServiceShowAll())) {
 			ClickonElement(booking.getServiceShowAll());
 			ClickonElement(booking.getSearchServices());
@@ -47,13 +47,13 @@ public class Customer_Bookingflow extends Base{
 			passInput(booking.getSearchServices(), getProperty("SERVICE_NAME"));
 			driver.hideKeyboard();
 			ClickonElement(booking.getSelectService());
-		}else if (isElementAvailable(booking.ServiceViewable)) {
+		} else if (isElementAvailable(booking.ServiceViewable)) {
 			Thread.sleep(2000);
 			clickOnElementUsingBy(booking.ServiceViewable);
 		} else {
 			System.out.println("Service is not available");
 		}
-		
+
 //		api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 //		api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
 //		api.ServiceSlotTimeCount();
@@ -68,7 +68,7 @@ public class Customer_Bookingflow extends Base{
 			Thread.sleep(500); // waits for 500ms
 		}
 		Thread.sleep(2500);
-		Selected_Slot= booking.getseekbar().getAttribute("content-desc");
+		Selected_Slot = booking.getseekbar().getAttribute("content-desc");
 		System.out.println(Selected_Slot);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		LocalDate startDate = LocalDate.parse(api.available_date_from, formatter);
@@ -77,24 +77,28 @@ public class Customer_Bookingflow extends Base{
 		System.out.println("Number of days between " + startDate + " and " + endDate + ": " + daysBetweenSpecificDates);
 		LocalDate currentDate = LocalDate.now();
 		long daysFromCurrentToEndDate = ChronoUnit.DAYS.between(currentDate, endDate);
-		System.out.println("Number of days from the current date (" + currentDate + ") to the end date (" + endDate + "): " + daysFromCurrentToEndDate);
+		System.out.println("Number of days from the current date (" + currentDate + ") to the end date (" + endDate
+				+ "): " + daysFromCurrentToEndDate);
 		LocalDate minAdvanceBookingDate = getMinAdvanceBookingDate(currentDate, api.DAYminAdvanceBooking);
-		LocalDate maxBookingDate = getMaxBookingDate(currentDate, endDate, api.DAYminAdvanceBooking,api.DAYmaxAdvanceBooking);
+		LocalDate maxBookingDate = getMaxBookingDate(currentDate, endDate, api.DAYminAdvanceBooking,
+				api.DAYmaxAdvanceBooking);
 		System.out.println("Minimum Advance Booking Date: " + minAdvanceBookingDate);
-		System.out.println("Booking can be made up to: " + maxBookingDate);		
+		System.out.println("Booking can be made up to: " + maxBookingDate);
 		String minMonthName = getMonthName(minAdvanceBookingDate);
 		String maxMonthName = getMonthName(maxBookingDate);
 		System.out.println("Month of minimum advance booking date: " + minMonthName);
 		System.out.println("Month of maximum booking date: " + maxMonthName);
-		 BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
-		System.out.println("Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
+		BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
+		System.out.println(
+				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
 		long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
 		System.out.println("Number of days between the two dates: " + daysBetween);
 		String BookingMonth = getMonthName(BookingDate);
 		int BookingYear = BookingDate.getYear();
 		String BookingMonthProperCase = BookingMonth.substring(0, 1) + BookingMonth.substring(1).toLowerCase();
 		Thread.sleep(3000);
-		String dynamicLocator = "//android.view.View[@content-desc='" + BookingMonthProperCase + " " + BookingYear + "']";
+		String dynamicLocator = "//android.view.View[@content-desc='" + BookingMonthProperCase + " " + BookingYear
+				+ "']";
 		System.out.println("gfyft     " + dynamicLocator);
 		Thread.sleep(3000);
 		String fallbackLocatorFirstTime = "//android.view.View[@content-desc='booking_page_calenderWidget']/android.view.View[2]";
@@ -126,7 +130,8 @@ public class Customer_Bookingflow extends Base{
 			}
 		}
 		Thread.sleep(4000);
-		List<WebElement> calendarElements = driver.findElements(By.xpath("//android.view.View[@content-desc=\"booking_page_calenderWidget\"]/android.view.View/android.view.View/android.view.View/android.view.View"));
+		List<WebElement> calendarElements = driver.findElements(By.xpath(
+				"//android.view.View[@content-desc=\"booking_page_calenderWidget\"]/android.view.View/android.view.View/android.view.View/android.view.View"));
 		int size = calendarElements.size();
 		if (size > 7) {
 //			List<WebElement> remainingElements = calendarElements.subList(7, size);
@@ -135,34 +140,34 @@ public class Customer_Bookingflow extends Base{
 //			System.out.println(randomIndex);
 //			WebElement randomElement = remainingElements.get(randomIndex);
 //			randomElement.click();
-			
-			
+
 			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
-	        String formattedDateStr = BookingDate.format(formatter1);
+			String formattedDateStr = BookingDate.format(formatter1);
 
-	     // Check if the date portion starts with "0" and remove it if so
-	        if (formattedDateStr.charAt(formattedDateStr.indexOf(",") + 6) == '0') {
-	            formattedDateStr = formattedDateStr.replaceFirst(" 0", " ");
-	        }
-	        
-	        System.out.println("Formatted Date: " + formattedDateStr);
+			// Check if the date portion starts with "0" and remove it if so
+			if (formattedDateStr.charAt(formattedDateStr.indexOf(",") + 6) == '0') {
+				formattedDateStr = formattedDateStr.replaceFirst(" 0", " ");
+			}
+
+			System.out.println("Formatted Date: " + formattedDateStr);
 			Thread.sleep(5000);
-	        WebElement findElement = driver.findElement(By.xpath("//android.view.View[@content-desc='"+ formattedDateStr + "']"));
-	        findElement.click();
-	        Thread.sleep(1000);
-	        String Booked_Date123 = findElement.getAttribute("content-desc");
+			WebElement findElement = driver
+					.findElement(By.xpath("//android.view.View[@content-desc='" + formattedDateStr + "']"));
+			findElement.click();
+			Thread.sleep(1000);
+			String Booked_Date123 = findElement.getAttribute("content-desc");
 			System.out.println(Booked_Date123);
-			
-			 DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
-		        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd, yyyy");
 
-		        LocalDate parsedDate = LocalDate.parse(Booked_Date123, inputFormat);
-		         Booked_Date = parsedDate.format(outputFormat);
-		         System.out.println(Booked_Date);
-			
+			DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
+			DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+
+			LocalDate parsedDate = LocalDate.parse(Booked_Date123, inputFormat);
+			Booked_Date = parsedDate.format(outputFormat);
+			System.out.println(Booked_Date);
+
 			String day = Booked_Date.split(" ")[2].replace(",", "");
 			System.out.println("Day: " + day);
-			
+
 		} else {
 			System.out.println("There are less than 8 elements, cannot proceed.");
 		}
@@ -173,41 +178,39 @@ public class Customer_Bookingflow extends Base{
 		ClickonElement(booking.getproceed());
 		ClickonElement(booking.getCheckBox());
 		ClickonElement(booking.getConfirmANDPay());
- 
+
 	}
-	
-	public static  void BookingSuccessfullPage() throws InterruptedException {
-		WE_Customer_BookingFlow booking =new WE_Customer_BookingFlow(driver);
+
+	public static void BookingSuccessfullPage() throws InterruptedException {
+		WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 		waitForElement(booking.getSuccessfullpageNavigation());
 		Thread.sleep(1000);
-		
-		BookingPaidAmount =	booking.getSucessfullpage_Amount().getAttribute("content-desc");
+
+		BookingPaidAmount = booking.getSucessfullpage_Amount().getAttribute("content-desc");
 		System.out.println(BookingPaidAmount);
 		String amountStr = BookingPaidAmount.replace("£", "").trim();
 
 		// Convert the string to a double and format to two decimal places
 		double amount = Double.parseDouble(amountStr);
-		BookingPaidAmountwithdecimal= String.format("%.2f", amount);
+		BookingPaidAmountwithdecimal = String.format("%.2f", amount);
 
 		System.out.println("Formatted Amount: " + BookingPaidAmountwithdecimal);
-		
-		BookingPaymentTime= booking.getSucessfullpage_PaymentTime().getAttribute("content-desc");
+
+		BookingPaymentTime = booking.getSucessfullpage_PaymentTime().getAttribute("content-desc");
 		System.out.println(BookingPaymentTime);
-		
+
 		ClickonElement(booking.getSucessfullpage_Newbooking());
 
 	}
-	
-	
-	
-	
+
 	public static void screenshot(String ScreenshotName) {
 		File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		try {
 			// Generate a timestamp to create a unique filename
 			String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 			// Define destination file path with the timestamp
-			String destPath = "C:\\Users\\ACS\\eclipse-workspace\\Zzz_Booking\\Screenshot\\Android\\" + ScreenshotName+ "_" + timestamp + ".png";
+			String destPath = "C:\\Users\\ACS\\eclipse-workspace\\Zzz_Booking\\Screenshot\\Android\\" + ScreenshotName
+					+ "_" + timestamp + ".png";
 			// Copy the file to the destination
 			Files.copy(srcFile.toPath(), Paths.get(destPath));
 			System.out.println("Screenshot saved to: " + destPath);
@@ -216,13 +219,5 @@ public class Customer_Bookingflow extends Base{
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
-	 
-	
-	
-	
+
 }

@@ -66,7 +66,6 @@ public class Base {
 	public static String OTPText;
 	public static String outputAssignedDate;
 
-
 //	----------------------------------------------->  Application details
 
 	public static void Application() throws MalformedURLException {
@@ -80,7 +79,8 @@ public class Base {
 		options.setDeviceName(getProperty("DEVICE_NAME")); // Set device name
 		options.setApp(Apk); // Set the path to the downloaded APK file
 		options.setCapability("autoGrantPermissions", "true"); // Set capability
-		options.setCapability("chromedriverExecutable","C:\\Users\\ACS\\eclipse-workspace\\sanity_booking_app\\dri\\chromedriver.exe");
+		options.setCapability("chromedriverExecutable",
+				"C:\\Users\\ACS\\eclipse-workspace\\sanity_booking_app\\dri\\chromedriver.exe");
 		options.setCapability("newCommandTimeout", 100000);
 		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
 
@@ -96,7 +96,8 @@ public class Base {
 		options.setCapability("appActivity", getProperty("APP_ACTIVITY")); // Set app activity
 		options.setNoReset(true); // Set no reset
 		options.setFullReset(false); // Set full reset
-		options.setCapability("chromedriverExecutable","C:\\Users\\ACS\\eclipse-workspace\\sanity_booking_app\\dri\\chromedriver.exe");
+		options.setCapability("chromedriverExecutable",
+				"C:\\Users\\ACS\\eclipse-workspace\\sanity_booking_app\\dri\\chromedriver.exe");
 		options.setCapability("newCommandTimeout", 100000);
 		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
 	}
@@ -115,6 +116,7 @@ public class Base {
 		options.setCapability("newCommandTimeout", 100000);
 		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
 	}
+
 	public static void appli() throws MalformedURLException {
 		UiAutomator2Options options = new UiAutomator2Options(); // Create options object
 		options.setAutomationName("UiAutomator2"); // Set automation name
@@ -124,11 +126,12 @@ public class Base {
 		options.setCapability("appPackage", getProperty("APP_PACKAGE")); // Set app package
 		options.setCapability("appActivity", getProperty("APP_ACTIVITY")); // Set app activity
 		options.setCapability("autoGrantPermissions", "true"); // Set capability
-		options.setCapability("chromedriverExecutable","C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
-
+		options.setCapability("chromedriverExecutable",
+				"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
 		options.setCapability("newCommandTimeout", 100000);
 		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
 	}
+
 	public static void clearCache() {
 		try {
 			UiAutomator2Options options = new UiAutomator2Options();
@@ -147,14 +150,14 @@ public class Base {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void clearAppCache(String packageName) throws IOException, InterruptedException {
-        // Command to clear app cache using adb
-        String clearCacheCommand = "adb shell pm clear " + packageName;
-        Process process = Runtime.getRuntime().exec(clearCacheCommand);
-        process.waitFor();
-        System.out.println("Cache cleared for package: " + packageName);
-    }
+		// Command to clear app cache using adb
+		String clearCacheCommand = "adb shell pm clear " + packageName;
+		Process process = Runtime.getRuntime().exec(clearCacheCommand);
+		process.waitFor();
+		System.out.println("Cache cleared for package: " + packageName);
+	}
 
 	public static String getProperty(String key) {
 		return properties.getProperty(key); // Retrieve property value by key
@@ -385,32 +388,34 @@ public class Base {
 			throw e;
 		}
 	}
-	
+
 	public static void slowScroll() throws Exception {
-	    try {
-	        // Get the screen dimensions
-	        Dimension screenSize = driver.manage().window().getSize();
-	        int screenWidth = screenSize.width;
-	        int screenHeight = screenSize.height;
+		try {
+			// Get the screen dimensions
+			Dimension screenSize = driver.manage().window().getSize();
+			int screenWidth = screenSize.width;
+			int screenHeight = screenSize.height;
 
-	        // Calculate start and end points for the scroll
-	        int centerX = screenWidth / 2; // Horizontal center of the screen
-	        int startPoint = (int) (screenHeight * 0.8); // Start at 80% of the screen height
-	        int endPoint = (int) (screenHeight * 0.2); // End at 20% of the screen height
+			// Calculate start and end points for the scroll
+			int centerX = screenWidth / 2; // Horizontal center of the screen
+			int startPoint = (int) (screenHeight * 0.8); // Start at 80% of the screen height
+			int endPoint = (int) (screenHeight * 0.2); // End at 20% of the screen height
 
-	        // Create a swipe action using PointerInput
-	        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
-	        Sequence sequence = new Sequence(finger, 1);
-	        sequence.addAction(finger.createPointerMove(Duration.ofMillis(200), PointerInput.Origin.viewport(), centerX, startPoint));
-	        sequence.addAction(finger.createPointerDown(0));
-	        sequence.addAction(finger.createPointerMove(Duration.ofMillis(1000), PointerInput.Origin.viewport(), centerX, endPoint)); // Slow scroll with 1-second duration
-	        sequence.addAction(finger.createPointerUp(0));
+			// Create a swipe action using PointerInput
+			PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+			Sequence sequence = new Sequence(finger, 1);
+			sequence.addAction(finger.createPointerMove(Duration.ofMillis(200), PointerInput.Origin.viewport(), centerX,
+					startPoint));
+			sequence.addAction(finger.createPointerDown(0));
+			sequence.addAction(finger.createPointerMove(Duration.ofMillis(1000), PointerInput.Origin.viewport(),
+					centerX, endPoint)); // Slow scroll with 1-second duration
+			sequence.addAction(finger.createPointerUp(0));
 
-	        // Perform the action
-	        driver.perform(Arrays.asList(sequence));
-	    } catch (Exception e) {
-	        throw e;
-	    }
+			// Perform the action
+			driver.perform(Arrays.asList(sequence));
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	public static void halfscrollUntilElementFound12(WebElement scrollElement, WebElement targetElement)
@@ -516,6 +521,7 @@ public class Base {
 			throw e;
 		}
 	}
+
 	public static void scrollUntilElementFound(WebElement scrollElement, By targetBy) throws Exception {
 		while (true) {
 			try {
@@ -555,88 +561,95 @@ public class Base {
 			}
 		}
 	}
-	
+
 	public static void scroll999(WebElement element) throws Exception {
 		try {
-            Dimension elementSize = element.getSize();
-            Point elementLocation = element.getLocation();
-            int centerX = elementLocation.x + (elementSize.width / 2);
-            int startPoint = elementLocation.y + (int) (elementSize.height * 0.85); // Start point closer to bottom
-            int endPoint = elementLocation.y + (int) (elementSize.height * 0.30);  // End point closer to top
+			Dimension elementSize = element.getSize();
+			Point elementLocation = element.getLocation();
+			int centerX = elementLocation.x + (elementSize.width / 2);
+			int startPoint = elementLocation.y + (int) (elementSize.height * 0.85); // Start point closer to bottom
+			int endPoint = elementLocation.y + (int) (elementSize.height * 0.30); // End point closer to top
 
-            PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
-            Sequence sequence = new Sequence(finger, 1);
-            
-            sequence.addAction(finger.createPointerMove(Duration.ofMillis(1), PointerInput.Origin.viewport(), centerX, startPoint));
-            sequence.addAction(finger.createPointerDown(0));
-            sequence.addAction(finger.createPointerMove(Duration.ofMillis(50), PointerInput.Origin.viewport(), centerX, endPoint)); // Faster move
-            sequence.addAction(finger.createPointerUp(0));
+			PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+			Sequence sequence = new Sequence(finger, 1);
 
-            driver.perform(Arrays.asList(sequence)); // Perform the scroll gesture
-        } catch (Exception e) {
-            throw new Exception("Error while scrolling: " + e.getMessage(), e);
-        }
+			sequence.addAction(finger.createPointerMove(Duration.ofMillis(1), PointerInput.Origin.viewport(), centerX,
+					startPoint));
+			sequence.addAction(finger.createPointerDown(0));
+			sequence.addAction(
+					finger.createPointerMove(Duration.ofMillis(50), PointerInput.Origin.viewport(), centerX, endPoint)); // Faster
+																															// move
+			sequence.addAction(finger.createPointerUp(0));
+
+			driver.perform(Arrays.asList(sequence)); // Perform the scroll gesture
+		} catch (Exception e) {
+			throw new Exception("Error while scrolling: " + e.getMessage(), e);
+		}
 	}
-	
+
 	public static void scrollToExactValue(WebElement picker, String targetValue) {
-	    while (true) {
-	        String currentValue = picker.getText(); // Get the current value
-	        if (currentValue.equals(targetValue)) { // Check if it's the target value
-	            break;
-	        }
-	        // Scroll in the desired direction
-	        ((JavascriptExecutor) driver).executeScript("mobile: selectPickerWheelValue", Map.of(
-	            "element", ((RemoteWebElement) picker).getId(),
-	            "order", "next", // Use "next" for up, "previous" for down
-	            "offset", 0.1 // Adjust scrolling speed
-	        ));
-	    }
+		while (true) {
+			String currentValue = picker.getText(); // Get the current value
+			if (currentValue.equals(targetValue)) { // Check if it's the target value
+				break;
+			}
+			// Scroll in the desired direction
+			((JavascriptExecutor) driver).executeScript("mobile: selectPickerWheelValue",
+					Map.of("element", ((RemoteWebElement) picker).getId(), "order", "next", // Use "next" for up,
+																							// "previous" for down
+							"offset", 0.1 // Adjust scrolling speed
+					));
+		}
 	}
-	
+
 	public static void scrollEachElement(WebElement element) throws Exception {
-	    try {
-	        // Get the screen size for mobile (Android or iOS)
-	        org.openqa.selenium.Dimension screenSize = driver.manage().window().getSize(); // Works for mobile devices
-	        int screenHeight = screenSize.height;
-	        int screenWidth = screenSize.width;
- 
-	        // Calculate 1/4th of the screen height
-	        int scrollDistance = screenHeight / 4;
- 
-	        // Get the location and size of the element
-	        org.openqa.selenium.Dimension elementSize = element.getSize();
-	        org.openqa.selenium.Point elementLocation = element.getLocation();
- 
-	        // Calculate the center X position of the element
-	        int centerX = elementLocation.x + (elementSize.width / 2);
- 
-	        // Calculate the start and end points for the scroll based on 1/4th of the screen height
-	        int startPoint = elementLocation.y + (int) (elementSize.height * 0.80); // Start near the bottom (80% of the element's height)
-	        int endPoint = startPoint - scrollDistance; // End the scroll after 1/4th of the screen height
- 
-	        // Initialize a PointerInput instance for simulating touch gestures
-	        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
-	        Sequence sequence = new Sequence(finger, 1);
- 
-	        // Move the pointer to the start point of the scroll
-	        sequence.addAction(finger.createPointerMove(Duration.ofMillis(300), PointerInput.Origin.viewport(), centerX, startPoint));
- 
-	        // Press down at the start point (beginning of scroll gesture)
-	        sequence.addAction(finger.createPointerDown(0));
- 
-	        // Move the pointer to the end point (scroll action)
-	        sequence.addAction(finger.createPointerMove(Duration.ofMillis(300), PointerInput.Origin.viewport(), centerX, endPoint));
- 
-	        // Release the pointer (end of scroll gesture)
-	        sequence.addAction(finger.createPointerUp(0));
- 
-	        // Perform the sequence of gestures (scroll action)
-	        driver.perform(Arrays.asList(sequence));
-	    } catch (Exception e) {
-	        throw e;
-	    }
+		try {
+			// Get the screen size for mobile (Android or iOS)
+			org.openqa.selenium.Dimension screenSize = driver.manage().window().getSize(); // Works for mobile devices
+			int screenHeight = screenSize.height;
+			int screenWidth = screenSize.width;
+
+			// Calculate 1/4th of the screen height
+			int scrollDistance = screenHeight / 4;
+
+			// Get the location and size of the element
+			org.openqa.selenium.Dimension elementSize = element.getSize();
+			org.openqa.selenium.Point elementLocation = element.getLocation();
+
+			// Calculate the center X position of the element
+			int centerX = elementLocation.x + (elementSize.width / 2);
+
+			// Calculate the start and end points for the scroll based on 1/4th of the
+			// screen height
+			int startPoint = elementLocation.y + (int) (elementSize.height * 0.80); // Start near the bottom (80% of the
+																					// element's height)
+			int endPoint = startPoint - scrollDistance; // End the scroll after 1/4th of the screen height
+
+			// Initialize a PointerInput instance for simulating touch gestures
+			PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+			Sequence sequence = new Sequence(finger, 1);
+
+			// Move the pointer to the start point of the scroll
+			sequence.addAction(finger.createPointerMove(Duration.ofMillis(300), PointerInput.Origin.viewport(), centerX,
+					startPoint));
+
+			// Press down at the start point (beginning of scroll gesture)
+			sequence.addAction(finger.createPointerDown(0));
+
+			// Move the pointer to the end point (scroll action)
+			sequence.addAction(finger.createPointerMove(Duration.ofMillis(300), PointerInput.Origin.viewport(), centerX,
+					endPoint));
+
+			// Release the pointer (end of scroll gesture)
+			sequence.addAction(finger.createPointerUp(0));
+
+			// Perform the sequence of gestures (scroll action)
+			driver.perform(Arrays.asList(sequence));
+		} catch (Exception e) {
+			throw e;
+		}
 	}
-	
+
 	public static String getAdbPath() {
 		String adbPath;
 		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
@@ -708,32 +721,32 @@ public class Base {
 	public static void Latest_StagingAPK_download(String URL) throws InterruptedException {
 		Thread.sleep(10000); // Sleep for 10 seconds
 		String apkUrl = URL + "/app-armeabi-v7a-release.apk"; // Default
-																																	// APK
-																																	// URL
+																// APK
+																// URL
 		String getEmulatorArch = getEmulatorArch("Pixel_6_Pro_API_31"); // Get emulator architecture
 		switch (getEmulatorArch) {
 		case "armeabi-v7a":
 			apkUrl = URL + "/app-armeabi-v7a-release.apk"; // URL
-																																// for
-																																// armeabi-v7a
+															// for
+															// armeabi-v7a
 			System.out.println("Downloading APK for armeabi-v7a architecture"); // Print message
 			break;
 		case "x86":
 			apkUrl = URL + "/app-x86_64-release.apk"; // URL
-																															// for
-																															// x86
+														// for
+														// x86
 			System.out.println("Downloading APK for x86 architecture"); // Print message
 			break;
 		case "x86_64":
 			apkUrl = URL + "/app-x86_64-release.apk"; // URL
-																															// for
-																															// x86_64
+														// for
+														// x86_64
 			System.out.println("Downloading APK for x86_64 architecture"); // Print message
 			break;
 		case "arm64-v8a":
 			apkUrl = URL + "/app-arm64-v8a-release.apk"; // URL
-																															// for
-																															// arm64-v8a
+															// for
+															// arm64-v8a
 			System.out.println("Downloading APK for arm64-v8a architecture"); // Print message
 			break;
 		default:
@@ -799,7 +812,7 @@ public class Base {
 			for (Message message : messages) {
 				String subject = message.getSubject(); // Get the subject of the message
 
-				//				Thread.sleep(2000);
+				// Thread.sleep(2000);
 				if (subject != null && subject.contains("OTP Verification")) { // Check if the subject contains "OTP
 																				// Verification"
 					String htmlContent = getTextFromMessage(message); // Extract the HTML content from the message
@@ -938,12 +951,14 @@ public class Base {
 		}
 
 	}
+
 	public static void waitForElementViewable(By element) throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120)); // 120 seconds wait time
 		Thread.sleep(2000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(element)); // Wait until the element is clickable
 		System.out.println("Find out"); // Debug message
 	}
+
 	public static void UpdateNameProperty(String KeyValue) throws FileNotFoundException, IOException {
 
 		String filePath = workspacePath + getProperty("file_path");
@@ -986,91 +1001,86 @@ public class Base {
 		}
 
 	}
-	
-	 public static void sendEmailWithReport(String toEmail, String subject, String body, String reportPath) {
-	        final String fromEmail = "testmobileacs@gmail.com"; // Change with your email
-	        final String password = "tdrckyprwbzwinlg"; // Change with your email password
-	        Properties props = new Properties();
-	        props.put("mail.smtp.host", "smtp.gmail.com"); // For Gmail
-	        props.put("mail.smtp.port", "587");
-	        props.put("mail.smtp.auth", "true");
-	        props.put("mail.smtp.starttls.enable", "true");
 
-	        Session session = Session.getInstance(props, new Authenticator() {
-	            protected PasswordAuthentication getPasswordAuthentication() {
-	                return new PasswordAuthentication(fromEmail, password);
-	            }
-	        });
+	public static void sendEmailWithReport(String toEmail, String subject, String body, String reportPath) {
+		final String fromEmail = "testmobileacs@gmail.com"; // Change with your email
+		final String password = "tdrckyprwbzwinlg"; // Change with your email password
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com"); // For Gmail
+		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
 
-	        try {
-	            MimeMessage message = new MimeMessage(session);
-	            message.setFrom(new InternetAddress(fromEmail));
-	            message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-	            message.setSubject(subject);
+		Session session = Session.getInstance(props, new Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(fromEmail, password);
+			}
+		});
 
-	            // Create Mime Body Part for Report Attachment
-	            MimeBodyPart messageBodyPart = new MimeBodyPart();
-	            messageBodyPart.setText(body);
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(fromEmail));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+			message.setSubject(subject);
 
-	            // Add Attachment
-	            MimeBodyPart attachmentPart = new MimeBodyPart();
-	            attachmentPart.attachFile(new File(reportPath));
+			// Create Mime Body Part for Report Attachment
+			MimeBodyPart messageBodyPart = new MimeBodyPart();
+			messageBodyPart.setText(body);
 
-	            Multipart multipart = new MimeMultipart();
-	            multipart.addBodyPart(messageBodyPart);
-	            multipart.addBodyPart(attachmentPart);
+			// Add Attachment
+			MimeBodyPart attachmentPart = new MimeBodyPart();
+			attachmentPart.attachFile(new File(reportPath));
 
-	            message.setContent(multipart);
+			Multipart multipart = new MimeMultipart();
+			multipart.addBodyPart(messageBodyPart);
+			multipart.addBodyPart(attachmentPart);
 
-	            // Send Email
-	            Transport.send(message);
-	            System.out.println("Email sent successfully!");
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    }
-	 
-	 
-	 public static void dateFormatForWorkflow( String inputDate) throws ParseException {
+			message.setContent(multipart);
 
-			
-	        // Convert input format to Date object
-	        SimpleDateFormat inputFormat = new SimpleDateFormat("MMM dd, yyyy");
-	        Date date = inputFormat.parse(inputDate);
-
-	        // Create Calendar instance to get the day of the week
-	        Calendar calendar = Calendar.getInstance();
-	        calendar.setTime(date);
-
-	        // Convert Date object to desired format
-	        SimpleDateFormat outputFormat = new SimpleDateFormat("EEE MMM d");
-	        outputAssignedDate = outputFormat.format(calendar.getTime());
-
-	        System.out.println("Converted Date: " + outputAssignedDate);
-		
-		
+			// Send Email
+			Transport.send(message);
+			System.out.println("Email sent successfully!");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	 
-	 public static String getContentDesc(String Content) {
-	        try {
-	            // Locate the element
-	            WebElement element = driver.findElement(By.xpath(Content));
-	            // Return the 'content-desc' attribute
-	            return element.getAttribute("content-desc");
-	        } catch (Exception e) {
-	            System.out.println("Error locating element or fetching content-desc: " + e.getMessage());
-	            return null;
-	        }
-	    }
-	 
-	 
-	 
-	 public static  String ConvertInttoString(int number) {
 
-		 String str = String.valueOf(number);
-		 System.out.println("Converted String: " + str);
-		 return str;
-		 
+	public static void dateFormatForWorkflow(String inputDate) throws ParseException {
+
+		// Convert input format to Date object
+		SimpleDateFormat inputFormat = new SimpleDateFormat("MMM dd, yyyy");
+		Date date = inputFormat.parse(inputDate);
+
+		// Create Calendar instance to get the day of the week
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+
+		// Convert Date object to desired format
+		SimpleDateFormat outputFormat = new SimpleDateFormat("EEE MMM d");
+		outputAssignedDate = outputFormat.format(calendar.getTime());
+
+		System.out.println("Converted Date: " + outputAssignedDate);
+
+	}
+
+	public static String getContentDesc(String Content) {
+		try {
+			// Locate the element
+			WebElement element = driver.findElement(By.xpath(Content));
+			// Return the 'content-desc' attribute
+			return element.getAttribute("content-desc");
+		} catch (Exception e) {
+			System.out.println("Error locating element or fetching content-desc: " + e.getMessage());
+			return null;
+		}
+	}
+
+	public static String ConvertInttoString(int number) {
+
+		String str = String.valueOf(number);
+		System.out.println("Converted String: " + str);
+		return str;
+
 	}
 
 }

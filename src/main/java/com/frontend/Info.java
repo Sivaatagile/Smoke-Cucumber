@@ -7,11 +7,12 @@ import com.baseClass.Base;
 
 import io.qameta.allure.Allure;
 
-public class Info extends Base{
+public class Info extends Base {
 	static Random random = new Random();
+
 	public static void User_Data() throws InterruptedException {
-		WE_Info  UserInfo = new WE_Info(driver);
-		
+		WE_Info UserInfo = new WE_Info(driver);
+
 		ClickonElement(UserInfo.getFirstName());
 		passInput(UserInfo.getFirstName(), getProperty("SIGNUP_FIRSTNAME"));
 		driver.hideKeyboard();
@@ -40,12 +41,11 @@ public class Info extends Base{
 		ClickonElement(UserInfo.getCountryTab());
 		ClickonElement(UserInfo.getContinue());
 	}
-	
-	
+
 	public static void Pet_Data() throws Exception {
-	
-		WE_Info  PetInfo = new WE_Info(driver);
-		
+
+		WE_Info PetInfo = new WE_Info(driver);
+
 		ClickonElement(PetInfo.getPet_Name());
 		passInput(PetInfo.getPet_Name(), getProperty("PET_NAME"));
 		ClickonElement(PetInfo.getDate_Of_Birth());
@@ -83,16 +83,15 @@ public class Info extends Base{
 			passInput(PetInfo.getAdminNotes(), getProperty("ADMIN_NOTES"));
 			driver.hideKeyboard();
 		}
-		
-		
+
 		ClickonElement(PetInfo.getDietary());
 		passInput(PetInfo.getDietary(), getProperty("PET_DIETARY_ISSUES"));
 		driver.hideKeyboard();
 
 		ClickonElement(PetInfo.getAllergies());
 		passInput(PetInfo.getAllergies(), getProperty("PET_ALLERGIES"));
-		driver.hideKeyboard(); 
-		
+		driver.hideKeyboard();
+
 		ClickonElement(PetInfo.getVet_Name());
 		passInput(PetInfo.getVet_Name(), getProperty("PET_VETNAME"));
 		driver.hideKeyboard();
@@ -136,6 +135,5 @@ public class Info extends Base{
 		// Save the pet data
 		ClickonElement(PetInfo.getSave());
 	}
-	
-	
+
 }

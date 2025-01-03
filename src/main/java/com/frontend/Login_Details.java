@@ -9,13 +9,12 @@ import com.baseClass.Base;
 
 import io.appium.java_client.android.AndroidDriver;
 
-public class Login_Details extends Base{
+public class Login_Details extends Base {
 
 //	public static AndroidDriver driver;
-	
-	
+
 	public static void signupCustomer() throws InterruptedException {
-		WE_Login_Details  signup = new WE_Login_Details(driver);
+		WE_Login_Details signup = new WE_Login_Details(driver);
 		ClickonElement(signup.getSignUp());
 		ClickonElement(signup.getContinueWithEmail());
 		passInput(signup.getContinueWithEmail(), getProperty("SIGNUP_EMAIL"));
@@ -27,7 +26,7 @@ public class Login_Details extends Base{
 		passInputUsingActions(signup.getOTP(), otp);
 
 	}
-	
+
 	public static void login_Customer() throws InterruptedException {
 		WE_Login_Details login = new WE_Login_Details(driver);
 		ClickonElement(login.getContinueWithEmail());
@@ -48,7 +47,7 @@ public class Login_Details extends Base{
 		ClickonElement(login.getSettings());
 		ClickonElement(login.getLogout());
 	}
-	
+
 	public static void login_Admin() throws InterruptedException {
 		WE_Login_Details login = new WE_Login_Details(driver);
 		ClickonElement(login.getContinueWithEmail());
@@ -60,8 +59,8 @@ public class Login_Details extends Base{
 		driver.hideKeyboard();
 //		ClickonElement(login.getSignInButton());
 	}
-	
-	public static  void Logout_Admin() {
+
+	public static void Logout_Admin() {
 
 		WE_Login_Details login = new WE_Login_Details(driver);
 		ClickonElement(login.getAdmin_Settings());
@@ -79,7 +78,7 @@ public class Login_Details extends Base{
 		driver.hideKeyboard();
 //		ClickonElement(login.getSignInButton());
 	}
-	
+
 	public static void Predefined_login_Customer() throws InterruptedException {
 		WE_Login_Details login = new WE_Login_Details(driver);
 		ClickonElement(login.getContinueWithEmail());
@@ -91,14 +90,11 @@ public class Login_Details extends Base{
 		driver.hideKeyboard();
 //		ClickonElement(login.getSignInButton());
 	}
-	
-	
-	
+
 	public static void main(String[] args) throws InterruptedException, IOException {
 		method1("First");
 		OpenApplication();
 		Predefined_login_Customer();
 	}
-
 
 }

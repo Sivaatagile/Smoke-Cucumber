@@ -18,13 +18,12 @@ import com.baseClass.Base;
 
 import io.qameta.allure.Allure;
 
-public class Admin_Workflow extends Base{
+public class Admin_Workflow extends Base {
 
 	public static String Selected_Slot_as_ADMIN;
 	public static LocalDate BookingDate_as_ADMIN;
 	public static String Booked_Date_as_ADMIN;
-	
-	
+
 	public static void Assigned() throws Exception {
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object
 		ClickonElement(workflow.getService()); // Click on service filter
@@ -44,12 +43,12 @@ public class Admin_Workflow extends Base{
 		ClickonElement(workflow.getDate_Slot()); // Click on date filter
 		scrollUntilElementFound(workflow.getDate(), workflow.getBookedDateLocator()); // Scroll to find booked date
 		scrollUntilElementFound(workflow.getSlot(), workflow.getBookedSlotLocator()); // Scroll to find booked slot
-		
+
 		Thread.sleep(5000);
 		ClickonElement(workflow.getSelect()); // Click on select button
 
 	}
-	
+
 	public static void Staff_for_assigned() throws Exception {
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object
 		boolean isElementFound = false; // Initialize flag for element found
@@ -65,8 +64,7 @@ public class Admin_Workflow extends Base{
 			}
 		}
 	}
-	
-	
+
 	public static void Pending_to_UnAssigned() throws Exception {
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object
 		Assigned(); // Call Assigned method
@@ -74,16 +72,15 @@ public class Admin_Workflow extends Base{
 		Thread.sleep(2000); // Wait for 2 seconds
 		ClickonElement(workflow.getAddon_Toggle()); // Click on Add-on toggle button again
 		ClickonElement(workflow.getBookingTime_Toggle()); // Click on BookingTime toggle button
-	    Thread.sleep(5000);
-	    if (isElementAvailable(workflow.NoBookingYet)) {
+		Thread.sleep(5000);
+		if (isElementAvailable(workflow.NoBookingYet)) {
 			System.out.println("No booking is listed on pending. Navigate to unassigned tab and check");
-		}else {
+		} else {
 			ClickonElement(workflow.getTickButton());
 		}
-	    
-		
+
 	}
-	
+
 	public static void UnAssigned_to_Assigned() throws Exception {
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
 		ClickonElement(workflow.getUnassigned_Tab()); // Click on Unassigned tab
@@ -92,27 +89,25 @@ public class Admin_Workflow extends Base{
 		waitForElement(workflow.getscrollview());
 		Staff_for_assigned(); // Call Staff_for_assigned method
 		Thread.sleep(5000); // Wait for 2 seconds
-		WebElement elements = driver.findElement(By.xpath("//android.view.View[contains(@content-desc, 'unassigned_customer_name')]/android.widget.ImageView[3]"));
+		WebElement elements = driver.findElement(By.xpath(
+				"//android.view.View[contains(@content-desc, 'unassigned_customer_name')]/android.widget.ImageView[3]"));
 		elements.click();
 		// List oda size-a eduthutu iterate pannaum
-	
+
 //		ClickAllListElements(workflow.getImageviewCheckbox());
 //		ClickonElement(workflow.getPartially_Assigned_Toggle());
 		Thread.sleep(1500);
 		ClickonElement(workflow.getAssign_Selected()); // Click on Assign Selected button
-		
-	}
-	
-	
-	
-	public static  void Booking_For_Customer_As_Admin() throws Exception {
 
-		WE_ADMIN_BOOKING   home = new WE_ADMIN_BOOKING(driver);
-		WE_Customer_BookingFlow booking =new WE_Customer_BookingFlow(driver);
+	}
+
+	public static void Booking_For_Customer_As_Admin() throws Exception {
+
+		WE_ADMIN_BOOKING home = new WE_ADMIN_BOOKING(driver);
+		WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 		Api api = new Api(driver);
 		Random random = new Random();
 
-		
 		ClickonElement(home.getPlus());
 		Thread.sleep(6000);
 		scrollUntilElementFound(home.getscrollview(), home.Customer_Locator);
@@ -125,14 +120,13 @@ public class Admin_Workflow extends Base{
 			passInput(booking.getSearchServices(), getProperty("SERVICE_NAME"));
 			driver.hideKeyboard();
 			ClickonElement(booking.getSelectService());
-		}else if (isElementAvailable(booking.ServiceViewable)) {
+		} else if (isElementAvailable(booking.ServiceViewable)) {
 			Thread.sleep(2000);
 			clickOnElementUsingBy(booking.ServiceViewable);
 		} else {
 			System.out.println("Service is not available");
 		}
-		
-		
+
 		int SlotCount = api.timeSlotsCount;
 		System.out.println("slot  :  " + SlotCount);
 		int randomValue = random.nextInt(SlotCount);
@@ -144,13 +138,9 @@ public class Admin_Workflow extends Base{
 			Thread.sleep(500); // waits for 500ms
 		}
 		Thread.sleep(2500);
-		Selected_Slot_as_ADMIN= booking.getseekbar().getAttribute("content-desc");
+		Selected_Slot_as_ADMIN = booking.getseekbar().getAttribute("content-desc");
 		System.out.println(Selected_Slot_as_ADMIN);
-		
-		
-		
-		
-		
+
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		LocalDate startDate = LocalDate.parse(api.available_date_from, formatter);
 		LocalDate endDate = LocalDate.parse(api.available_date_to, formatter);
@@ -158,24 +148,28 @@ public class Admin_Workflow extends Base{
 		System.out.println("Number of days between " + startDate + " and " + endDate + ": " + daysBetweenSpecificDates);
 		LocalDate currentDate = LocalDate.now();
 		long daysFromCurrentToEndDate = ChronoUnit.DAYS.between(currentDate, endDate);
-		System.out.println("Number of days from the current date (" + currentDate + ") to the end date (" + endDate + "): " + daysFromCurrentToEndDate);
+		System.out.println("Number of days from the current date (" + currentDate + ") to the end date (" + endDate
+				+ "): " + daysFromCurrentToEndDate);
 		LocalDate minAdvanceBookingDate = getMinAdvanceBookingDate(currentDate, api.DAYminAdvanceBooking);
-		LocalDate maxBookingDate = getMaxBookingDate(currentDate, endDate, api.DAYminAdvanceBooking,api.DAYmaxAdvanceBooking);
+		LocalDate maxBookingDate = getMaxBookingDate(currentDate, endDate, api.DAYminAdvanceBooking,
+				api.DAYmaxAdvanceBooking);
 		System.out.println("Minimum Advance Booking Date: " + minAdvanceBookingDate);
-		System.out.println("Booking can be made up to: " + maxBookingDate);		
+		System.out.println("Booking can be made up to: " + maxBookingDate);
 		String minMonthName = getMonthName(minAdvanceBookingDate);
 		String maxMonthName = getMonthName(maxBookingDate);
 		System.out.println("Month of minimum advance booking date: " + minMonthName);
 		System.out.println("Month of maximum booking date: " + maxMonthName);
 		BookingDate_as_ADMIN = getRandomDate(minAdvanceBookingDate, maxBookingDate);
-		System.out.println("Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate_as_ADMIN);
+		System.out.println("Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": "
+				+ BookingDate_as_ADMIN);
 		long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
 		System.out.println("Number of days between the two dates: " + daysBetween);
 		String BookingMonth = getMonthName(BookingDate_as_ADMIN);
 		int BookingYear = BookingDate_as_ADMIN.getYear();
 		String BookingMonthProperCase = BookingMonth.substring(0, 1) + BookingMonth.substring(1).toLowerCase();
 		Thread.sleep(3000);
-		String dynamicLocator = "//android.view.View[@content-desc='" + BookingMonthProperCase + " " + BookingYear + "']";
+		String dynamicLocator = "//android.view.View[@content-desc='" + BookingMonthProperCase + " " + BookingYear
+				+ "']";
 		System.out.println("gfyft     " + dynamicLocator);
 		Thread.sleep(3000);
 		String fallbackLocatorFirstTime = "//android.view.View[@content-desc='booking_page_calenderWidget']/android.view.View[2]";
@@ -207,7 +201,8 @@ public class Admin_Workflow extends Base{
 			}
 		}
 		Thread.sleep(4000);
-		List<WebElement> calendarElements = driver.findElements(By.xpath("//android.view.View[@content-desc=\"booking_page_calenderWidget\"]/android.view.View/android.view.View/android.view.View/android.view.View"));
+		List<WebElement> calendarElements = driver.findElements(By.xpath(
+				"//android.view.View[@content-desc=\"booking_page_calenderWidget\"]/android.view.View/android.view.View/android.view.View/android.view.View"));
 		int size = calendarElements.size();
 		if (size > 7) {
 //			List<WebElement> remainingElements = calendarElements.subList(7, size);
@@ -216,39 +211,38 @@ public class Admin_Workflow extends Base{
 //			System.out.println(randomIndex);
 //			WebElement randomElement = remainingElements.get(randomIndex);
 //			randomElement.click();
-			
-			
+
 			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
-	        String formattedDateStr = BookingDate_as_ADMIN.format(formatter1);
+			String formattedDateStr = BookingDate_as_ADMIN.format(formatter1);
 
-	     // Check if the date portion starts with "0" and remove it if so
-	        if (formattedDateStr.charAt(formattedDateStr.indexOf(",") + 6) == '0') {
-	            formattedDateStr = formattedDateStr.replaceFirst(" 0", " ");
-	        }
-	        
-	        System.out.println("Formatted Date: " + formattedDateStr);
+			// Check if the date portion starts with "0" and remove it if so
+			if (formattedDateStr.charAt(formattedDateStr.indexOf(",") + 6) == '0') {
+				formattedDateStr = formattedDateStr.replaceFirst(" 0", " ");
+			}
+
+			System.out.println("Formatted Date: " + formattedDateStr);
 			Thread.sleep(5000);
-	        WebElement findElement = driver.findElement(By.xpath("//android.view.View[@content-desc='"+ formattedDateStr + "']"));
-	        findElement.click();
-	        Thread.sleep(1000);
-	        String Booked_Date123 = findElement.getAttribute("content-desc");
+			WebElement findElement = driver
+					.findElement(By.xpath("//android.view.View[@content-desc='" + formattedDateStr + "']"));
+			findElement.click();
+			Thread.sleep(1000);
+			String Booked_Date123 = findElement.getAttribute("content-desc");
 			System.out.println(Booked_Date123);
-			
-			 DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
-		        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd, yyyy");
 
-		        LocalDate parsedDate = LocalDate.parse(Booked_Date123, inputFormat);
-		        Booked_Date_as_ADMIN = parsedDate.format(outputFormat);
-		         System.out.println(Booked_Date_as_ADMIN);
-			
+			DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
+			DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+
+			LocalDate parsedDate = LocalDate.parse(Booked_Date123, inputFormat);
+			Booked_Date_as_ADMIN = parsedDate.format(outputFormat);
+			System.out.println(Booked_Date_as_ADMIN);
+
 			String day = Booked_Date_as_ADMIN.split(" ")[2].replace(",", "");
 			System.out.println("Day: " + day);
-			
+
 		} else {
 			System.out.println("There are less than 8 elements, cannot proceed.");
 		}
-		
-		
+
 		ClickonElement(home.getCheckAvailability());
 		Thread.sleep(2000);
 		Booked_Date_as_ADMIN = booking.getserviceName().getAttribute("content-desc");
@@ -264,11 +258,6 @@ public class Admin_Workflow extends Base{
 		Thread.sleep(4000);
 		ClickonElement(home.getDone());
 
-		
-		
-		
-		
-		
 	}
-	
+
 }

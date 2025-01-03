@@ -19,31 +19,27 @@ import net.bytebuddy.build.Plugin.Factory.UsingReflection.Priority;
 
 public class Api extends Base {
 
-//	       https://paw-845-staging-automation-testing.petcaretechnologies.com/api/
-//	      https://staging.petcaretechnologies.com/api/
-//	private static final String BASE_URL = "https://paw-845-staging-automation-testing.petcaretechnologies.com/api/";
 	private static final String BASE_URL = "https://staging.petcaretechnologies.com/api/";
 
 	public static String token;
 	public static String verifiedAccessToken;
 	public static String VerifiedRefreshToken;
-	public static int timeSlotsCount;
 	public static String Max_allowed_date_for_booking;
 	public static String available_date_from;
 	public static String available_date_to;
 	public static String advance_booking_requirement;
 	public static String maximum_allowed_date_for_booking;
+	public static int timeSlotsCount;
 	public static int days;
 	public static int DAYminAdvanceBooking;
 	public static int DAYmaxAdvanceBooking;
 	public static int TotalSlotCount;
+	public static int priorityNumber;
+	public static int TotalTagCount;
 	public static List<String> slotNames;
 	public static List<Integer> priorityList;
-	public static int priorityNumber;
 	public static List<String> tagIds;
 	public static List<String> tagNames;
-	public static int  TotalTagCount;
-	
 
 	public Api(AndroidDriver driver1) {
 		this.driver = driver1;
@@ -186,162 +182,122 @@ public class Api extends Base {
 		}
 		System.out.println("Slot Names: " + slotNames);
 	}
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public static  void Priority() {
+	public static void Priority() {
 
-		
-		   // Define the Base URL
+		Response response = RestAssured.given().header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
+				.header("Content-Type", "application/json") // Add any necessary headers here
+				.header("Authorization", "Bearer " + VerifiedRefreshToken) // Replace with your actual token variable
+				.get(BASE_URL + "service/availability-pricing-rule/list"); // Replace with your actual API endpoint
 
-        // Verified token variable (replace with actual token)
+		// Print the status code to verify the request was successful
+		System.out.println("Response Status Code: " + response.getStatusCode());
 
-        // Send GET request using RestAssured
-        Response response = RestAssured
-                .given()
-                .header("X-API-Version", "100")
-                .header("User-Agent", "PostmanRuntime")
-                .header("Content-Type", "application/json") // Add any necessary headers here
-                .header("Authorization", "Bearer " + VerifiedRefreshToken) // Replace with your actual token variable
-                .get(BASE_URL + "service/availability-pricing-rule/list"); // Replace with your actual API endpoint
+		// Convert the response body to a String
+		String responseBody = response.getBody().asString();
 
-        // Print the status code to verify the request was successful
-        System.out.println("Response Status Code: " + response.getStatusCode());
+		// Parse the response body as a JSONObject
+		JSONObject jsonResponse = new JSONObject(responseBody);
 
-        // Convert the response body to a String
-        String responseBody = response.getBody().asString();
+		// Extract the 'data' array
+		JSONArray dataArray = jsonResponse.getJSONArray("data");
 
-        // Parse the response body as a JSONObject
-        JSONObject jsonResponse = new JSONObject(responseBody);
+		// Initialize separate lists for names and priorities
+		List<String> nameList = new ArrayList<>();
+		priorityList = new ArrayList<>();
 
-        // Extract the 'data' array
-        JSONArray dataArray = jsonResponse.getJSONArray("data");
+		// Loop through the array and extract names and priorities
+		for (int i = 0; i < dataArray.length(); i++) {
+			JSONObject dataObject = dataArray.getJSONObject(i);
+			String name = dataObject.getString("name");
+			int priority = dataObject.getInt("priority");
 
-        // Initialize separate lists for names and priorities
-        List<String> nameList = new ArrayList<>();
-        priorityList = new ArrayList<>();
+			// Add values to respective lists
+			nameList.add(name);
+			priorityList.add(priority);
+		}
 
-        // Loop through the array and extract names and priorities
-        for (int i = 0; i < dataArray.length(); i++) {
-            JSONObject dataObject = dataArray.getJSONObject(i);
-            String name = dataObject.getString("name");
-            int priority = dataObject.getInt("priority");
+		// Print the lists
+		System.out.println("Names: " + nameList);
+		System.out.println("Priorities: " + priorityList);
 
-            // Add values to respective lists
-            nameList.add(name);
-            priorityList.add(priority);
-        }
-
-        // Print the lists
-        System.out.println("Names: " + nameList);
-        System.out.println("Priorities: " + priorityList);
-    
-	}
-	
-	
-	public static  void eliminatefrom100() {
-
-		
-		  List<Integer> rangeList = new ArrayList<>();
-	        for (int i = 0; i <= 100; i++) {
-	            rangeList.add(i);
-	        }
-
-	        // Remove all occurrences of priority numbers from the range list
-	        for (Integer priority : priorityList) {
-	            rangeList.remove(priority);
-	        }
-	        
-	        System.out.println("gggg  :  "+ rangeList);
-	        
-	        
-	        
-	        
-	        if (!rangeList.isEmpty()) {
-	        	priorityNumber = Collections.min(rangeList);
-	            System.out.println("Smallest number in range: " + priorityNumber);
-	        } else {
-	            System.out.println("Range list is empty.");
-	        }
 	}
 
-	
+	public static void eliminatefrom100() {
+
+		List<Integer> rangeList = new ArrayList<>();
+		for (int i = 0; i <= 100; i++) {
+			rangeList.add(i);
+		}
+		// Remove all occurrences of priority numbers from the range list
+		for (Integer priority : priorityList) {
+			rangeList.remove(priority);
+		}
+		System.out.println("gggg  :  " + rangeList);
+		if (!rangeList.isEmpty()) {
+			priorityNumber = Collections.min(rangeList);
+			System.out.println("Smallest number in range: " + priorityNumber);
+		} else {
+			System.out.println("Range list is empty.");
+		}
+	}
+
 	public static void OverallTagList() {
-	    // Set the base URI for RestAssured
 
-	    // Make the API request and capture the response
-	    Response response = RestAssured
-	            .given()
-	            .header("X-API-Version", "100")
-	            .header("User-Agent", "PostmanRuntime")
-	            .header("Content-Type", "application/json")  // Add any necessary headers here
-	            .header("Authorization", "Bearer " + VerifiedRefreshToken)  // Replace with your actual token variable
-	            .get(BASE_URL + "user/list/add_tag_category");  // Replace with your actual API endpoint
+		// Make the API request and capture the response
+		Response response = RestAssured.given().header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
+				.header("Content-Type", "application/json") // Add any necessary headers here
+				.header("Authorization", "Bearer " + VerifiedRefreshToken) // Replace with your actual token variable
+				.get(BASE_URL + "user/list/add_tag_category"); // Replace with your actual API endpoint
 
-	    // Print the status code to verify the request was successful
-	    System.out.println("Response Status Code: " + response.getStatusCode());
+		// Print the status code to verify the request was successful
+		System.out.println("Response Status Code: " + response.getStatusCode());
 
-	    // Convert the response body to a String
-	    String responseBody = response.getBody().asString();
+		// Convert the response body to a String
+		String responseBody = response.getBody().asString();
 
-	    // Parse the response body as a JSONObject
-	    JSONObject jsonResponse = new JSONObject(responseBody);
+		// Parse the response body as a JSONObject
+		JSONObject jsonResponse = new JSONObject(responseBody);
 
-	    // Extract 'recordsTotal'
-	    int TotalTagCount = jsonResponse.getInt("recordsTotal");
-	    System.out.println("Records Total: " + TotalTagCount);
+		// Extract 'recordsTotal'
+		int TotalTagCount = jsonResponse.getInt("recordsTotal");
+		System.out.println("Records Total: " + TotalTagCount);
 
-	    // Extract the 'data' array
-	    JSONArray dataArray = jsonResponse.getJSONArray("data");
+		// Extract the 'data' array
+		JSONArray dataArray = jsonResponse.getJSONArray("data");
 
-	    // Initialize a list to store formatted tag and subdata names
-	    List<String> formattedOutput = new ArrayList<>();
+		// Initialize a list to store formatted tag and subdata names
+		List<String> formattedOutput = new ArrayList<>();
 
-	    // Loop through the array and format the output
-	    for (int i = 0; i < dataArray.length(); i++) {
-	        JSONObject tag = dataArray.getJSONObject(i);
-	        String tagName = tag.getString("category_name");
+		// Loop through the array and format the output
+		for (int i = 0; i < dataArray.length(); i++) {
+			JSONObject tag = dataArray.getJSONObject(i);
+			String tagName = tag.getString("category_name");
 
-	        // Check if the tag has 'subdata' and it's not empty
-	        if (tag.has("subdata") && tag.getJSONArray("subdata").length() > 0) {
-	            JSONArray subdataArray = tag.getJSONArray("subdata");
+			// Check if the tag has 'subdata' and it's not empty
+			if (tag.has("subdata") && tag.getJSONArray("subdata").length() > 0) {
+				JSONArray subdataArray = tag.getJSONArray("subdata");
 
-	            // Loop through each item in 'subdata'
-	            for (int j = 0; j < subdataArray.length(); j++) {
-	                JSONObject subdataItem = subdataArray.getJSONObject(j);
-	                String subName = subdataItem.getString("name");  // Extract the sub-name
+				// Loop through each item in 'subdata'
+				for (int j = 0; j < subdataArray.length(); j++) {
+					JSONObject subdataItem = subdataArray.getJSONObject(j);
+					String subName = subdataItem.getString("name"); // Extract the sub-name
 
-	                // Add the formatted tag and sub-name to the list
-	                formattedOutput.add(tagName + " , " + subName);
-	            }
-	        } else {
-	            // If there is no subdata for this tag
-	            formattedOutput.add(tagName + " , No subdata available");
-	        }
-	    }
-
-	    // Print the formatted output
-	    for (String line : formattedOutput) {
-	        System.out.println(line);
-	    }
-	    
-	    
-	    System.out.println(formattedOutput);
+					// Add the formatted tag and sub-name to the list
+					formattedOutput.add(tagName + " , " + subName);
+				}
+			} else {
+				// If there is no subdata for this tag
+				formattedOutput.add(tagName + " , No subdata available");
+			}
+		}
+		// Print the formatted output
+		for (String line : formattedOutput) {
+			System.out.println(line);
+		}
+		System.out.println(formattedOutput);
 	}
-	
-	
+
 	public static void main(String[] args) throws InterruptedException, IOException {
 		method1("First");
 		signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
@@ -350,7 +306,7 @@ public class Api extends Base {
 //		refreshAdminToken(VerifiedRefreshToken);
 //		Priority();
 //		eliminatefrom100();
-		
+
 	}
 
 }
