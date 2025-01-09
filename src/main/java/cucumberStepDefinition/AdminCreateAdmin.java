@@ -8,7 +8,6 @@ import com.WE.WE_Info;
 import com.baseClass.Base;
 import io.cucumber.java.en.*;
 
-
 public class AdminCreateAdmin extends Base {
 	WE_Admin_User user = new WE_Admin_User(driver);
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);

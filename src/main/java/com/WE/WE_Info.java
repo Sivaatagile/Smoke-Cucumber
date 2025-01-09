@@ -363,7 +363,11 @@ public class WE_Info extends Base{
 	public WebElement getSave() {
 	    return Save;
 	}
-	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"All Customers\"]")
+	private WebElement  AllCustomers;
+	public WebElement getAllCustomers() {
+		return AllCustomers;
+	}
 	
 	@FindBy(xpath = "//android.view.View[@content-desc=\"Close App\"]")
 	private WebElement closeApp;

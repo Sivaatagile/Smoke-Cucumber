@@ -9,13 +9,10 @@ import com.baseClass.Base;
 
 import io.appium.java_client.android.AndroidDriver;
 
-public class Login_Details extends Base{
+public class Login_Details extends Base {
 
-//	public static AndroidDriver driver;
-	
-	
 	public static void signupCustomer() throws InterruptedException {
-		WE_Login_Details  signup = new WE_Login_Details(driver);
+		WE_Login_Details signup = new WE_Login_Details(driver);
 		ClickonElement(signup.getSignUp());
 		ClickonElement(signup.getContinueWithEmail());
 		passInput(signup.getContinueWithEmail(), getProperty("SIGNUP_EMAIL"));
@@ -25,9 +22,8 @@ public class Login_Details extends Base{
 		String otp = getOtpFromSource();
 		Thread.sleep(2000);
 		passInputUsingActions(signup.getOTP(), otp);
-
 	}
-	
+
 	public static void login_Customer() throws InterruptedException {
 		WE_Login_Details login = new WE_Login_Details(driver);
 		ClickonElement(login.getContinueWithEmail());
@@ -40,7 +36,6 @@ public class Login_Details extends Base{
 		Thread.sleep(2000);
 		passInputUsingActions(login.getOTP(), otp);
 		driver.hideKeyboard();
-//		ClickonElement(login.getSignInButton());
 	}
 
 	public static void Logout_Customer() {
@@ -48,7 +43,7 @@ public class Login_Details extends Base{
 		ClickonElement(login.getSettings());
 		ClickonElement(login.getLogout());
 	}
-	
+
 	public static void login_Admin() throws InterruptedException {
 		WE_Login_Details login = new WE_Login_Details(driver);
 		ClickonElement(login.getContinueWithEmail());
@@ -58,10 +53,9 @@ public class Login_Details extends Base{
 		waitForElement(login.getEnterORPaste());
 		passInputUsingActions(login.getOTP(), getProperty("PREDEFINED_ADMIN_OTP"));
 		driver.hideKeyboard();
-//		ClickonElement(login.getSignInButton());
 	}
-	
-	public static  void Logout_Admin() {
+
+	public static void Logout_Admin() {
 
 		WE_Login_Details login = new WE_Login_Details(driver);
 		ClickonElement(login.getAdmin_Settings());
@@ -77,28 +71,23 @@ public class Login_Details extends Base{
 		waitForElement(login.getEnterORPaste());
 		passInputUsingActions(login.getOTP(), getProperty("PREDEFINED_STAFF_OTP"));
 		driver.hideKeyboard();
-//		ClickonElement(login.getSignInButton());
 	}
-	
+
 	public static void Predefined_login_Customer() throws InterruptedException {
 		WE_Login_Details login = new WE_Login_Details(driver);
 		ClickonElement(login.getContinueWithEmail());
-		passInput(login.getContinueWithEmail(), getProperty("PREDEFINED_Customer_EMAIL"));
+		passInput(login.getContinueWithEmail(), getProperty("PREDEFINED_CUSTOMER_EMAIL"));
 		driver.hideKeyboard();
 		ClickonElement(login.getContinueButton());
 		waitForElement(login.getEnterORPaste());
-		passInputUsingActions(login.getOTP(), getProperty("PREDEFINED_Customer_OTP"));
+		passInputUsingActions(login.getOTP(), getProperty("PREDEFINED_CUSTOMER_OTP"));
 		driver.hideKeyboard();
-//		ClickonElement(login.getSignInButton());
 	}
-	
-	
-	
+
 	public static void main(String[] args) throws InterruptedException, IOException {
 		method1("First");
 		OpenApplication();
 		Predefined_login_Customer();
 	}
-
 
 }

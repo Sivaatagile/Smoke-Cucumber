@@ -125,10 +125,9 @@ public class UserData extends Base {
 			} else {
 				System.out.println("No locators found");
 			}
-			
+
 		}
-		
-		
+
 	}
 
 }

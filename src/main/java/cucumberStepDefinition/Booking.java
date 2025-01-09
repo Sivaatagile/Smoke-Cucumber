@@ -2,9 +2,11 @@ package cucumberStepDefinition;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
 
@@ -35,14 +37,21 @@ public class Booking extends Base {
 	public static LocalDate maxBookingDate;
 	public static int BookingYear;
 	public static String BookingMonthProperCase;
+	public static String StatementCreatedDate;
+
+	public static String InvoiceNumber;
+	public static String currentMonth;
 
 	WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 	WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
+	WE_Customer_Settings invoices = new WE_Customer_Settings(driver);
+	WE_Customer_Settings statement = new WE_Customer_Settings(driver);
+
 	Api api = new Api(driver);
 	Random random = new Random();
 
-	@Given("User selects a service")
-	public void userSelectsAService() throws InterruptedException {
+	@Given("the user selects a service")
+	public void theUserSelectsAService() throws InterruptedException {
 		waitForElement(booking.getassorted());
 		if (isElementAvailable(booking.getServiceShowAll())) {
 			ClickonElement(booking.getServiceShowAll());
@@ -59,8 +68,8 @@ public class Booking extends Base {
 		}
 	}
 
-	@When("User fetches the slot list for the selected service using the API")
-	public void userFetchesTheSlotListForTheSelectedServiceUsingTheAPI() throws Exception {
+	@When("the user fetches the slot list for the selected service using the API")
+	public void theUserFetchesTheSlotListForTheSelectedServiceUsingTheAPI() throws InterruptedException {
 		Api.ServiceSlotTimeCount();
 		int SlotCount = api.timeSlotsCount;
 		System.out.println("slot  :  " + SlotCount);
@@ -69,8 +78,8 @@ public class Booking extends Base {
 		Thread.sleep(4000);
 	}
 
-	@When("User selects a random slot from the slot list, scrolling the slot picker if necessary")
-	public void userSelectsARandomSlotFromTheSlotListScrollingTheSlotPickerIfNecessary() throws Exception {
+	@When("the user selects a random slot from the slot list, scrolling the slot picker if necessary")
+	public void theUserSelectsARandomSlotFromTheSlotListScrollingTheSlotPickerIfNecessary() throws Exception {
 		Thread.sleep(4000);
 		for (int i = 1; i < randomValue; i++) {
 			scroll(booking.getseekbar());
@@ -82,8 +91,8 @@ public class Booking extends Base {
 		System.out.println(Selected_Slot);
 	}
 
-	@When("User determines the From Date and To Date for the service based on constraints")
-	public void userDeterminesTheFromDateAndToDateForTheServiceBasedOnConstraints() {
+	@When("the user determines the From Date and To Date for the service based on constraints")
+	public void theUserDeterminesTheFromDateAndToDateForTheServiceBasedOnConstraints() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		startDate = LocalDate.parse(api.available_date_from, formatter);
 		endDate = LocalDate.parse(api.available_date_to, formatter);
@@ -99,8 +108,8 @@ public class Booking extends Base {
 		System.out.println("Booking can be made up to: " + maxBookingDate);
 	}
 
-	@When("User calculates the date range and picks a random date")
-	public void userCalculatesTheDateRangeAndPicksARandomDate() throws InterruptedException {
+	@When("the user calculates the date range and picks a random date")
+	public void theUserCalculatesTheDateRangeAndPicksARandomDate() throws InterruptedException {
 		String minMonthName = getMonthName(minAdvanceBookingDate);
 		String maxMonthName = getMonthName(maxBookingDate);
 		System.out.println("Month of minimum advance booking date: " + minMonthName);
@@ -116,8 +125,8 @@ public class Booking extends Base {
 		Thread.sleep(3000);
 	}
 
-	@When("User navigates to the random date's month using the right arrow")
-	public void userNavigatesToTheRandomDateSMonthUsingTheRightArrow() throws InterruptedException {
+	@When("the user navigates to the random date's month using the right arrow")
+	public void theUserNavigatesToTheRandomDateSMonthUsingTheRightArrow() throws InterruptedException {
 		String dynamicLocator = "//android.view.View[@content-desc='" + BookingMonthProperCase + " " + BookingYear
 				+ "']";
 		System.out.println("gfyft     " + dynamicLocator);
@@ -152,8 +161,8 @@ public class Booking extends Base {
 		}
 	}
 
-	@When("User selects the random date and User taps the Request Booking button")
-	public void userSelectsTheRandomDateAnduserTapsTheRequestBookingButton() throws InterruptedException {
+	@When("the user selects the random date and taps the Request Booking button")
+	public void theUserSelectsTheRandomDateAndTapsTheRequestBookingButton() throws InterruptedException {
 		Thread.sleep(4000);
 		List<WebElement> calendarElements = driver.findElements(By.xpath(
 				"//android.view.View[@content-desc=\"booking_page_calenderWidget\"]/android.view.View/android.view.View/android.view.View/android.view.View"));
@@ -187,31 +196,31 @@ public class Booking extends Base {
 		ClickonElement(booking.getRequestBooking());
 	}
 
-	@Then("User should successfully navigate to the Confirm Booking Details page")
-	public void userShouldSuccessfullyNavigateToTheConfirmBookingDetailsPage() {
+	@Then("the user should successfully navigate to the Confirm Booking Details page")
+	public void theUserShouldSuccessfullyNavigateToTheConfirmBookingDetailsPage() {
 		System.out.println("Wait for the element");
 	}
 
-	@Then("User verifies the service name, date, and slot")
-	public void userVerifiesTheServiceNameDateAndSlot() throws InterruptedException {
+	@Then("the user verifies the service name, date, and slot")
+	public void theUserVerifiesTheServiceNameDateAndSlot() throws InterruptedException {
 		Thread.sleep(2000);
 		Booked_service = booking.getserviceName().getAttribute("content-desc");
 		System.out.println("ssssss    :  " + Booked_service);
 	}
 
-	@Then("User taps the Proceed button")
-	public void userTapsTheProceedButton() {
+	@Then("the user taps the Proceed button")
+	public void theUserTapsTheProceedButton() {
 		ClickonElement(booking.getproceed());
 	}
 
-	@Then("User navigates to the Review Booking page")
-	public void userNavigatesToTheReviewBookingPage() throws InterruptedException {
+	@Then("the user navigates to the Review Booking page")
+	public void theUserNavigatesToTheReviewBookingPage() throws InterruptedException {
 		waitForElement(booking.getReviewBooking());
 		System.out.println("review booking page");
 	}
 
-	@Then("User reviews the total amount and remaining credit amount")
-	public void userReviewsTheTotalAmountAndRemainingCreditAmount() throws InterruptedException {
+	@Then("the user reviews the total amount and remaining credit amount")
+	public void theUserReviewsTheTotalAmountAndRemainingCreditAmount() throws InterruptedException {
 		String totalAmountText = booking.getTotal_Amount().getAttribute("content-desc");
 		String remainingCreditText = booking.getRemaining_Credit().getAttribute("content-desc");
 		System.out.println("Total Amount is: " + totalAmountText);
@@ -225,7 +234,7 @@ public class Booking extends Base {
 			// Click on checkbox and ConfirmANDPay to go to the next page
 			ClickonElement(booking.getCheckBox());
 			System.setProperty("webdriver.chrome.driver",
-					"C:\\Users\\ACS\\eclipse-workspace\\sanity_booking_app\\ChromeDriver\\chromedriver.exe");
+					"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
 			ClickonElement(booking.getConfirmANDPay());
 			// Run the appropriate Stripe payment function based on totalAmount value
 			if (totalAmount == 0.00) {
@@ -256,28 +265,30 @@ public class Booking extends Base {
 				driver.context(nativecontext);
 			}
 		} else {
+			ClickonElement(booking.getCheckBox());
+			ClickonElement(booking.getConfirmANDPay());
 			System.out.println("Total amount is less than or equal to remaining credit. No payment required.");
 		}
 		System.out.println("Check the total amount and remaining credit amount  ");
 	}
 
-	@Then("User taps the checkbox and User taps the Confirm and Pay button")
-	public void userTapsTheCheckboxAnduserTapsTheConfirmAndPayButton() {
+	@Then("the user taps the checkbox and taps the Confirm and Pay button")
+	public void theUserTapsTheCheckboxAndTapsTheConfirmAndPayButton() {
 		System.out.println("gvecgevc");
 	}
 
-	@Then("User initiates the payment process")
-	public void userInitiatesThePaymentProcess() {
+	@Then("the user initiates the payment process")
+	public void theUserInitiatesThePaymentProcess() {
 		System.out.println("this is for stripe or not ");
 	}
 
-	@Then("User navigates to the Booking Request Successful page")
-	public void userNavigatesToTheBookingRequestSuccessfulPage() {
+	@Then("the user navigates to the Booking Request Successful page")
+	public void theUserNavigatesToTheBookingRequestSuccessfulPage() {
 		System.out.println("successful page");
 	}
 
-	@Then("User saves the booking details")
-	public void userSavesTheBookingDetails() throws InterruptedException {
+	@Then("the user saves the booking details")
+	public void theUserSavesTheBookingDetails() throws InterruptedException {
 		waitForElement(booking.getSuccessfullpageNavigation());
 		Thread.sleep(1000);
 		BookingPaidAmount = booking.getSucessfullpage_Amount().getAttribute("content-desc");
@@ -292,19 +303,19 @@ public class Booking extends Base {
 		ClickonElement(booking.getSucessfullpage_Newbooking());
 	}
 
-	@Then("User taps the My Bookings button")
-	public void userTapsTheMyBookingsButton() {
+	@Then("the user taps the My Bookings button")
+	public void theUserTapsTheMyBookingsButton() {
 		ClickonElement(mybookings.getSettingsTab());
 		ClickonElement(mybookings.getMyBookings());
 	}
 
-	@Then("User navigates to the My Bookings page")
-	public void userNavigatesToTheMyBookingsPage() {
+	@Then("the user navigates to the My Bookings page")
+	public void theUserNavigatesToTheMyBookingsPage() {
 		System.out.println("my bookins page ");
 	}
 
-	@Then("User verifies that the booking is listed on the My Bookings page")
-	public void userVerifiesThatTheBookingIsListedOnTheMyBookingsPage() throws InterruptedException {
+	@Then("the user verifies that the booking is listed on the My Bookings page")
+	public void theUserVerifiesThatTheBookingIsListedOnTheMyBookingsPage() throws InterruptedException {
 		Thread.sleep(3000);
 		By BookedDATE = By.xpath("//android.view.View[@content-desc='" + Booking.Booked_Date + "']");
 		System.out.println(BookedDATE);
@@ -349,6 +360,164 @@ public class Booking extends Base {
 		driver.hideKeyboard(); // Navigate back
 		Thread.sleep(2000);
 		ClickonElement(booking.getCompleteOrder()); // Click on the 'Pay' button
+	}
+
+	@Then("User invoices")
+	public void userInvoices() throws InterruptedException {
+		WE_Customer_Settings invoices = new WE_Customer_Settings(driver);
+		ClickonElement(invoices.getSettingsTab());
+		ClickonElement(invoices.getMyInvoices());
+		Thread.sleep(8000);
+		ClickonElement(invoices.getFirstInvoice());
+		Thread.sleep(6000);
+		By BookedSERVICE = By.xpath("//android.view.View[@content-desc='" + Booking.Booked_service + "']");
+		System.out.println(BookedSERVICE);
+//        By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmount + "']");
+		By BookedPAYMENT1 = By
+				.xpath("//android.view.View[@content-desc='" + Booking.BookingPaidAmountwithdecimal + "']");
+		System.out.println(BookedPAYMENT1);
+
+//        BookingPaidAmountwithdecimal
+		Thread.sleep(4000);
+		if (isElementAvailable(BookedSERVICE) && isElementAvailable(BookedPAYMENT1)) {
+			System.out.println("Booking successfully listed on My Invoices");
+			String attribute = invoices.getFindoutInvoiceNumber().getAttribute("content-desc");
+			System.out.println(attribute);
+			InvoiceNumber = attribute.replace(" #", ""); // Removes '#'
+			System.out.println(InvoiceNumber);
+
+		} else {
+			System.out.println("Not listed");
+		}
+		ClickonElement(invoices.getBackButton());
+		ClickonElement(invoices.getBackButton());
+		ClickonElement(invoices.getHomeTab());
+
+	}
+
+	@Then("User Statements")
+	public void userStatements() throws Exception {
+
+		WE_Customer_Settings statement = new WE_Customer_Settings(driver);
+		ClickonElement(statement.getSettingsTab());
+		ClickonElement(statement.getMyStatements());
+		LocalDate currentDate = LocalDate.now();
+		currentMonth = currentDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+		System.out.println("Current month: " + currentMonth);
+		Thread.sleep(1000);
+		By Current_Month = By.xpath("//android.view.View[@content-desc='" + currentMonth + "']");
+		Thread.sleep(3000);
+		clickOnElementUsingBy(Current_Month);
+		Thread.sleep(3000);
+
+		Thread.sleep(5000);
+		System.out.println(InvoiceNumber);
+		By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='" + InvoiceNumber + "']");
+		System.out.println(BookedPAYMENT1);
+		halfscrollUntilElementFound12(statement.getscroll(), BookedPAYMENT1);
+		if (isElementAvailable(BookedPAYMENT1)) {
+			System.out.println("Booking successfully listed on My statements");
+			Thread.sleep(3000);
+			String AttributeStatementCreatedDate = "//android.view.View[@content-desc='" + InvoiceNumber
+					+ "']/preceding-sibling::android.view.View[1]";
+			StatementCreatedDate = getContentDesc(AttributeStatementCreatedDate);
+			System.out.println("hhhdhd   :    " + StatementCreatedDate);
+
+		} else {
+			System.out.println("Not listed");
+		}
+		Thread.sleep(1000);
+		ClickonElement(statement.getBackButton());
+		Thread.sleep(2000);
+		ClickonElement(statement.getBackButton());
+		ClickonElement(statement.getHomeTab());
+
+	}
+
+	@When("the customer clicks on Invoice")
+	public void theCustomerClicksOnInvoice() {
+		ClickonElement(invoices.getMyInvoices());
+	}
+
+	@When("the customer selects the first invoice")
+	public void theCustomerSelectsTheFirstInvoice() throws InterruptedException {
+		Thread.sleep(8000);
+		ClickonElement(invoices.getFirstInvoice());
+
+	}
+
+	@Then("the customer checks the service locator and booking date locator")
+	public void theCustomerChecksTheServiceLocatorAndBookingDateLocator() throws InterruptedException {
+		Thread.sleep(6000);
+		By BookedSERVICE = By.xpath("//android.view.View[@content-desc='" + Booking.Booked_service + "']");
+		System.out.println(BookedSERVICE);
+//	        By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmount + "']");
+		By BookedPAYMENT1 = By
+				.xpath("//android.view.View[@content-desc='" + Booking.BookingPaidAmountwithdecimal + "']");
+		System.out.println(BookedPAYMENT1);
+
+//	        BookingPaidAmountwithdecimal
+		Thread.sleep(4000);
+		if (isElementAvailable(BookedSERVICE) && isElementAvailable(BookedPAYMENT1)) {
+			System.out.println("Booking successfully listed on My Invoices");
+			String attribute = invoices.getFindoutInvoiceNumber().getAttribute("content-desc");
+			System.out.println(attribute);
+			InvoiceNumber = attribute.replace(" #", ""); // Removes '#'
+			System.out.println(InvoiceNumber);
+
+		} else {
+			System.out.println("Not listed");
+		}
+
+	}
+
+	@Then("the customer goes back to the home page")
+	public void theCustomerGoesBackToTheHomePage() throws InterruptedException {
+		Thread.sleep(1000);
+		ClickonElement(invoices.getBackButton());
+		Thread.sleep(2000);
+		ClickonElement(invoices.getBackButton());
+		ClickonElement(invoices.getHomeTab());
+	}
+
+	@When("the customer clicks on Statements")
+	public void theCustomerClicksOnStatements() {
+		ClickonElement(statement.getMyStatements());
+	}
+
+	@When("the customer selects the current month")
+	public void theCustomerSelectsTheCurrentMonth() throws InterruptedException {
+		LocalDate currentDate = LocalDate.now();
+		currentMonth = currentDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+		System.out.println("Current month: " + currentMonth);
+		Thread.sleep(1000);
+		By Current_Month = By.xpath("//android.view.View[@content-desc='" + currentMonth + "']");
+		Thread.sleep(3000);
+		clickOnElementUsingBy(Current_Month);
+
+	}
+
+	@Then("the customer checks if the saved invoice number is listed")
+	public void theCustomerChecksIfTheSavedInvoiceNumberIsListed() throws Exception {
+		Thread.sleep(3000);
+
+		Thread.sleep(5000);
+		System.out.println(InvoiceNumber);
+		By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='" + InvoiceNumber + "']");
+		System.out.println(BookedPAYMENT1);
+		halfscrollUntilElementFound12(statement.getscroll(), BookedPAYMENT1);
+		if (isElementAvailable(BookedPAYMENT1)) {
+			System.out.println("Booking successfully listed on My statements");
+			Thread.sleep(3000);
+			String AttributeStatementCreatedDate = "//android.view.View[@content-desc='" + InvoiceNumber
+					+ "']/preceding-sibling::android.view.View[1]";
+			StatementCreatedDate = getContentDesc(AttributeStatementCreatedDate);
+			System.out.println("hhhdhd   :    " + StatementCreatedDate);
+
+		} else {
+			System.out.println("Not listed");
+		}
+
 	}
 
 }

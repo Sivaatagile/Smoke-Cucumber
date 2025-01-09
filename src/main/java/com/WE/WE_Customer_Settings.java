@@ -100,12 +100,8 @@ public class WE_Customer_Settings extends Base{
 	
 	 
 	 
-//	
-//	@FindBy(xpath = "")
-//	private WebElement ;
-//	public WebElement get() {
-//		return ;
-//	}
+	
+	
 //	
 //	@FindBy(xpath = "")
 //	private WebElement ;
