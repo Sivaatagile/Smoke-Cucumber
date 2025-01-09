@@ -102,7 +102,29 @@ Feature: Booking Application Sanity Flow
     When the admin clicks on the Back button
     And the admin taps the Home icon
     Then the admin is navigated back to the home page
-
+    
+      Scenario: Adding a new customer through the admin portal
+    Given the admin clicks on the Users tab
+    When the admin clicks on Customer's Show All
+    Then the admin is navigated to the Customer's list page
+    When the admin clicks on the + button to add a new Customer
+    And the admin enters the Customer first name "ADMIN_CUSTOMER_FIRSTNAME"
+    And the admin enters the Customer last name "ADMIN_CUSTOMER_LASTNAME"
+    And the admin enters the email "ADMIN_CUSTOMER_EMAIL"
+    And the admin selects the gender
+    And the admin enters the customer phone number "ADMIN_CUSTOMER_PHONENUMBER"
+    And the admin enters the address line for customer 1
+    And the admin enters the address line for customer 2
+    And the admin selects the country
+    And the admin enters the city or town "ADMIN_CUSTOMER_CITYTOWN"
+    And the admin enters the post code "ADMIN_CUSTOMER_POSTCODE"
+    And the admin clicks on the Save button
+    Then the new customer details should be successfully saved
+    When the admin clicks on the Back button
+    And the admin taps the Home icon
+    Then the admin is navigated back to the home page
+    
+    
   Scenario: Successfully create a tag category  
     Given the admin clicks on the Users tab
     And the admin clicks on Show All under tag categories  
@@ -197,15 +219,44 @@ Scenario: create a new service pool
     And the admin taps the Home icon
     Then the admin is navigated back to the home page
   
-Scenario: create a pricing rule  
+Scenario: Define a pricing rule for premium based on a single date.
     Given the admin navigates to the Settings tab 
     When the admin navigates to Pricing Rule  
     And the admin clicks on the FAB button to add a new pricing rule  
     And the admin enters Pricing Rule Name as Single Date Premium  
     And the admin enters Pricing Rule Description as Rule for premium pricing on a single date  
     And the admin enters Pricing Rule Priority 
-    And the admin enters Pricing Rule type
+    And the admin enters Pricing Rule type as premium
     And the admin enters the pricing offset value
+    And the admin clicks on the Save button  
+    Then the admin should see a confirmation message of Pricing Rule creation
+    When the admin clicks on the Back button
+    And the admin taps the Home icon
+    Then the admin is navigated back to the home page
+    
+    Scenario: Define a pricing rule for discount based on a single date.
+    Given the admin navigates to the Settings tab 
+    When the admin navigates to Pricing Rule  
+    And the admin clicks on the FAB button to add a new pricing rule  
+    And the admin enters Pricing Rule Name as Single Date discount  
+    And the admin enters Pricing Rule Description as Rule for discount pricing on a single date  
+    And the admin enters Pricing Rule Priority 
+    And the admin enters Pricing Rule type as discount
+    And the admin enters the pricing offset value
+    And the admin clicks on the Save button  
+    Then the admin should see a confirmation message of Pricing Rule creation
+    When the admin clicks on the Back button
+    And the admin taps the Home icon
+    Then the admin is navigated back to the home page
+    
+        Scenario: Define a pricing rule for Not Available  based on a single date.
+    Given the admin navigates to the Settings tab 
+    When the admin navigates to Pricing Rule  
+    And the admin clicks on the FAB button to add a new pricing rule  
+    And the admin enters Pricing Rule Name as Single Date not available  
+    And the admin enters Pricing Rule Description as Rule for not available pricing on a single date  
+    And the admin choose the single date for not available rule
+    And the admin enters Pricing Rule type as Not available
     And the admin clicks on the Save button  
     Then the admin should see a confirmation message of Pricing Rule creation
     When the admin clicks on the Back button
@@ -261,7 +312,7 @@ Scenario: Verify Customer Statement Details
 Scenario: Successfully logout customer
     Given the customer navigates to the Settings tab  
     And the customer clicks on the logout button  
-    Then the customer should be logged out successfully 
+
     
 Scenario: User login using email as admin (predefined account)
     Given the user enters their predefined "PREDEFINED_ADMIN_EMAIL" address

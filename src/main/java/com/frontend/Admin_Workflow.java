@@ -43,7 +43,6 @@ public class Admin_Workflow extends Base {
 		ClickonElement(workflow.getDate_Slot()); // Click on date filter
 		scrollUntilElementFound(workflow.getDate(), workflow.getBookedDateLocator()); // Scroll to find booked date
 		scrollUntilElementFound(workflow.getSlot(), workflow.getBookedSlotLocator()); // Scroll to find booked slot
-
 		Thread.sleep(5000);
 		ClickonElement(workflow.getSelect()); // Click on select button
 
@@ -92,10 +91,6 @@ public class Admin_Workflow extends Base {
 		WebElement elements = driver.findElement(By.xpath(
 				"//android.view.View[contains(@content-desc, 'unassigned_customer_name')]/android.widget.ImageView[3]"));
 		elements.click();
-		// List oda size-a eduthutu iterate pannaum
-
-//		ClickAllListElements(workflow.getImageviewCheckbox());
-//		ClickonElement(workflow.getPartially_Assigned_Toggle());
 		Thread.sleep(1500);
 		ClickonElement(workflow.getAssign_Selected()); // Click on Assign Selected button
 
@@ -205,21 +200,11 @@ public class Admin_Workflow extends Base {
 				"//android.view.View[@content-desc=\"booking_page_calenderWidget\"]/android.view.View/android.view.View/android.view.View/android.view.View"));
 		int size = calendarElements.size();
 		if (size > 7) {
-//			List<WebElement> remainingElements = calendarElements.subList(7, size);
-//			Random rand = new Random();
-//			int randomIndex = rand.nextInt(remainingElements.size());
-//			System.out.println(randomIndex);
-//			WebElement randomElement = remainingElements.get(randomIndex);
-//			randomElement.click();
-
 			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
 			String formattedDateStr = BookingDate_as_ADMIN.format(formatter1);
-
-			// Check if the date portion starts with "0" and remove it if so
 			if (formattedDateStr.charAt(formattedDateStr.indexOf(",") + 6) == '0') {
 				formattedDateStr = formattedDateStr.replaceFirst(" 0", " ");
 			}
-
 			System.out.println("Formatted Date: " + formattedDateStr);
 			Thread.sleep(5000);
 			WebElement findElement = driver
@@ -228,21 +213,16 @@ public class Admin_Workflow extends Base {
 			Thread.sleep(1000);
 			String Booked_Date123 = findElement.getAttribute("content-desc");
 			System.out.println(Booked_Date123);
-
 			DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
 			DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd, yyyy");
-
 			LocalDate parsedDate = LocalDate.parse(Booked_Date123, inputFormat);
 			Booked_Date_as_ADMIN = parsedDate.format(outputFormat);
 			System.out.println(Booked_Date_as_ADMIN);
-
 			String day = Booked_Date_as_ADMIN.split(" ")[2].replace(",", "");
 			System.out.println("Day: " + day);
-
 		} else {
 			System.out.println("There are less than 8 elements, cannot proceed.");
 		}
-
 		ClickonElement(home.getCheckAvailability());
 		Thread.sleep(2000);
 		Booked_Date_as_ADMIN = booking.getserviceName().getAttribute("content-desc");
@@ -257,7 +237,6 @@ public class Admin_Workflow extends Base {
 		}
 		Thread.sleep(4000);
 		ClickonElement(home.getDone());
-
 	}
 
 }

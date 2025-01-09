@@ -124,11 +124,6 @@ public class Info extends Base {
 		passInput(PetInfo.getFeeding_Schedules(), getProperty("PET_FEEDING_DETAILS"));
 		driver.hideKeyboard();
 
-//		ClickonElement(PetInfo.getAdditional_Contacts());
-//		passInput(PetInfo.getAdditional_Contacts(), getProperty("PET_ADDITIONAL_CONTACT"));
-//		driver.hideKeyboard();
-
-		// Tap on behavioral information checkboxes
 		ClickonElement(PetInfo.getBehavioral_Information1());
 		ClickonElement(PetInfo.getBehavioral_Information2());
 		ClickonElement(PetInfo.getBehavioral_Information3());

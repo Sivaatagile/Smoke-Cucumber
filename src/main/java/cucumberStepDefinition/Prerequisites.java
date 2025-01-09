@@ -26,11 +26,22 @@ public class Prerequisites extends Base {
 		UpdateNameProperty("ADDON_SERVICE_NAME");
 		UpdateNameProperty("ADMIN_STAFF_FIRST_NAME");
 		UpdateEmailProperty("ADMIN_STAFF_EMAIL");
+		UpdateNameProperty("ADMIN_CUSTOMER_FIRSTNAME");
+		UpdateEmailProperty("ADMIN_CUSTOMER_EMAIL");
 		UpdateNameProperty("ADMIN_ADMIN_FIRST_NAME");
 		UpdateEmailProperty("ADMIN_ADMIN_EMAIL");
 		UpdateNameProperty("ADMIN_TAG_CATEGORY_NAME");
 		UpdateNameProperty("ADMIN_BREED_NAME");
 		UpdateNameProperty("SLOT_NAME");
+		UpdateNameProperty("POOL_NAME");
+		UpdateNameProperty("BREED_Name");
+		UpdateNameProperty("Pricingrulename_Onetime_premium");
+		UpdateNameProperty("Pricingrulename_Onetime_discount");
+		UpdateNameProperty("Pricingrulename_Onetime_notavailable");
+
+
+		
+		
 		System.out.println("working fine");
 		System.out.println("property loaded");
 	}

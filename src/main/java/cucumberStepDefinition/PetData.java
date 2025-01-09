@@ -41,8 +41,8 @@ public class PetData extends Base {
 		ClickonElement(PetInfo.getPetFemale());
 	}
 
-	@When("the use need to select the birth of dog")
-	public void theUseNeedToSelectTheBirthOfDog() throws Exception {
+	@When("the user needs to select the birth of dog")
+	public void theUserNeedsToSelectTheBirthOfDog() throws Exception {
 		ClickonElement(PetInfo.getDate_Of_Birth());
 		Thread.sleep(2000);
 		scrollupRandomly(PetInfo.getDate_Format().get(2));

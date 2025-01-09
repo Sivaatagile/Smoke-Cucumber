@@ -11,8 +11,6 @@ import io.appium.java_client.android.AndroidDriver;
 
 public class Login_Details extends Base {
 
-//	public static AndroidDriver driver;
-
 	public static void signupCustomer() throws InterruptedException {
 		WE_Login_Details signup = new WE_Login_Details(driver);
 		ClickonElement(signup.getSignUp());
@@ -24,7 +22,6 @@ public class Login_Details extends Base {
 		String otp = getOtpFromSource();
 		Thread.sleep(2000);
 		passInputUsingActions(signup.getOTP(), otp);
-
 	}
 
 	public static void login_Customer() throws InterruptedException {
@@ -39,7 +36,6 @@ public class Login_Details extends Base {
 		Thread.sleep(2000);
 		passInputUsingActions(login.getOTP(), otp);
 		driver.hideKeyboard();
-//		ClickonElement(login.getSignInButton());
 	}
 
 	public static void Logout_Customer() {
@@ -57,7 +53,6 @@ public class Login_Details extends Base {
 		waitForElement(login.getEnterORPaste());
 		passInputUsingActions(login.getOTP(), getProperty("PREDEFINED_ADMIN_OTP"));
 		driver.hideKeyboard();
-//		ClickonElement(login.getSignInButton());
 	}
 
 	public static void Logout_Admin() {
@@ -76,7 +71,6 @@ public class Login_Details extends Base {
 		waitForElement(login.getEnterORPaste());
 		passInputUsingActions(login.getOTP(), getProperty("PREDEFINED_STAFF_OTP"));
 		driver.hideKeyboard();
-//		ClickonElement(login.getSignInButton());
 	}
 
 	public static void Predefined_login_Customer() throws InterruptedException {
@@ -88,7 +82,6 @@ public class Login_Details extends Base {
 		waitForElement(login.getEnterORPaste());
 		passInputUsingActions(login.getOTP(), getProperty("PREDEFINED_CUSTOMER_OTP"));
 		driver.hideKeyboard();
-//		ClickonElement(login.getSignInButton());
 	}
 
 	public static void main(String[] args) throws InterruptedException, IOException {

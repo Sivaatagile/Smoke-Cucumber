@@ -31,7 +31,11 @@ public class WE_Admin_User extends  Base{
 		return   PhoneNumber  ;
 	}
 	
-	
+	@FindBy (xpath ="//*[starts-with(@content-desc,'Phone number')]/following-sibling::android.widget.EditText[1]")
+	private WebElement   Phonenumber ;
+	public WebElement getPhonenumber() {
+		return   Phonenumber  ;
+	}
 	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Save\"]")
 	private WebElement    Save;
@@ -44,6 +48,13 @@ public class WE_Admin_User extends  Base{
 	public WebElement getCountryName() {
 		return   CountryName  ;
 	}
+	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"All Customers\"]")
+	private WebElement  AllCustomers;
+	public WebElement getAllCustomers() {
+		return AllCustomers;
+	}
+
 	
 	@FindBy (xpath ="(//android.widget.Button)[2]")
 	private WebElement  FAB  ;
@@ -58,10 +69,21 @@ public class WE_Admin_User extends  Base{
 		return     FirstName;
 	}
 	
+	@FindBy (xpath ="//*[starts-with(@hint,'First name')]")
+	private WebElement  Firstname  ;
+	public WebElement getFirstname() {
+		return     Firstname;
+	}
+	
 	@FindBy (xpath ="//*[starts-with(@hint,'Last Name')]")
 	private WebElement  LastName  ;
 	public WebElement getLastName() {
 		return    LastName ;
+	}
+	@FindBy (xpath ="//*[starts-with(@hint,'Last name')]")
+	private WebElement  Lastname  ;
+	public WebElement getLastname() {
+		return    Lastname ;
 	}
 	
 	@FindBy (xpath ="//*[starts-with(@hint,'Email')]")

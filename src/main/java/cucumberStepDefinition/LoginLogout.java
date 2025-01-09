@@ -25,16 +25,16 @@ public class LoginLogout extends Base {
 		System.out.println("Check the login  elements  their after logout");
 	}
 
-	@Given("the user enters their  {string} address")
-	public void theUserEntersTheirAddress(String staffEmail) {
+	@Given("the customer enters their {string} address")
+	public void theCustomerEntersTheirAddress(String customerEmail) {
 		ClickonElement(login.getContinueWithEmail());
-		passInput(login.getContinueWithEmail(), getProperty(staffEmail));
+		passInput(login.getContinueWithEmail(), getProperty(customerEmail));
 		driver.hideKeyboard();
 
 	}
 
-	@When("the user enters the Otp")
-	public void theUserEntersTheOtp() throws InterruptedException {
+	@When("the customer enters the Otp")
+	public void theCustomerEntersTheOtp() throws InterruptedException {
 		Thread.sleep(5000);
 		String otp_Received = getOtpFromSource();
 		System.out.println("The OTP is  : " + otp_Received);
@@ -52,11 +52,43 @@ public class LoginLogout extends Base {
 	public void theCustomerClicksOnTheLogoutButton() {
 		ClickonElement(login.getLogout());
 	}
+	
+	@When("the customer clicks on the Continue button")
+	public void theCustomerClicksOnTheContinueButton() {
+		ClickonElement(login.getContinueButton());
+	}
 
-	@Then("the customer should be logged out successfully")
-	public void theCustomerShouldBeLoggedOutSuccessfully() throws InterruptedException {
+	@Then("the customer should be logged in successfully")
+	public void theCustomerShouldBeLoggedInSuccessfully() throws InterruptedException {
 		Thread.sleep(10000);
 		System.out.println("good ");
+	}
+	
+	
+	@Given("the staff enters their {string} address")
+	public void theStaffEntersTheirAddress(String staffEmail) {
+		ClickonElement(login.getContinueWithEmail());
+		passInput(login.getContinueWithEmail(), getProperty(staffEmail));
+		driver.hideKeyboard();
+	}
+	@When("the staff clicks on the Continue button")
+	public void theStaffClicksOnTheContinueButton() {
+		ClickonElement(login.getContinueButton());
+
+		
+	}
+	@When("the staff enters the Otp")
+	public void theStaffEntersTheOtp() throws InterruptedException {
+		Thread.sleep(5000);
+		String otp_Received = getOtpFromSource();
+		System.out.println("The OTP is  : " + otp_Received);
+		Thread.sleep(2000);
+		passInputUsingActions(login.getOTP(), otp_Received);
+	}
+	@Then("the staff should be logged in successfully")
+	public void theStaffShouldBeLoggedInSuccessfully() throws InterruptedException {
+	   Thread.sleep(10000);
+	   System.out.println("good");
 	}
 
 }

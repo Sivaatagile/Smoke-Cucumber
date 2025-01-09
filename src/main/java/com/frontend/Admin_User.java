@@ -5,6 +5,7 @@ import com.WE.WE_Admin_WorkFlow;
 import com.WE.WE_Info;
 import com.baseClass.Base;
 
+
 import io.qameta.allure.Allure;
 
 public class Admin_User extends Base {
@@ -55,8 +56,6 @@ public class Admin_User extends Base {
 
 		ClickonElement(user.getCountry());
 		ClickonElement(user.getCountryName());
-//		passInput(user.getCountry(), "United Kingdom");
-//		driver.hideKeyboard();
 
 		ClickonElement(user.getPostCode());
 		passInput(user.getPostCode(), getProperty("ADMIN_POSTCODE"));
@@ -68,6 +67,51 @@ public class Admin_User extends Base {
 
 	}
 
+	
+	public static void Create_Customer() throws InterruptedException {
+		WE_Admin_User user = new WE_Admin_User(driver);
+		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+		WE_Info info = new WE_Info(driver);
+
+		ClickonElement(workflow.getUsers_navigation_Bar());
+		ClickonElement(user.getShowall_AllCustomers());
+		ClickonElement(user.getFAB());
+		ClickonElement(user.getFirstname());
+		passInput(user.getFirstname(), getProperty("CUSTOMER_FIRSTNAME"));
+		driver.hideKeyboard();
+		ClickonElement(user.getLastname());
+		passInput(user.getLastname(), getProperty("CUSTOMER_LASTNAME"));
+		driver.hideKeyboard();
+		ClickonElement(user.getEmail());
+		passInput(user.getEmail(), getProperty("CUSTOMER_EMAIL"));
+		driver.hideKeyboard();
+		Thread.sleep(1000);
+		ClickonElement(user.getFemale());
+		ClickonElement(user.getMale());
+		Thread.sleep(1000);
+		ClickonElement(user.getPhonenumber());
+		passInput(user.getPhonenumber(), getProperty("CUSTOMER_PHONENUMBER"));
+		driver.hideKeyboard();
+		ClickonElement(user.getAddressLine1());
+		passInput(user.getAddressLine1(), getProperty("CUSTOMER_ADDRESSLINE_1"));
+		driver.hideKeyboard();
+		ClickonElement(user.getAddressLine2());
+		passInput(user.getAddressLine2(), getProperty("CUSTOMER_ADDRESSLINE_2"));
+		driver.hideKeyboard();
+		ClickonElement(user.getCity());
+		passInput(user.getCity(), getProperty("CUSTOMER_CITYTOWN"));
+		driver.hideKeyboard();
+		ClickonElement(user.getPostCode());
+		passInput(user.getPostCode(), getProperty("CUSTOMER_POSTCODE"));
+		driver.hideKeyboard();
+		scrollDown();
+		ClickonElement(user.getCountry());
+		ClickonElement(user.getCountryName());
+		ClickonElement(user.getSave());
+		waitForElement(user.getAllCustomers());
+		ClickonElement(info.getBackButton());
+	}
+	
 	public static void CreateTag() throws Exception {
 		WE_Admin_User user = new WE_Admin_User(driver);
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
@@ -156,8 +200,6 @@ public class Admin_User extends Base {
 
 		ClickonElement(user.getCountry());
 		ClickonElement(user.getCountryName());
-//		passInput(user.getCountry(), "");
-//		driver.hideKeyboard();
 
 		ClickonElement(user.getPostCode());
 		passInput(user.getPostCode(), getProperty("ADMIN_STAFF_POSTCODE"));
@@ -199,8 +241,6 @@ public class Admin_User extends Base {
 		Thread.sleep(2000);
 		clickOnElementUsingBy(user.EyeIcon1);
 		Thread.sleep(2000);
-//		waitForElement(user.getProfilePhone_Number());
-//		Thread.sleep(2000);
 		boolean isElementFound = false;
 		Thread.sleep(1000);
 		while (!isElementFound) {

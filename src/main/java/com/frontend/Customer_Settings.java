@@ -13,9 +13,7 @@ import com.baseClass.Base;
 
 public class Customer_Settings extends Base {
 
-	public static String InvoiceNumber;
-	public static String currentMonth;
-	public static String StatementCreatedDate;
+
 
 	public static void MyBookings() throws InterruptedException {
 		WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
@@ -33,37 +31,14 @@ public class Customer_Settings extends Base {
 				.xpath("//android.view.View[@content-desc='" + Customer_Bookingflow.BookingPaidAmount + "']");
 		System.out.println(BookedPAYMENT);
 		System.out.println(Customer_Bookingflow.Selected_Slot);
-
 		if (isElementAvailable(BookedDATE) && isElementAvailable(BookedSLOT) && isElementAvailable(BookedSERVICE)
 				&& isElementAvailable(BookedPAYMENT)) {
 			System.out.println("Booking successfully listed on My Bookings");
 		} else {
 			System.out.println("Not listed");
 		}
-
-//		if (isElementAvailable(BookedDATE)) {
-//			System.out.println("Booking date available");
-//		}else {
-//			System.out.println("hgeye");
-//		}
-//		if (isElementAvailable(BookedSLOT)) {
-//			System.out.println("Booking slot available");
-//		}else {
-//			System.out.println("hgeye");
-//		}
-//		if (isElementAvailable(BookedSERVICE)) {
-//			System.out.println("Booking service available");
-//		}else {
-//			System.out.println("hgeye");
-//		}
-//		if (isElementAvailable(BookedPAYMENT)) {
-//			System.out.println("Booking payment available");
-//		}else {
-//			System.out.println("hgeye");
-//		}
 		ClickonElement(mybookings.getBackButton());
 		ClickonElement(mybookings.getHomeTab());
-
 	}
 
 	public static void Invoices() throws InterruptedException {
@@ -76,12 +51,9 @@ public class Customer_Settings extends Base {
 		Thread.sleep(8000);
 		By BookedSERVICE = By.xpath("//android.view.View[@content-desc='" + Customer_Bookingflow.Booked_service + "']");
 		System.out.println(BookedSERVICE);
-//        By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmount + "']");
 		By BookedPAYMENT1 = By.xpath(
 				"//android.view.View[@content-desc='" + Customer_Bookingflow.BookingPaidAmountwithdecimal + "']");
 		System.out.println(BookedPAYMENT1);
-
-//        BookingPaidAmountwithdecimal
 		Thread.sleep(5000);
 		if (isElementAvailable(BookedSERVICE) && isElementAvailable(BookedPAYMENT1)) {
 			System.out.println("Booking successfully listed on My Invoices");
@@ -89,7 +61,6 @@ public class Customer_Settings extends Base {
 			System.out.println(attribute);
 			InvoiceNumber = attribute.replace(" #", ""); // Removes '#'
 			System.out.println(InvoiceNumber);
-
 		} else {
 			System.out.println("Not listed");
 		}
@@ -111,7 +82,6 @@ public class Customer_Settings extends Base {
 		Thread.sleep(3000);
 		clickOnElementUsingBy(Current_Month);
 		Thread.sleep(3000);
-
 		Thread.sleep(5000);
 		System.out.println(InvoiceNumber);
 		By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='" + InvoiceNumber + "']");
@@ -119,7 +89,6 @@ public class Customer_Settings extends Base {
 		halfscrollUntilElementFound12(statement.getscroll(), BookedPAYMENT1);
 		if (isElementAvailable(BookedPAYMENT1)) {
 			System.out.println("Booking successfully listed on My statements");
-
 			Thread.sleep(3000);
 			String AttributeStatementCreatedDate = "//android.view.View[@content-desc='" + InvoiceNumber
 					+ "']/preceding-sibling::android.view.View[1]";
@@ -128,7 +97,7 @@ public class Customer_Settings extends Base {
 		} else {
 			System.out.println("Not listed");
 		}
-
 	}
-
+	
+	
 }

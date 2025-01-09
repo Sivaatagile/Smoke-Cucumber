@@ -48,10 +48,8 @@ public class Api extends Base {
 
 	public static String signInAdmin(String username) {
 
-		// Create a JSON object for the request body
 		JSONObject requestBody = new JSONObject();
 		requestBody.put("email", username);
-//        requestBody.put("password", password);
 		Response response = RestAssured.given().header("Content-Type", "application/json")
 				.header("X-API-Version", "100").header("User-Agent", "PostmanRuntime").body(requestBody.toString())
 				.post(BASE_URL + "/user/auth/mail-sign-in");
@@ -105,15 +103,11 @@ public class Api extends Base {
 		Thread.sleep(15000);
 		Response response = RestAssured.given().header("Content-Type", "application/json")
 				.header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
-				.header("Authorization", "Bearer " + VerifiedRefreshToken).get(BASE_URL + "service/list/service"); // replace
-																													// with
-																													// your
-																													// actual
-																													// endpoint
+				.header("Authorization", "Bearer " + VerifiedRefreshToken).get(BASE_URL + "service/list/service"); 
 		if (response.statusCode() == 200) {
 			JSONObject responseObject = new JSONObject(response.asString());
 			JSONArray servicesArray = responseObject.getJSONArray("data");
-			String targetServiceName = getProperty("SERVICE_NAME"); // replace with the desired service name
+			String targetServiceName = getProperty("SERVICE_NAME"); 
 			boolean serviceFound = false;
 			for (int i = 0; i < servicesArray.length(); i++) {
 				JSONObject service = servicesArray.getJSONObject(i);
@@ -160,7 +154,6 @@ public class Api extends Base {
 			System.out.println("Failed to get the response. Status code: " + response.statusCode());
 			System.out.println("Response: " + response.asString());
 		}
-
 	}
 
 	public static void OverallSlotList() {
@@ -184,52 +177,32 @@ public class Api extends Base {
 	}
 
 	public static void Priority() {
-
 		Response response = RestAssured.given().header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
 				.header("Content-Type", "application/json") // Add any necessary headers here
 				.header("Authorization", "Bearer " + VerifiedRefreshToken) // Replace with your actual token variable
 				.get(BASE_URL + "service/availability-pricing-rule/list"); // Replace with your actual API endpoint
-
-		// Print the status code to verify the request was successful
 		System.out.println("Response Status Code: " + response.getStatusCode());
-
-		// Convert the response body to a String
 		String responseBody = response.getBody().asString();
-
-		// Parse the response body as a JSONObject
 		JSONObject jsonResponse = new JSONObject(responseBody);
-
-		// Extract the 'data' array
 		JSONArray dataArray = jsonResponse.getJSONArray("data");
-
-		// Initialize separate lists for names and priorities
 		List<String> nameList = new ArrayList<>();
 		priorityList = new ArrayList<>();
-
-		// Loop through the array and extract names and priorities
 		for (int i = 0; i < dataArray.length(); i++) {
 			JSONObject dataObject = dataArray.getJSONObject(i);
 			String name = dataObject.getString("name");
 			int priority = dataObject.getInt("priority");
-
-			// Add values to respective lists
 			nameList.add(name);
 			priorityList.add(priority);
 		}
-
-		// Print the lists
 		System.out.println("Names: " + nameList);
 		System.out.println("Priorities: " + priorityList);
-
 	}
 
 	public static void eliminatefrom100() {
-
 		List<Integer> rangeList = new ArrayList<>();
 		for (int i = 0; i <= 100; i++) {
 			rangeList.add(i);
 		}
-		// Remove all occurrences of priority numbers from the range list
 		for (Integer priority : priorityList) {
 			rangeList.remove(priority);
 		}
@@ -243,55 +216,31 @@ public class Api extends Base {
 	}
 
 	public static void OverallTagList() {
-
-		// Make the API request and capture the response
 		Response response = RestAssured.given().header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
 				.header("Content-Type", "application/json") // Add any necessary headers here
 				.header("Authorization", "Bearer " + VerifiedRefreshToken) // Replace with your actual token variable
 				.get(BASE_URL + "user/list/add_tag_category"); // Replace with your actual API endpoint
-
-		// Print the status code to verify the request was successful
 		System.out.println("Response Status Code: " + response.getStatusCode());
-
-		// Convert the response body to a String
 		String responseBody = response.getBody().asString();
-
-		// Parse the response body as a JSONObject
 		JSONObject jsonResponse = new JSONObject(responseBody);
-
-		// Extract 'recordsTotal'
 		int TotalTagCount = jsonResponse.getInt("recordsTotal");
 		System.out.println("Records Total: " + TotalTagCount);
-
-		// Extract the 'data' array
 		JSONArray dataArray = jsonResponse.getJSONArray("data");
-
-		// Initialize a list to store formatted tag and subdata names
 		List<String> formattedOutput = new ArrayList<>();
-
-		// Loop through the array and format the output
 		for (int i = 0; i < dataArray.length(); i++) {
 			JSONObject tag = dataArray.getJSONObject(i);
 			String tagName = tag.getString("category_name");
-
-			// Check if the tag has 'subdata' and it's not empty
 			if (tag.has("subdata") && tag.getJSONArray("subdata").length() > 0) {
 				JSONArray subdataArray = tag.getJSONArray("subdata");
-
-				// Loop through each item in 'subdata'
 				for (int j = 0; j < subdataArray.length(); j++) {
 					JSONObject subdataItem = subdataArray.getJSONObject(j);
 					String subName = subdataItem.getString("name"); // Extract the sub-name
-
-					// Add the formatted tag and sub-name to the list
 					formattedOutput.add(tagName + " , " + subName);
 				}
 			} else {
-				// If there is no subdata for this tag
 				formattedOutput.add(tagName + " , No subdata available");
 			}
 		}
-		// Print the formatted output
 		for (String line : formattedOutput) {
 			System.out.println(line);
 		}

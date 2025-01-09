@@ -50,6 +50,7 @@ public class Admin_Services extends Base {
 
 	public static void selectSlot(List<String> slotList) throws Exception {
 		WE_Admin_Services Service = new WE_Admin_Services(driver);
+		
 		Collections.reverse(slotList);
 		WebElement Firstslot = driver
 				.findElement(By.xpath("//android.view.View[@content-desc='" + slotList.get(0) + "']"));
@@ -65,7 +66,6 @@ public class Admin_Services extends Base {
 					slotElement.click();
 					isSlotFound = true;
 					System.out.println("Slot clicked: " + slot);
-
 				} catch (NoSuchElementException e) {
 					// Slot not found, perform scroll action
 					System.out.println("Slot not found, scrolling...");
@@ -156,7 +156,6 @@ public class Admin_Services extends Base {
 		Thread.sleep(3000);
 		ClickonElement(Addon.getFab_Service());
 		ClickonElement(Addon.getAddon());
-
 		ClickonElement(Addon.getAddon_name());
 		passInput(Addon.getAddon_name(), getProperty("ADDON_ASSIGNABLE_NAME"));
 		driver.hideKeyboard();
@@ -166,7 +165,6 @@ public class Admin_Services extends Base {
 		driver.hideKeyboard();
 
 		Addon.toggleAddOn(addOnType);
-		;
 
 		int Slot_size = Addon.getSlot_list().size();
 		System.out.println("size of slot list  : " + Slot_size);

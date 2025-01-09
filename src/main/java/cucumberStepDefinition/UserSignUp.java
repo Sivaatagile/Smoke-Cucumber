@@ -29,7 +29,7 @@ public class UserSignUp extends Base {
 
 	@Then("the user receives an OTP in their email")
 	public void theUserReceivesAnOTPInTheirEmail() throws InterruptedException {
-		Thread.sleep(10000);
+		Thread.sleep(4000);
 		otp_Received = getOtpFromSource();
 		System.out.println("The OTP is  : " + otp_Received);
 	}

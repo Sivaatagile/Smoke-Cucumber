@@ -17,8 +17,8 @@ public class AdminUserApproval extends Base {
 		ClickonElement(workflow.getUsers_navigation_Bar());
 	}
 
-	@When("clicks on the Pending Requests showall option")
-	public void clicksOnThePendingRequestsShowallOption() {
+	@When("the admin clicks on the Pending Requests showall option")
+	public void theAdminClicksOnThePendingRequestsShowallOption() {
 		ClickonElement(user.getShowall_PendingRequest());
 	}
 
@@ -48,8 +48,8 @@ public class AdminUserApproval extends Base {
 		clickOnElementUsingBy(user.EyeIcon1);
 	}
 
-	@When("scrolls down to find the Accept button and click it")
-	public void scrollsDownToFindTheAcceptButtonAndClickIt() throws InterruptedException {
+	@When("scrolls down to find the Accept button and clicks it")
+	public void scrollsDownToFindTheAcceptButtonAndClicksIt() throws InterruptedException {
 		boolean isElementFound = false;
 		Thread.sleep(1000);
 		while (!isElementFound) {

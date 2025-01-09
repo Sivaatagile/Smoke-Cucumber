@@ -62,22 +62,22 @@ public class AdminWorkflow extends Base {
 		}
 	}
 
-	@Given("the user navigates to the Pending tab")
-	public void theUserNavigatesToThePendingTab() {
+	@Given("the admin navigates to the Pending tab")
+	public void theAdminNavigatesToThePendingTab() {
 		ClickonElement(workflow.getPending_Tab());
 		System.out.println("kkkk");
 	}
 
-	@When("the user selects the booking's service from the Service dropdown, opens the Date & Slot dropdown, and selects the booked date and slot")
-	public void theUserSelectsTheBookingSServiceFromTheServiceDropdownOpensTheDateSlotDropdownAndSelectsTheBookedDateAndSlot()
-			throws Exception {
+	
+	@When("the admin selects the booking's service from the Service dropdown, opens the Date & Slot dropdown, and selects the booked date and slot")
+	public void theAdminSelectsTheBookingSServiceFromTheServiceDropdownOpensTheDateSlotDropdownAndSelectsTheBookedDateAndSlot() throws Exception {
 		System.out.println("ppppp");
 
 		Assigned();
 	}
 
-	@When("the user applies the toggle button")
-	public void theUserAppliesTheToggleButton() throws InterruptedException {
+	@When("the admin applies the toggle button")
+	public void theAdminAppliesTheToggleButton() throws InterruptedException {
 		ClickonElement(workflow.getAddon_Toggle()); // Click on Add-on toggle button
 		Thread.sleep(2000); // Wait for 2 seconds
 		ClickonElement(workflow.getAddon_Toggle()); // Click on Add-on toggle button again
@@ -97,21 +97,21 @@ public class AdminWorkflow extends Base {
 
 	}
 
-	@Given("the user navigates to the Unassigned tab")
-	public void theUserNavigatesToTheUnassignedTab() {
+	@Given("the admin navigates to the Unassigned tab")
+	public void theAdminNavigatesToTheUnassignedTab() {
 		ClickonElement(workflow.getUnassigned_Tab()); // Click on Unassigned tab
 	}
 
-	@When("the user selects the specific booking")
-	public void theUserSelectsTheSpecificBooking() throws Exception {
+	@When("the admin selects the specific booking")
+	public void theAdminSelectsTheSpecificBooking() throws Exception {
 		ClickonElement(workflow.getStaffDropDown()); // Click on Staff filter
 		waitForElement(workflow.getscrollview());
 		Staff_for_assigned(); // Call Staff_for_assigned method
 
 	}
 
-	@When("the user assigns the booking to a staff member")
-	public void theUserAssignsTheBookingToAStaffMember() throws InterruptedException {
+	@When("the admin assigns the booking to a staff member")
+	public void theAdminAssignsTheBookingToAStaffMember() throws InterruptedException {
 		Thread.sleep(5000); // Wait for 2 seconds
 		WebElement elements = driver.findElement(By.xpath(
 				"//android.view.View[contains(@content-desc, 'unassigned_customer_name')]/android.widget.ImageView[3]"));

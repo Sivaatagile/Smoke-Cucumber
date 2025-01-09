@@ -148,6 +148,25 @@ public class WE_Admin_Settings extends Base{
 		return priority;
 	}
 	
+	@FindBy (xpath ="(//android.widget.SeekBar)[1]")
+	private WebElement  Month  ;
+	public WebElement getMonth() {
+		return    Month ;
+	}
+	
+	@FindBy (xpath ="(//android.widget.SeekBar)[2]")
+	private WebElement  Date  ;
+	public WebElement getDate() {
+		return    Date ;
+	}
+	
+	@FindBy (xpath ="(//android.widget.SeekBar)[3]")
+	private WebElement   Year ;
+	public WebElement getYear() {
+		return    Year ;
+	}
+	
+	
 	@FindBy(xpath = "//*[starts-with(@content-desc,'avatar_name')]")
 	private List<WebElement> check_slots;
 	public List<WebElement> getcheck_slots() {
@@ -424,17 +443,39 @@ public class WE_Admin_Settings extends Base{
 	public WebElement getpremium() {
 		return   premium  ;
 	}
-//	
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
+	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Discount\"]")
+	private WebElement   discount ;
+	public WebElement getdiscount() {
+		return   discount  ;
+	}
+	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Date\"]")
+	private WebElement  pricingruleDate  ;
+	public WebElement getpricingruleDate() {
+		return   pricingruleDate  ;
+	}
+	@FindBy (xpath ="(//android.widget.Button[@content-desc=\"Add Date\"]/preceding-sibling::android.view.View)[last()]")
+	private WebElement  Selectdate  ;
+	public WebElement getSelectdate() {
+		return   Selectdate  ;
+	}
+	
+	
+public static By ToMonthExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Month_PricingRule")));
+	
+	public static By ToDateExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Date_PricingRule")));
+	
+	public static By ToYearExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Year_PricingRule")));
+	
+	
+	
+public static By ToMonthExpectedNotAvailable = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Month_PricingRule_NotAvailable")));
+	
+	public static By ToDateExpectedNotAvailable = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Date_PricingRule_NotAvailable")));
+	
+	public static By ToYearExpectedNotAvailable = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Year_PricingRule_NotAvailable")));
+	
 //	@FindBy (xpath ="")
 //	private WebElement    ;
 //	public WebElement get() {
