@@ -11,7 +11,16 @@ public class CustomerSettings extends Base {
 	
 	
 	
-	
+	public static  void customer_accounts() {
+
+		if (Booking.Stripe) {
+			
+//			Booking.;
+			
+		}
+		
+		
+	}
 	
 	
 	

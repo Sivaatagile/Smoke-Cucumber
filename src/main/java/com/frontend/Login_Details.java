@@ -72,6 +72,15 @@ public class Login_Details extends Base {
 		passInputUsingActions(login.getOTP(), getProperty("PREDEFINED_STAFF_OTP"));
 		driver.hideKeyboard();
 	}
+	
+	public static  void stafflogout() {
+		WE_Login_Details login = new WE_Login_Details(driver);
+
+		ClickonElement(login.getstaffprofile());
+		scrollDown();
+		ClickonElement(login.getLogout());
+		
+	}
 
 	public static void Predefined_login_Customer() throws InterruptedException {
 		WE_Login_Details login = new WE_Login_Details(driver);

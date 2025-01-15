@@ -273,6 +273,7 @@ Scenario: Customer login using email (already created by admin)
     When the customer clicks on the Continue button
     And the customer enters the Otp 
     Then the customer should be logged in successfully
+
     
 Scenario: Create a Booking
     Given the user selects a service
@@ -320,8 +321,8 @@ Scenario: User login using email as admin (predefined account)
     And the user enters the Predefined Otp "PREDEFINED_ADMIN_OTP"
     Then the user should be logged in successfully
     
-#Scenario: admin statement covered 
-#Given admin statement 
+Scenario: admin statement covered 
+Given admin statement 
     
 Scenario: Approving a booking
     Given the admin navigates to the Pending tab
@@ -335,6 +336,37 @@ Scenario: Assigning a booking
     And the admin selects the specific booking
     And the admin assigns the booking to a staff member
     Then the booking should be assigned successfully
+    
+Scenario: Admin created a pet for an existing customer
+ Given the admin clicks on the Users tab
+    When the admin clicks on Customer's Show All
+    Then the admin is navigated to the Customer's list page
+    And the admin searches for the customer in the search box and selects the customer
+    And the admin clicks the view button for the selected customer
+    And the admin Clicks the My pets
+    And the admin taps the plus button to create a second pet 
+    And the user enters the pet's name "SECOND_PET_NAME"
+    And the user selects the pet's gender
+    And  the user needs to select the birth of dog
+    And the user selects the pet's breed
+    And the user selects the pet's size
+    And the admin enter the admin notes "SECOND_ADMIN_NOTES"
+    And the user enters any dietary issues "SECOND_PET_DIETARY_ISSUES"
+    And the user enters any allergies "SECOND_PET_ALLERGIES"
+    And the user enters the vet's name "SECOND_PET_VETNAME"
+    And the user enters the vet's address "SECOND_PET_VETADDRESS"
+    And the user enters the vet's phone number "SECOND_PET_VETPHONENUMBER"
+    And the user enters the microchip number "SECOND_PET_MICROCHIP"
+    And the user enters the contact person's name "SECOND_PET_CONTACT_PERSONNAME"
+    And the user enters the contact person's phone number "SECOND_PET_CONTACT_PERSONNUMBER"
+    And the user enters any special instructions "SECOND_PET_SPECIAL_INSTRUCTIONS"
+    And the user enters the feeding schedule "SECOND_PET_FEEDING_DETAILS"
+    And the user enters any additional contacts "SECOND_PET_ADDITIONAL_CONTACT"
+    And the user provides behavioral information
+    And the user clicks on the Save button
+    When the admin clicks on the Back button
+    When the admin clicks on the Back button
+    And the admin taps the Home icon
     
 Scenario: Successfully logout Admin 
     Given the admin navigates to the Settings tab  

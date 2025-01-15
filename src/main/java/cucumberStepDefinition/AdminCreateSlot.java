@@ -57,8 +57,9 @@ public class AdminCreateSlot extends Base {
 	}
 
 	@When("the admin clicks on the save button")
-	public void theAdminClicksOnTheSaveButton() {
+	public void theAdminClicksOnTheSaveButton() throws InterruptedException {
 		ClickonElement(slot.getSave());
+		Thread.sleep(5000);
 	}
 
 	@Then("the slot should be created successfully")

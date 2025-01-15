@@ -143,7 +143,7 @@ public class WE_Admin_Services extends Base{
 
 	
 	
-	@FindBy (xpath ="//*[starts-with(@content-desc,'Base Price')]/following-sibling::*[starts-with(@content-desc,'pet_label_Price')]/following-sibling::android.widget.EditText")
+	@FindBy (xpath ="//*[starts-with(@content-desc,'pets')]/parent::android.view.View/following-sibling::android.widget.EditText[1]")
 	private List<WebElement>  Baseprice  ;
 	public List<WebElement> getBaseprice() {
 		return   Baseprice  ;
@@ -224,10 +224,16 @@ public class WE_Admin_Services extends Base{
 		return    scrollview ;
 	}
 	
-	@FindBy (xpath ="(//*[starts-with(@content-desc,'Base Price')]/following-sibling::*[starts-with(@content-desc,'pet_label_Price')]/following-sibling::android.widget.EditText[4])[1]")
+	@FindBy (xpath ="(//*[starts-with(@content-desc,'pets')])[3]/parent::android.view.View/following-sibling::android.widget.EditText[1]")
 	private WebElement  FourthElement  ;
 	public WebElement getFourthElement() {
 		return  FourthElement   ;
+	}
+	
+	@FindBy (xpath ="(//*[starts-with(@content-desc,'Total price')])[1]/parent::android.view.View/following-sibling::android.widget.EditText[1]")
+	private WebElement  FirstElement  ;
+	public WebElement getFirstElement() {
+		return  FirstElement   ;
 	}
 	
 	public static By ToMonthExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Month")));

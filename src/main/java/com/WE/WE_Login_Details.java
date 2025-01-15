@@ -23,6 +23,21 @@ public class WE_Login_Details extends Base{
 		return SignUp;
 	}
 	
+	@FindBy(xpath = "//android.view.View[contains(@content-desc,\"Welcome\")]")
+	private WebElement welcome;
+	public WebElement getwelcome() {
+		return welcome;
+	}
+	
+	@FindBy(xpath = "//android.widget.CheckBox")
+	private WebElement checkbox;
+	public WebElement getcheckbox() {
+		return checkbox;
+	}
+	
+	
+	
+	//android.view.View[@content-desc="Welcome "]
 	@FindBy(xpath = "//android.widget.EditText[@hint='Continue with email']") 
 	private WebElement ContinueWithEmail;
 	public WebElement getContinueWithEmail() {
@@ -47,7 +62,7 @@ public class WE_Login_Details extends Base{
 		return EnterORPaste;
 	}
 	
-	@FindBy(xpath = "//*[starts-with(@content-desc,'Tab 2 of 2')]")
+	@FindBy(xpath = "//*[starts-with(@content-desc,'Tab 3 of 3')]")
 	private WebElement Settings;
 	public WebElement getSettings() {
 		return Settings;
@@ -75,6 +90,12 @@ public class WE_Login_Details extends Base{
 	private WebElement   AddInfoPage ;
 	public WebElement getAddInfoPage() {
 		return    AddInfoPage ;
+	}
+	
+	@FindBy (xpath ="//android.widget.Button")
+	private WebElement   staffprofile ;
+	public WebElement getstaffprofile() {
+		return    staffprofile ;
 	}
 	
 	

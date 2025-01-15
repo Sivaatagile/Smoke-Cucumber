@@ -38,9 +38,12 @@ public class Booking extends Base {
 	public static int BookingYear;
 	public static String BookingMonthProperCase;
 	public static String StatementCreatedDate;
+	
+	public static String TotalAmountWithSymbol;
 
 	public static String InvoiceNumber;
 	public static String currentMonth;
+	public static Boolean Stripe;
 
 	WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 	WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
@@ -53,7 +56,15 @@ public class Booking extends Base {
 	@Given("the user selects a service")
 	public void theUserSelectsAService() throws InterruptedException {
 		waitForElement(booking.getassorted());
+		Thread.sleep(3000);
+		ClickonElement(booking.gethelp());
+		Thread.sleep(1000);
+		driver.navigate().back();
+		Thread.sleep(3000);
+		waitForElement(booking.getassorted());
 		if (isElementAvailable(booking.getServiceShowAll())) {
+			Thread.sleep(1000);
+			Thread.sleep(3000);
 			ClickonElement(booking.getServiceShowAll());
 			ClickonElement(booking.getSearchServices());
 			Thread.sleep(1000);
@@ -259,10 +270,12 @@ public class Booking extends Base {
 				Thread.sleep(2000);
 				driver.context(webcontext);
 				Thread.sleep(10000);
+				
 				Stripe_Payment();
 				String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
 				System.out.println("native  : " + nativecontext);
 				driver.context(nativecontext);
+				Stripe =true;
 			}
 		} else {
 			ClickonElement(booking.getCheckBox());

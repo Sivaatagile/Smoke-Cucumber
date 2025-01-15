@@ -21,6 +21,7 @@ import com.frontend.Customer_Bookingflow;
 import com.frontend.Customer_Settings;
 import com.frontend.Info;
 import com.frontend.Login_Details;
+import com.frontend.sample;
 
 import io.appium.java_client.android.options.UiAutomator2Options;
 
@@ -148,17 +149,29 @@ public class TestRun extends Base {
 	}
 
 	public static void main(String[] args) throws Exception {
-
-//		deleteAllEmails();
+//		String generateRandomString = generateRandomString(7);
+////		deleteAllEmails();
+//		System.out.println(generateRandomString);
 		
 		method1("First");
 		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
 		Api.ServiceSlotTimeCount();
-		Api.OverallSlotList();
+		Api.OverallSlotList();					
 		OpenApplicationWithoutReset();
-		Login_Details.login_Admin();
-		Admin_User.Create_Customer();
+		Customer_Bookingflow.TwoPetBooking();
+//		Admin_User.second_pet();
+//		Login_Details.stafflogout();	
+		
+		
+		
+//		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
+//		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
+//		Api.ServiceSlotTimeCount();
+//		Api.OverallSlotList();																																																																															
+//		OpenApplicationWithoutReset();
+//		Login_Details.login_Admin();
+//		Admin_User.Create_Customer();
 ////		Admin_Workflow.Booking_For_Customer_As_Admin();
 //		Admin_Settings.CreatePricingRule();
 //		Login_Details.Logout_Admin();

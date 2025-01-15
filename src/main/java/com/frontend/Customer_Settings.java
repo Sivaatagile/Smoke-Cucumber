@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 import com.WE.WE_Customer_Settings;
 import com.baseClass.Base;
 
+import cucumberStepDefinition.Booking;
+
 public class Customer_Settings extends Base {
 
 
@@ -99,5 +101,21 @@ public class Customer_Settings extends Base {
 		}
 	}
 	
+	public static  void Accounts() throws InterruptedException {
+
+		WE_Customer_Settings statement = new WE_Customer_Settings(driver);
+		ClickonElement(statement.getSettingsTab());
+		ClickonElement(statement.getAccounts());
+		Thread.sleep(10000);
+		if (Booking.Stripe) {
+			
+			By sales = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
+			System.out.println(sales);
+			By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+Booking.TotalAmountWithSymbol+"']");
+			System.out.println(payment);
+		}
+		
+		
+	}
 	
 }

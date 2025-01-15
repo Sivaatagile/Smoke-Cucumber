@@ -80,11 +80,16 @@ public class AdminCreateService extends Base {
 
 	@When("the admin sets the {string} for {int} to {int} pets")
 	public void theAdminSetsTheForToPets(String string, Integer int1, Integer int2) throws Exception {
+		halfscrollUntilElementFound12(Service.getscrollview(), Service.getFirstElement());
+		ClickonElement(Service.getFirstElement());
+		passInput(Service.getFirstElement(), getProperty("BASE_PRICE_AMOUNT"));
+
+
 		halfscrollUntilElementFound12(Service.getscrollview(), Service.getFourthElement());
 		int BasePrice_size = Service.getBaseprice().size();
 		System.out.println("size of Base list  : " + BasePrice_size);
 		Thread.sleep(3000);
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			Thread.sleep(3000);
 			Service.getBaseprice().get(i).click();
 			Thread.sleep(5000);
@@ -142,6 +147,7 @@ public class AdminCreateService extends Base {
 		System.out.println("Year  : " + To_Year);
 		Thread.sleep(2000);
 		ClickonElement(Service.getSelect1());
+		Thread.sleep(20000);
 	}
 
 	@When("the admin taps the save button")

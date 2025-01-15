@@ -330,5 +330,29 @@ public class WE_Admin_User extends  Base{
 	public WebElement getSnackbarCreatedTag() {
 		return SnackbarCreatedTag;
 	}
+	
+	@FindBy(xpath = "//android.view.View[contains(@content-desc,\"user\")]")
+	private WebElement user;
+	public WebElement getuser() {
+		return user;
+	}
+	
+	@FindBy(xpath = "//android.view.View[contains(@content-desc,\"View\")]")
+	private WebElement view;
+	public WebElement getview() {
+		return view;
+	}
+	
+	@FindBy(xpath = "//android.view.View[contains(@content-desc,\"My Pet\")]")
+	private WebElement MyPet;
+	public WebElement getMyPet() {
+		return MyPet;
+	}
+	//android.view.View[@content-desc="My Pet(s)"]
+	
+	//android.view.View[@content-desc="View Customer"]
+	
+	public static By trySearchingagain = By.xpath("//android.view.View[@content-desc=\"Try searching again using a different spelling or keyword.\"]");
+	
 
 }

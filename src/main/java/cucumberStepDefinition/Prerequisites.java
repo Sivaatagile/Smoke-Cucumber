@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import org.openqa.selenium.interactions.Actions;
+
 import com.WE.WE_Info;
 import com.WE.WE_Login_Details;
 import com.api.Api;
@@ -18,6 +20,7 @@ public class Prerequisites extends Base {
 		method1("First");
 		UpdateEmailProperty("SIGNUP_EMAIL");
 		UpdateNameProperty("PET_NAME");
+		UpdateNameProperty("SECOND_PET_NAME");
 		UpdateNameProperty("CUSTOMER_FIRSTNAME");
 		UpdateEmailProperty("CUSTOMER_EMAIL");
 		UpdateNameProperty("SERVICE_NAME");
@@ -38,8 +41,9 @@ public class Prerequisites extends Base {
 		UpdateNameProperty("Pricingrulename_Onetime_premium");
 		UpdateNameProperty("Pricingrulename_Onetime_discount");
 		UpdateNameProperty("Pricingrulename_Onetime_notavailable");
-
-
+		
+//		Actions action = new Actions(driver);
+//	    action.clickAndHold();
 		
 		
 		System.out.println("working fine");

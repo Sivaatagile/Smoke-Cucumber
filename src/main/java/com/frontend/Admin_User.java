@@ -299,5 +299,40 @@ public class Admin_User extends Base {
 		ClickonElement(user.getConfirm());
 
 	}
+	
+	public static  void second_pet() throws Exception {
+		WE_Admin_User user = new WE_Admin_User(driver);
+		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+		ClickonElement(workflow.getUsers_navigation_Bar());
+
+		waitForElement(user.getShowall_AllCustomers());
+		Thread.sleep(2000);
+		ClickonElement(user.getShowall_AllCustomers());
+		ClickonElement(user.getSearchBox());
+		Thread.sleep(3000);
+		passInput(user.getSearchBox(), getProperty("SIGNUP_EMAIL"));
+		driver.hideKeyboard();
+		Thread.sleep(4000);
+		if (isElementAvailable(user.getuser())) {
+			System.out.println("User Found ");
+			Thread.sleep(1000);
+			ClickonElement(user.getuser());
+			ClickonElement(user.getview());
+			ClickonElement(user.getMyPet());
+			
+			ClickonElement(user.getFAB());
+			Info.Pet_Data();
+			
+			
+			
+			
+		} else if (isElementAvailable(user.trySearchingagain)) {
+			System.out.println("User not found");
+			throw new Error("User not found");
+		}
+		
+	}
+	
+	
 
 }

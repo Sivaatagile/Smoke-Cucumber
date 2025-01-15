@@ -22,7 +22,7 @@ public class AdminSettings extends Base {
 		Thread.sleep(2000);
 		ClickonElement(settings.getsearch());
 		Thread.sleep(2000);
-		passInput(settings.getsearch(), getProperty("SIGNUP_FIRSTNAME"));
+		passInput(settings.getsearch(), getProperty("SIGNUP_EMAIL"));
 		clickOnElementUsingBy(settings.SignupFirstname);
 
 		Thread.sleep(5000);

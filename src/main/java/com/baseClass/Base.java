@@ -73,6 +73,19 @@ public class Base {
 
 //	----------------------------------------------->  Application details
 
+	 public static String generateRandomString(int length) {
+	        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	        StringBuilder randomString = new StringBuilder();
+	        Random random = new Random();
+
+	        for (int i = 0; i < length; i++) {
+	            int index = random.nextInt(characters.length());
+	            randomString.append(characters.charAt(index));
+	        }
+
+	        return randomString.toString();
+	    }
+	
 	public static void Application() throws MalformedURLException {
 		UiAutomator2Options options = new UiAutomator2Options(); // Create options object
 		String getEmulatorArch = getEmulatorArch("Pixel_6_Pro"); // Get emulator architecture
