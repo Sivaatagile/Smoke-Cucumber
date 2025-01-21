@@ -54,9 +54,9 @@ public class ReportProcess {
 																										// path
 		Base.sendEmailWithReport("developer@agilecyber.com", "Cucumber Test Report",
 				
-				"Please find the attached test report : \r\n" + "Date of Report Generation : " + currentDate +"\r\n"+ "Total Number of scenarios : 31\r\n" + "Passed : 21\r\n"
-						+ "Failed : 10\r\n" + "Details : Listed 31 scenarios are working fine\r\n"
-						+"Ten failed scenario is due to a replication issue, but I have rechecked, and creating a ticket for that issue"
+				"Please find the attached test report : \r\n" + "Date of Report Generation : " + currentDate +"\r\n"+ "Total Number of scenarios : 36\r\n" + "Passed : 34\r\n"
+						+ "Failed : 02\r\n" + "Details : Listed 34 scenarios are working fine\r\n"
+						+"2 failed scenarios are due to script issue also currently working on that script issue"
 //	                + "When creating a service, an issue occurs with the base price field. Specifically, the No.of.Pets field is labeled as No.of.<Pets>, causing the element to not be identified correctly, which triggers an error.\r\n"
 //	                + "\r\n"
 //	                + "Error 2 and 3:\r\n"

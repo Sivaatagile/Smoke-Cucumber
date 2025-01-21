@@ -82,6 +82,12 @@ public class WE_Customer_BookingFlow extends Base{
 		return   proceed  ;
 	}
 	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Total\"]//following-sibling::android.view.View[1]")
+	private WebElement   Totalamount ;
+	public WebElement getTotalamount() {
+		return   Totalamount  ;
+	}
+	
 	
 	//android.view.View[@content-desc="booking_page_label"]
 	

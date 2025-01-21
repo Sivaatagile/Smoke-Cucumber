@@ -186,7 +186,7 @@ public class Base {
 		// Load the properties from the file passed as argument
 		FileInputStream fis = new FileInputStream("src/test/java/" + fileName + ".properties");
 		properties.load(fis);
-		properties.list(System.out);
+//		properties.list(System.out);
 		System.out.println("property file loded");
 	}
 
@@ -903,7 +903,81 @@ public class Base {
 			System.out.println("Key not found: " + KeyValue);
 		}
 	}
+	
+	public static void UpdateNameProperty1(String KeyValue) throws FileNotFoundException, IOException {
+	    String filePath = workspacePath + getProperty("file_path");
+	    File file = new File(filePath);
+	    List<String> fileLines = new ArrayList<>();
+	    String updatedValue = null;
 
+	    // Get the current date and time in yyyyMMdd_HHmmss format
+	    String currentDateTime = new SimpleDateFormat("HHmmss").format(new Date());
+
+	    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            if (line.startsWith(KeyValue + "=")) {
+	                String originalValue = line.substring(line.indexOf('=') + 1);
+	                updatedValue = originalValue + currentDateTime; // Append date and time
+	                line = KeyValue + "=" + updatedValue;
+	            }
+	            fileLines.add(line);
+	        }
+	    }
+
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+	        for (String fileLine : fileLines) {
+	            writer.write(fileLine);
+	            writer.newLine();
+	        }
+	    }
+
+	    if (updatedValue != null) {
+	        System.out.println("Updated " + KeyValue + ": " + updatedValue);
+	    } else {
+	        System.out.println("Key not found: " + KeyValue);
+	    }
+	}
+
+	public static void UpdateNameProperty2(String KeyValue) throws FileNotFoundException, IOException {
+	    String filePath = workspacePath + getProperty("file_path");
+	    File file = new File(filePath);
+	    List<String> fileLines = new ArrayList<>();
+	    String updatedValue = null;
+
+	    // Get the current date and time in HHmmss format
+	    String currentDateTime = new SimpleDateFormat("HHmmss").format(new Date());
+
+	    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            if (line.startsWith(KeyValue + "=")) {
+	                String originalValue = line.substring(line.indexOf('=') + 1);
+	                // Remove last 6 digits and append currentDateTime
+	                if (originalValue.length() > 6) {
+	                    originalValue = originalValue.substring(0, originalValue.length() - 6);
+	                }
+	                updatedValue = originalValue + currentDateTime; // Append date and time
+	                line = KeyValue + "=" + updatedValue;
+	            }
+	            fileLines.add(line);
+	        }
+	    }
+
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+	        for (String fileLine : fileLines) {
+	            writer.write(fileLine);
+	            writer.newLine();
+	        }
+	    }
+
+	    if (updatedValue != null) {
+	        System.out.println("Updated " + KeyValue + ": " + updatedValue);
+	    } else {
+	        System.out.println("Key not found: " + KeyValue);
+	    }
+	}
+	
 	public static void sendEmailWithReport(String toEmail, String subject, String body, String reportPath) {
 		final String fromEmail = "testmobileacs@gmail.com"; // Change with your email
 		final String password = "tdrckyprwbzwinlg"; // Change with your email password

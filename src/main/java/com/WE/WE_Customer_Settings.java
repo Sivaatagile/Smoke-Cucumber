@@ -13,7 +13,7 @@ import io.appium.java_client.android.AndroidDriver;
 
 public class WE_Customer_Settings extends Base{
 	
-	
+	public static String TotalAmountWithSymbol;
 	
 	public WE_Customer_Settings(AndroidDriver driver1) {
 		this.driver = driver1;
@@ -66,7 +66,18 @@ public class WE_Customer_Settings extends Base{
 		return CustomerLogout;
 	}
 	
+	
+	public static By sales = By.xpath(String.format("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+TotalAmountWithSymbol+"']"));
+//	System.out.println(sales);
+	public static By payment = By.xpath(String.format("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+TotalAmountWithSymbol+"']"));
+//	System.out.println(payment);
 
+//	@FindBy(xpath = "//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+TotalAmountWithSymbol+"']")
+//	private WebElement sales;
+//	public WebElement getsales() {
+//		return sales;
+//	}
+//	
 	@FindBy(xpath = "(//android.widget.Button)[1]")
 	private WebElement BackButton;
 	public WebElement getBackButton() {

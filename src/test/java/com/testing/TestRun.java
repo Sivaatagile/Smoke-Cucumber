@@ -154,12 +154,13 @@ public class TestRun extends Base {
 //		System.out.println(generateRandomString);
 		
 		method1("First");
-		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
-		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
-		Api.ServiceSlotTimeCount();
-		Api.OverallSlotList();					
+//		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
+//		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
+//		Api.ServiceSlotTimeCount();
+//		Api.OverallSlotList();					
 		OpenApplicationWithoutReset();
-		Customer_Bookingflow.TwoPetBooking();
+		Customer_Settings.Accounts();
+//		Customer_Bookingflow.TwoPetBooking();
 //		Admin_User.second_pet();
 //		Login_Details.stafflogout();	
 		

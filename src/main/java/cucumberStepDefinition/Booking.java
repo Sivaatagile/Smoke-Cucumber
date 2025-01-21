@@ -57,11 +57,12 @@ public class Booking extends Base {
 	public void theUserSelectsAService() throws InterruptedException {
 		waitForElement(booking.getassorted());
 		Thread.sleep(3000);
-		ClickonElement(booking.gethelp());
+		ClickonElement(mybookings.getSettingsTab());
 		Thread.sleep(1000);
-		driver.navigate().back();
+		ClickonElement(mybookings.getHomeTab());
 		Thread.sleep(3000);
 		waitForElement(booking.getassorted());
+		System.out.println("nice");
 		if (isElementAvailable(booking.getServiceShowAll())) {
 			Thread.sleep(1000);
 			Thread.sleep(3000);
@@ -226,13 +227,18 @@ public class Booking extends Base {
 
 	@Then("the user navigates to the Review Booking page")
 	public void theUserNavigatesToTheReviewBookingPage() throws InterruptedException {
+		Thread.sleep(5000);
 		waitForElement(booking.getReviewBooking());
 		System.out.println("review booking page");
 	}
 
 	@Then("the user reviews the total amount and remaining credit amount")
 	public void theUserReviewsTheTotalAmountAndRemainingCreditAmount() throws InterruptedException {
+		Thread.sleep(2000);
+
 		String totalAmountText = booking.getTotal_Amount().getAttribute("content-desc");
+		TotalAmountWithSymbol=totalAmountText;
+		System.out.println("kkk    :--------------------------------         "+TotalAmountWithSymbol);
 		String remainingCreditText = booking.getRemaining_Credit().getAttribute("content-desc");
 		System.out.println("Total Amount is: " + totalAmountText);
 		System.out.println("Remaining Credit is: " + remainingCreditText);
@@ -241,12 +247,14 @@ public class Booking extends Base {
 		double remainingCredit = Double.parseDouble(remainingCreditText.replace("£", "").trim());
 		// Compare the values
 		if (totalAmount > remainingCredit) {
+			Stripe =true;
 			System.out.println("Total amount is greater than remaining credit. Navigating to payment page...");
 			// Click on checkbox and ConfirmANDPay to go to the next page
 			ClickonElement(booking.getCheckBox());
 			System.setProperty("webdriver.chrome.driver",
 					"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
 			ClickonElement(booking.getConfirmANDPay());
+		
 			// Run the appropriate Stripe payment function based on totalAmount value
 			if (totalAmount == 0.00) {
 				waitForElement(booking.getStripeBack());
@@ -261,6 +269,7 @@ public class Booking extends Base {
 				String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
 				System.out.println("native  : " + nativecontext);
 				driver.context(nativecontext);
+				
 			} else {
 				waitForElement(booking.getStripeBack());
 				Set<String> hand = driver.getContextHandles(); // Get context handles
@@ -275,10 +284,12 @@ public class Booking extends Base {
 				String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
 				System.out.println("native  : " + nativecontext);
 				driver.context(nativecontext);
-				Stripe =true;
+				
 			}
 		} else {
+			Stripe =false;
 			ClickonElement(booking.getCheckBox());
+			
 			ClickonElement(booking.getConfirmANDPay());
 			System.out.println("Total amount is less than or equal to remaining credit. No payment required.");
 		}
@@ -532,5 +543,53 @@ public class Booking extends Base {
 		}
 
 	}
+	
+	@Given("the user selects the second pet")
+	public void theUserSelectsTheSecondPet() throws InterruptedException {
+	   
+		 waitForElement(booking.getassorted());
+		 Thread.sleep(1000);
+		if (booking.getpetcount().size() == 3) {
+            System.out.println("Two pets");
+            ClickonElement(booking.getpetcount().get(0));
+         
+        } else if (booking.getpetcount().size() == 1) {
+          System.out.println("one pet");
+        } else {
+            System.out.println("null.");
+        }
+	}
+	
+	
+	@Given("Accounts")
+	public void accounts() throws InterruptedException {
+	   
+		
 
+			WE_Customer_Settings statement = new WE_Customer_Settings(driver);
+			ClickonElement(statement.getSettingsTab());
+			ClickonElement(statement.getAccounts());
+			Thread.sleep(10000);
+			if (Booking.Stripe) {
+				
+				By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
+				System.out.println(sales);
+				By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+Booking.TotalAmountWithSymbol+"']");
+				System.out.println(payment);
+				
+				if (isElementAvailable(sales)&& isElementAvailable(payment)) {
+					System.out.println("Card payment Bookings replicated customer accounts successfully"); 
+				}else {
+					System.out.println("null 1 ");
+				}
+			}else {
+				By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
+				System.out.println(sales);
+//				WebElement findElement = driver.findElement(statement.sales);
+				if (isElementAvailable(sales)) {
+					System.out.println("remaining credit payment replicated successfully");
+				}
+			}
+	
+	}
 }

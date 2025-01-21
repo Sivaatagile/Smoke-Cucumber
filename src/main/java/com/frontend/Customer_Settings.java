@@ -16,7 +16,6 @@ import cucumberStepDefinition.Booking;
 public class Customer_Settings extends Base {
 
 
-
 	public static void MyBookings() throws InterruptedException {
 		WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
 		ClickonElement(mybookings.getSettingsTab());
@@ -108,11 +107,40 @@ public class Customer_Settings extends Base {
 		ClickonElement(statement.getAccounts());
 		Thread.sleep(10000);
 		if (Booking.Stripe) {
+			//android.view.View[@content-desc="Payment"]/following-sibling::android.view.View[@content-desc="£ 999.99"]
+//			By sales = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
+//			System.out.println(sales);
+//			By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+Booking.TotalAmountWithSymbol+"']");
+//			System.out.println(payment);
 			
-			By sales = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
+			
+			By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc=\"- £ 999.99\"]");
 			System.out.println(sales);
-			By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+Booking.TotalAmountWithSymbol+"']");
+			By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc=\"£ 999.99\"]");
 			System.out.println(payment);
+			
+			
+			
+			
+			if (isElementAvailable(payment)&&isElementAvailable(sales)) {
+				System.out.println("Completed sales and payment  ");
+				
+			}else {
+				System.out.println("hhhhhhhhhh");
+			}
+				
+			
+			
+		}else {
+			
+			By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc=\"- £ 999.99\"]");
+			System.out.println(sales);
+			
+			if (isElementAvailable(sales)) {
+				System.out.println("sales done");
+				
+			}
+			
 		}
 		
 		

@@ -65,6 +65,7 @@ public class AdminCreateSlot extends Base {
 	@Then("the slot should be created successfully")
 	public void theSlotShouldBeCreatedSuccessfully() {
 		System.out.println("Check the snack bar ");
+		ClickonElement(info.getBackButton());
 	}
 
 }
