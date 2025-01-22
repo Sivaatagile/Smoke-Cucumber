@@ -82,6 +82,7 @@ public class Admin_Settings extends Base {
 		driver.hideKeyboard();
 
 		ClickonElement(settings.getsave());
+		ClickonElement(settings.getback());
 	}
 
 	public static void CreatePricingRule() throws Exception {

@@ -91,6 +91,14 @@ public class WE_Admin_Services extends Base{
 		return    Save ;
 	}
 	
+	@FindBy (xpath ="//android.widget.Button[contains(@content-desc,\"OK\")]")
+	private WebElement  OKbutton  ;
+	public WebElement getOKbutton() {
+		return    OKbutton ;
+	}
+	
+	
+	
 	
 //	------------------------------------------------------> SERVICE CREATION
 	
@@ -199,10 +207,29 @@ public class WE_Admin_Services extends Base{
 		return    Year ;
 	}
 	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Fixed\"]")
+	private WebElement   Fixed ;
+	public WebElement getFixed() {
+		return    Fixed ;
+	}
+	
+	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"Capacity type\")]")
+	private WebElement  capacityType  ;
+	public WebElement getcapacityType() {
+		return    capacityType ;
+	}
+	
+	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Availability')]/following-sibling::android.widget.Switch/following-sibling::android.view.View[1]")
 	private WebElement  From_DateDetails  ;
 	public WebElement getFrom_DateDetails() {
 		return   From_DateDetails  ;
+	}
+	
+	@FindBy (xpath ="//*[starts-with(@content-desc,'Availability')]/following-sibling::android.widget.Switch/following-sibling::android.view.View[1]/following-sibling::android.view.View[1]")
+	private WebElement  From_To_DateDetails  ;
+	public WebElement getFrom_To_DateDetails() {
+		return   From_To_DateDetails  ;
 	}
 	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Availability')]/following-sibling::android.widget.Switch/following-sibling::android.view.View[3]")

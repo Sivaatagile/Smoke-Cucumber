@@ -55,8 +55,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import io.qameta.allure.Allure;
 
 public class Base {
@@ -135,7 +138,7 @@ public class Base {
 		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
 	}
 
-	public static void appli() throws MalformedURLException {
+	public static void applicationNew() throws MalformedURLException {
 		UiAutomator2Options options = new UiAutomator2Options(); // Create options object
 		options.setAutomationName("UiAutomator2"); // Set automation name
 		options.setPlatformName("Android"); // Set platform name
@@ -206,7 +209,15 @@ public class Base {
 		Thread.sleep(3000);
 		element.click();
 	}
-
+	
+	public static void ClearonElement(WebElement element) {
+		// Wait until the element is clickable
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120));
+		wait.until(ExpectedConditions.elementToBeClickable(element));
+		// Clear the content of the element
+		element.clear();
+	}
+	
 	public static void clickOnElementUsingBy(By by) throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120)); // 120 seconds wait time
 		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(by)); // Wait until the element is
@@ -384,7 +395,90 @@ public class Base {
 			throw e;
 		}
 	}
+	
+	public static void scrollToElement(WebElement element) {
+	    // Get the screen size of the device
+	    Dimension screenSize = driver.manage().window().getSize();
+	    
+	    int screenHeight = screenSize.getHeight();
+	    int screenWidth = screenSize.getWidth();
+	    
+	    // Define start and end points for scrolling
+	    int startX = screenWidth / 2; // Horizontally center
+	    int startY = (int) (screenHeight * 0.75); // Start at 75% from top
+	    int endY = (int) (screenHeight * 0.25);  // End at 25% from top
 
+	    // Scroll until the element is visible
+	    while (!isElementVisible(element)) {
+	        TouchAction action = new TouchAction(driver);
+	        action.press(PointOption.point(startX, startY)) // Press at the starting point
+	              .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))) // Wait for smooth scrolling
+	              .moveTo(PointOption.point(startX, endY)) // Move to the end point
+	              .release() // Release the press
+	              .perform(); // Perform the action
+	    }  }
+	
+	public static  boolean isElementVisible(WebElement element) {
+	    try {
+	        return element.isDisplayed();
+	    } catch (Exception e) {
+	        return false; // Element not visible
+	    }
+	}
+
+	
+	
+	public static void scrollToTargetElement(WebElement scrollViewElement, WebElement targetElement) {
+	    // Get the size of the scrollable view
+	    Dimension scrollViewSize = scrollViewElement.getSize();
+	    
+	    // Get the location of the scrollable view
+	    int scrollViewStartX = scrollViewElement.getLocation().getX();
+	    int scrollViewStartY = scrollViewElement.getLocation().getY();
+	    int scrollViewEndY = scrollViewStartY + scrollViewSize.getHeight();
+
+	    // Define start and end points for scrolling within the scrollable view
+	    int startX = scrollViewStartX + (scrollViewSize.getWidth() / 2); // Center horizontally in the scrollable view
+	    int startY = scrollViewEndY - 10; // Start at the bottom of the scrollable view (just inside the boundary)
+	    int endY = scrollViewStartY + 10; // End at the top of the scrollable view (just inside the boundary)
+
+	    // Scroll until the target element is visible
+	    while (!isElementVisible(targetElement)) {
+	        try {
+	            // Perform the scroll action within the scroll view
+	            TouchAction action = new TouchAction(driver);
+	            action.press(PointOption.point(startX, startY)) // Press at the starting point (bottom of the scroll view)
+	                  .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))) // Wait for smooth scrolling
+	                  .moveTo(PointOption.point(startX, endY)) // Move to the end point (top of the scroll view)
+	                  .release() // Release the press
+	                  .perform(); // Perform the action
+
+	        } catch (Exception e) {
+	            System.out.println("Scrolling failed: " + e.getMessage());
+	            break; // Exit if scrolling fails
+	        }
+	    }
+
+	    if (isElementVisible(targetElement)) {
+	        System.out.println("Target element is now visible.");
+	    } else {
+	        System.out.println("Target element is not found after scrolling.");
+	    }
+	}
+
+//	private boolean isElementVisible1(WebElement element) {
+//	    try {
+//	        // Check if the element is displayed
+//	        return element.isDisplayed();
+//	    } catch (Exception e) {
+//	        return false; // Element not visible or not found
+//	    }
+//	}
+	
+	
+	
+	
+	
 	public static void slowScroll() throws Exception {
 		try {
 			// Get the screen dimensions
@@ -425,6 +519,23 @@ public class Base {
 		}
 	}
 
+	public static void slowscrolluntilelementfound(WebElement targetElement)
+			throws Exception {
+		while (true) {
+			try {
+				if (targetElement.isDisplayed()) {
+					target = true;
+					System.out.println("Target element found");
+					break; // Exit the loop if the target element is found and displayed
+				}
+			} catch (NoSuchElementException e) {
+				target = false;
+				System.out.println("Target element not found, scrolling...");
+				slowScroll(); // Call the scroll() method to scroll the screen
+			}
+		}
+	}
+	
 	public static void halfscrollUntilElementFound12(WebElement scrollElement, By targetBy) throws Exception {
 		while (true) {
 			try {

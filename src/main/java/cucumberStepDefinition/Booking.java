@@ -563,33 +563,75 @@ public class Booking extends Base {
 	
 	@Given("Accounts")
 	public void accounts() throws InterruptedException {
-	   
+		WE_Customer_Settings statement = new WE_Customer_Settings(driver);
+		ClickonElement(statement.getSettingsTab());
+		ClickonElement(statement.getAccounts());
+		Thread.sleep(10000);
+		if (Booking.Stripe) {
+			//android.view.View[@content-desc="Payment"]/following-sibling::android.view.View[@content-desc="£ 999.99"]
+//			By sales = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
+//			System.out.println(sales);
+//			By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+Booking.TotalAmountWithSymbol+"']");
+//			System.out.println(payment);
+			
+			
+			By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc=\"- £ 999.99\"]");
+			System.out.println(sales);
+			By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc=\"£ 999.99\"]");
+			System.out.println(payment);
+			
+			
+			
+			
+			if (isElementAvailable(payment)&&isElementAvailable(sales)) {
+				System.out.println("Completed sales and payment  ");
+				
+			}else {
+				System.out.println("hhhhhhhhhh");
+			}
+				
+			
+			
+		}else {
+			
+			By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc=\"- £ 999.99\"]");
+			System.out.println(sales);
+			
+			if (isElementAvailable(sales)) {
+				System.out.println("sales done");
+				
+			}
+			
+		}
+		
+		
+	}
 		
 
-			WE_Customer_Settings statement = new WE_Customer_Settings(driver);
-			ClickonElement(statement.getSettingsTab());
-			ClickonElement(statement.getAccounts());
-			Thread.sleep(10000);
-			if (Booking.Stripe) {
-				
-				By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
-				System.out.println(sales);
-				By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+Booking.TotalAmountWithSymbol+"']");
-				System.out.println(payment);
-				
-				if (isElementAvailable(sales)&& isElementAvailable(payment)) {
-					System.out.println("Card payment Bookings replicated customer accounts successfully"); 
-				}else {
-					System.out.println("null 1 ");
-				}
-			}else {
-				By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
-				System.out.println(sales);
-//				WebElement findElement = driver.findElement(statement.sales);
-				if (isElementAvailable(sales)) {
-					System.out.println("remaining credit payment replicated successfully");
-				}
-			}
-	
-	}
+//			WE_Customer_Settings statement = new WE_Customer_Settings(driver);
+//			ClickonElement(statement.getSettingsTab());
+//			ClickonElement(statement.getAccounts());
+//			Thread.sleep(10000);
+//			if (Booking.Stripe) {
+//				
+//				By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
+//				System.out.println(sales);
+//				By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+Booking.TotalAmountWithSymbol+"']");
+//				System.out.println(payment);
+//				
+//				if (isElementAvailable(sales)&& isElementAvailable(payment)) {
+//					System.out.println("Card payment Bookings replicated customer accounts successfully"); 
+//				}else {
+//					System.out.println("null 1 ");
+//				}
+//			}else {
+//				By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
+//				System.out.println(sales);
+////				WebElement findElement = driver.findElement(statement.sales);
+//				if (isElementAvailable(sales)) {
+//					System.out.println("remaining credit payment replicated successfully");
+//				}
+//			}
+//	
+//	}
 }

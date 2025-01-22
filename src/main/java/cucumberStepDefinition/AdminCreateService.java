@@ -83,8 +83,8 @@ public class AdminCreateService extends Base {
 		halfscrollUntilElementFound12(Service.getscrollview(), Service.getFirstElement());
 		ClickonElement(Service.getFirstElement());
 		passInput(Service.getFirstElement(), getProperty("BASE_PRICE_AMOUNT"));
-
-
+		driver.hideKeyboard();
+		Thread.sleep(2000);
 		halfscrollUntilElementFound12(Service.getscrollview(), Service.getFourthElement());
 		int BasePrice_size = Service.getBaseprice().size();
 		System.out.println("size of Base list  : " + BasePrice_size);
@@ -147,7 +147,7 @@ public class AdminCreateService extends Base {
 		System.out.println("Year  : " + To_Year);
 		Thread.sleep(2000);
 		ClickonElement(Service.getSelect1());
-		Thread.sleep(20000);
+		Thread.sleep(2000);
 	}
 
 	@When("the admin taps the save button")

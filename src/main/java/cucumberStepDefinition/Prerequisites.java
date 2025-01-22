@@ -18,29 +18,29 @@ public class Prerequisites extends Base {
 	@Given("PropertyFile Loaded")
 	public void propertyfileLoaded() throws IOException {
 		method1("First");
-//		UpdateEmailProperty("SIGNUP_EMAIL");
-//		UpdateNameProperty("PET_NAME");
-//		UpdateNameProperty("SECOND_PET_NAME");
-//		UpdateNameProperty("CUSTOMER_FIRSTNAME");
-//		UpdateEmailProperty("CUSTOMER_EMAIL");
-//		UpdateNameProperty("SERVICE_NAME");
-//		UpdateNameProperty("ADDON_PRIVILAGE");
-//		UpdateNameProperty("ADDON_ASSIGNABLE");
-//		UpdateNameProperty("ADDON_SERVICE_NAME");
-//		UpdateNameProperty("ADMIN_STAFF_FIRST_NAME");
-//		UpdateEmailProperty("ADMIN_STAFF_EMAIL");
-//		UpdateNameProperty("ADMIN_CUSTOMER_FIRSTNAME");
-//		UpdateEmailProperty("ADMIN_CUSTOMER_EMAIL");
-//		UpdateNameProperty("ADMIN_ADMIN_FIRST_NAME");
-//		UpdateEmailProperty("ADMIN_ADMIN_EMAIL");
-//		UpdateNameProperty("ADMIN_TAG_CATEGORY_NAME");
-//		UpdateNameProperty("ADMIN_BREED_NAME");
-//		UpdateNameProperty("SLOT_NAME");
-//		UpdateNameProperty("POOL_NAME");
-//		UpdateNameProperty("BREED_Name");
-//		UpdateNameProperty("Pricingrulename_Onetime_premium");
-//		UpdateNameProperty("Pricingrulename_Onetime_discount");
-//		UpdateNameProperty("Pricingrulename_Onetime_notavailable");
+		UpdateEmailProperty("SIGNUP_EMAIL");
+		UpdateNameProperty("PET_NAME");
+		UpdateNameProperty("SECOND_PET_NAME");
+		UpdateNameProperty("CUSTOMER_FIRSTNAME");
+		UpdateEmailProperty("CUSTOMER_EMAIL");
+		UpdateNameProperty("SERVICE_NAME");
+		UpdateNameProperty("ADDON_PRIVILAGE");
+		UpdateNameProperty("ADDON_ASSIGNABLE");
+		UpdateNameProperty("ADDON_SERVICE_NAME");
+		UpdateNameProperty("ADMIN_STAFF_FIRST_NAME");
+		UpdateEmailProperty("ADMIN_STAFF_EMAIL");
+		UpdateNameProperty("ADMIN_CUSTOMER_FIRSTNAME");
+		UpdateEmailProperty("ADMIN_CUSTOMER_EMAIL");
+		UpdateNameProperty("ADMIN_ADMIN_FIRST_NAME");
+		UpdateEmailProperty("ADMIN_ADMIN_EMAIL");
+		UpdateNameProperty("ADMIN_TAG_CATEGORY_NAME");
+		UpdateNameProperty("ADMIN_BREED_NAME");
+		UpdateNameProperty("SLOT_NAME");
+		UpdateNameProperty("POOL_NAME");
+		UpdateNameProperty("BREED_Name");
+		UpdateNameProperty("Pricingrulename_Onetime_premium");
+		UpdateNameProperty("Pricingrulename_Onetime_discount");
+		UpdateNameProperty("Pricingrulename_Onetime_notavailable");
 
 //		Actions action = new Actions(driver);
 //	    action.clickAndHold();
@@ -94,7 +94,7 @@ public class Prerequisites extends Base {
 	@When("the admin opens the application")
 	public void theAdminOpensTheApplication() throws MalformedURLException, InterruptedException {
 		Thread.sleep(5000);
-		appli();
+		applicationNew();
 	}
 
 	@Then("the application launches successfully")

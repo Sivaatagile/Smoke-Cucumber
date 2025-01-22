@@ -370,8 +370,8 @@ public class WE_Info extends Base{
 	}
 	
 	@FindBy(xpath = "//android.view.View[@content-desc=\"Close App\"]")
-	private WebElement closeApp;
-	public WebElement getcloseApp() {
+	private static WebElement closeApp;
+	public static WebElement getcloseApp() {
 	    return closeApp;
 	}
 	

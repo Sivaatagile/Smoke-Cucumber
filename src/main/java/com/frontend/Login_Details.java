@@ -17,6 +17,10 @@ public class Login_Details extends Base {
 		ClickonElement(signup.getContinueWithEmail());
 		passInput(signup.getContinueWithEmail(), getProperty("SIGNUP_EMAIL"));
 		driver.hideKeyboard();
+		Thread.sleep(3000);
+		if (isElementAvailable(signup.getwelcome())) {
+			ClickonElement(signup.getcheckbox());
+		}
 		ClickonElement(signup.getContinueButton());
 		Thread.sleep(10000);
 		String otp = getOtpFromSource();

@@ -44,6 +44,9 @@ public class Admin_Services extends Base {
 		Thread.sleep(3000);
 		ClickonElement(slot.getSelect());
 		ClickonElement(slot.getSave());
+		if (isElementAvailable(slot.getOKbutton())) {
+			ClickonElement(slot.getOKbutton());
+		}
 		ClickonElement(info.getBackButton());
 
 	}
@@ -69,7 +72,8 @@ public class Admin_Services extends Base {
 				} catch (NoSuchElementException e) {
 					// Slot not found, perform scroll action
 					System.out.println("Slot not found, scrolling...");
-					halfscroll(Service.getscrollview());
+					slowScroll();
+//					halfscroll(Service.getscrollview());
 				}
 			}
 		}
@@ -88,22 +92,43 @@ public class Admin_Services extends Base {
 		ClickonElement(Service.getService_name());
 		passInput(Service.getService_name(), getProperty("SERVICE_NAME"));
 		driver.hideKeyboard();
+		Thread.sleep(3000);
 		ClickonElement(Service.getDescription_textbox());
 		passInput(Service.getDescription_textbox(), getProperty("SERVICE_DESCRIPTION"));
 		driver.hideKeyboard();
+		Thread.sleep(3000);
+		api.OverallSlotList();
 		selectSlot(api.slotNames);
 		Thread.sleep(5000);
+		
+		halfscrollUntilElementFound12(Service.getscrollview(), Service.getFirstElement());
+		ClickonElement(Service.getFirstElement());
+		passInput(Service.getFirstElement(), getProperty("BASE_PRICE_AMOUNT"));
+
+
 		halfscrollUntilElementFound12(Service.getscrollview(), Service.getFourthElement());
 		int BasePrice_size = Service.getBaseprice().size();
 		System.out.println("size of Base list  : " + BasePrice_size);
 		Thread.sleep(3000);
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			Thread.sleep(3000);
 			Service.getBaseprice().get(i).click();
+			Thread.sleep(5000);
 			passInput(Service.getBaseprice().get(i), getProperty("BASE_PRICE_AMOUNT"));
 			driver.hideKeyboard();
 			Thread.sleep(3000);
 		}
+//		halfscrollUntilElementFound12(Service.getscrollview(), Service.getFourthElement());
+//		int BasePrice_size = Service.getBaseprice().size();
+//		System.out.println("size of Base list  : " + BasePrice_size);
+//		Thread.sleep(3000);
+//		for (int i = 0; i < 4; i++) {
+//			Thread.sleep(3000);
+//			Service.getBaseprice().get(i).click();
+//			passInput(Service.getBaseprice().get(i), getProperty("BASE_PRICE_AMOUNT"));
+//			driver.hideKeyboard();
+//			Thread.sleep(3000);
+//		}
 		ClickonElement(Service.getMaximum_capacity());
 		passInput(Service.getMaximum_capacity(), getProperty("MAX_CAPACITY_SLOT"));
 		driver.hideKeyboard();
@@ -148,16 +173,17 @@ public class Admin_Services extends Base {
 
 	}
 
-	public static void AddonCreation(AddOnType addOnType) throws Exception {
+	public static void AddonCreation(AddOnType addOnType , String AddonName) throws Exception {
 
 		WE_Admin_Services Addon = new WE_Admin_Services(driver);
+		Api api = new Api(driver);
 		ClickonElement(Addon.getservice_Tab());
 		ClickonElement(Addon.getService_Showall());
 		Thread.sleep(3000);
 		ClickonElement(Addon.getFab_Service());
 		ClickonElement(Addon.getAddon());
 		ClickonElement(Addon.getAddon_name());
-		passInput(Addon.getAddon_name(), getProperty("ADDON_ASSIGNABLE_NAME"));
+		passInput(Addon.getAddon_name(), AddonName);
 		driver.hideKeyboard();
 
 		ClickonElement(Addon.getAddon_Description_textbox());
@@ -166,25 +192,45 @@ public class Admin_Services extends Base {
 
 		Addon.toggleAddOn(addOnType);
 
-		int Slot_size = Addon.getSlot_list().size();
-		System.out.println("size of slot list  : " + Slot_size);
-		for (int i = 1; i < Slot_size; i++) {
-			Addon.getSlot_list().get(i).click();
-		}
-
+		Thread.sleep(3000);
+		api.OverallSlotList();
+		selectSlot(api.slotNames);
 		Thread.sleep(5000);
+		
+		halfscrollUntilElementFound12(Addon.getscrollview(), Addon.getFirstElement());
+		ClickonElement(Addon.getFirstElement());
+		passInput(Addon.getFirstElement(), getProperty("BASE_PRICE_AMOUNT"));
+        driver.hideKeyboard();
+
 		halfscrollUntilElementFound12(Addon.getscrollview(), Addon.getFourthElement());
 		int BasePrice_size = Addon.getBaseprice().size();
 		System.out.println("size of Base list  : " + BasePrice_size);
 		Thread.sleep(3000);
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			Thread.sleep(3000);
 			Addon.getBaseprice().get(i).click();
-			passInput(Addon.getBaseprice().get(i), getProperty("ADDON_BASE_PRICE_AMOUNT"));
+			Thread.sleep(5000);
+			passInput(Addon.getBaseprice().get(i), getProperty("BASE_PRICE_AMOUNT"));
 			driver.hideKeyboard();
 			Thread.sleep(3000);
 		}
+		
+		waitForElement(Addon.getcapacityType());
+		ClickonElement(Addon.getFixed());
+		
+//		halfscrollUntilElementFound12(Addon.getscrollview(), Addon.getFourthElement());
+//		int BasePrice_size = Addon.getBaseprice().size();
+//		System.out.println("size of Base list  : " + BasePrice_size);
+//		Thread.sleep(3000);
+//		for (int i = 0; i < 4; i++) {
+//			Thread.sleep(3000);
+//			Addon.getBaseprice().get(i).click();
+//			passInput(Addon.getBaseprice().get(i), getProperty("ADDON_BASE_PRICE_AMOUNT"));
+//			driver.hideKeyboard();
+//			Thread.sleep(3000);
+//		}
 		ClickonElement(Addon.getAddon_Maximum_capacity());
+		ClearonElement(Addon.getAddon_Maximum_capacity());
 		passInput(Addon.getAddon_Maximum_capacity(), getProperty("ADDON_MAX_CAPACITY_SLOT"));
 		driver.hideKeyboard();
 
@@ -192,7 +238,7 @@ public class Admin_Services extends Base {
 		passInput(Addon.getAddon_Maximum_capacity_Per_Staff(), getProperty("ADDON_MAX_CAPACITY_STAFF"));
 		driver.hideKeyboard();
 
-		halfscrollUntilElementFound12(Addon.getscrollview(), Addon.getFrom_DateDetails());
+		halfscrollUntilElementFound12(Addon.getscrollview(), Addon.getFrom_To_DateDetails());
 
 		ClickonElement(Addon.getFrom_DateDetails());
 		waitForElement(Addon.getFrom());
