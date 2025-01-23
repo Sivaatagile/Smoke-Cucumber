@@ -333,4 +333,17 @@ public class WE_Admin_Services extends Base{
 		return  Addon_Max_Advance_Booking_Limit   ;
 	}
 	
+public static By ToMonthAssignableAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE_TO_Month")));
+	
+	public static By ToDateAssignableAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE_TO_Date")));
+	
+	public static By ToYearAssignableAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE_TO_Year")));
+	
+	
+public static By ToMonthPrivilegeAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE_TO_Month")));
+	
+	public static By ToDatePrivilegeAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE_TO_Date")));
+	
+	public static By ToYearPrivilegeAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE_TO_Year")));
+	
 }

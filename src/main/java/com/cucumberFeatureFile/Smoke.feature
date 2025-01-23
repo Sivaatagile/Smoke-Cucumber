@@ -63,7 +63,7 @@ Feature: Booking Application Sanity Flow
     When the admin opens the application
     Then the application launches successfully
     And the admin is navigated to the login page (or home page if already logged in)
-
+#
   Scenario: User login using email as admin (predefined account)
     Given the user enters their predefined "PREDEFINED_ADMIN_EMAIL" address
     When the user clicks on the Continue button
@@ -157,11 +157,12 @@ Feature: Booking Application Sanity Flow
   Scenario: Successfully create a service  
     Given the admin navigates to the Service tab  
     And the admin taps on Show All under services  
-    And the admin taps the plus button to create a new service  
+    And the admin taps the plus button to create a new service
+    And the admin select the service while creating a service  
     When the admin enters "Service Name" in the service name input field  
     And the admin provides "Description" in the service description field  
     And the admin fetches the overall slot list using the API  
-    And the admin sets the "Base Price" for 1 to 4 pets  
+    And the admin sets the "Base Price" for 1 to 4 pets 
     And the admin selects "Capacity Type" from the tab  
     And the admin sets the "Maximum Capacity" for the service  
     And the admin sets the "Maximum Capacity per Staff"  
@@ -171,6 +172,45 @@ Feature: Booking Application Sanity Flow
     Then the service should be created successfully  
     When the admin clicks on the Back button
     And the admin taps the Home icon
+    
+      Scenario: Successfully create a Privilege Addon  
+    Given the admin navigates to the Service tab  
+    And the admin taps on Show All under services  
+    And the admin taps the plus button to create a new addon
+    And the admin select the Addon while creating a addon  
+    When the admin enters "ADDON_PRIVILAGE" in the addon name input field  
+    And the admin provides "ADDON_PRIVILAGE_DESCRIPTION" in the addon description field
+    And the admin select the addon type "PRIVILEGE"  
+    And the admin fetches the overall slot list using the API  
+    And the admin sets the "ADDON_PRIVILAGE_BASE_PRICE_AMOUNT" for 1 to 4 pets for addon
+    And the admin selects Capacity Type from the tab for addon 
+    And the admin sets the "ADDON_PRIVILAGE_MAX_CAPACITY_SLOT" for the addon maximum capacity per slot  
+    And the admin sets the "ADDON_PRIVILAGE_MAX_CAPACITY_STAFF" for addon maximum capacity per staff
+    And the admin provides "Service Validity From" and "Service Validity To" dates for privilege addon
+    And the admin taps the save button  
+    Then the service should be created successfully  
+    When the admin clicks on the Back button
+    And the admin taps the Home icon
+    
+          Scenario: Successfully create a Assignable Addon  
+    Given the admin navigates to the Service tab  
+    And the admin taps on Show All under services  
+    And the admin taps the plus button to create a new addon
+    And the admin select the Addon while creating a addon  
+    When the admin enters "ADDON_ASSIGNABLE" in the addon name input field  
+    And the admin provides "ADDON_ASSIGNABLE_DESCRIPTION" in the addon description field
+    And the admin select the addon type "ASSIGNABLE"  
+    And the admin fetches the overall slot list using the API  
+    And the admin sets the "ADDON_ASSIGNABLE_BASE_PRICE_AMOUNT" for 1 to 4 pets for addon
+    And the admin selects Capacity Type from the tab for addon 
+    And the admin sets the "ADDON_ASSIGNABLE_MAX_CAPACITY_SLOT" for the addon maximum capacity per slot  
+    And the admin sets the "ADDON_ASSIGNABLE_MAX_CAPACITY_STAFF" for addon maximum capacity per staff
+    And the admin provides "Service Validity From" and "Service Validity To" dates for assignable addon
+    And the admin taps the save button  
+    Then the service should be created successfully  
+    When the admin clicks on the Back button
+    And the admin taps the Home icon
+    
 
   Scenario: Adding a new staff through the admin portal
     Given the admin clicks on the Users tab
@@ -311,8 +351,10 @@ Scenario: Verify Customer Statement Details
     And the customer goes back to the home page
     
     Scenario: Verify the accounts 
-      Given Accounts given by the customer 
-
+     Given the customer navigates to the Settings tab
+    When the customer clicks on Accounts
+    And Verify the sales or payment detais are listed their
+    And the customer goes back to the home page
     
 Scenario: Successfully logout customer
     Given the customer navigates to the Settings tab  

@@ -126,7 +126,8 @@ public class AdminWorkflow extends Base {
 	}
 
 	@Then("the booking should be assigned successfully")
-	public void theBookingShouldBeAssignedSuccessfully() {
+	public void theBookingShouldBeAssignedSuccessfully() throws InterruptedException {
+		Thread.sleep(6000);
 		System.out.println("completed successfully ");
 
 	}

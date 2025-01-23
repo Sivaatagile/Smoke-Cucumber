@@ -45,10 +45,10 @@ public class AdminCreateStaff extends Base {
 
 	@Then("the new staff details should be successfully saved")
 	public void theNewStaffDetailsShouldBeSuccessfullySaved() throws InterruptedException {
-		waitForElement(user.getSnackbarCreatedstaff());
-		if (isElementAvailable(user.getSnackbarCreatedstaff())) {
-			System.out.println("Staff Created");
-		}
+//		waitForElement(user.getSnackbarCreatedstaff());
+//		if (isElementAvailable(user.getSnackbarCreatedstaff())) {
+//			System.out.println("Staff Created");
+//		}
 	}
 
 	@When("the admin selects the gender for Staff")

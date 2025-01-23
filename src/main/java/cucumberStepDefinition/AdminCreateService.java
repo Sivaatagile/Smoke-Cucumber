@@ -40,7 +40,7 @@ public class AdminCreateService extends Base {
 				} catch (NoSuchElementException e) {
 					// Slot not found, perform scroll action
 					System.out.println("Slot not found, scrolling...");
-					halfscroll(Service.getscrollview());
+slowScroll();
 				}
 			}
 		}
@@ -55,6 +55,11 @@ public class AdminCreateService extends Base {
 	@Given("the admin taps the plus button to create a new service")
 	public void theAdminTapsThePlusButtonToCreateANewService() {
 		ClickonElement(Service.getFab_Service());
+		
+	}
+	
+	@Given("the admin select the service while creating a service")
+	public void theAdminSelectTheServiceWhileCreatingAService() {
 		ClickonElement(Service.getService());
 	}
 

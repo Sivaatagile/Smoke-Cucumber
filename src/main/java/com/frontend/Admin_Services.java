@@ -101,12 +101,12 @@ public class Admin_Services extends Base {
 		selectSlot(api.slotNames);
 		Thread.sleep(5000);
 		
-		halfscrollUntilElementFound12(Service.getscrollview(), Service.getFirstElement());
+		slowscrolluntilelementfound(Service.getFirstElement());
 		ClickonElement(Service.getFirstElement());
 		passInput(Service.getFirstElement(), getProperty("BASE_PRICE_AMOUNT"));
+driver.hideKeyboard();
 
-
-		halfscrollUntilElementFound12(Service.getscrollview(), Service.getFourthElement());
+		slowscrolluntilelementfound(Service.getFourthElement());
 		int BasePrice_size = Service.getBaseprice().size();
 		System.out.println("size of Base list  : " + BasePrice_size);
 		Thread.sleep(3000);
@@ -118,17 +118,7 @@ public class Admin_Services extends Base {
 			driver.hideKeyboard();
 			Thread.sleep(3000);
 		}
-//		halfscrollUntilElementFound12(Service.getscrollview(), Service.getFourthElement());
-//		int BasePrice_size = Service.getBaseprice().size();
-//		System.out.println("size of Base list  : " + BasePrice_size);
-//		Thread.sleep(3000);
-//		for (int i = 0; i < 4; i++) {
-//			Thread.sleep(3000);
-//			Service.getBaseprice().get(i).click();
-//			passInput(Service.getBaseprice().get(i), getProperty("BASE_PRICE_AMOUNT"));
-//			driver.hideKeyboard();
-//			Thread.sleep(3000);
-//		}
+
 		ClickonElement(Service.getMaximum_capacity());
 		passInput(Service.getMaximum_capacity(), getProperty("MAX_CAPACITY_SLOT"));
 		driver.hideKeyboard();
@@ -137,7 +127,7 @@ public class Admin_Services extends Base {
 		passInput(Service.getMaximum_capacity_Per_Staff(), getProperty("MAX_CAPACITY_STAFF"));
 		driver.hideKeyboard();
 
-		halfscrollUntilElementFound12(Service.getscrollview(), Service.getMax_Advance_Booking_Limit());
+		slowscrolluntilelementfound(Service.getMax_Advance_Booking_Limit());
 		ClickonElement(Service.getMax_Advance_Booking_Limit());
 		passInput(Service.getMax_Advance_Booking_Limit(), getProperty("MAX_ADVANCE_BOOKING_LIMIT"));
 		driver.hideKeyboard();

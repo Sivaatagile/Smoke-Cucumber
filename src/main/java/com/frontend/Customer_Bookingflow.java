@@ -42,7 +42,16 @@ public class Customer_Bookingflow extends Base {
 	public static void booking() throws Exception {
 		WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 		Api api = new Api(driver);
-		Random random = new Random();
+		WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
+		waitForElement(booking.getassorted());
+		Thread.sleep(3000);
+		ClickonElement(mybookings.getSettingsTab());
+		Thread.sleep(1000);
+		ClickonElement(mybookings.getHomeTab());
+		Thread.sleep(3000);
+		waitForElement(booking.getassorted());
+		System.out.println("nice");Random random = new Random();
+		
 		if (isElementAvailable(booking.getServiceShowAll())) {
 			ClickonElement(booking.getServiceShowAll());
 			ClickonElement(booking.getSearchServices());

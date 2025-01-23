@@ -25,8 +25,9 @@ public class Admin_Settings extends Base {
 		ClickonElement(settings.getManageBreeds());
 		ClickonElement(settings.getFABBreed());
 		ClickonElement(settings.getBreedName());
-		passInputUsingActions(settings.getBreedName(), "Poodle 1");
+		passInput(settings.getBreedName(), getProperty("ADMIN_BREED_NAME"));
 		ClickonElement(settings.getSaveBreed());
+		ClickonElement(settings.getback());
 
 	}
 
@@ -85,7 +86,7 @@ public class Admin_Settings extends Base {
 		ClickonElement(settings.getback());
 	}
 
-	public static void CreatePricingRule() throws Exception {
+	public static void CreatePricingRulePremium() throws Exception {
 
 		WE_Admin_Settings settings = new WE_Admin_Settings(driver);
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
@@ -95,10 +96,10 @@ public class Admin_Settings extends Base {
 		Thread.sleep(5000);
 		ClickonElement(settings.getFAB());
 		ClickonElement(settings.getPricingrule_Name());
-		passInput(settings.getPricingrule_Name(), getProperty("Pricingrulename_Onetime"));
+		passInput(settings.getPricingrule_Name(), getProperty("Pricingrulename_Onetime_premium"));
 		driver.hideKeyboard();
 		ClickonElement(settings.getDescription());
-		passInput(settings.getDescription(), getProperty("PricingruleDescription"));
+		passInput(settings.getDescription(), getProperty("PricingruleDescription_premium"));
 		driver.hideKeyboard();
 		Api.Priority();
 		Api.eliminatefrom100();
@@ -118,11 +119,7 @@ public class Admin_Settings extends Base {
 		System.out.println("Date  : " + From_Date);
 		String From_Year = settings.getYear().getAttribute("Content-desc");
 		System.out.println("Year  : " + From_Year);
-		
 	
-
-		
-		
 		scrollUntilElementFound12(settings.getMonth(), settings.ToMonthExpected);
 		String To_Month = settings.getMonth().getAttribute("Content-desc");
 		System.out.println("Month  : " + To_Month);
@@ -133,30 +130,6 @@ public class Admin_Settings extends Base {
 		String To_Year = settings.getYear().getAttribute("Content-desc");
 		System.out.println("Year  : " + To_Year);
 		
-		
-		String From_Month1 = settings.getMonth().getAttribute("Content-desc");
-		System.out.println("Month  : " + From_Month1);
-		String From_Date1 = settings.getDate().getAttribute("Content-desc");
-		System.out.println("Date  : " + From_Date1);
-		String From_Year1 = settings.getYear().getAttribute("Content-desc");
-		System.out.println("Year  : " + From_Year1);
-		
-		String  date = From_Month1 + From_Date1+"," + From_Year1;
-		
-		System.out.println("yyyy  :  "+date);
-		
-		 DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMMMd,yyyy");
-	         prdate = LocalDate.parse(date, inputFormatter);
-
-	        // Format to new string
-	        String formattedDatesss = prdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-	        // Print results
-	        System.out.println("Formatted Date: " + formattedDatesss);
-	        System.out.println("LocalDate: " + prdate);
-		
-		
-		
 		ClickonElement(settings.getSelect());
 		
 		Thread.sleep(2000);
@@ -166,8 +139,120 @@ public class Admin_Settings extends Base {
 		passInput(settings.getpricingoffsetvalue(), "10");
 		driver.hideKeyboard();
 		Thread.sleep(4000);
+		
 		ClickonElement(settings.getsave());
+		ClickonElement(settings.getback());
 
 	}
+	
+	public static void CreatePricingRuleDiscount() throws Exception {
+
+		WE_Admin_Settings settings = new WE_Admin_Settings(driver);
+		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+
+		ClickonElement(workflow.getSettings_navigation_Bar());
+		ClickonElement(settings.getAvailabilityandPricing());
+		Thread.sleep(5000);
+		ClickonElement(settings.getFAB());
+		ClickonElement(settings.getPricingrule_Name());
+		passInput(settings.getPricingrule_Name(), getProperty("Pricingrulename_Onetime_discount"));
+		driver.hideKeyboard();
+		ClickonElement(settings.getDescription());
+		passInput(settings.getDescription(), getProperty("PricingruleDescription_discount"));
+		driver.hideKeyboard();
+		Api.Priority();
+		Api.eliminatefrom100();
+		ClickonElement(settings.getpriority());
+		String convertInttoString = ConvertInttoString(Api.priorityNumber);
+		Thread.sleep(2000);
+		passInputUsingActions(settings.getpriority(), convertInttoString);
+		driver.hideKeyboard();
+		
+		Thread.sleep(2000);
+
+		ClickonElement(settings.getSelectdate());
+		waitForElement(settings.getpricingruleDate());
+		String From_Month = settings.getMonth().getAttribute("Content-desc");
+		System.out.println("Month  : " + From_Month);
+		String From_Date = settings.getDate().getAttribute("Content-desc");
+		System.out.println("Date  : " + From_Date);
+		String From_Year = settings.getYear().getAttribute("Content-desc");
+		System.out.println("Year  : " + From_Year);
+	
+		scrollUntilElementFound12(settings.getMonth(), settings.ToMonthExpected);
+		String To_Month = settings.getMonth().getAttribute("Content-desc");
+		System.out.println("Month  : " + To_Month);
+		scrollUntilElementFound12(settings.getDate(), settings.ToDateExpected);
+		String To_Date = settings.getDate().getAttribute("Content-desc");
+		System.out.println("Date  : " + To_Date);
+		scrollUntilElementFound12(settings.getYear(), settings.ToYearExpected);
+		String To_Year = settings.getYear().getAttribute("Content-desc");
+		System.out.println("Year  : " + To_Year);
+		
+		ClickonElement(settings.getSelect());
+		
+		Thread.sleep(2000);
+		ClickonElement(settings.getdiscount());
+		halfscroll(settings.getscrollview());
+		ClickonElement(settings.getpricingoffsetvalue());
+		passInput(settings.getpricingoffsetvalue(), "10");
+		driver.hideKeyboard();
+		Thread.sleep(4000);
+		
+		ClickonElement(settings.getsave());
+		ClickonElement(settings.getback());
+
+	}
+	
+	public static void CreatePricingRuleNotAvailable() throws Exception {
+
+		WE_Admin_Settings settings = new WE_Admin_Settings(driver);
+		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+
+		ClickonElement(workflow.getSettings_navigation_Bar());
+		ClickonElement(settings.getAvailabilityandPricing());
+		Thread.sleep(5000);
+		ClickonElement(settings.getFAB());
+		ClickonElement(settings.getPricingrule_Name());
+		passInput(settings.getPricingrule_Name(), getProperty("Pricingrulename_Onetime_notavailable"));
+		driver.hideKeyboard();
+		ClickonElement(settings.getDescription());
+		passInput(settings.getDescription(), getProperty("PricingruleDescription_notavailable"));
+		driver.hideKeyboard();
+		
+		
+		Thread.sleep(2000);
+
+		ClickonElement(settings.getSelectdate());
+		waitForElement(settings.getpricingruleDate());
+		String From_Month = settings.getMonth().getAttribute("Content-desc");
+		System.out.println("Month  : " + From_Month);
+		String From_Date = settings.getDate().getAttribute("Content-desc");
+		System.out.println("Date  : " + From_Date);
+		String From_Year = settings.getYear().getAttribute("Content-desc");
+		System.out.println("Year  : " + From_Year);
+	
+		scrollUntilElementFound12(settings.getMonth(), settings.ToMonthExpected);
+		String To_Month = settings.getMonth().getAttribute("Content-desc");
+		System.out.println("Month  : " + To_Month);
+		scrollUntilElementFound12(settings.getDate(), settings.ToDateExpected);
+		String To_Date = settings.getDate().getAttribute("Content-desc");
+		System.out.println("Date  : " + To_Date);
+		scrollUntilElementFound12(settings.getYear(), settings.ToYearExpected);
+		String To_Year = settings.getYear().getAttribute("Content-desc");
+		System.out.println("Year  : " + To_Year);
+		
+		ClickonElement(settings.getSelect());
+		
+		Thread.sleep(2000);
+		ClickonElement(settings.getNotAvailable());
+	
+		Thread.sleep(2000);
+		ClickonElement(settings.getsave());
+		ClickonElement(settings.getback());
+
+	}
+	
+	
 
 }

@@ -103,7 +103,7 @@ public class Base {
 		options.setCapability("chromedriverExecutable",
 				"C:\\Users\\ACS\\eclipse-workspace\\sanity_booking_app\\dri\\chromedriver.exe");
 		options.setCapability("newCommandTimeout", 100000);
-		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
+		driver = new AndroidDriver(new URL("http://192.168.1.37:4723/"), options); // Initialize driver
 
 	}
 
@@ -120,7 +120,7 @@ public class Base {
 		options.setCapability("chromedriverExecutable",
 				"C:\\Users\\ACS\\eclipse-workspace\\sanity_booking_app\\dri\\chromedriver.exe");
 		options.setCapability("newCommandTimeout", 100000);
-		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
+		driver = new AndroidDriver(new URL("http://192.168.1.37:4723/"), options); // Initialize driver
 	}
 
 	public static void OpenApplication() throws MalformedURLException {
@@ -135,7 +135,7 @@ public class Base {
 //		options.setNoReset(true); // Set no reset
 //		options.setFullReset(false); // Set full reset
 		options.setCapability("newCommandTimeout", 100000);
-		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
+		driver = new AndroidDriver(new URL("http://192.168.1.37:4723/"), options); // Initialize driver
 	}
 
 	public static void applicationNew() throws MalformedURLException {
@@ -150,7 +150,7 @@ public class Base {
 		options.setCapability("chromedriverExecutable",
 				"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
 		options.setCapability("newCommandTimeout", 100000);
-		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
+		driver = new AndroidDriver(new URL("http://192.168.1.37:4723/"), options); // Initialize driver
 	}
 
 	public static void clearCache() {

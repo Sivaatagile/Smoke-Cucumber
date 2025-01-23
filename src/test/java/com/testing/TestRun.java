@@ -158,79 +158,82 @@ public class TestRun extends Base {
 		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
 		Api.OverallSlotList();
-////		UpdateEmailProperty("SIGNUP_EMAIL");
-////		UpdateNameProperty("PET_NAME");
-////		UpdateNameProperty("SECOND_PET_NAME");
-////		UpdateNameProperty("CUSTOMER_FIRSTNAME");
-////		UpdateEmailProperty("CUSTOMER_EMAIL");
-////		UpdateNameProperty("SERVICE_NAME");
-////		UpdateNameProperty("ADDON_PRIVILAGE");
-////		UpdateNameProperty("ADDON_ASSIGNABLE");
-////		UpdateNameProperty("ADDON_SERVICE_NAME");
-////		UpdateNameProperty("ADMIN_STAFF_FIRST_NAME");
-////		UpdateEmailProperty("ADMIN_STAFF_EMAIL");
-////		UpdateNameProperty("ADMIN_CUSTOMER_FIRSTNAME");
-////		UpdateEmailProperty("ADMIN_CUSTOMER_EMAIL");
-////		UpdateNameProperty("ADMIN_ADMIN_FIRST_NAME");
-////		UpdateEmailProperty("ADMIN_ADMIN_EMAIL");
-////		UpdateNameProperty("ADMIN_TAG_CATEGORY_NAME");
-////		UpdateNameProperty("ADMIN_BREED_NAME");
-////		UpdateNameProperty("SLOT_NAME");
-////		UpdateNameProperty("POOL_NAME");
-////		UpdateNameProperty("BREED_Name");
-////		UpdateNameProperty("Pricingrulename_Onetime_premium");
-////		UpdateNameProperty("Pricingrulename_Onetime_discount");
-////		UpdateNameProperty("Pricingrulename_Onetime_notavailable");
-////		
-////		Latest_StagingAPK_download(getProperty("STAGING"));
-////		Application();
-////		Login_Details.signupCustomer();
-////		Info.User_Data();
-////		Info.Pet_Data();
-////		Thread.sleep(9000);
-////		ClickonElement(WE_Info.getcloseApp());
+		Api.ServiceSlotTimeCount();
+		
+		UpdateEmailProperty("SIGNUP_EMAIL");
+		UpdateNameProperty("PET_NAME");
+		UpdateNameProperty("SECOND_PET_NAME");
+		UpdateNameProperty("CUSTOMER_FIRSTNAME");
+		UpdateEmailProperty("CUSTOMER_EMAIL");
+		UpdateNameProperty("SERVICE_NAME");
+		UpdateNameProperty("ADDON_PRIVILAGE");
+		UpdateNameProperty("ADDON_ASSIGNABLE");
+		UpdateNameProperty("ADDON_SERVICE_NAME");
+		UpdateNameProperty("ADMIN_STAFF_FIRST_NAME");
+		UpdateEmailProperty("ADMIN_STAFF_EMAIL");
+		UpdateNameProperty("ADMIN_CUSTOMER_FIRSTNAME");
+		UpdateEmailProperty("ADMIN_CUSTOMER_EMAIL");
+		UpdateNameProperty("ADMIN_ADMIN_FIRST_NAME");
+		UpdateEmailProperty("ADMIN_ADMIN_EMAIL");
+		UpdateNameProperty("ADMIN_TAG_CATEGORY_NAME");
+		UpdateNameProperty("ADMIN_BREED_NAME");
+		UpdateNameProperty("SLOT_NAME");
+		UpdateNameProperty("POOL_NAME");
+		UpdateNameProperty("BREED_Name");
+		UpdateNameProperty("Pricingrulename_Onetime_premium");
+		UpdateNameProperty("Pricingrulename_Onetime_discount");
+		UpdateNameProperty("Pricingrulename_Onetime_notavailable");
+		OpenApplicationWithoutReset();
+		Login_Details.Predefined_login_Customer();
+//		Latest_StagingAPK_download(getProperty("STAGING"));
+//		Application();
+//		Login_Details.signupCustomer();
+//		Info.User_Data();
+//		Info.Pet_Data();
+//		Thread.sleep(9000);
+//		ClickonElement(WE_Info.getcloseApp());
 //
 //		clearAppCache(getProperty("APP_PACKAGE"));
 //		applicationNew();
 //		
 //		Login_Details.login_Admin();
-////		Admin_User.approveUserUsingSearch();
-////
-////		Admin_User.Create_Admin();
-////		Admin_User.Create_Customer();
-////		Admin_User.CreateTag();
-////		
-////		Admin_Services.slot_creation();
+//		Admin_User.approveUserUsingSearch();
+//
+//		Admin_User.Create_Admin();
+//		Admin_User.Create_Customer();
+//		Admin_User.CreateTag();
+//		
+//		Admin_Services.slot_creation();
 //		Admin_Services.ServiceCreation();
 //		
-////		Admin_User.Create_Staff();
-////		
-////		Admin_Settings.CreateBreed();
-////		Admin_Settings.CreatePool();
-//		Admin_Settings.CreatePricingRule();  // For which type
-//		                                     // For Second Type
-//		                                     // For third type
+//		Admin_User.Create_Staff();
+//		
+//		Admin_Settings.CreateBreed();
+//		Admin_Settings.CreatePool();
+//		Admin_Settings.CreatePricingRulePremium();  
+//		Admin_Settings.CreatePricingRuleDiscount();  
+//		Admin_Settings.CreatePricingRuleNotAvailable();
 //		
 //		Login_Details.Logout_Admin();
 //		
 //		Login_Details.login_Customer();
-//		Customer_Bookingflow.booking();
-//		Customer_Bookingflow.BookingSuccessfullPage();
-//		Customer_Settings.MyBookings();
-//		Customer_Settings.Invoices();
-//		Customer_Settings.statement();
-//		Customer_Settings.Accounts();
-//		Login_Details.Logout_Customer();
-//		
-//		Login_Details.login_Admin();
-////		  admin invoices 
-////		  admin statement 
-////		  admin accounts 
-//		Admin_Workflow.Pending_to_UnAssigned();
-//		Admin_Workflow.UnAssigned_to_Assigned();
-//		
-//		Admin_User.second_pet();
-//		
+		Customer_Bookingflow.booking();
+		Customer_Bookingflow.BookingSuccessfullPage();
+		Customer_Settings.MyBookings();
+		Customer_Settings.Invoices();
+		Customer_Settings.statement();
+		Customer_Settings.Accounts();
+		Login_Details.Logout_Customer();
+		
+		Login_Details.login_Admin();
+//		  admin invoices 
+//		  admin statement 
+//		  admin accounts 
+		Admin_Workflow.Pending_to_UnAssigned();
+		Admin_Workflow.UnAssigned_to_Assigned();
+		
+		Admin_User.second_pet();
+		
 //		
 		
 		
