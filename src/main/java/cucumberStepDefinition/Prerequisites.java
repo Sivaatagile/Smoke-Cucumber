@@ -10,6 +10,7 @@ import com.WE.WE_Info;
 import com.WE.WE_Login_Details;
 import com.api.Api;
 import com.baseClass.Base;
+import com.baseClass.Base.API_BASE_URL;
 
 import io.cucumber.java.en.*;
 
@@ -17,6 +18,7 @@ public class Prerequisites extends Base {
 
 	@Given("PropertyFile Loaded")
 	public void propertyfileLoaded() throws IOException {
+		ChooseApi(API_BASE_URL.Staging);
 		method1("First");
 		UpdateEmailProperty("SIGNUP_EMAIL");
 		UpdateNameProperty("PET_NAME");

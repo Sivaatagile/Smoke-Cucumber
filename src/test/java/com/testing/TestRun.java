@@ -153,7 +153,7 @@ public class TestRun extends Base {
 		
 		WE_Info info = new WE_Info(driver);
 		
-		
+		ChooseApi(API_BASE_URL.Staging);
 		method1("First");
 		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));

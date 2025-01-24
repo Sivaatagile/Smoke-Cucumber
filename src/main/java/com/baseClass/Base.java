@@ -53,6 +53,8 @@ import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.WE.WE_Admin_Services.AddOnType;
+
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
@@ -73,7 +75,7 @@ public class Base {
 	public static String currentMonth;
 	public static String StatementCreatedDate;
 	public static boolean range;
-
+	public static  String BASE_URL ;
 //	----------------------------------------------->  Application details
 
 	 public static String generateRandomString(int length) {
@@ -88,7 +90,30 @@ public class Base {
 
 	        return randomString.toString();
 	    }
-	
+		public static enum API_BASE_URL {
+		    Staging,
+		    Uat,
+		    Preprod
+		}
+		
+		 public static void ChooseApi(API_BASE_URL Environment) {
+		        switch (Environment) {
+		            case Staging:
+		            	BASE_URL ="https://staging.petcaretechnologies.com/api/";
+		                break;
+		                
+		            case Uat:
+		            	BASE_URL ="https://uat.petcaretechnologies.com/api/";
+		            	break;
+		            	
+		            case Preprod:
+		            	BASE_URL ="https://preprod.petcaretechnologies.com/api/";
+		                break;
+		                
+		            default:
+		                throw new IllegalArgumentException("Invalid add-on type: " + Environment);
+		        } 
+		 }
 	public static void Application() throws MalformedURLException {
 		UiAutomator2Options options = new UiAutomator2Options(); // Create options object
 		String getEmulatorArch = getEmulatorArch("Pixel_6_Pro"); // Get emulator architecture

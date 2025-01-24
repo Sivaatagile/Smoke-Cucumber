@@ -19,7 +19,7 @@ import net.bytebuddy.build.Plugin.Factory.UsingReflection.Priority;
 
 public class Api extends Base {
 
-	private static final String BASE_URL = "https://staging.petcaretechnologies.com/api/";
+//	private static final String BASE_URL = "https://staging.petcaretechnologies.com/api/";
 
 	public static String token;
 	public static String verifiedAccessToken;
