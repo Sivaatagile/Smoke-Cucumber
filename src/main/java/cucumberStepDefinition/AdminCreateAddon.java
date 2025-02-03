@@ -95,12 +95,12 @@ public class AdminCreateAddon extends Base{
 	
 	@When("the admin sets the {string} for {int} to {int} pets for addon")
 	public void theAdminSetsTheForToPetsForAddon(String AddonBasePrice, Integer int1, Integer int2) throws Exception {
-		halfscrollUntilElementFound12(addon.getscrollview(), addon.getFirstElement());
+		slowscrolluntilelementfound(addon.getFirstElement());
 		ClickonElement(addon.getFirstElement());
 		passInput(addon.getFirstElement(), getProperty(AddonBasePrice));
         driver.hideKeyboard();
 
-		halfscrollUntilElementFound12(addon.getscrollview(), addon.getFourthElement());
+        slowscrolluntilelementfound(addon.getFourthElement());
 		int BasePrice_size = addon.getBaseprice().size();
 		System.out.println("size of Base list  : " + BasePrice_size);
 		Thread.sleep(3000);

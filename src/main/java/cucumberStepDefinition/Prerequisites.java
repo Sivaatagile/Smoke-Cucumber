@@ -3,6 +3,7 @@ package cucumberStepDefinition;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 
 import org.openqa.selenium.interactions.Actions;
 
@@ -20,34 +21,52 @@ public class Prerequisites extends Base {
 	public void propertyfileLoaded() throws IOException {
 		ChooseApi(API_BASE_URL.Staging);
 		method1("First");
-		UpdateEmailProperty("SIGNUP_EMAIL");
-		UpdateNameProperty("PET_NAME");
-		UpdateNameProperty("SECOND_PET_NAME");
-		UpdateNameProperty("CUSTOMER_FIRSTNAME");
-		UpdateEmailProperty("CUSTOMER_EMAIL");
-		UpdateNameProperty("SERVICE_NAME");
-		UpdateNameProperty("ADDON_PRIVILAGE");
-		UpdateNameProperty("ADDON_ASSIGNABLE");
-		UpdateNameProperty("ADDON_SERVICE_NAME");
-		UpdateNameProperty("ADMIN_STAFF_FIRST_NAME");
-		UpdateEmailProperty("ADMIN_STAFF_EMAIL");
-		UpdateNameProperty("ADMIN_CUSTOMER_FIRSTNAME");
-		UpdateEmailProperty("ADMIN_CUSTOMER_EMAIL");
-		UpdateNameProperty("ADMIN_ADMIN_FIRST_NAME");
-		UpdateEmailProperty("ADMIN_ADMIN_EMAIL");
-		UpdateNameProperty("ADMIN_TAG_CATEGORY_NAME");
-		UpdateNameProperty("ADMIN_BREED_NAME");
-		UpdateNameProperty("SLOT_NAME");
-		UpdateNameProperty("POOL_NAME");
-		UpdateNameProperty("BREED_Name");
-		UpdateNameProperty("Pricingrulename_Onetime_premium");
-		UpdateNameProperty("Pricingrulename_Onetime_discount");
-		UpdateNameProperty("Pricingrulename_Onetime_notavailable");
+		
+		UpdateEmailProperty("SIGNUP_EMAIL");	
+		UpdateNameProperty("SIGNUP_FIRSTNAME",getProperty("NAME"));
+		UpdateNameProperty("SIGNUP_LASTNAME",getProperty("NAME"));
+		UpdateNameProperty("SIGNUP_CITYTOWN", getProperty("CITY"));
+		UpdateNameProperty("SIGNUP_POSTCODE", getProperty("POSTCODE"));
 
-//		Actions action = new Actions(driver);
-//	    action.clickAndHold();
+		UpdateNameProperty("PET_NAME", getProperty("PET_NAME_List"));
 		
+		UpdateEmailProperty("ADMIN_ADMIN_EMAIL");
+        UpdateNameProperty("ADMIN_ADMIN_FIRST_NAME", getProperty("NAME"));
+		UpdateNameProperty("ADMIN_ADMIN_LAST_NAME",getProperty("NAME"));
+        UpdateNameProperty("ADMIN_ADMIN_CITY", getProperty("CITY"));
+		UpdateNameProperty("ADMIN_ADMIN_POSTCODE", getProperty("POSTCODE"));
+
+		UpdateEmailProperty("ADMIN_CUSTOMER_EMAIL");
+		UpdateNameProperty("ADMIN_CUSTOMER_FIRSTNAME",getProperty("NAME"));
+		UpdateNameProperty("ADMIN_CUSTOMER_LASTNAME",getProperty("NAME"));
+		UpdateNameProperty("ADMIN_CUSTOMER_CITYTOWN", getProperty("CITY"));
+		UpdateNameProperty("ADMIN_CUSTOMER_POSTCODE", getProperty("POSTCODE"));
 		
+		UpdateNameProperty("ADMIN_TAG_CATEGORY_NAME", getProperty("TAGS"));
+
+		UpdateNameProperty("SLOT_NAME", getProperty("SLOTS"));
+
+	    UpdateNameProperty("SERVICE_NAME", getProperty("SERVICE"));
+	    UpdateNameProperty("ADDON_PRIVILAGE", getProperty("ADDON"));
+	    UpdateNameProperty("ADDON_ASSIGNABLE", getProperty("ADDON"));
+	    UpdateNameProperty("ADDON_SERVICE_NAME", getProperty("SERVICE"));
+
+		UpdateEmailProperty("ADMIN_STAFF_EMAIL");
+        UpdateNameProperty("ADMIN_STAFF_FIRST_NAME", getProperty("NAME"));
+        UpdateNameProperty("ADMIN_STAFF_LAST_NAME", getProperty("NAME"));
+    	UpdateNameProperty("ADMIN_STAFF_CITY", getProperty("CITY"));
+		UpdateNameProperty("ADMIN_STAFF_POSTCODE", getProperty("POSTCODE"));
+	    
+		UpdateNameProperty("BREED_Name", getProperty("BREED"));
+
+		UpdateNameProperty("POOL_NAME", getProperty("POOL"));
+
+		UpdateNameProperty("Pricingrulename_Onetime_premium", getProperty("PREMIUM_PRICINGRULE_NAME"));
+		UpdateNameProperty("Pricingrulename_Onetime_discount", getProperty("DISCOUNT_PRICINGRULE_NAME"));
+		UpdateNameProperty("Pricingrulename_Onetime_notavailable", getProperty("NOTAVAILABLE_PRICINGRULE_NAME"));
+
+		UpdateNameProperty("SECOND_PET_NAME", getProperty("PET_NAME_List"));
+
 		System.out.println("working fine");
 		System.out.println("property loaded");
 	}
@@ -63,17 +82,42 @@ public class Prerequisites extends Base {
 		Latest_StagingAPK_download(getProperty("STAGING"));
 		Application();
 //		OpenApplicationWithoutReset();
+//		ApplicationWithApk("preprod_latest 1.apk");
 		System.out.println("cyhcvf");
 	}
 
 	@Given("Api configuration")
-	public void apiConfiguration() throws InterruptedException {
+	public void apiConfiguration() throws InterruptedException, IOException {
+		Api Api= new Api(driver);
+		
 		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
 		Api.refreshAdminToken(Api.VerifiedRefreshToken);
 		Api.ServiceSlotTimeCount();
 		Api.OverallSlotList();
+		Api.BreedList();
+		Api.Compare("BREED_Name",Api.UniqueBreed, Api.BreedNames, getProperty("BREED"));
+		Api.ServiceList();
+		Api.Compare("SERVICE_NAME", Api.UniqueService, Api.ServiceNames, getProperty("SERVICE"));
+		Api.Compare("ADDON_SERVICE_NAME", Api.UniqueService, Api.ServiceNames, getProperty("SERVICE"));
+		Api.SlotList();
+		Api.Compare("SLOT_NAME", Api.UniqueSlot, Api.SlotNames, getProperty("SLOTS"));
+		Api.AddonList();
+		Api.Compare("ADDON_PRIVILAGE", Api.UniqueAddons, Api.AddonsNames, getProperty("ADDON"));
+		Api.Compare("ADDON_ASSIGNABLE", Api.UniqueAddons, Api.AddonsNames, getProperty("ADDON"));
+		Api.TagList();
+		Api.Compare("ADMIN_TAG_CATEGORY_NAME", Api.UniqueTag, Api.TagNames, getProperty("TAGS"));
+		Api.PricingRuleList();
+		Api.Compare("Pricingrulename_Onetime_premium", Api.Uniquepricingrulename, Api.PricingRuleNames, getProperty("PREMIUM_PRICINGRULE_NAME"));
+		Api.Compare("Pricingrulename_Onetime_discount", Api.Uniquepricingrulename, Api.PricingRuleNames, getProperty("DISCOUNT_PRICINGRULE_NAME"));
+		Api.Compare("Pricingrulename_Onetime_notavailable", Api.Uniquepricingrulename, Api.PricingRuleNames, getProperty("NOTAVAILABLE_PRICINGRULE_NAME"));
+		Api.PoolingList();
+		Api.Compare("POOL_NAME", Api.Uniquepoolingname, Api.PoolingNames, getProperty("POOL"));
+	
+		method1("First");
 	}
+
+
 
 	@When("the user enters the Predefined {string}")
 	public void theUserEntersThePredefined(String OTP) throws InterruptedException {
@@ -90,7 +134,12 @@ public class Prerequisites extends Base {
 
 	@Given("the admin clears the application cache")
 	public void theAdminClearsTheApplicationCache() throws IOException, InterruptedException {
-		clearAppCache(getProperty("APP_PACKAGE"));
+		if (PreprodEnvironment) {
+			clearAppCache(getProperty("PREPROD_APP_PACKAGE"));
+		}else {
+			clearAppCache(getProperty("APP_PACKAGE"));
+		}
+		
 	}
 
 	@When("the admin opens the application")

@@ -8,9 +8,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.jspecify.annotations.Nullable;
@@ -29,7 +31,7 @@ import com.baseClass.Base;
 import cucumberStepDefinition.Booking;
 
 public class Customer_Bookingflow extends Base {
-	public static String TotalAmountWithSymbol ;
+	public static String TotalAmountWithSymbol;
 
 	public static String BookingPaidAmount;
 	public static String BookingPaymentTime;
@@ -38,6 +40,44 @@ public class Customer_Bookingflow extends Base {
 	public static String Booked_service;
 	public static String BookingPaidAmountwithdecimal;
 	public static LocalDate BookingDate;
+	public static Boolean Stripe;
+	public static Boolean Crezco;
+
+	public static void Crezco_Payment() throws InterruptedException {
+		WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);// Create Stripe object
+		ClickonElement(booking.getCrezcoContinue());
+		Thread.sleep(2000);
+		ClickonElement(booking.getCrezcoSandbox());
+		Thread.sleep(2000);
+		ClickonElement(booking.getCrezcoSubmit());
+
+	}
+
+	public static void Stripe_Payment() throws InterruptedException {
+		WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);// Create Stripe object
+		ClickonElement(booking.getEmail()); // Click on the Gmail input field
+		passInput(booking.getEmail(), getProperty("StripeEmail")); // Enter the Gmail address
+		ClickonElement(booking.getCardNumber()); // Click on the card number input field
+		passInput(booking.getCardNumber(), getProperty("StripeCard")); // Enter the card number
+		ClickonElement(booking.getCardExpiry()); // Click on the card expiry input field
+		passInput(booking.getCardExpiry(), getProperty("StripeCardExpiry")); // Enter the card expiry date
+		ClickonElement(booking.getCVV()); // Click on the CVV input field
+		passInput(booking.getCVV(), getProperty("StripeCVV")); // Enter the CVV code
+		ClickonElement(booking.getBillingName()); // Click on the billing name input field
+		passInput(booking.getBillingName(), getProperty("StripeName")); // Enter the billing name
+		driver.hideKeyboard(); // Navigate back
+		Thread.sleep(2000);
+		ClickonElement(booking.getCompleteOrder()); // Click on the 'Pay' button
+	}
+
+	public static void Stripe_Payment1() throws InterruptedException {
+		WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);// Create Stripe object
+		ClickonElement(booking.getEmail()); // Click on the Gmail input field
+		passInput(booking.getEmail(), getProperty("StripeEmail")); // Enter the Gmail address
+		driver.hideKeyboard();
+		Thread.sleep(2000);
+		ClickonElement(booking.getCompleteOrder());
+	}
 
 	public static void booking() throws Exception {
 		WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
@@ -50,8 +90,9 @@ public class Customer_Bookingflow extends Base {
 		ClickonElement(mybookings.getHomeTab());
 		Thread.sleep(3000);
 		waitForElement(booking.getassorted());
-		System.out.println("nice");Random random = new Random();
-		
+		System.out.println("nice");
+		Random random = new Random();
+
 		if (isElementAvailable(booking.getServiceShowAll())) {
 			ClickonElement(booking.getServiceShowAll());
 			ClickonElement(booking.getSearchServices());
@@ -142,7 +183,7 @@ public class Customer_Bookingflow extends Base {
 				"//android.view.View[@content-desc=\"booking_page_calenderWidget\"]/android.view.View/android.view.View/android.view.View/android.view.View"));
 		int size = calendarElements.size();
 		if (size > 7) {
-			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
+			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
 			String formattedDateStr = BookingDate.format(formatter1);
 			// Check if the date portion starts with "0" and remove it if so
 			if (formattedDateStr.charAt(formattedDateStr.indexOf(",") + 6) == '0') {
@@ -171,9 +212,88 @@ public class Customer_Bookingflow extends Base {
 		Booked_service = booking.getserviceName().getAttribute("content-desc");
 		System.out.println("ssssss    :  " + Booked_service);
 		ClickonElement(booking.getproceed());
-		ClickonElement(booking.getCheckBox());
-		ClickonElement(booking.getConfirmANDPay());
+		Thread.sleep(5000);
+		waitForElement(booking.getReviewBooking());
+		System.out.println("review booking page");
+		Thread.sleep(2000);
 
+		String totalAmountText = booking.getTotal_Amount().getAttribute("content-desc");
+		TotalAmountWithSymbol = totalAmountText;
+		System.out.println("kkk    :--------------------------------         " + TotalAmountWithSymbol);
+		String remainingCreditText = booking.getRemaining_Credit().getAttribute("content-desc");
+		System.out.println("Total Amount is: " + totalAmountText);
+		System.out.println("Remaining Credit is: " + remainingCreditText);
+		// Remove the currency symbol and parse the values to double
+		double totalAmount = Double.parseDouble(totalAmountText.replace("£", "").trim());
+		double remainingCredit = Double.parseDouble(remainingCreditText.replace("£", "").trim());
+		// Compare the values
+		if (totalAmount > remainingCredit) {
+
+			System.out.println("Total amount is greater than remaining credit. Navigating to payment page...");
+			// Click on checkbox and ConfirmANDPay to go to the next page
+			ClickonElement(booking.getCheckBox());
+			System.setProperty("webdriver.chrome.driver",
+					"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+			ClickonElement(booking.getConfirmANDPay());
+
+			Thread.sleep(10000);
+			if (isElementAvailable(booking.getStripeBack())) {
+
+				// Run the appropriate Stripe payment function based on totalAmount value
+				if (totalAmount == 0.00) {
+					Stripe = true;
+					waitForElement(booking.getStripeBack());
+					Set<String> hand = driver.getContextHandles(); // Get context handles
+					System.out.println("Get Handles  : " + hand); // Print context handles
+					String webcontext = new ArrayList<String>(hand).get(1); // Get web context
+					System.out.println("WebView  : " + webcontext);
+					Thread.sleep(2000);
+					driver.context(webcontext);
+					Thread.sleep(10000);
+					Stripe_Payment1();
+					String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
+					System.out.println("native  : " + nativecontext);
+					driver.context(nativecontext);
+
+				} else {
+					Stripe = true;
+					waitForElement(booking.getStripeBack());
+					Set<String> hand = driver.getContextHandles(); // Get context handles
+					System.out.println("Get Handles  : " + hand); // Print context handles
+					String webcontext = new ArrayList<String>(hand).get(1); // Get web context
+					System.out.println("WebView  : " + webcontext);
+					Thread.sleep(2000);
+					driver.context(webcontext);
+					Thread.sleep(10000);
+
+					Stripe_Payment();
+					String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
+					System.out.println("native  : " + nativecontext);
+					driver.context(nativecontext);
+
+				}
+			} else if (isElementAvailable(booking.getCrezcoPayment())) {
+				Crezco = true;
+				System.out.println("Crezco payment ");
+				Set<String> hand = driver.getContextHandles(); // Get context handles
+				System.out.println("Get Handles  : " + hand); // Print context handles
+				String webcontext = new ArrayList<String>(hand).get(1); // Get web context
+				System.out.println("WebView  : " + webcontext);
+				Thread.sleep(2000);
+				driver.context(webcontext);
+				Thread.sleep(6000);
+				Crezco_Payment();
+
+			}
+
+		} else {
+			Stripe = false;
+			Crezco = false;
+			ClickonElement(booking.getCheckBox());
+			ClickonElement(booking.getConfirmANDPay());
+			System.out.println("Total amount is less than or equal to remaining credit. No payment required.");
+		}
+		System.out.println("Check the total amount and remaining credit amount  ");
 	}
 
 	public static void BookingSuccessfullPage() throws InterruptedException {
@@ -209,29 +329,7 @@ public class Customer_Bookingflow extends Base {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public static void SingleDateBooking(LocalDate ttttt) throws Exception {
 		WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 		Api api = new Api(driver);
@@ -280,14 +378,12 @@ public class Customer_Bookingflow extends Base {
 		String maxMonthName = getMonthName(maxBookingDate);
 		System.out.println("Month of minimum advance booking date: " + minMonthName);
 		System.out.println("Month of maximum booking date: " + maxMonthName);
-		
-		
-		
-		CheckTheDateWithinRange(minAdvanceBookingDate, maxBookingDate, ttttt );
-		
+
+		CheckTheDateWithinRange(minAdvanceBookingDate, maxBookingDate, ttttt);
+
 		if (range) {
-			System.out.println(
-					"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + ttttt);
+			System.out
+					.println("Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + ttttt);
 			String BookingMonth = getMonthName(ttttt);
 			int BookingYear = ttttt.getYear();
 			String BookingMonthProperCase = BookingMonth.substring(0, 1) + BookingMonth.substring(1).toLowerCase();
@@ -323,14 +419,12 @@ public class Customer_Bookingflow extends Base {
 						break;
 					}
 				}
-				
+
 			}
 			Thread.sleep(4000);
-		}else {
+		} else {
 			System.out.println("Note in range ");
 		}
-		
-		
 
 		Thread.sleep(4000);
 		List<WebElement> calendarElements = driver.findElements(By.xpath(
@@ -370,31 +464,25 @@ public class Customer_Bookingflow extends Base {
 		ClickonElement(booking.getConfirmANDPay());
 
 	}
-	
-	
-	
-	
-	
-	
-	public static  void TwoPetBooking() throws Exception {
+
+	public static void TwoPetBooking() throws Exception {
 
 		WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 		Api api = new Api(driver);
 		Random random = new Random();
 		Thread.sleep(10000);
-		 waitForElement(booking.getassorted());
-		 Thread.sleep(1000);
+		waitForElement(booking.getassorted());
+		Thread.sleep(1000);
 		if (booking.getpetcount().size() == 3) {
-            System.out.println("Two pets");
-            ClickonElement(booking.getpetcount().get(0));
-         
-        } else if (booking.getpetcount().size() == 1) {
-          System.out.println("one pet");
-        } else {
-            System.out.println("null.");
-        }
-		
-		
+			System.out.println("Two pets");
+			ClickonElement(booking.getpetcount().get(0));
+
+		} else if (booking.getpetcount().size() == 1) {
+			System.out.println("one pet");
+		} else {
+			System.out.println("null.");
+		}
+
 		if (isElementAvailable(booking.getServiceShowAll())) {
 			ClickonElement(booking.getServiceShowAll());
 			ClickonElement(booking.getSearchServices());
@@ -516,38 +604,23 @@ public class Customer_Bookingflow extends Base {
 		ClickonElement(booking.getproceed());
 		ClickonElement(booking.getCheckBox());
 		ClickonElement(booking.getConfirmANDPay());
-		
+
 	}
-	
-	
-	
-	public static  void Accounts() throws InterruptedException {
+
+	public static void Accounts() throws InterruptedException {
 
 		WE_Customer_Settings statement = new WE_Customer_Settings(driver);
 		ClickonElement(statement.getSettingsTab());
 		ClickonElement(statement.getAccounts());
 		Thread.sleep(10000);
 		if (Booking.Stripe) {
-			
+
 //			By sales = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
 //			System.out.println(sales);
 //			By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+Booking.TotalAmountWithSymbol+"']");
 //			System.out.println(payment);
 		}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	}
-	
-	
-	
 
 }

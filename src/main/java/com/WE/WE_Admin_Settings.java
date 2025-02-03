@@ -44,6 +44,19 @@ public class WE_Admin_Settings extends Base{
 		return  SaveBreed   ;
 	}
 	
+	@FindBy(xpath = "//*[starts-with(@content-desc,'Beneficiary SubType must be unique')]")
+	private WebElement BreedNameAlreadyExist;
+	public WebElement getBreedNameAlreadyExist() {
+	    return BreedNameAlreadyExist;
+	}
+	
+	@FindBy(xpath = "//android.view.View[@content-desc=\"Manage Breed\"]")
+	private WebElement manageBreed;
+	public WebElement getmanageBreed() {
+	    return manageBreed;
+	}
+	
+	
 
 	
 //	 Element for the Settings tab
@@ -476,36 +489,54 @@ public static By ToMonthExpectedNotAvailable = By.xpath(String.format("//android
 	
 	public static By ToYearExpectedNotAvailable = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Year_PricingRule_NotAvailable")));
 	
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Manage Credit Limits\"]")
+	private WebElement  ManageCreditLimit  ;
+	public WebElement getManageCreditLimit() {
+		return    ManageCreditLimit ;
+	}
+	public static By CustomerNameForRemainingcredit  = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]/following-sibling::android.widget.EditText[1]", getProperty("SIGNUP_FIRSTNAME")+" "+getProperty("SIGNUP_LASTNAME")));
+
+	
+	//android.view.View[@content-desc="Akila new Cus"]/following-sibling::android.widget.EditText[1]
+	
+	@FindBy (xpath ="//*[starts-with(@hint,'Customer Name')]")
+	private WebElement  AccountsCustomer  ;
+	public WebElement getAccountsCustomer() {
+		return    AccountsCustomer ;
+	}
+	
+	@FindBy (xpath="//*[starts-with(@hint,'Search')]")
+	private WebElement SearchCustomer_Accounts;
+	public WebElement getSearchCustomer_Accounts() {
+		return SearchCustomer_Accounts;
+	}
+	
+	public static By CustomerNameInAccountsSearch  = By.xpath(String.format("//android.view.View[contains(@content-desc,\"%s\")]", getProperty("SIGNUP_FIRSTNAME")+" "+getProperty("SIGNUP_LASTNAME")));
+
+	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"Amount\")]/following-sibling::android.widget.EditText[1]")
+	private WebElement   AdhocAmount ;
+	public WebElement getAdhocAmount() {
+		return   AdhocAmount  ;
+	}
+	
+	
+	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"Remarks\")]/following-sibling::android.widget.EditText[1]")
+	private WebElement  RemarksAccounts  ;
+	public WebElement getRemarksAccounts() {
+		return    RemarksAccounts ;
+	}
+	
+	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"invoice_detail\")]")
+	private WebElement  SelectInvoice  ;
+	public WebElement getSelectInvoice() {
+		return SelectInvoice    ;
+	}
+	@FindBy (xpath ="//android.view.View[@content-desc=\"No Records Found\"]")
+	private WebElement  NoRecordFound  ;
+	public WebElement getNoRecordFound() {
+		return    NoRecordFound ;
+	}
+	
 //	@FindBy (xpath ="")
 //	private WebElement    ;
 //	public WebElement get() {

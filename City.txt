@@ -1,0 +1,50 @@
+Westminster
+Covent Garden
+Soho
+Mayfair
+Bloomsbury
+Fitzrovia
+St James's
+Marylebone
+Camden
+Hampstead
+Highgate
+Islington
+Finchley
+Archway
+Muswell Hill
+Finsbury Park
+Clapham
+Brixton
+Dulwich
+Wimbledon
+Tooting
+Streatham
+Battersea
+Elephant and Castle
+Shoreditch
+Hackney
+Stratford
+Canary Wharf
+Bethnal Green
+Walthamstow
+Mile End
+Whitechapel
+Notting Hill
+Kensington
+Chelsea
+Fulham
+Hammersmith
+Ealing
+Chiswick
+Richmond
+Croydon
+Harrow
+Barnet
+Bromley
+Kingston
+Sutton
+Enfield
+Hounslow
+Greenwich
+Lewisham

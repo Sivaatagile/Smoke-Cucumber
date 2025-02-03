@@ -23,7 +23,7 @@ public class Login_Details extends Base {
 		}
 		ClickonElement(signup.getContinueButton());
 		Thread.sleep(10000);
-		String otp = getOtpFromSource();
+		String otp = getOtpFromSource1();
 		Thread.sleep(2000);
 		passInputUsingActions(signup.getOTP(), otp);
 	}
@@ -36,7 +36,7 @@ public class Login_Details extends Base {
 		ClickonElement(login.getContinueButton());
 		waitForElement(login.getEnterORPaste());
 		Thread.sleep(2000);
-		String otp = getOtpFromSource();
+		String otp = getOtpFromSource1();
 		Thread.sleep(2000);
 		passInputUsingActions(login.getOTP(), otp);
 		driver.hideKeyboard();
@@ -77,9 +77,9 @@ public class Login_Details extends Base {
 		driver.hideKeyboard();
 	}
 	
-	public static  void stafflogout() {
+	public static  void stafflogout() throws InterruptedException {
 		WE_Login_Details login = new WE_Login_Details(driver);
-
+        waitForElement(login.getMyScedule());
 		ClickonElement(login.getstaffprofile());
 		scrollDown();
 		ClickonElement(login.getLogout());
@@ -97,10 +97,21 @@ public class Login_Details extends Base {
 		driver.hideKeyboard();
 	}
 
-	public static void main(String[] args) throws InterruptedException, IOException {
-		method1("First");
-		OpenApplication();
-		Predefined_login_Customer();
-	}
+//	public static void main(String[] args) throws InterruptedException, IOException {
+//		method1("First");
+//		Latest_StagingAPK_download(getProperty("STAGING"));
+//		Application();
+//		login_Customer();
+//		Logout_Customer();
+//		login_Admin();
+//		Logout_Admin();
+//		login_staff();
+//		stafflogout();
+//		Predefined_login_Customer();
+//		Logout_Customer();
+//		
+//		
+//		
+//	}
 
 }

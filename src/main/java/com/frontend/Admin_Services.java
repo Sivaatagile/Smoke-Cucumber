@@ -1,5 +1,7 @@
 package com.frontend;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import com.WE.WE_Admin_Services.AddOnType;
 import com.WE.WE_Info;
 import com.api.Api;
 import com.baseClass.Base;
+import com.baseClass.Base.API_BASE_URL;
 
 public class Admin_Services extends Base {
 
@@ -104,8 +107,8 @@ public class Admin_Services extends Base {
 		slowscrolluntilelementfound(Service.getFirstElement());
 		ClickonElement(Service.getFirstElement());
 		passInput(Service.getFirstElement(), getProperty("BASE_PRICE_AMOUNT"));
-driver.hideKeyboard();
-
+		driver.hideKeyboard();
+		Thread.sleep(2000);
 		slowscrolluntilelementfound(Service.getFourthElement());
 		int BasePrice_size = Service.getBaseprice().size();
 		System.out.println("size of Base list  : " + BasePrice_size);
@@ -164,7 +167,7 @@ driver.hideKeyboard();
 	}
 
 	public static void AddonCreation(AddOnType addOnType , String AddonName) throws Exception {
-
+		WE_Info info = new WE_Info(driver);
 		WE_Admin_Services Addon = new WE_Admin_Services(driver);
 		Api api = new Api(driver);
 		ClickonElement(Addon.getservice_Tab());
@@ -187,12 +190,12 @@ driver.hideKeyboard();
 		selectSlot(api.slotNames);
 		Thread.sleep(5000);
 		
-		halfscrollUntilElementFound12(Addon.getscrollview(), Addon.getFirstElement());
+		slowscrolluntilelementfound(Addon.getFirstElement());
 		ClickonElement(Addon.getFirstElement());
-		passInput(Addon.getFirstElement(), getProperty("BASE_PRICE_AMOUNT"));
+		passInput(Addon.getFirstElement(), getProperty("ADDON_BASE_PRICE_AMOUNT"));
         driver.hideKeyboard();
 
-		halfscrollUntilElementFound12(Addon.getscrollview(), Addon.getFourthElement());
+        slowscrolluntilelementfound(Addon.getFourthElement());
 		int BasePrice_size = Addon.getBaseprice().size();
 		System.out.println("size of Base list  : " + BasePrice_size);
 		Thread.sleep(3000);
@@ -200,25 +203,14 @@ driver.hideKeyboard();
 			Thread.sleep(3000);
 			Addon.getBaseprice().get(i).click();
 			Thread.sleep(5000);
-			passInput(Addon.getBaseprice().get(i), getProperty("BASE_PRICE_AMOUNT"));
+			passInput(Addon.getBaseprice().get(i), getProperty("ADDON_BASE_PRICE_AMOUNT"));
 			driver.hideKeyboard();
 			Thread.sleep(3000);
 		}
 		
 		waitForElement(Addon.getcapacityType());
 		ClickonElement(Addon.getFixed());
-		
-//		halfscrollUntilElementFound12(Addon.getscrollview(), Addon.getFourthElement());
-//		int BasePrice_size = Addon.getBaseprice().size();
-//		System.out.println("size of Base list  : " + BasePrice_size);
-//		Thread.sleep(3000);
-//		for (int i = 0; i < 4; i++) {
-//			Thread.sleep(3000);
-//			Addon.getBaseprice().get(i).click();
-//			passInput(Addon.getBaseprice().get(i), getProperty("ADDON_BASE_PRICE_AMOUNT"));
-//			driver.hideKeyboard();
-//			Thread.sleep(3000);
-//		}
+
 		ClickonElement(Addon.getAddon_Maximum_capacity());
 		ClearonElement(Addon.getAddon_Maximum_capacity());
 		passInput(Addon.getAddon_Maximum_capacity(), getProperty("ADDON_MAX_CAPACITY_SLOT"));
@@ -257,7 +249,25 @@ driver.hideKeyboard();
 		ClickonElement(Addon.getSelect1());
 		Thread.sleep(2000);
 		ClickonElement(Addon.getService_Save());
+		ClickonElement(info.getBackButton());
 
+	}
+	public static void main(String[] args) throws Exception {
+		method1("First");
+		Latest_StagingAPK_download(getProperty("STAGING"));
+		Application();
+		ChooseApi(API_BASE_URL.Staging);
+		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
+		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
+		Api.OverallSlotList();
+		Login_Details.login_Admin();
+//		slot_creation();
+		ServiceCreation();
+		AddonCreation(AddOnType.ASSIGNABLE,getProperty("ADDON_ASSIGNABLE") );
+		AddonCreation(AddOnType.PRIVILEGE,getProperty("ADDON_PRIVILAGE") );
+
+		
+	
 	}
 	
 

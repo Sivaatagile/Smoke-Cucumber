@@ -96,9 +96,17 @@ public class WE_Admin_Services extends Base{
 	public WebElement getOKbutton() {
 		return    OKbutton ;
 	}
+	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"Add-ons\")]")
+	private WebElement   Addons1 ;
+	public WebElement getAddons1() {
+		return   Addons1  ;
+	}
 	
-	
-	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Add-ons \"]")
+	private WebElement   Addons ;
+	public WebElement getAddons() {
+		return   Addons  ;
+	}
 	
 //	------------------------------------------------------> SERVICE CREATION
 	
@@ -345,5 +353,59 @@ public static By ToMonthPrivilegeAddonExpected = By.xpath(String.format("//andro
 	public static By ToDatePrivilegeAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE_TO_Date")));
 	
 	public static By ToYearPrivilegeAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE_TO_Year")));
+	
+//	@FindBy(xpath = "//android.widget.SeekBar[@content-desc=\"ADDON_ASSIGNABLE_TO_Month\"]")
+//	private WebElement seekBar;
+//	public WebElement getSeekBar() {
+//	    return seekBar;
+//	}
+
+	public static By getprivilege = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE")));
+
+	public static By getAssignableAddon = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE")));
+
+//	public WebElement getPrivilegeAddon() {
+//	    String xpath = String.format();
+//	    return driver.findElement(By.xpath(xpath));
+//	}
+//	
+//	public WebElement getAssignableAddon() {
+//	    String xpath = String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE"));
+//	    return driver.findElement(By.xpath(xpath));
+//	}
+	
+//	@FindBy (xpath="//android.widget.ScrollView")
+//	private WebElement  scrollview ;
+//	public WebElement getscrollview() {
+//		return scrollview;
+//	}
+	
+	
+//	@FindBy (xpath =)
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	}
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	}
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	}
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	}
+//	
 	
 }

@@ -98,6 +98,12 @@ public class WE_Login_Details extends Base{
 		return    staffprofile ;
 	}
 	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"My Schedule\"]")
+	private WebElement   MyScedule ;
+	public WebElement getMyScedule() {
+		return    MyScedule ;
+	}
+	
 	
 	
 }

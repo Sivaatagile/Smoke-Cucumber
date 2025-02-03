@@ -66,7 +66,7 @@ slowScroll();
 	@When("the admin enters {string} in the service name input field")
 	public void theAdminEntersInTheServiceNameInputField(String string) {
 		ClickonElement(Service.getService_name());
-		passInput(Service.getService_name(), getProperty("SERVICE_NAME"));
+		passInput(Service.getService_name(), getProperty(string));
 		driver.hideKeyboard();
 	}
 
@@ -85,30 +85,40 @@ slowScroll();
 
 	@When("the admin sets the {string} for {int} to {int} pets")
 	public void theAdminSetsTheForToPets(String string, Integer int1, Integer int2) throws Exception {
-		halfscrollUntilElementFound12(Service.getscrollview(), Service.getFirstElement());
+		slowscrolluntilelementfound(Service.getFirstElement());
 		ClickonElement(Service.getFirstElement());
 		passInput(Service.getFirstElement(), getProperty("BASE_PRICE_AMOUNT"));
 		driver.hideKeyboard();
 		Thread.sleep(2000);
-		halfscrollUntilElementFound12(Service.getscrollview(), Service.getFourthElement());
+		slowscrolluntilelementfound(Service.getFourthElement());
 		int BasePrice_size = Service.getBaseprice().size();
 		System.out.println("size of Base list  : " + BasePrice_size);
-		Thread.sleep(3000);
+		Thread.sleep(1000);
 		for (int i = 0; i < 3; i++) {
-			Thread.sleep(3000);
+			Thread.sleep(500);
 			Service.getBaseprice().get(i).click();
-			Thread.sleep(5000);
+			Thread.sleep(500);
 			passInput(Service.getBaseprice().get(i), getProperty("BASE_PRICE_AMOUNT"));
 			driver.hideKeyboard();
-			Thread.sleep(3000);
+			Thread.sleep(500);
 		}
 	}
 
 	@When("the admin selects {string} from the tab")
-	public void theAdminSelectsFromTheTab(String string) {
-		ClickonElement(Service.getMaximum_capacity());
-		passInput(Service.getMaximum_capacity(), getProperty("MAX_CAPACITY_SLOT"));
-		driver.hideKeyboard();
+	public void theAdminSelectsFromTheTab(String string) throws Exception {
+		
+		if (isElementAvailable(Service.getMaximum_capacity())) {
+			ClickonElement(Service.getMaximum_capacity());
+			passInput(Service.getMaximum_capacity(), getProperty("MAX_CAPACITY_SLOT"));
+			driver.hideKeyboard();
+		}else {
+			slowScroll();
+			ClickonElement(Service.getMaximum_capacity());
+			passInput(Service.getMaximum_capacity(), getProperty("MAX_CAPACITY_SLOT"));
+			driver.hideKeyboard();
+			
+		}
+		
 	}
 
 	@When("the admin sets the {string} for the service")
@@ -166,4 +176,19 @@ slowScroll();
 		System.out.println("Check the snack bar ");
 	}
 
+	@When("the admin select the addon for this service")
+	public void theAdminSelectTheAddonForThisService() throws Exception {
+	   ClickonElement(Service.getAddons());
+		Thread.sleep(5000);
+       scrollUntilElementFound(Service.getscrollview(), Service.getprivilege);
+		clickOnElementUsingBy(Service.getprivilege);
+		ClickonElement(Service.getSelect());
+		Thread.sleep(2000);
+		ClickonElement(Service.getAddons1());
+		Thread.sleep(2000);
+       scrollUntilElementFound(Service.getscrollview(), Service.getAssignableAddon);
+		clickOnElementUsingBy(Service.getAssignableAddon);
+		ClickonElement(Service.getSelect());
+	}
+	
 }

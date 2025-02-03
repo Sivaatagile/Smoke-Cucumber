@@ -203,6 +203,32 @@ public class WE_Customer_BookingFlow extends Base{
 	    return ReviewBooking;
 	}
 	
+	@FindBy(xpath="//android.widget.TextView[contains(@text,\"Crezco\")]")
+	private WebElement CrezcoPayment;
+	public WebElement getCrezcoPayment() {
+	    return CrezcoPayment;
+	}
+	
+	@FindBy(xpath="//android.widget.Button[@text=\"Continue\"]")
+	private WebElement CrezcoContinue;
+	public WebElement getCrezcoContinue() {
+	    return CrezcoContinue;
+	}
+	
+	@FindBy(xpath="//android.view.View[@text=\"Crezco Sandbox - GB\"]")
+	private WebElement CrezcoSandbox;
+	public WebElement getCrezcoSandbox() {
+	    return CrezcoSandbox;
+	}
+	
+	@FindBy(xpath="//android.widget.Button[@resource-id=\"submit\"]")
+	private WebElement CrezcoSubmit;
+	public WebElement getCrezcoSubmit() {
+	    return CrezcoSubmit;
+	}
+	
+	
+	
 	
 	
 }

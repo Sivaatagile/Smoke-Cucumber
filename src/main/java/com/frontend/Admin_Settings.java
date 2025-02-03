@@ -11,6 +11,7 @@ import com.WE.WE_Admin_Settings;
 import com.WE.WE_Admin_WorkFlow;
 import com.api.Api;
 import com.baseClass.Base;
+import com.baseClass.Base.API_BASE_URL;
 
 public class Admin_Settings extends Base {
 	
@@ -25,41 +26,10 @@ public class Admin_Settings extends Base {
 		ClickonElement(settings.getManageBreeds());
 		ClickonElement(settings.getFABBreed());
 		ClickonElement(settings.getBreedName());
-		passInput(settings.getBreedName(), getProperty("ADMIN_BREED_NAME"));
+		passInput(settings.getBreedName(), getProperty("BREED_Name"));
 		ClickonElement(settings.getSaveBreed());
 		ClickonElement(settings.getback());
 
-	}
-
-	public void Admin_Statement() throws Exception {
-		WE_Admin_Settings settings = new WE_Admin_Settings(driver);
-		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
-		ClickonElement(workflow.getSettings_navigation_Bar());
-		ClickonElement(settings.getstatements());
-		waitForElement(settings.getYearStatement());
-		Thread.sleep(2000);
-		ClickonElement(settings.getsearch());
-		Thread.sleep(2000);
-		passInput(settings.getsearch(), getProperty("SIGNUP_FIRSTNAME"));
-		clickOnElementUsingBy(settings.SignupFirstname);
-
-		Thread.sleep(5000);
-		System.out.println(Customer_Settings.InvoiceNumber);
-		By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='" + Customer_Settings.InvoiceNumber + "']");
-		System.out.println(BookedPAYMENT1);
-		halfscrollUntilElementFound12(settings.getscroll(), BookedPAYMENT1);
-		if (isElementAvailable(BookedPAYMENT1)) {
-			Thread.sleep(4000);
-			System.out.println("hhh : " + Customer_Settings.StatementCreatedDate);
-			Thread.sleep(3000);
-			By statementcreateddatelocator = By
-					.xpath("//android.view.View[@content-desc='" + Customer_Settings.StatementCreatedDate + "']");
-			if (isElementAvailable(statementcreateddatelocator)) {
-				System.out.println("date showed");
-			}
-		} else {
-			System.out.println("Not listed");
-		}
 	}
 
 	public static void CreatePool() {
@@ -251,6 +221,55 @@ public class Admin_Settings extends Base {
 		ClickonElement(settings.getsave());
 		ClickonElement(settings.getback());
 
+	}
+	
+	
+	
+	public void Admin_Statement() throws Exception {
+		WE_Admin_Settings settings = new WE_Admin_Settings(driver);
+		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+		ClickonElement(workflow.getSettings_navigation_Bar());
+		ClickonElement(settings.getstatements());
+		waitForElement(settings.getYearStatement());
+		Thread.sleep(2000);
+		ClickonElement(settings.getsearch());
+		Thread.sleep(2000);
+		passInput(settings.getsearch(), getProperty("SIGNUP_FIRSTNAME"));
+		clickOnElementUsingBy(settings.SignupFirstname);
+
+		Thread.sleep(5000);
+		System.out.println(Customer_Settings.InvoiceNumber);
+		By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='" + Customer_Settings.InvoiceNumber + "']");
+		System.out.println(BookedPAYMENT1);
+		halfscrollUntilElementFound12(settings.getscroll(), BookedPAYMENT1);
+		if (isElementAvailable(BookedPAYMENT1)) {
+			Thread.sleep(4000);
+			System.out.println("hhh : " + Customer_Settings.StatementCreatedDate);
+			Thread.sleep(3000);
+			By statementcreateddatelocator = By
+					.xpath("//android.view.View[@content-desc='" + Customer_Settings.StatementCreatedDate + "']");
+			if (isElementAvailable(statementcreateddatelocator)) {
+				System.out.println("date showed");
+			}
+		} else {
+			System.out.println("Not listed");
+		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+		method1("First");
+		Latest_StagingAPK_download(getProperty("STAGING"));
+		Application();
+		ChooseApi(API_BASE_URL.Staging);
+		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
+		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
+		Login_Details.login_Admin();
+		CreateBreed();
+		CreatePool();
+		CreatePricingRulePremium();
+		CreatePricingRuleDiscount();
+		CreatePricingRuleNotAvailable();
+		
 	}
 	
 	

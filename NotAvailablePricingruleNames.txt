@@ -1,0 +1,100 @@
+Out of Stock Pricing Rule
+Discontinued Item Policy
+Temporarily Unavailable Rule
+No Longer Offered Pricing
+Limited Availability Rule
+Archived Product Pricing
+Not for Sale Policy
+Restricted Access Rule
+Delisted Product Pricing
+Unavailable Tier Rule
+Withdrawn Item Policy
+Paused Sales Strategy
+Off-Market Pricing Rule
+Deactivated Item Policy
+Seasonal Hold Pricing Rule
+Limited Access Offer
+Suspended Sales Pricing
+End of Line Pricing Rule
+Closed Sale Policy
+Reserved Stock Rule
+Waitlist Only Pricing Rule
+Pre-Order Closed Rule
+Non-Retail Item Policy
+Temporary Restriction Rule
+Halted Sales Pricing Strategy
+Discontinued Model Rule
+Stock Delay Pricing Policy
+Unavailable Status Rule
+Holdback Pricing Strategy
+Excluded Product Policy
+Withdrawn Model Pricing
+Paused Item Sale Rule
+Limited Edition End Policy
+No Stock Available Rule
+Archived SKU Pricing Policy
+Restricted Sale Tier Rule
+Out of Stock Tier Strategy
+No Longer Available Rule
+Limited Run End Policy
+Temporary Holdback Pricing
+Retired Model Pricing Rule
+Decommissioned Item Policy
+Seasonal Unavailability Rule
+Paused Offer Pricing Policy
+Product Freeze Rule
+Waitlist Active Pricing
+Sale Ended Pricing Rule
+Closed Offer Policy
+Temporary Suspension Rule
+Reserved for Later Pricing
+Excluded from Sale Policy
+Frozen Availability Rule
+Removed Product Pricing
+Hold Status Pricing Rule
+Limited Time End Policy
+SKU Retired Pricing Rule
+Restricted Listing Pricing
+Halted Sales Item Rule
+Frozen Stock Policy
+Non-Sale Pricing Tier
+Archived Pricing Plan
+Removed Tier Rule
+Non-Purchasable Item Policy
+Product On Hold Rule
+Reserved Stock Tier Pricing
+Discontinued Tier Rule
+Paused SKU Pricing Plan
+Seasonal Archive Rule
+Restricted Access Tier
+Product Discontinued Rule
+No Stock Status Policy
+Frozen SKU Pricing Strategy
+Temporary Archive Rule
+Out of Season Pricing
+Paused Inventory Rule
+Excluded Inventory Policy
+Not for Retail Pricing Rule
+Unavailable Access Plan
+Frozen Access Pricing
+Delisted SKU Policy
+Restricted Product Tier
+Out of Market Pricing Rule
+Removed Offer Plan
+Archived Model Pricing Rule
+Discontinued Access Tier
+Seasonal Pause Pricing
+Withdrawn SKU Policy
+No Longer Listed Pricing
+Limited Availability End Rule
+Removed Inventory Strategy
+Product Off Market Rule
+Archived Sale Policy
+Reserved Only Pricing Rule
+Frozen Item Plan
+Closed Access Pricing Rule
+Not for Purchase Policy
+Halted Access Tier
+Paused Stock Pricing Plan
+Seasonal Hold Rule
+Ended Offer Pricing Strategy

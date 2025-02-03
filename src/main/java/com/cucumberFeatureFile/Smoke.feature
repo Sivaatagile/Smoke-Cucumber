@@ -63,7 +63,7 @@ Feature: Booking Application Sanity Flow
     When the admin opens the application
     Then the application launches successfully
     And the admin is navigated to the login page (or home page if already logged in)
-#
+
   Scenario: User login using email as admin (predefined account)
     Given the user enters their predefined "PREDEFINED_ADMIN_EMAIL" address
     When the user clicks on the Continue button
@@ -159,7 +159,7 @@ Feature: Booking Application Sanity Flow
     And the admin taps on Show All under services  
     And the admin taps the plus button to create a new service
     And the admin select the service while creating a service  
-    When the admin enters "Service Name" in the service name input field  
+    When the admin enters "SERVICE_NAME" in the service name input field  
     And the admin provides "Description" in the service description field  
     And the admin fetches the overall slot list using the API  
     And the admin sets the "Base Price" for 1 to 4 pets 
@@ -211,7 +211,27 @@ Feature: Booking Application Sanity Flow
     When the admin clicks on the Back button
     And the admin taps the Home icon
     
-
+     Scenario: Successfully create a service  with addon
+    Given the admin navigates to the Service tab  
+    And the admin taps on Show All under services  
+    And the admin taps the plus button to create a new service
+    And the admin select the service while creating a service  
+    When the admin enters "ADDON_SERVICE_NAME" in the service name input field  
+    And the admin provides "ADDON_SERVICE_DESCRIPTION" in the service description field  
+    And the admin fetches the overall slot list using the API  
+    And the admin sets the "Base Price" for 1 to 4 pets 
+    And the admin select the addon for this service
+    And the admin selects "Capacity Type" from the tab  
+    And the admin sets the "Maximum Capacity" for the service  
+    And the admin sets the "Maximum Capacity per Staff"  
+    And the admin sets the "Maximum Advance Booking Limit"  
+    And the admin provides "Service Validity From" and "Service Validity To" dates  
+    And the admin taps the save button  
+    Then the service should be created successfully  
+    When the admin clicks on the Back button
+    And the admin taps the Home icon
+    #
+#
   Scenario: Adding a new staff through the admin portal
     Given the admin clicks on the Users tab
     When the admin clicks on Staff's Show All
@@ -348,13 +368,14 @@ Scenario: Verify Customer Statement Details
     When the customer clicks on Statements
     And the customer selects the current month
     Then the customer checks if the saved invoice number is listed
-    And the customer goes back to the home page
+And the customer goes back to the home page
     
     Scenario: Verify the accounts 
      Given the customer navigates to the Settings tab
     When the customer clicks on Accounts
     And Verify the sales or payment detais are listed their
-    And the customer goes back to the home page
+        And the customer goes back from accounts to the home page
+    
     
 Scenario: Successfully logout customer
     Given the customer navigates to the Settings tab  
@@ -367,8 +388,21 @@ Scenario: User login using email as admin (predefined account)
     And the user enters the Predefined Otp "PREDEFINED_ADMIN_OTP"
     Then the user should be logged in successfully
     
+Scenario: Admin that do update remaining credit 
+    Given Remaining credit 
+    
+    Scenario:   adhoc 
+    Given       Adoc
+    
+
+    
+    
 Scenario: admin statement covered 
 Given admin statement 
+
+Scenario: Admin Invoices Covered 
+Given Admin invoices
+
     
 Scenario: Approving a booking
     Given the admin navigates to the Pending tab
@@ -432,7 +466,7 @@ Scenario: Admin created a pet for an existing customer
     #Then the service should be created successfully  
     #When the admin clicks on the Back button
     #And the admin taps the Home icon
-    #
+    
     
 Scenario: Successfully logout Admin 
     Given the admin navigates to the Settings tab  
@@ -465,13 +499,27 @@ Scenario: Create a booking for Two pet on a randomly selected date
     And the user saves the booking details
     
     Scenario:  Accounts 
-    Given Accounts 
-
+      Given the customer navigates to the Settings tab
+    When the customer clicks on Accounts
+    And Verify the sales or payment detais are listed their
+ And the customer goes back from accounts to the home page
+ 
+ #Scenario:  Customer Second Pet
+#Given  Customer Second Pet
     
 Scenario: Successfully logout customer
     Given the customer navigates to the Settings tab  
     And the customer clicks on the logout button
-   
+    
+    #Scenario: User login using email as admin (predefined account)
+    #Given the user enters their predefined "PREDEFINED_ADMIN_EMAIL" address
+    #When the user clicks on the Continue button
+    #And the user enters the Predefined Otp "PREDEFINED_ADMIN_OTP"
+    #Then the user should be logged in successfully
+   #
+   #Scenario: approve pet
+   #Given approve pet
+
 Scenario: Staff login using email (already created by admin)
     Given the staff enters their "ADMIN_STAFF_EMAIL" address
     When the staff clicks on the Continue button

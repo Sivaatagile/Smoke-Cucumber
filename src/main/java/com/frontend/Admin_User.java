@@ -1,10 +1,14 @@
 package com.frontend;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import com.WE.WE_Admin_User;
 import com.WE.WE_Admin_WorkFlow;
 import com.WE.WE_Info;
+import com.api.Api;
 import com.baseClass.Base;
-
+import com.baseClass.Base.API_BASE_URL;
 
 import io.qameta.allure.Allure;
 
@@ -219,6 +223,45 @@ public class Admin_User extends Base {
 
 	}
 
+	
+	public static  void second_pet() throws Exception {
+		WE_Admin_User user = new WE_Admin_User(driver);
+		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+		WE_Info info = new WE_Info(driver);
+
+		
+		ClickonElement(workflow.getUsers_navigation_Bar());
+
+		waitForElement(user.getShowall_AllCustomers());
+		Thread.sleep(2000);
+		ClickonElement(user.getShowall_AllCustomers());
+		ClickonElement(user.getSearchBox());
+		Thread.sleep(3000);
+		passInput(user.getSearchBox(), getProperty("SIGNUP_EMAIL"));
+		driver.hideKeyboard();
+		Thread.sleep(4000);
+		if (isElementAvailable(user.getuser())) {
+			System.out.println("User Found ");
+			Thread.sleep(1000);
+			ClickonElement(user.getuser());
+			ClickonElement(user.getview());
+			ClickonElement(user.getMyPet());
+			
+			ClickonElement(user.getFAB());
+			Info.Pet_Data();
+			
+			ClickonElement(info.getBackButton());
+			ClickonElement(info.getBackButton());
+
+			
+			
+		} else if (isElementAvailable(user.trySearchingagain)) {
+			System.out.println("User not found");
+			throw new Error("User not found");
+		}
+		
+	}
+
 	public static void approveUserUsingSearch() throws Exception {
 		WE_Admin_User user = new WE_Admin_User(driver);
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
@@ -300,39 +343,23 @@ public class Admin_User extends Base {
 
 	}
 	
-	public static  void second_pet() throws Exception {
-		WE_Admin_User user = new WE_Admin_User(driver);
-		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
-		ClickonElement(workflow.getUsers_navigation_Bar());
-
-		waitForElement(user.getShowall_AllCustomers());
-		Thread.sleep(2000);
-		ClickonElement(user.getShowall_AllCustomers());
-		ClickonElement(user.getSearchBox());
-		Thread.sleep(3000);
-		passInput(user.getSearchBox(), getProperty("SIGNUP_EMAIL"));
-		driver.hideKeyboard();
-		Thread.sleep(4000);
-		if (isElementAvailable(user.getuser())) {
-			System.out.println("User Found ");
-			Thread.sleep(1000);
-			ClickonElement(user.getuser());
-			ClickonElement(user.getview());
-			ClickonElement(user.getMyPet());
-			
-			ClickonElement(user.getFAB());
-			Info.Pet_Data();
-			
-			
-			
-			
-		} else if (isElementAvailable(user.trySearchingagain)) {
-			System.out.println("User not found");
-			throw new Error("User not found");
-		}
+	
+	public static void main(String[] args) throws Exception {
+		method1("First");
+		Latest_StagingAPK_download(getProperty("STAGING"));
+		Application();
+		ChooseApi(API_BASE_URL.Staging);
+		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
+		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
+		Login_Details.login_Admin();
+		Create_Admin();
+		Create_Customer();
+		Create_Staff();
+		CreateTag();
+		second_pet();
 		
 	}
 	
 	
-
+//	ect1a 1bb
 }
