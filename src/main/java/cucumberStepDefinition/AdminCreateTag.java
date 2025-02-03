@@ -14,8 +14,9 @@ public class AdminCreateTag extends Base {
 
 	@Given("the admin clicks on Show All under tag categories")
 	public void theAdminClicksOnShowAllUnderTagCategories() throws Exception {
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		halfscrollUntilElementFound12(user.getTagscrollview(), user.getTagCategoriesShowall());
+		Thread.sleep(1000);
 		ClickonElement(user.getTagCategoriesShowall());
 	}
 

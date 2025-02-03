@@ -20,6 +20,7 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Flags;
@@ -53,10 +54,15 @@ import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.WE.WE_Admin_Services.AddOnType;
+
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import io.qameta.allure.Allure;
 
 public class Base {
@@ -70,14 +76,77 @@ public class Base {
 	public static String currentMonth;
 	public static String StatementCreatedDate;
 	public static boolean range;
-
+	public static  String BASE_URL ;
+	public static  boolean	PreprodEnvironment;
+	public static FileOutputStream output;
+	public static FileInputStream fis;
 //	----------------------------------------------->  Application details
 
+	 public static String generateRandomString(int length) {
+	        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	        StringBuilder randomString = new StringBuilder();
+	        Random random = new Random();
+
+	        for (int i = 0; i < length; i++) {
+	            int index = random.nextInt(characters.length());
+	            randomString.append(characters.charAt(index));
+	        }
+
+	        return randomString.toString();
+	    }
+		public static enum API_BASE_URL {
+		    Staging,
+		    Uat,
+		    Preprod,
+		    Automation
+		}
+		
+		 public static void ChooseApi(API_BASE_URL Environment) {
+		        switch (Environment) {
+		            case Staging:
+		            	
+		            	BASE_URL ="https://staging.petcaretechnologies.com/api/";
+		                break;
+		                
+		            case Uat:
+		            	BASE_URL ="https://uat.petcaretechnologies.com/api/";
+		            	break;
+		            	
+		            case Preprod:
+		            	PreprodEnvironment=true;
+		            	BASE_URL ="https://preprod.petcaretechnologies.com/api/";
+		                break;
+		                
+		            case Automation:
+		            	BASE_URL ="https://paw-845-staging-automation-testing.petcaretechnologies.com/api/";
+		                break;
+		                
+		            default:
+		                throw new IllegalArgumentException("Invalid add-on type: " + Environment);
+		        } 
+		 }
 	public static void Application() throws MalformedURLException {
 		UiAutomator2Options options = new UiAutomator2Options(); // Create options object
 		String getEmulatorArch = getEmulatorArch("Pixel_6_Pro"); // Get emulator architecture
 		String Apk = workspacePath + "\\Apk\\app-" + getEmulatorArch + "-release.apk"; // APK path
 //		String Apk =getProperty("APK_PATH");
+		options.setAutomationName(getProperty("AUTOMATION_NAME")); // Set automation name
+		options.setPlatformName(getProperty("PLATFORM_NAME")); // Set platform name
+		options.setPlatformVersion(getProperty("PLATFORM_VERSION")); // Set platform version
+		options.setDeviceName(getProperty("DEVICE_NAME")); // Set device name
+		options.setApp(Apk); // Set the path to the downloaded APK file
+		options.setCapability("autoGrantPermissions", "true"); // Set capability
+		options.setCapability("chromedriverExecutable",
+				"C:\\Users\\ACS\\eclipse-workspace\\sanity_booking_app\\dri\\chromedriver.exe");
+		options.setCapability("newCommandTimeout", 100000);
+		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
+
+	}
+	
+	public static void ApplicationWithApk(String ApkName) throws MalformedURLException {
+		UiAutomator2Options options = new UiAutomator2Options(); // Create options object
+		String getEmulatorArch = getEmulatorArch("Pixel_6_Pro"); // Get emulator architecture
+		String Apk =getProperty("APK_PATH")+ ApkName;
 		options.setAutomationName(getProperty("AUTOMATION_NAME")); // Set automation name
 		options.setPlatformName(getProperty("PLATFORM_NAME")); // Set platform name
 		options.setPlatformVersion(getProperty("PLATFORM_VERSION")); // Set platform version
@@ -122,14 +191,22 @@ public class Base {
 		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
 	}
 
-	public static void appli() throws MalformedURLException {
+	public static void applicationNew() throws MalformedURLException {
 		UiAutomator2Options options = new UiAutomator2Options(); // Create options object
 		options.setAutomationName("UiAutomator2"); // Set automation name
 		options.setPlatformName("Android"); // Set platform name
 //		options.setPlatformVersion("13.0"); // Set platform version
 		options.setDeviceName("Pixel 6 Pro API 33"); // Set device name
-		options.setCapability("appPackage", getProperty("APP_PACKAGE")); // Set app package
-		options.setCapability("appActivity", getProperty("APP_ACTIVITY")); // Set app activity
+		if (PreprodEnvironment) {
+			options.setCapability("appPackage", getProperty("PREPROD_APP_PACKAGE")); // Set app package
+			options.setCapability("appActivity", getProperty("PREPROD_APP_ACTIVITY")); 
+		}else {
+			options.setCapability("appPackage", getProperty("APP_PACKAGE")); // Set app package
+			options.setCapability("appActivity", getProperty("APP_ACTIVITY"));
+		}
+		
+		
+		 // Set app activity
 		options.setCapability("autoGrantPermissions", "true"); // Set capability
 		options.setCapability("chromedriverExecutable",
 				"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
@@ -171,18 +248,55 @@ public class Base {
 	public static void method1(String fileName) throws IOException {
 		properties = new Properties();
 		// Load the properties from the file passed as argument
-		FileInputStream fis = new FileInputStream("src/test/java/" + fileName + ".properties");
+		 fis = new FileInputStream("src/test/java/" + fileName + ".properties");
 		properties.load(fis);
-		properties.list(System.out);
+		
+//		 output = new FileOutputStream("src/test/java/" + fileName + ".properties");
+//		properties.list(System.out);
 		System.out.println("property file loded");
 	}
 
+	public static void setPropertyValue(String fileName,String Key,String value) throws IOException {
+		 Properties prop = new Properties();
+	        String filePath = "src/test/java/" + fileName + ".properties"; // Your properties file path
+
+	        
+	        
+	        
+	        try {
+	            // Existing properties load பண்ண
+	            FileInputStream fis = new FileInputStream(filePath);
+	            prop.load(fis);
+	            fis.close();
+
+	            // New key-value set பண்ண
+	            prop.setProperty(Key, value);
+
+	            // Updated properties file-ல save பண்ண
+	            FileOutputStream fos = new FileOutputStream(filePath);
+	            prop.store(fos, null);
+	            fos.close();
+
+	            System.out.println("Properties file updated successfully!");
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    
+	    }
+    
+	
 	public static void passInput(WebElement element, String input) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120));
 		wait.until(ExpectedConditions.visibilityOf(element)); // Wait until the element is visible
 		element.sendKeys(input);
 	}
 
+	public static void passInput(By locator, String input) {
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120));
+	    WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator)); // Wait until the element is visible
+	    element.sendKeys(input);
+	}
+	
 	public static void ClickonElement(WebElement element) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120)); // 10 seconds wait time
 		wait.until(ExpectedConditions.elementToBeClickable(element)); // Wait until the element is clickable
@@ -193,7 +307,15 @@ public class Base {
 		Thread.sleep(3000);
 		element.click();
 	}
-
+	
+	public static void ClearonElement(WebElement element) {
+		// Wait until the element is clickable
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120));
+		wait.until(ExpectedConditions.elementToBeClickable(element));
+		// Clear the content of the element
+		element.clear();
+	}
+	
 	public static void clickOnElementUsingBy(By by) throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120)); // 120 seconds wait time
 		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(by)); // Wait until the element is
@@ -371,7 +493,114 @@ public class Base {
 			throw e;
 		}
 	}
+	
+	public static void scrollToElement(WebElement element) {
+	    // Get the screen size of the device
+	    Dimension screenSize = driver.manage().window().getSize();
+	    
+	    int screenHeight = screenSize.getHeight();
+	    int screenWidth = screenSize.getWidth();
+	    
+	    // Define start and end points for scrolling
+	    int startX = screenWidth / 2; // Horizontally center
+	    int startY = (int) (screenHeight * 0.75); // Start at 75% from top
+	    int endY = (int) (screenHeight * 0.25);  // End at 25% from top
 
+	    // Scroll until the element is visible
+	    while (!isElementVisible(element)) {
+	        TouchAction action = new TouchAction(driver);
+	        action.press(PointOption.point(startX, startY)) // Press at the starting point
+	              .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))) // Wait for smooth scrolling
+	              .moveTo(PointOption.point(startX, endY)) // Move to the end point
+	              .release() // Release the press
+	              .perform(); // Perform the action
+	    }  }
+	
+	public static  boolean isElementVisible(WebElement element) {
+	    try {
+	        return element.isDisplayed();
+	    } catch (Exception e) {
+	        return false; // Element not visible
+	    }
+	}
+
+	
+	
+	public static void scrollToTargetElement(WebElement scrollViewElement, WebElement targetElement) {
+	    // Get the size of the scrollable view
+	    Dimension scrollViewSize = scrollViewElement.getSize();
+	    
+	    // Get the location of the scrollable view
+	    int scrollViewStartX = scrollViewElement.getLocation().getX();
+	    int scrollViewStartY = scrollViewElement.getLocation().getY();
+	    int scrollViewEndY = scrollViewStartY + scrollViewSize.getHeight();
+
+	    // Define start and end points for scrolling within the scrollable view
+	    int startX = scrollViewStartX + (scrollViewSize.getWidth() / 2); // Center horizontally in the scrollable view
+	    int startY = scrollViewEndY - 10; // Start at the bottom of the scrollable view (just inside the boundary)
+	    int endY = scrollViewStartY + 10; // End at the top of the scrollable view (just inside the boundary)
+
+	    // Scroll until the target element is visible
+	    while (!isElementVisible(targetElement)) {
+	        try {
+	            // Perform the scroll action within the scroll view
+	            TouchAction action = new TouchAction(driver);
+	            action.press(PointOption.point(startX, startY)) // Press at the starting point (bottom of the scroll view)
+	                  .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))) // Wait for smooth scrolling
+	                  .moveTo(PointOption.point(startX, endY)) // Move to the end point (top of the scroll view)
+	                  .release() // Release the press
+	                  .perform(); // Perform the action
+
+	        } catch (Exception e) {
+	            System.out.println("Scrolling failed: " + e.getMessage());
+	            break; // Exit if scrolling fails
+	        }
+	    }
+
+	    if (isElementVisible(targetElement)) {
+	        System.out.println("Target element is now visible.");
+	    } else {
+	        System.out.println("Target element is not found after scrolling.");
+	    }
+	}
+
+//	private boolean isElementVisible1(WebElement element) {
+//	    try {
+//	        // Check if the element is displayed
+//	        return element.isDisplayed();
+//	    } catch (Exception e) {
+//	        return false; // Element not visible or not found
+//	    }
+//	}
+	
+	public static void slowScrollUntilElementsFound123(By firstLocator, By secondLocator) throws Exception {
+	    boolean firstFound = false;
+	    boolean secondFound = false;
+
+	    while (true) {
+	        try {
+	            WebElement firstElement = driver.findElement(firstLocator);
+	            if (!firstFound && firstElement.isDisplayed()) {
+	                firstFound = true;
+	                firstElement.click();
+	                System.out.println("First element found and clicked.");
+	            }
+
+	            WebElement secondElement = driver.findElement(secondLocator);
+	            if (firstFound && secondElement.isDisplayed()) {
+	                secondFound = true;
+	                System.out.println("Second element found. Stopping scroll.");
+	                break; // Stop scrolling when the second element is found
+	            }
+	        } catch (NoSuchElementException e) {
+	            System.out.println("Element not found, scrolling...");
+	            slowScroll(); // Scroll if the element is not found
+	        }
+	    }
+	}
+	
+	
+	
 	public static void slowScroll() throws Exception {
 		try {
 			// Get the screen dimensions
@@ -412,6 +641,23 @@ public class Base {
 		}
 	}
 
+	public static void slowscrolluntilelementfound(WebElement targetElement)
+			throws Exception {
+		while (true) {
+			try {
+				if (targetElement.isDisplayed()) {
+					target = true;
+					System.out.println("Target element found");
+					break; // Exit the loop if the target element is found and displayed
+				}
+			} catch (NoSuchElementException e) {
+				target = false;
+				System.out.println("Target element not found, scrolling...");
+				slowScroll(); // Call the scroll() method to scroll the screen
+			}
+		}
+	}
+	
 	public static void halfscrollUntilElementFound12(WebElement scrollElement, By targetBy) throws Exception {
 		while (true) {
 			try {
@@ -697,6 +943,77 @@ public class Base {
 	}
 
 //	----------------------------------------------------------------------->   Signup Email Credintials
+	public static String getOtpFromSource1() {
+		String host = "imap.gmail.com"; // Email server host
+		String mailStoreType = "imap"; // Email protocol
+		String username = "testmobileacs@gmail.com"; // Email username
+		String password = "tdrckyprwbzwinlg"; // Email password
+		try {
+			Properties properties = new Properties(); // Properties for email session
+			properties.put("mail.store.protocol", "imaps");
+			properties.put("mail.imaps.host", host);
+			properties.put("mail.imaps.port", "993");
+			properties.put("mail.imaps.ssl.enable", "true");
+			properties.put("mail.imaps.auth", "true");
+			Session emailSession = Session.getInstance(properties, new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(username, password);
+				}
+			});
+			System.out.println("Connecting to email store...");
+			Store store = emailSession.getStore("imaps"); // Connect to email store
+			store.connect(host, username, password); // Connect to the email server
+			System.out.println("Connected to email store.");
+			Allure.step("Successfully connected to the Email");
+			Thread.sleep(5000);
+			Folder emailFolder = store.getFolder("INBOX"); // Open the INBOX folder
+			emailFolder.open(Folder.READ_ONLY); // Open the folder in read-only mode
+			Allure.step("Read all the messages in 'INBOX' folder");
+			Message[] messages = emailFolder.getMessages(); // Get all messages in the folder
+			System.out.println(messages); // Print the messages array
+			Thread.sleep(2000);
+			Arrays.sort(messages, (m1, m2) -> {
+				try {
+					return m2.getReceivedDate().compareTo(m1.getReceivedDate());
+				} catch (MessagingException e) {
+					throw new RuntimeException(e);
+				}
+			});
+			for (Message message : messages) {
+			    String subject = message.getSubject(); // Get the subject of the message
+			    if (subject != null && subject.contains("OTP Verification")) { // Check if the subject contains "OTP Verification"
+
+			        Address[] recipients = message.getRecipients(Message.RecipientType.TO);
+			        if (recipients != null) {
+			            for (Address address : recipients) {
+			                String recipientEmail = address.toString();
+			                if (recipientEmail.equalsIgnoreCase(getProperty("SIGNUP_EMAIL"))) {
+			                    
+			                    // Extract the OTP only if the recipient matches the pattern
+			                    String htmlContent = getTextFromMessage(message); // Extract the HTML content from the message
+			                    Document doc = Jsoup.parse(htmlContent); // Parse the HTML content
+			                    System.out.println(htmlContent);
+
+			                    Elements pElements = doc.select("body > table > tbody > tr > td > table > tbody > tr > td > p:nth-of-type(3)");
+			                    if (!pElements.isEmpty()) {
+			                        Element pElement = pElements.first(); // Get the first <p> element
+			                        OTPText = pElement.text(); // Extract the text inside the <p> element
+			                        System.out.println("Text inside <p>: " + OTPText); // Print the OTP text
+			                        Allure.step("Extracted the OTP from email"); // Log the step in Allure
+			                        return OTPText; // Return the OTP text
+			                    } else {
+			                        System.out.println("OTP Element not found."); // Print message if the element is not found
+			                    }
+				}
+			            }} }}
+			emailFolder.close(false); // Close the folder
+			store.close(); // Close the store
+		} catch (Exception e) {
+			e.printStackTrace(); // Print the stack trace if an exception occurs
+		}
+		return null; // Return null if OTP is not found
+	}
+	
 	public static String getOtpFromSource() {
 		String host = "imap.gmail.com"; // Email server host
 		String mailStoreType = "imap"; // Email protocol
@@ -890,7 +1207,113 @@ public class Base {
 			System.out.println("Key not found: " + KeyValue);
 		}
 	}
+	
+	
+	public static void updateNameProperty9(String key, String newValue) throws FileNotFoundException, IOException {
+	    String filePath = workspacePath + getProperty("file_path");
+	    File file = new File(filePath);
+	    List<String> fileLines = new ArrayList<>();
+	    boolean isUpdated = false;
+	    
+	    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            if (line.startsWith(key + "=")) {
+	                line = key + "=" + newValue;
+	                isUpdated = true;
+	            }
+	            fileLines.add(line);
+	        }
+	    }
+	    
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+	        for (String fileLine : fileLines) {
+	            writer.write(fileLine);
+	            writer.newLine();
+	        }
+	    }
+	    
+	    if (isUpdated) {
+	        System.out.println("Updated " + key + ": " + newValue);
+	    } else {
+	        System.out.println("Key not found: " + key);
+	    }
+	}
+	
+	public static void UpdateNameProperty1(String KeyValue) throws FileNotFoundException, IOException {
+	    String filePath = workspacePath + getProperty("file_path");
+	    File file = new File(filePath);
+	    List<String> fileLines = new ArrayList<>();
+	    String updatedValue = null;
 
+	    // Get the current date and time in yyyyMMdd_HHmmss format
+	    String currentDateTime = new SimpleDateFormat("HHmmss").format(new Date());
+
+	    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            if (line.startsWith(KeyValue + "=")) {
+	                String originalValue = line.substring(line.indexOf('=') + 1);
+	                updatedValue = originalValue + currentDateTime; // Append date and time
+	                line = KeyValue + "=" + updatedValue;
+	            }
+	            fileLines.add(line);
+	        }
+	    }
+
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+	        for (String fileLine : fileLines) {
+	            writer.write(fileLine);
+	            writer.newLine();
+	        }
+	    }
+
+	    if (updatedValue != null) {
+	        System.out.println("Updated " + KeyValue + ": " + updatedValue);
+	    } else {
+	        System.out.println("Key not found: " + KeyValue);
+	    }
+	}
+
+	public static void UpdateNameProperty2(String KeyValue) throws FileNotFoundException, IOException {
+	    String filePath = workspacePath + getProperty("file_path");
+	    File file = new File(filePath);
+	    List<String> fileLines = new ArrayList<>();
+	    String updatedValue = null;
+
+	    // Get the current date and time in HHmmss format
+	    String currentDateTime = new SimpleDateFormat("HHmmss").format(new Date());
+
+	    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            if (line.startsWith(KeyValue + "=")) {
+	                String originalValue = line.substring(line.indexOf('=') + 1);
+	                // Remove last 6 digits and append currentDateTime
+	                if (originalValue.length() > 6) {
+	                    originalValue = originalValue.substring(0, originalValue.length() - 6);
+	                }
+	                updatedValue = originalValue + currentDateTime; // Append date and time
+	                line = KeyValue + "=" + updatedValue;
+	            }
+	            fileLines.add(line);
+	        }
+	    }
+
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+	        for (String fileLine : fileLines) {
+	            writer.write(fileLine);
+	            writer.newLine();
+	        }
+	    }
+
+	    if (updatedValue != null) {
+	        System.out.println("Updated " + KeyValue + ": " + updatedValue);
+	    } else {
+	        System.out.println("Key not found: " + KeyValue);
+	    }
+	}
+	
 	public static void sendEmailWithReport(String toEmail, String subject, String body, String reportPath) {
 		final String fromEmail = "testmobileacs@gmail.com"; // Change with your email
 		final String password = "tdrckyprwbzwinlg"; // Change with your email password
@@ -1028,6 +1451,60 @@ public class Base {
 	            e.printStackTrace();
 	        }
 	    }
+	   public static void UpdateNameProperty(String KeyValue , String TextDocumentPath) throws FileNotFoundException, IOException {
+		    String filePath = workspacePath + getProperty("file_path"); // Path to the .properties file
+		    String textFilePath = workspacePath + "/" +TextDocumentPath; // Path to the text file containing names
+		    File file = new File(filePath);
+		    List<String> fileLines = new ArrayList<>();
+		    String updatedValue = null;
+
+		    // Step 1: Read names from the text file
+		    List<String> names = new ArrayList<>();
+		    try (BufferedReader nameReader = new BufferedReader(new FileReader(textFilePath))) {
+		        String name;
+		        while ((name = nameReader.readLine()) != null) {
+		            if (!name.trim().isEmpty()) {
+		                names.add(name.trim());
+		            }
+		        }
+		    }
+
+		    if (names.isEmpty()) {
+		        System.out.println("No names found in the text file.");
+		        return;
+		    }
+
+		    // Step 2: Randomly pick a name
+		    Random random = new Random();
+		    String randomName = names.get(random.nextInt(names.size()));
+
+		    // Step 3: Update the .properties file
+		    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+		        String line;
+		        while ((line = reader.readLine()) != null) {
+		            if (line.startsWith(KeyValue + "=")) {
+		                updatedValue = randomName; // Set the selected random name
+		                line = KeyValue + "=" + updatedValue;
+		            }
+		            fileLines.add(line);
+		        }
+		    }
+
+		    // Step 4: Write updated values back to the .properties file
+		    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+		        for (String fileLine : fileLines) {
+		            writer.write(fileLine);
+		            writer.newLine();
+		        }
+		    }
+
+		    // Step 5: Output the result
+		    if (updatedValue != null) {
+		        System.out.println("Updated " + KeyValue + ": " + updatedValue);
+		    } else {
+		        System.out.println("Key not found: " + KeyValue);
+		    }
+		}
 	
 
 }

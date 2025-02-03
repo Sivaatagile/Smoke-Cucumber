@@ -1,10 +1,14 @@
 package com.frontend;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import com.WE.WE_Admin_User;
 import com.WE.WE_Admin_WorkFlow;
 import com.WE.WE_Info;
+import com.api.Api;
 import com.baseClass.Base;
-
+import com.baseClass.Base.API_BASE_URL;
 
 import io.qameta.allure.Allure;
 
@@ -20,45 +24,45 @@ public class Admin_User extends Base {
 		ClickonElement(user.getFAB());
 
 		ClickonElement(user.getFirstName());
-		passInput(user.getFirstName(), getProperty("ADMIN_FIRST_NAME"));
+		passInput(user.getFirstName(), getProperty("ADMIN_ADMIN_FIRST_NAME"));
 		driver.hideKeyboard();
 
 		ClickonElement(user.getLastName());
-		passInput(user.getLastName(), getProperty("ADMIN_LAST_NAME"));
+		passInput(user.getLastName(), getProperty("ADMIN_ADMIN_LAST_NAME"));
 		driver.hideKeyboard();
 
 		ClickonElement(user.getEmail());
-		passInput(user.getEmail(), getProperty("ADMIN_EMAIL"));
+		passInput(user.getEmail(), getProperty("ADMIN_ADMIN_EMAIL"));
 		driver.hideKeyboard();
 
 		ClickonElement(user.getFemale());
 		ClickonElement(user.getMale());
 
 		ClickonElement(user.getPhoneNumber());
-		passInput(user.getPhoneNumber(), getProperty("ADMIN_PHONENUMBER"));
+		passInput(user.getPhoneNumber(), getProperty("ADMIN_ADMIN_CONTACTNUMBER"));
 		driver.hideKeyboard();
 
 		ClickonElement(user.getAdditionalContactNumber());
-		passInput(user.getAdditionalContactNumber(), getProperty("ADMIN_ADDITIONAL_CONTACT_NUMBER"));
+		passInput(user.getAdditionalContactNumber(), getProperty("ADMIN_ADMIN_ADDITIONAL_CONTACT_NUMBER"));
 		driver.hideKeyboard();
 
 		ClickonElement(user.getAddressLine1());
-		passInput(user.getAddressLine1(), getProperty("ADMIN_ADDRESSLINE_1"));
+		passInput(user.getAddressLine1(), getProperty("ADMIN_ADMIN_ADDRESSLINE_1"));
 		driver.hideKeyboard();
 
 		ClickonElement(user.getAddressLine2());
-		passInput(user.getAddressLine2(), getProperty("ADMIN_ADDRESSLINE_2"));
+		passInput(user.getAddressLine2(), getProperty("ADMIN_ADMIN_ADDRESSLINE_2"));
 		driver.hideKeyboard();
 
 		ClickonElement(user.getCity());
-		passInput(user.getCity(), getProperty("ADMIN_CITY"));
+		passInput(user.getCity(), getProperty("ADMIN_ADMIN_CITY"));
 		driver.hideKeyboard();
 
 		ClickonElement(user.getCountry());
 		ClickonElement(user.getCountryName());
 
 		ClickonElement(user.getPostCode());
-		passInput(user.getPostCode(), getProperty("ADMIN_POSTCODE"));
+		passInput(user.getPostCode(), getProperty("ADMIN_ADMIN_POSTCODE"));
 		driver.hideKeyboard();
 
 		ClickonElement(user.getSave());
@@ -77,32 +81,32 @@ public class Admin_User extends Base {
 		ClickonElement(user.getShowall_AllCustomers());
 		ClickonElement(user.getFAB());
 		ClickonElement(user.getFirstname());
-		passInput(user.getFirstname(), getProperty("CUSTOMER_FIRSTNAME"));
+		passInput(user.getFirstname(), getProperty("ADMIN_CUSTOMER_FIRSTNAME"));
 		driver.hideKeyboard();
 		ClickonElement(user.getLastname());
-		passInput(user.getLastname(), getProperty("CUSTOMER_LASTNAME"));
+		passInput(user.getLastname(), getProperty("ADMIN_CUSTOMER_LASTNAME"));
 		driver.hideKeyboard();
 		ClickonElement(user.getEmail());
-		passInput(user.getEmail(), getProperty("CUSTOMER_EMAIL"));
+		passInput(user.getEmail(), getProperty("ADMIN_CUSTOMER_EMAIL"));
 		driver.hideKeyboard();
 		Thread.sleep(1000);
 		ClickonElement(user.getFemale());
 		ClickonElement(user.getMale());
 		Thread.sleep(1000);
 		ClickonElement(user.getPhonenumber());
-		passInput(user.getPhonenumber(), getProperty("CUSTOMER_PHONENUMBER"));
+		passInput(user.getPhonenumber(), getProperty("ADMIN_CUSTOMER_PHONENUMBER"));
 		driver.hideKeyboard();
 		ClickonElement(user.getAddressLine1());
-		passInput(user.getAddressLine1(), getProperty("CUSTOMER_ADDRESSLINE_1"));
+		passInput(user.getAddressLine1(), getProperty("ADMIN_CUSTOMER_ADDRESSLINE_1"));
 		driver.hideKeyboard();
 		ClickonElement(user.getAddressLine2());
-		passInput(user.getAddressLine2(), getProperty("CUSTOMER_ADDRESSLINE_2"));
+		passInput(user.getAddressLine2(), getProperty("ADMIN_CUSTOMER_ADDRESSLINE_2"));
 		driver.hideKeyboard();
 		ClickonElement(user.getCity());
-		passInput(user.getCity(), getProperty("CUSTOMER_CITYTOWN"));
+		passInput(user.getCity(), getProperty("ADMIN_CUSTOMER_CITYTOWN"));
 		driver.hideKeyboard();
 		ClickonElement(user.getPostCode());
-		passInput(user.getPostCode(), getProperty("CUSTOMER_POSTCODE"));
+		passInput(user.getPostCode(), getProperty("ADMIN_CUSTOMER_POSTCODE"));
 		driver.hideKeyboard();
 		scrollDown();
 		ClickonElement(user.getCountry());
@@ -126,24 +130,24 @@ public class Admin_User extends Base {
 		ClickonElement(user.getFAB());
 
 		ClickonElement(user.getCategoryName());
-		passInput(user.getCategoryName(), getProperty("ADMIN_CATEGORY_NAME"));
+		passInput(user.getCategoryName(), getProperty("ADMIN_TAG_CATEGORY_NAME"));
 		driver.hideKeyboard();
 
 		ClickonElement(user.getMaximumEntityLevel());
-		passInput(user.getMaximumEntityLevel(), getProperty("ADMIN_MAXIMUM_ENTITY_LEVEL"));
+		passInput(user.getMaximumEntityLevel(), getProperty("ADMIN_TAG_MAXIMUM_ENTITY_LEVEL"));
 		driver.hideKeyboard();
 
 		ClickonElement(user.getDecsription());
-		passInput(user.getDecsription(), getProperty("ADMIN_CATEGORY_DESCRIPTION"));
+		passInput(user.getDecsription(), getProperty("ADMIN_TAG_CATEGORY_DESCRIPTION"));
 		driver.hideKeyboard();
 		Thread.sleep(2000);
 
 		ClickonElement(user.getTagName());
-		passInput(user.getTagName(), getProperty("ADMIN_TAGS_NAME1"));
+		passInput(user.getTagName(), getProperty("ADMIN_TAG_TAGS_NAME1"));
 		driver.hideKeyboard();
 		Thread.sleep(2000);
 		ClickonElement(user.getTagDescription());
-		passInput(user.getTagDescription(), getProperty("ADMIN_TAGS_DESCRIPTION1"));
+		passInput(user.getTagDescription(), getProperty("ADMIN_TAG_TAGS_DESCRIPTION1"));
 		driver.hideKeyboard();
 		Thread.sleep(2000);
 
@@ -217,6 +221,45 @@ public class Admin_User extends Base {
 
 		ClickonElement(info.getBackButton());
 
+	}
+
+	
+	public static  void second_pet() throws Exception {
+		WE_Admin_User user = new WE_Admin_User(driver);
+		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+		WE_Info info = new WE_Info(driver);
+
+		
+		ClickonElement(workflow.getUsers_navigation_Bar());
+
+		waitForElement(user.getShowall_AllCustomers());
+		Thread.sleep(2000);
+		ClickonElement(user.getShowall_AllCustomers());
+		ClickonElement(user.getSearchBox());
+		Thread.sleep(3000);
+		passInput(user.getSearchBox(), getProperty("SIGNUP_EMAIL"));
+		driver.hideKeyboard();
+		Thread.sleep(4000);
+		if (isElementAvailable(user.getuser())) {
+			System.out.println("User Found ");
+			Thread.sleep(1000);
+			ClickonElement(user.getuser());
+			ClickonElement(user.getview());
+			ClickonElement(user.getMyPet());
+			
+			ClickonElement(user.getFAB());
+			Info.Pet_Data();
+			
+			ClickonElement(info.getBackButton());
+			ClickonElement(info.getBackButton());
+
+			
+			
+		} else if (isElementAvailable(user.trySearchingagain)) {
+			System.out.println("User not found");
+			throw new Error("User not found");
+		}
+		
 	}
 
 	public static void approveUserUsingSearch() throws Exception {
@@ -299,5 +342,24 @@ public class Admin_User extends Base {
 		ClickonElement(user.getConfirm());
 
 	}
-
+	
+	
+	public static void main(String[] args) throws Exception {
+		method1("First");
+		Latest_StagingAPK_download(getProperty("STAGING"));
+		Application();
+		ChooseApi(API_BASE_URL.Staging);
+		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
+		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
+		Login_Details.login_Admin();
+		Create_Admin();
+		Create_Customer();
+		Create_Staff();
+		CreateTag();
+		second_pet();
+		
+	}
+	
+	
+//	ect1a 1bb
 }

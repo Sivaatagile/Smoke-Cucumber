@@ -157,11 +157,12 @@ Feature: Booking Application Sanity Flow
   Scenario: Successfully create a service  
     Given the admin navigates to the Service tab  
     And the admin taps on Show All under services  
-    And the admin taps the plus button to create a new service  
-    When the admin enters "Service Name" in the service name input field  
+    And the admin taps the plus button to create a new service
+    And the admin select the service while creating a service  
+    When the admin enters "SERVICE_NAME" in the service name input field  
     And the admin provides "Description" in the service description field  
     And the admin fetches the overall slot list using the API  
-    And the admin sets the "Base Price" for 1 to 4 pets  
+    And the admin sets the "Base Price" for 1 to 4 pets 
     And the admin selects "Capacity Type" from the tab  
     And the admin sets the "Maximum Capacity" for the service  
     And the admin sets the "Maximum Capacity per Staff"  
@@ -171,7 +172,66 @@ Feature: Booking Application Sanity Flow
     Then the service should be created successfully  
     When the admin clicks on the Back button
     And the admin taps the Home icon
-
+    
+      Scenario: Successfully create a Privilege Addon  
+    Given the admin navigates to the Service tab  
+    And the admin taps on Show All under services  
+    And the admin taps the plus button to create a new addon
+    And the admin select the Addon while creating a addon  
+    When the admin enters "ADDON_PRIVILAGE" in the addon name input field  
+    And the admin provides "ADDON_PRIVILAGE_DESCRIPTION" in the addon description field
+    And the admin select the addon type "PRIVILEGE"  
+    And the admin fetches the overall slot list using the API  
+    And the admin sets the "ADDON_PRIVILAGE_BASE_PRICE_AMOUNT" for 1 to 4 pets for addon
+    And the admin selects Capacity Type from the tab for addon 
+    And the admin sets the "ADDON_PRIVILAGE_MAX_CAPACITY_SLOT" for the addon maximum capacity per slot  
+    And the admin sets the "ADDON_PRIVILAGE_MAX_CAPACITY_STAFF" for addon maximum capacity per staff
+    And the admin provides "Service Validity From" and "Service Validity To" dates for privilege addon
+    And the admin taps the save button  
+    Then the service should be created successfully  
+    When the admin clicks on the Back button
+    And the admin taps the Home icon
+    
+          Scenario: Successfully create a Assignable Addon  
+    Given the admin navigates to the Service tab  
+    And the admin taps on Show All under services  
+    And the admin taps the plus button to create a new addon
+    And the admin select the Addon while creating a addon  
+    When the admin enters "ADDON_ASSIGNABLE" in the addon name input field  
+    And the admin provides "ADDON_ASSIGNABLE_DESCRIPTION" in the addon description field
+    And the admin select the addon type "ASSIGNABLE"  
+    And the admin fetches the overall slot list using the API  
+    And the admin sets the "ADDON_ASSIGNABLE_BASE_PRICE_AMOUNT" for 1 to 4 pets for addon
+    And the admin selects Capacity Type from the tab for addon 
+    And the admin sets the "ADDON_ASSIGNABLE_MAX_CAPACITY_SLOT" for the addon maximum capacity per slot  
+    And the admin sets the "ADDON_ASSIGNABLE_MAX_CAPACITY_STAFF" for addon maximum capacity per staff
+    And the admin provides "Service Validity From" and "Service Validity To" dates for assignable addon
+    And the admin taps the save button  
+    Then the service should be created successfully  
+    When the admin clicks on the Back button
+    And the admin taps the Home icon
+    
+     Scenario: Successfully create a service  with addon
+    Given the admin navigates to the Service tab  
+    And the admin taps on Show All under services  
+    And the admin taps the plus button to create a new service
+    And the admin select the service while creating a service  
+    When the admin enters "ADDON_SERVICE_NAME" in the service name input field  
+    And the admin provides "ADDON_SERVICE_DESCRIPTION" in the service description field  
+    And the admin fetches the overall slot list using the API  
+    And the admin sets the "Base Price" for 1 to 4 pets 
+    And the admin select the addon for this service
+    And the admin selects "Capacity Type" from the tab  
+    And the admin sets the "Maximum Capacity" for the service  
+    And the admin sets the "Maximum Capacity per Staff"  
+    And the admin sets the "Maximum Advance Booking Limit"  
+    And the admin provides "Service Validity From" and "Service Validity To" dates  
+    And the admin taps the save button  
+    Then the service should be created successfully  
+    When the admin clicks on the Back button
+    And the admin taps the Home icon
+    #
+#
   Scenario: Adding a new staff through the admin portal
     Given the admin clicks on the Users tab
     When the admin clicks on Staff's Show All
@@ -273,8 +333,9 @@ Scenario: Customer login using email (already created by admin)
     When the customer clicks on the Continue button
     And the customer enters the Otp 
     Then the customer should be logged in successfully
+
     
-Scenario: Create a Booking
+Scenario: Create a booking for one pet on a randomly selected date
     Given the user selects a service
     When the user fetches the slot list for the selected service using the API
     And the user selects a random slot from the slot list, scrolling the slot picker if necessary
@@ -307,7 +368,14 @@ Scenario: Verify Customer Statement Details
     When the customer clicks on Statements
     And the customer selects the current month
     Then the customer checks if the saved invoice number is listed
-    And the customer goes back to the home page
+And the customer goes back to the home page
+    
+    Scenario: Verify the accounts 
+     Given the customer navigates to the Settings tab
+    When the customer clicks on Accounts
+    And Verify the sales or payment detais are listed their
+        And the customer goes back from accounts to the home page
+    
     
 Scenario: Successfully logout customer
     Given the customer navigates to the Settings tab  
@@ -320,8 +388,21 @@ Scenario: User login using email as admin (predefined account)
     And the user enters the Predefined Otp "PREDEFINED_ADMIN_OTP"
     Then the user should be logged in successfully
     
-#Scenario: admin statement covered 
-#Given admin statement 
+Scenario: Admin that do update remaining credit 
+    Given Remaining credit 
+    
+    Scenario:   adhoc 
+    Given       Adoc
+    
+
+    
+    
+Scenario: admin statement covered 
+Given admin statement 
+
+Scenario: Admin Invoices Covered 
+Given Admin invoices
+
     
 Scenario: Approving a booking
     Given the admin navigates to the Pending tab
@@ -336,11 +417,109 @@ Scenario: Assigning a booking
     And the admin assigns the booking to a staff member
     Then the booking should be assigned successfully
     
+Scenario: Admin created a pet for an existing customer
+ Given the admin clicks on the Users tab
+    When the admin clicks on Customer's Show All
+    Then the admin is navigated to the Customer's list page
+    And the admin searches for the customer in the search box and selects the customer
+    And the admin clicks the view button for the selected customer
+    And the admin Clicks the My pets
+    And the admin taps the plus button to create a second pet 
+    And the user enters the pet's name "SECOND_PET_NAME"
+    And the user selects the pet's gender
+    And  the user needs to select the birth of dog
+    And the user selects the pet's breed
+    And the user selects the pet's size
+    And the admin enter the admin notes "SECOND_ADMIN_NOTES"
+    And the user enters any dietary issues "SECOND_PET_DIETARY_ISSUES"
+    And the user enters any allergies "SECOND_PET_ALLERGIES"
+    And the user enters the vet's name "SECOND_PET_VETNAME"
+    And the user enters the vet's address "SECOND_PET_VETADDRESS"
+    And the user enters the vet's phone number "SECOND_PET_VETPHONENUMBER"
+    And the user enters the microchip number "SECOND_PET_MICROCHIP"
+    And the user enters the contact person's name "SECOND_PET_CONTACT_PERSONNAME"
+    And the user enters the contact person's phone number "SECOND_PET_CONTACT_PERSONNUMBER"
+    And the user enters any special instructions "SECOND_PET_SPECIAL_INSTRUCTIONS"
+    And the user enters the feeding schedule "SECOND_PET_FEEDING_DETAILS"
+    And the user enters any additional contacts "SECOND_PET_ADDITIONAL_CONTACT"
+    And the user provides behavioral information
+    And the user clicks on the Save button
+    When the admin clicks on the Back button
+    When the admin clicks on the Back button
+    And the admin taps the Home icon
+    
+    
+      #Scenario: Successfully create a service  
+    #Given the admin navigates to the Service tab  
+    #And the admin taps on Show All under services  
+    #And the admin taps the plus button to create a new addon  
+    #When the admin enters "Service Name" in the service name input field  
+    #And the admin provides "Description" in the service description field  
+    #And the admin fetches the overall slot list using the API  
+    #And the admin sets the "Base Price" for 1 to 4 pets  
+    #And the admin selects "Capacity Type" from the tab  
+    #And the admin sets the "Maximum Capacity" for the service  
+    #And the admin sets the "Maximum Capacity per Staff"  
+    #And the admin sets the "Maximum Advance Booking Limit"  
+    #And the admin provides "Service Validity From" and "Service Validity To" dates  
+    #And the admin taps the save button  
+    #Then the service should be created successfully  
+    #When the admin clicks on the Back button
+    #And the admin taps the Home icon
+    
+    
 Scenario: Successfully logout Admin 
     Given the admin navigates to the Settings tab  
     And the admin clicks on the logout button  
     Then the admin should be logged out successfully  
-   
+    
+    Scenario: Customer login using email (already created by admin)
+    Given the customer enters their "SIGNUP_EMAIL" address
+    When the customer clicks on the Continue button
+    And the customer enters the Otp 
+    Then the customer should be logged in successfully
+    
+Scenario: Create a booking for Two pet on a randomly selected date
+   Given  the user selects the second pet
+    When the user selects a service
+    And  the user fetches the slot list for the selected service using the API
+    And the user selects a random slot from the slot list, scrolling the slot picker if necessary
+    And the user determines the From Date and To Date for the service based on constraints
+    And the user calculates the date range and picks a random date
+    And the user navigates to the random date's month using the right arrow
+    And the user selects the random date and taps the Request Booking button
+    Then the user should successfully navigate to the Confirm Booking Details page
+    And the user verifies the service name, date, and slot
+    And the user taps the Proceed button
+    Then the user navigates to the Review Booking page
+    And the user reviews the total amount and remaining credit amount
+    And the user taps the checkbox and taps the Confirm and Pay button
+    Then the user initiates the payment process
+    Then the user navigates to the Booking Request Successful page
+    And the user saves the booking details
+    
+    Scenario:  Accounts 
+      Given the customer navigates to the Settings tab
+    When the customer clicks on Accounts
+    And Verify the sales or payment detais are listed their
+ And the customer goes back from accounts to the home page
+ 
+ #Scenario:  Customer Second Pet
+#Given  Customer Second Pet
+    
+Scenario: Successfully logout customer
+    Given the customer navigates to the Settings tab  
+    And the customer clicks on the logout button
+    
+    #Scenario: User login using email as admin (predefined account)
+    #Given the user enters their predefined "PREDEFINED_ADMIN_EMAIL" address
+    #When the user clicks on the Continue button
+    #And the user enters the Predefined Otp "PREDEFINED_ADMIN_OTP"
+    #Then the user should be logged in successfully
+   #
+   #Scenario: approve pet
+   #Given approve pet
+
 Scenario: Staff login using email (already created by admin)
     Given the staff enters their "ADMIN_STAFF_EMAIL" address
     When the staff clicks on the Continue button

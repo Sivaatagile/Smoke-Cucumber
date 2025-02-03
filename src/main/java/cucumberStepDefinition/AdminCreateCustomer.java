@@ -19,15 +19,15 @@ public class AdminCreateCustomer extends Base{
 	
 	
 	@When("the admin enters the Customer first name {string}")
-	public void theAdminEntersTheCustomerFirstName(String string) {
+	public void theAdminEntersTheCustomerFirstName(String CUSTOMER_FIRSTNAME) {
 		ClickonElement(user.getFirstname());
-		passInput(user.getFirstname(), getProperty("CUSTOMER_FIRSTNAME"));
+		passInput(user.getFirstname(), getProperty(CUSTOMER_FIRSTNAME));
 		driver.hideKeyboard();
 	}
 	@When("the admin enters the Customer last name {string}")
-	public void theAdminEntersTheCustomerLastName(String string) {
+	public void theAdminEntersTheCustomerLastName(String CUSTOMER_LASTNAME) {
 		ClickonElement(user.getLastname());
-		passInput(user.getLastname(), getProperty("CUSTOMER_LASTNAME"));
+		passInput(user.getLastname(), getProperty(CUSTOMER_LASTNAME));
 		driver.hideKeyboard();
 		
 	}
@@ -50,10 +50,10 @@ waitForElement(user.getAllCustomers());
 
 	}
 	@When("the admin enters the customer phone number {string}")
-	public void theAdminEntersTheCustomerPhoneNumber(String string) throws InterruptedException {
+	public void theAdminEntersTheCustomerPhoneNumber(String CUSTOMER_PHONENUMBER) throws InterruptedException {
 		Thread.sleep(1000);
 		ClickonElement(user.getPhonenumber());
-		passInput(user.getPhonenumber(), getProperty("CUSTOMER_PHONENUMBER"));
+		passInput(user.getPhonenumber(), getProperty(CUSTOMER_PHONENUMBER));
 		driver.hideKeyboard();
 
 	}

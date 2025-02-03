@@ -33,8 +33,12 @@ public class AdminCreateBreed extends Base {
 	}
 
 	@Then("the admin should see a confirmation message of Breed creation")
-	public void theAdminShouldSeeAConfirmationMessageOfBreedCreation() {
-
+	public void theAdminShouldSeeAConfirmationMessageOfBreedCreation() throws InterruptedException {
+if (isElementAvailable(settings.getmanageBreed())) {
+	
+}
+		
+		
 		System.out.println("snack bar ");
 	}
 

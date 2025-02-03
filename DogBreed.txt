@@ -1,0 +1,500 @@
+Labrador Retriever
+German Shepherd
+Golden Retriever
+Bulldog
+Beagle
+Poodle
+Rottweiler
+Yorkshire Terrier
+Boxer
+Dachshund
+Siberian Husky
+Doberman Pinscher
+Shih Tzu
+Great Dane
+Cocker Spaniel
+Maltese
+Chihuahua
+Australian Shepherd
+Border Collie
+Pomeranian
+Bichon Frise
+Akita
+Boston Terrier
+French Bulldog
+Collie
+Bernese Mountain Dog
+Saint Bernard
+Papillon
+Cane Corso
+Dalmatian
+Shiba Inu
+Samoyed
+Irish Setter
+Newfoundland
+Alaskan Malamute
+Havanese
+Cavalier King Charles Spaniel
+English Springer Spaniel
+Weimaraner
+Whippet
+Bullmastiff
+Pointer
+Airedale Terrier
+Staffordshire Bull Terrier
+Tibetan Mastiff
+American Eskimo Dog
+American Staffordshire Terrier
+Basenji
+Belgian Malinois
+Bloodhound
+Brittany Spaniel
+Cairn Terrier
+Chow Chow
+English Bulldog
+Fox Terrier
+Irish Wolfhound
+Jack Russell Terrier
+Keeshond
+Lhasa Apso
+Miniature Pinscher
+Norwegian Elkhound
+Old English Sheepdog
+Pekingese
+Portuguese Water Dog
+Rhodesian Ridgeback
+Scottish Terrier
+Sheltie (Shetland Sheepdog)
+Silky Terrier
+Soft Coated Wheaten Terrier
+Vizsla
+West Highland White Terrier
+Australian Cattle Dog
+Chinese Crested
+Dogo Argentino
+Finnish Spitz
+Giant Schnauzer
+Great Pyrenees
+Italian Greyhound
+Japanese Chin
+Kerry Blue Terrier
+Lakeland Terrier
+Manchester Terrier
+Norfolk Terrier
+Norwich Terrier
+Otterhound
+Pharaoh Hound
+Plott Hound
+Polish Lowland Sheepdog
+Rat Terrier
+Redbone Coonhound
+Saluki
+Scottish Deerhound
+Sealyham Terrier
+Skye Terrier
+Sloughi
+Spaniel (American Water)
+Spanish Water Dog
+Spinone Italiano
+Sussex Spaniel
+Swedish Vallhund
+Thai Ridgeback
+Tibetan Spaniel
+Tibetan Terrier
+Toy Fox Terrier
+Treeing Walker Coonhound
+Welsh Springer Spaniel
+Welsh Terrier
+Wirehaired Pointing Griffon
+Xoloitzcuintli
+Yorkipoo
+Affenpinscher
+Afghan Hound
+American Water Spaniel
+Appenzeller Sennenhund
+Azawakh
+Barbet
+Bearded Collie
+Belgian Tervuren
+Black and Tan Coonhound
+Black Russian Terrier
+Bluetick Coonhound
+Boerboel
+Border Terrier
+Bracco Italiano
+Briard
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever
+Labrador Retriever

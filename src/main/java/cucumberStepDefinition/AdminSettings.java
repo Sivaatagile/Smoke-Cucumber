@@ -54,5 +54,49 @@ public class AdminSettings extends Base {
 		ClickonElement(settings.gethometab());
 
 	}
+	
+	@Given("Admin invoices")
+	public void adminInvoices() throws InterruptedException {
+		WE_Admin_Settings settings = new WE_Admin_Settings(driver);
+		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+		ClickonElement(workflow.getSettings_navigation_Bar());
+		Thread.sleep(2000);
+		ClickonElement(settings.getinvoices());
+		Thread.sleep(2000);
+		ClickonElement(settings.getsearch());
+		Thread.sleep(2000);
+		passInput(settings.getsearch(), Booking.InvoiceNumber);
+		driver.hideKeyboard();
+		Thread.sleep(2000);
+		
+		
+		if (isElementAvailable(settings.getSelectInvoice())) {
+			System.out.println("Successfully  invoice is generated ");
+			
+		}else if (isElementAvailable(settings.getNoRecordFound())) {
+			System.out.println("Invoice is not generated");
+		}
+		Thread.sleep(2000);
+		ClickonElement(settings.getback());
+		
+		
+	}
+	
+	@Given("Remaining credit")
+	public void remainingCredit() throws InterruptedException {
+	   
+		WE_Admin_Settings settings = new WE_Admin_Settings(driver);
+		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+		ClickonElement(workflow.getSettings_navigation_Bar());
+		ClickonElement(settings.getManageCreditLimit());
+		ClickonElement(settings.getsearch());
+		passInput(settings.getsearch(), getProperty("SIGNUP_FIRSTNAME") +" "+ getProperty("SIGNUP_LASTNAME"));
+		Thread.sleep(3000);
+		clickOnElementUsingBy(settings.CustomerNameForRemainingcredit);
+		passInput(settings.CustomerNameForRemainingcredit, "999");
+		driver.hideKeyboard();
+		
+		ClickonElement(settings.getback());
+	}
 
 }

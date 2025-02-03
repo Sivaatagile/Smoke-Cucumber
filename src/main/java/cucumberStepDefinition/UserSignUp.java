@@ -16,10 +16,14 @@ public class UserSignUp extends Base {
 	}
 
 	@When("the user enters their {string} address")
-	public void theUserEntersTheirAddress(String Email) {
+	public void theUserEntersTheirAddress(String Email) throws InterruptedException {
 		ClickonElement(signup.getContinueWithEmail());
 		passInput(signup.getContinueWithEmail(), getProperty(Email));
 		driver.hideKeyboard();
+		Thread.sleep(3000);
+		if (isElementAvailable(signup.getwelcome())) {
+			ClickonElement(signup.getcheckbox());
+		}
 	}
 
 	@When("the user clicks on the Continue button")

@@ -52,11 +52,11 @@ public class ReportProcess {
 		 LocalDate currentDate = LocalDate.now();
 	        System.out.println("Current Date: " + currentDate);																						// your report
 																										// path
-		Base.sendEmailWithReport("developer@agilecyber.com", "Cucumber Test Report",
+		Base.sendEmailWithReport("siva@agilecyber.com", "Cucumber Test Report for Preproduction Environment",
 				
-				"Please find the attached test report : \r\n" + "Date of Report Generation : " + currentDate +"\r\n"+ "Total Number of scenarios : 30\r\n" + "Passed : 29\r\n"
-						+ "Failed : 01\r\n" + "Details : Listed 30 scenarios are working fine\r\n"
-						+"One failed scenario is due to a network error, but I have rechecked, and the tag creation is working fine."
+				"Please find the attached test report : \r\n" + "Date of Report Generation : " + currentDate +"\r\n"+ "Total Number of scenarios : 40\r\n" + "Passed : 40\r\n"
+						+ "Failed : 00\r\n" + "Details : Listed 40 scenarios are working fine\r\n"
+//						+"00 failed scenarios are due to network"
 //	                + "When creating a service, an issue occurs with the base price field. Specifically, the No.of.Pets field is labeled as No.of.<Pets>, causing the element to not be identified correctly, which triggers an error.\r\n"
 //	                + "\r\n"
 //	                + "Error 2 and 3:\r\n"

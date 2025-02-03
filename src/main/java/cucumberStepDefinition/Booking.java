@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -38,9 +39,13 @@ public class Booking extends Base {
 	public static int BookingYear;
 	public static String BookingMonthProperCase;
 	public static String StatementCreatedDate;
+	
+	public static String TotalAmountWithSymbol;
 
 	public static String InvoiceNumber;
 	public static String currentMonth;
+	public static Boolean Stripe;
+	public static Boolean Crezco;
 
 	WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 	WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
@@ -53,7 +58,16 @@ public class Booking extends Base {
 	@Given("the user selects a service")
 	public void theUserSelectsAService() throws InterruptedException {
 		waitForElement(booking.getassorted());
+		Thread.sleep(3000);
+		ClickonElement(mybookings.getSettingsTab());
+		Thread.sleep(1000);
+		ClickonElement(mybookings.getHomeTab());
+		Thread.sleep(3000);
+		waitForElement(booking.getassorted());
+		System.out.println("nice");
 		if (isElementAvailable(booking.getServiceShowAll())) {
+			Thread.sleep(1000);
+			Thread.sleep(3000);
 			ClickonElement(booking.getServiceShowAll());
 			ClickonElement(booking.getSearchServices());
 			Thread.sleep(1000);
@@ -114,11 +128,24 @@ public class Booking extends Base {
 		String maxMonthName = getMonthName(maxBookingDate);
 		System.out.println("Month of minimum advance booking date: " + minMonthName);
 		System.out.println("Month of maximum booking date: " + maxMonthName);
-		BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
-		System.out.println(
-				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
-		long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
-		System.out.println("Number of days between the two dates: " + daysBetween);
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	     String minimumDate = minAdvanceBookingDate.format(formatter);
+	     String maximumDate = maxBookingDate.format(formatter);
+
+		
+        api.getserviceID(getProperty("SERVICE_NAME"));
+        api.getslotID(Selected_Slot);
+        api.getcustomerID(getProperty("SIGNUP_EMAIL"));
+        api.NotAvailableDates(api.serviceId, api.slotId, api.CustomerId, minimumDate,maximumDate );
+        List<LocalDate> remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
+        Collections.shuffle(remainingDates);
+        BookingDate = remainingDates.get(0);
+        
+//		BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
+//		System.out.println(
+//				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
+//		long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+//		System.out.println("Number of days between the two dates: " + daysBetween);
 		String BookingMonth = getMonthName(BookingDate);
 		BookingYear = BookingDate.getYear();
 		BookingMonthProperCase = BookingMonth.substring(0, 1) + BookingMonth.substring(1).toLowerCase();
@@ -215,13 +242,18 @@ public class Booking extends Base {
 
 	@Then("the user navigates to the Review Booking page")
 	public void theUserNavigatesToTheReviewBookingPage() throws InterruptedException {
+		Thread.sleep(5000);
 		waitForElement(booking.getReviewBooking());
 		System.out.println("review booking page");
 	}
 
 	@Then("the user reviews the total amount and remaining credit amount")
 	public void theUserReviewsTheTotalAmountAndRemainingCreditAmount() throws InterruptedException {
+		Thread.sleep(2000);
+
 		String totalAmountText = booking.getTotal_Amount().getAttribute("content-desc");
+		TotalAmountWithSymbol=totalAmountText;
+		System.out.println("kkk    :--------------------------------         "+TotalAmountWithSymbol);
 		String remainingCreditText = booking.getRemaining_Credit().getAttribute("content-desc");
 		System.out.println("Total Amount is: " + totalAmountText);
 		System.out.println("Remaining Credit is: " + remainingCreditText);
@@ -230,14 +262,18 @@ public class Booking extends Base {
 		double remainingCredit = Double.parseDouble(remainingCreditText.replace("£", "").trim());
 		// Compare the values
 		if (totalAmount > remainingCredit) {
+			
 			System.out.println("Total amount is greater than remaining credit. Navigating to payment page...");
 			// Click on checkbox and ConfirmANDPay to go to the next page
 			ClickonElement(booking.getCheckBox());
 			System.setProperty("webdriver.chrome.driver",
 					"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
 			ClickonElement(booking.getConfirmANDPay());
+			Thread.sleep(10000);
+			if (isElementAvailable(booking.getStripeBack())) {
 			// Run the appropriate Stripe payment function based on totalAmount value
 			if (totalAmount == 0.00) {
+				Stripe =true;
 				waitForElement(booking.getStripeBack());
 				Set<String> hand = driver.getContextHandles(); // Get context handles
 				System.out.println("Get Handles  : " + hand); // Print context handles
@@ -250,7 +286,10 @@ public class Booking extends Base {
 				String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
 				System.out.println("native  : " + nativecontext);
 				driver.context(nativecontext);
+				
 			} else {
+				
+				Stripe =true;
 				waitForElement(booking.getStripeBack());
 				Set<String> hand = driver.getContextHandles(); // Get context handles
 				System.out.println("Get Handles  : " + hand); // Print context handles
@@ -259,13 +298,31 @@ public class Booking extends Base {
 				Thread.sleep(2000);
 				driver.context(webcontext);
 				Thread.sleep(10000);
+				
 				Stripe_Payment();
 				String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
 				System.out.println("native  : " + nativecontext);
 				driver.context(nativecontext);
+				
 			}
-		} else {
+		} else if (isElementAvailable(booking.getCrezcoPayment())) {
+			Crezco = true;
+			System.out.println("Crezco payment ");
+			Set<String> hand = driver.getContextHandles(); // Get context handles
+			System.out.println("Get Handles  : " + hand); // Print context handles
+			String webcontext = new ArrayList<String>(hand).get(1); // Get web context
+			System.out.println("WebView  : " + webcontext);
+			Thread.sleep(2000);
+			driver.context(webcontext);
+			Thread.sleep(6000);
+			Crezco_Payment();
+
+		}
+		}
+			else {
+			Stripe =false;
 			ClickonElement(booking.getCheckBox());
+			
 			ClickonElement(booking.getConfirmANDPay());
 			System.out.println("Total amount is less than or equal to remaining credit. No payment required.");
 		}
@@ -336,6 +393,16 @@ public class Booking extends Base {
 		ClickonElement(mybookings.getHomeTab());
 	}
 
+	public static void Crezco_Payment() throws InterruptedException {
+		WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);// Create Stripe object
+		ClickonElement(booking.getCrezcoContinue());
+		Thread.sleep(2000);
+		ClickonElement(booking.getCrezcoSandbox());
+		Thread.sleep(2000);
+		ClickonElement(booking.getCrezcoSubmit());
+
+	}
+	
 	public static void Stripe_Payment1() throws InterruptedException {
 		WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);// Create Stripe object
 		ClickonElement(booking.getEmail()); // Click on the Gmail input field
@@ -519,5 +586,165 @@ public class Booking extends Base {
 		}
 
 	}
+	
+	@Then("the customer goes back from accounts to the home page")
+	public void theCustomerGoesBackFromAccountsToTheHomePage() throws InterruptedException {
+		Thread.sleep(1000);
+		ClickonElement(invoices.getBackButton());
+		Thread.sleep(2000);
+		ClickonElement(invoices.getHomeTab());
+	}
+	
+	
+//	  ------------------------------------------------->   MULTIPLE DATES
+	
+	
+		
+	
 
+	@When("the user calculates the date range and picks a random dates")
+	public void theUserCalculatesTheDateRangeAndPicksARandomDates() throws InterruptedException {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		startDate = LocalDate.parse(api.available_date_from, formatter);
+		endDate = LocalDate.parse(api.available_date_to, formatter);
+		long daysBetweenSpecificDates = ChronoUnit.DAYS.between(startDate, endDate);
+		System.out.println("Number of days between " + startDate + " and " + endDate + ": " + daysBetweenSpecificDates);
+		LocalDate currentDate = LocalDate.now();
+		long daysFromCurrentToEndDate = ChronoUnit.DAYS.between(currentDate, endDate);
+		System.out.println("Number of days from the current date (" + currentDate + ") to the end date (" + endDate
+				+ "): " + daysFromCurrentToEndDate);
+		minAdvanceBookingDate = getMinAdvanceBookingDate(currentDate, api.DAYminAdvanceBooking);
+		maxBookingDate = getMaxBookingDate(currentDate, endDate, api.DAYminAdvanceBooking, api.DAYmaxAdvanceBooking);
+		System.out.println("Minimum Advance Booking Date: " + minAdvanceBookingDate);
+		System.out.println("Booking can be made up to: " + maxBookingDate);
+		
+		
+		
+		String minMonthName = getMonthName(minAdvanceBookingDate);
+		String maxMonthName = getMonthName(maxBookingDate);
+		System.out.println("Month of minimum advance booking date: " + minMonthName);
+		System.out.println("Month of maximum booking date: " + maxMonthName);
+		 DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	     String minimumDate = minAdvanceBookingDate.format(formatter1);
+	     String maximumDate = maxBookingDate.format(formatter1);
+
+		
+        api.getserviceID(getProperty("SERVICE_NAME"));
+        api.getslotID(Selected_Slot);
+        api.getcustomerID(getProperty("SIGNUP_EMAIL"));
+        api.NotAvailableDates(api.serviceId, api.slotId, api.CustomerId, minimumDate,maximumDate );
+        List<LocalDate> remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
+        Collections.shuffle(remainingDates);
+        BookingDate = remainingDates.get(0);
+        
+//		BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
+//		System.out.println(
+//				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
+//		long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+//		System.out.println("Number of days between the two dates: " + daysBetween);
+		String BookingMonth = getMonthName(BookingDate);
+		BookingYear = BookingDate.getYear();
+		BookingMonthProperCase = BookingMonth.substring(0, 1) + BookingMonth.substring(1).toLowerCase();
+		Thread.sleep(3000);
+	}
+	
+	
+	
+	
+	
+	
+//	--------------------------------------------------->   TWO PETS
+	
+	
+	
+	@Given("the user selects the second pet")
+	public void theUserSelectsTheSecondPet() throws InterruptedException {
+	   
+		 waitForElement(booking.getassorted());
+		 Thread.sleep(1000);
+		if (booking.getpetcount().size() == 3) {
+            System.out.println("Two pets");
+            ClickonElement(booking.getpetcount().get(0));
+         
+        } else if (booking.getpetcount().size() == 1) {
+          System.out.println("one pet");
+        } else {
+            System.out.println("null.");
+        }
+	}
+	
+	
+	@Given("Accounts")
+	public void accounts() throws InterruptedException {
+		WE_Customer_Settings statement = new WE_Customer_Settings(driver);
+		ClickonElement(statement.getSettingsTab());
+		ClickonElement(statement.getAccounts());
+		Thread.sleep(10000);
+		if (Booking.Stripe) {
+			//android.view.View[@content-desc="Payment"]/following-sibling::android.view.View[@content-desc="£ 999.99"]
+//			By sales = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
+//			System.out.println(sales);
+//			By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+Booking.TotalAmountWithSymbol+"']");
+//			System.out.println(payment);
+			
+			
+			By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc=\"- £ 999.99\"]");
+			System.out.println(sales);
+			By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc=\"£ 999.99\"]");
+			System.out.println(payment);
+			
+			
+			
+			
+			if (isElementAvailable(payment)&&isElementAvailable(sales)) {
+				System.out.println("Completed sales and payment  ");
+				
+			}else {
+				System.out.println("hhhhhhhhhh");
+			}
+				
+			
+			
+		}else {
+			
+			By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc=\"- £ 999.99\"]");
+			System.out.println(sales);
+			
+			if (isElementAvailable(sales)) {
+				System.out.println("sales done");
+				
+			}
+			
+		}
+		
+		
+	}
+		
+
+//			WE_Customer_Settings statement = new WE_Customer_Settings(driver);
+//			ClickonElement(statement.getSettingsTab());
+//			ClickonElement(statement.getAccounts());
+//			Thread.sleep(10000);
+//			if (Booking.Stripe) {
+//				
+//				By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
+//				System.out.println(sales);
+//				By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+Booking.TotalAmountWithSymbol+"']");
+//				System.out.println(payment);
+//				
+//				if (isElementAvailable(sales)&& isElementAvailable(payment)) {
+//					System.out.println("Card payment Bookings replicated customer accounts successfully"); 
+//				}else {
+//					System.out.println("null 1 ");
+//				}
+//			}else {
+//				By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
+//				System.out.println(sales);
+////				WebElement findElement = driver.findElement(statement.sales);
+//				if (isElementAvailable(sales)) {
+//					System.out.println("remaining credit payment replicated successfully");
+//				}
+//			}
+//	
+//	}
 }
