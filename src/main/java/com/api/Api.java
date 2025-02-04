@@ -32,7 +32,7 @@ import net.bytebuddy.build.Plugin.Factory.UsingReflection.Priority;
 
 public class Api extends Base {
 
-//	private static final String BASE_URL = "https://staging.petcaretechnologies.com/api/";
+	private static final String BASE_URL = "https://staging.petcaretechnologies.com/api/";
 
 	public static String token;
 	public static String verifiedAccessToken;
@@ -72,10 +72,6 @@ public class Api extends Base {
 	public static String UniqueTag;
 	public static String Uniquepricingrulename;
 	public static String Uniquepoolingname;
-
-
-
-	
 	public static List<String> notAvailableDates;
 
 	public Api(AndroidDriver driver1) {
@@ -84,7 +80,6 @@ public class Api extends Base {
 	}
 
 	public static String signInAdmin(String username) {
-
 		JSONObject requestBody = new JSONObject();
 		requestBody.put("email", username);
 		Response response = RestAssured.given().header("Content-Type", "application/json")
@@ -93,11 +88,9 @@ public class Api extends Base {
 		token = response.jsonPath().getString("token");
 		System.out.println("Admin Sign-in Token: " + token);
 		return token;
-
 	}
 
 	public static String verifyOtp(String otp) {
-
 		JSONObject requestBody = new JSONObject();
 		requestBody.put("otp", otp);
 		requestBody.put("token", token);
@@ -114,11 +107,9 @@ public class Api extends Base {
 		VerifiedRefreshToken = response.jsonPath().getString("refresh_token");
 		System.out.println("OTP Verified Token 2 : " + VerifiedRefreshToken);
 		return VerifiedRefreshToken;
-
 	}
 
 	public static String refreshAdminToken(String Refresh) throws InterruptedException {
-
 		JSONObject requestBody = new JSONObject();
 		requestBody.put("token", Refresh);
 		requestBody.put("device_id", "e07061c9-acf1-432f-ad82-c065190f1201");
@@ -133,7 +124,6 @@ public class Api extends Base {
 		String VerifiedRefreshToken1 = response.jsonPath().getString("refresh_token");
 		System.out.println("New Refresh Token: " + VerifiedRefreshToken1);
 		return verifiedAccessToken;
-
 	}
 
 	public static void ServiceSlotTimeCount() throws InterruptedException {
@@ -715,15 +705,12 @@ public class Api extends Base {
         List<LocalDate> bookedDates = dateList.stream()
                 .map(LocalDate::parse) // Convert String to LocalDate
                 .collect(Collectors.toList());
-
         // Generate full range of dates from fromDate to toDate
         List<LocalDate> fullDateRange = Stream.iterate(fromDate, date -> date.plusDays(1))
                 .limit(toDate.toEpochDay() - fromDate.toEpochDay() + 1)
                 .collect(Collectors.toList());
-
         // Remove booked dates from the full range
         fullDateRange.removeAll(bookedDates);
-
         return fullDateRange;
     }
 	
@@ -732,49 +719,25 @@ public class Api extends Base {
 		method1("First");
 		signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 		verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
-//		OverallTagList();
+		ServiceSlotTimeCount();
 		
-		
-		BreedList();
-		Compare("BREED_Name",UniqueBreed, BreedNames, getProperty("BREED"));
-		ServiceList();
-		Compare("SERVICE_NAME", UniqueService, ServiceNames, getProperty("SERVICE"));
-		SlotList();
-		Compare("SLOT_NAME", UniqueSlot, SlotNames, getProperty("SLOTS"));
-		AddonList();
-		Compare("ADDON_PRIVILAGE", UniqueAddons, AddonsNames, getProperty("ADDON"));
-		Compare("ADDON_ASSIGNABLE", UniqueAddons, AddonsNames, getProperty("ADDON"));
-		TagList();
-		Compare("ADMIN_TAG_CATEGORY_NAME", UniqueTag, TagNames, getProperty("TAGS"));
-		PricingRuleList();
-		Compare("Pricingrulename_Onetime_premium", Uniquepricingrulename, PricingRuleNames, getProperty("PREMIUM_PRICINGRULE_NAME"));
-		Compare("Pricingrulename_Onetime_discount", Uniquepricingrulename, PricingRuleNames, getProperty("DISCOUNT_PRICINGRULE_NAME"));
-		Compare("Pricingrulename_Onetime_notavailable", Uniquepricingrulename, PricingRuleNames, getProperty("NOTAVAILABLE_PRICINGRULE_NAME"));
-        PoolingList();
-        Compare("POOL_NAME", Uniquepoolingname, PoolingNames, getProperty("POOL"));
-
-		
-		
-
-//		getserviceID("Customized Dog Life Journals");
-//		getslotID("EvengdJLWZGOB");
-//		getcustomerID("testmobileacs+2402@gmail.com");
-//		NotAvailableDates(serviceId, slotId, CustomerId, "2025-01-01", "2025-03-31");
-//
-//		method1("First");
-//		System.out.println(UniqueBreed);
-//		refreshAdminToken(VerifiedRefreshToken);
-//		Priority();
-//		eliminatefrom100();
-//System.out.println(serviceId);
-//
-//		  List<String> dateList = List.of("2024-02-15", "2024-03-20"); // Already booked dates
-//
-//	        LocalDate fromDate = LocalDate.of(2024, 2, 1);
-//	        LocalDate toDate = LocalDate.of(2024, 4, 1);
-//
-//	        List<LocalDate> remainingDates = getRemainingDates(dateList, fromDate, toDate);
-//	System.out.println(remainingDates);
+//		BreedList();
+//		Compare("BREED_Name",UniqueBreed, BreedNames, getProperty("BREED"));
+//		ServiceList();
+//		Compare("SERVICE_NAME", UniqueService, ServiceNames, getProperty("SERVICE"));
+//		SlotList();
+//		Compare("SLOT_NAME", UniqueSlot, SlotNames, getProperty("SLOTS"));
+//		AddonList();
+//		Compare("ADDON_PRIVILAGE", UniqueAddons, AddonsNames, getProperty("ADDON"));
+//		Compare("ADDON_ASSIGNABLE", UniqueAddons, AddonsNames, getProperty("ADDON"));
+//		TagList();
+//		Compare("ADMIN_TAG_CATEGORY_NAME", UniqueTag, TagNames, getProperty("TAGS"));
+//		PricingRuleList();
+//		Compare("Pricingrulename_Onetime_premium", Uniquepricingrulename, PricingRuleNames, getProperty("PREMIUM_PRICINGRULE_NAME"));
+//		Compare("Pricingrulename_Onetime_discount", Uniquepricingrulename, PricingRuleNames, getProperty("DISCOUNT_PRICINGRULE_NAME"));
+//		Compare("Pricingrulename_Onetime_notavailable", Uniquepricingrulename, PricingRuleNames, getProperty("NOTAVAILABLE_PRICINGRULE_NAME"));
+//        PoolingList();
+//        Compare("POOL_NAME", Uniquepoolingname, PoolingNames, getProperty("POOL"));
 	
 	}
 
