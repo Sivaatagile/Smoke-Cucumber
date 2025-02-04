@@ -103,7 +103,7 @@ Feature: Booking Application Sanity Flow
     And the admin taps the Home icon
     Then the admin is navigated back to the home page
     
-      Scenario: Adding a new customer through the admin portal
+  Scenario: Adding a new customer through the admin portal
     Given the admin clicks on the Users tab
     When the admin clicks on Customer's Show All
     Then the admin is navigated to the Customer's list page
@@ -123,7 +123,6 @@ Feature: Booking Application Sanity Flow
     When the admin clicks on the Back button
     And the admin taps the Home icon
     Then the admin is navigated back to the home page
-    
     
   Scenario: Successfully create a tag category  
     Given the admin clicks on the Users tab
@@ -173,7 +172,7 @@ Feature: Booking Application Sanity Flow
     When the admin clicks on the Back button
     And the admin taps the Home icon
     
-      Scenario: Successfully create a Privilege Addon  
+  Scenario: Successfully create a Privilege Addon  
     Given the admin navigates to the Service tab  
     And the admin taps on Show All under services  
     And the admin taps the plus button to create a new addon
@@ -192,7 +191,7 @@ Feature: Booking Application Sanity Flow
     When the admin clicks on the Back button
     And the admin taps the Home icon
     
-          Scenario: Successfully create a Assignable Addon  
+  Scenario: Successfully create a Assignable Addon  
     Given the admin navigates to the Service tab  
     And the admin taps on Show All under services  
     And the admin taps the plus button to create a new addon
@@ -211,7 +210,7 @@ Feature: Booking Application Sanity Flow
     When the admin clicks on the Back button
     And the admin taps the Home icon
     
-     Scenario: Successfully create a service  with addon
+  Scenario: Successfully create a service  with addon
     Given the admin navigates to the Service tab  
     And the admin taps on Show All under services  
     And the admin taps the plus button to create a new service
@@ -230,8 +229,7 @@ Feature: Booking Application Sanity Flow
     Then the service should be created successfully  
     When the admin clicks on the Back button
     And the admin taps the Home icon
-    #
-#
+    
   Scenario: Adding a new staff through the admin portal
     Given the admin clicks on the Users tab
     When the admin clicks on Staff's Show All
@@ -255,7 +253,7 @@ Feature: Booking Application Sanity Flow
     And the admin taps the Home icon
     Then the admin is navigated back to the home page
   
-Scenario: create a breed
+  Scenario: create a breed
     Given the admin navigates to the Settings tab 
     And the admin opens the Manage Breed section
     When the admin clicks on the Plus button to add a new breed
@@ -266,7 +264,7 @@ Scenario: create a breed
     And the admin taps the Home icon
     Then the admin is navigated back to the home page
 
-Scenario: create a new service pool
+  Scenario: create a new service pool
     Given the admin navigates to the Settings tab 
     When the admin navigates to Manage Service Pools
     And the admin clicks on the Plus button to add a new pool
@@ -279,7 +277,7 @@ Scenario: create a new service pool
     And the admin taps the Home icon
     Then the admin is navigated back to the home page
   
-Scenario: Define a pricing rule for premium based on a single date.
+  Scenario: Define a pricing rule for premium based on a single date.
     Given the admin navigates to the Settings tab 
     When the admin navigates to Pricing Rule  
     And the admin clicks on the FAB button to add a new pricing rule  
@@ -294,7 +292,7 @@ Scenario: Define a pricing rule for premium based on a single date.
     And the admin taps the Home icon
     Then the admin is navigated back to the home page
     
-    Scenario: Define a pricing rule for discount based on a single date.
+  Scenario: Define a pricing rule for discount based on a single date.
     Given the admin navigates to the Settings tab 
     When the admin navigates to Pricing Rule  
     And the admin clicks on the FAB button to add a new pricing rule  
@@ -309,7 +307,7 @@ Scenario: Define a pricing rule for premium based on a single date.
     And the admin taps the Home icon
     Then the admin is navigated back to the home page
     
-        Scenario: Define a pricing rule for Not Available  based on a single date.
+  Scenario: Define a pricing rule for Not Available  based on a single date.
     Given the admin navigates to the Settings tab 
     When the admin navigates to Pricing Rule  
     And the admin clicks on the FAB button to add a new pricing rule  
@@ -323,19 +321,18 @@ Scenario: Define a pricing rule for premium based on a single date.
     And the admin taps the Home icon
     Then the admin is navigated back to the home page
   
-Scenario: Successfully logout Admin 
+  Scenario: Successfully logout Admin 
     Given the admin navigates to the Settings tab  
     And the admin clicks on the logout button  
     Then the admin should be logged out successfully  
     
-Scenario: Customer login using email (already created by admin)
+  Scenario: Customer login using email (already created by admin)
     Given the customer enters their "SIGNUP_EMAIL" address
     When the customer clicks on the Continue button
     And the customer enters the Otp 
     Then the customer should be logged in successfully
 
-    
-Scenario: Create a booking for one pet on a randomly selected date
+  Scenario: Create a booking for one pet on a randomly selected date
     Given the user selects a service
     When the user fetches the slot list for the selected service using the API
     And the user selects a random slot from the slot list, scrolling the slot picker if necessary
@@ -356,69 +353,92 @@ Scenario: Create a booking for one pet on a randomly selected date
     Then the user navigates to the My Bookings page
     And the user verifies that the booking is listed on the My Bookings page
 
-Scenario: Verify Customer Invoice Details
+  Scenario: Verify Customer Invoice Details
     Given the customer navigates to the Settings tab
     When the customer clicks on Invoice
     And the customer selects the first invoice
     Then the customer checks the service locator and booking date locator 
     And the customer goes back to the home page
     
-Scenario: Verify Customer Statement Details
+  Scenario: Verify Customer Statement Details
     Given the customer navigates to the Settings tab
     When the customer clicks on Statements
     And the customer selects the current month
     Then the customer checks if the saved invoice number is listed
-And the customer goes back to the home page
+    And the customer goes back to the home page
     
-    Scenario: Verify the accounts 
-     Given the customer navigates to the Settings tab
+  Scenario: Verify the accounts 
+    Given the customer navigates to the Settings tab
     When the customer clicks on Accounts
     And Verify the sales or payment detais are listed their
-        And the customer goes back from accounts to the home page
-    
-    
-Scenario: Successfully logout customer
+    And the customer goes back from accounts to the home page
+     
+  Scenario: Successfully logout customer
     Given the customer navigates to the Settings tab  
     And the customer clicks on the logout button  
 
-    
-Scenario: User login using email as admin (predefined account)
+  Scenario: User login using email as admin (predefined account)
     Given the user enters their predefined "PREDEFINED_ADMIN_EMAIL" address
     When the user clicks on the Continue button
     And the user enters the Predefined Otp "PREDEFINED_ADMIN_OTP"
     Then the user should be logged in successfully
     
-Scenario: Admin that do update remaining credit 
-    Given Remaining credit 
+  Scenario: Manage Credit Limit  --> Update Customer Credit Limit
+    Given the admin navigates to the Settings tab  
+    When the admin taps on Manage Credit Limit
+    And the admin clicks on the search button on manage credit limit
+    And the admin enters the customer name for updating the credit limit
+    And the admin enters the credit limit amount then the credit limit should be automatically saved
+    And the admin clicks on the Back button
+    And the admin should see a snackbar with the message 
     
-    Scenario:   adhoc 
-    Given       Adoc
+  Scenario: Admin adds an Adhoc amount to a customer
+    Given the admin navigates to the Settings tab  
+    And the admin selects the accounts 
+    When the admin taps the plus icon in that account
+    And the admin taps the search button in account
+    And the admin enters the customer name
+    And the admin finds the customer and select it
+    And the admin taps on the Adhoc amount
+    And the admin enters the amount in Adhoc amount
+    And the admin taps on the remarks field in Adhoc 
+    And the admin enters the remark details in Adhoc
+    Then the admin taps on the submit button in adhoc 
+    And the admin clicks on the Back button
     
-
+  Scenario: Admin views statements for a customer booking  
+    Given the admin navigates to the Settings tab  
+    When the admin taps on Statements  
+    And the admin taps on the search button in Admin Statements  
+    And the admin enters the customer name in the search box  
+    And the admin finds the customer label and taps on the customer label  
+    Then the invoice number should be listed 
+    And the admin get back to the statements page 
+    And the admin get back to the settings page 
     
-    
-Scenario: admin statement covered 
-Given admin statement 
-
-Scenario: Admin Invoices Covered 
-Given Admin invoices
-
-    
-Scenario: Approving a booking
-    Given the admin navigates to the Pending tab
-    When the admin selects the booking's service from the Service dropdown, opens the Date & Slot dropdown, and selects the booked date and slot
+  Scenario: Admin searches for an invoice in customer bookings  
+    Given the admin navigates to the Settings tab  
+    When the admin taps on Invoices 
+    And the admin enters the invoice number in the search box of Admin Invoices  
+    Then the admin finds and verifies the invoice number  
+    And the admin clicks on the Back button
+        
+  Scenario: Approving a booking
+    Given the admin navigates to Home tab
+    When the admin navigates to the Pending tab
+    And the admin selects the booking's service from the Service dropdown, opens the Date & Slot dropdown, and selects the booked date and slot
     And the admin applies the toggle button
     Then the booking should move to the Unassigned tab
 
-Scenario: Assigning a booking
+  Scenario: Assigning a booking
     Given the admin navigates to the Unassigned tab
     When the admin selects the booking's service from the Service dropdown, opens the Date & Slot dropdown, and selects the booked date and slot
     And the admin selects the specific booking
     And the admin assigns the booking to a staff member
     Then the booking should be assigned successfully
     
-Scenario: Admin created a pet for an existing customer
- Given the admin clicks on the Users tab
+  Scenario: Admin created a pet for an existing customer
+    Given the admin clicks on the Users tab
     When the admin clicks on Customer's Show All
     Then the admin is navigated to the Customer's list page
     And the admin searches for the customer in the search box and selects the customer
@@ -468,19 +488,19 @@ Scenario: Admin created a pet for an existing customer
     #And the admin taps the Home icon
     
     
-Scenario: Successfully logout Admin 
+  Scenario: Successfully logout Admin 
     Given the admin navigates to the Settings tab  
     And the admin clicks on the logout button  
     Then the admin should be logged out successfully  
     
-    Scenario: Customer login using email (already created by admin)
+  Scenario: Customer login using email (already created by admin)
     Given the customer enters their "SIGNUP_EMAIL" address
     When the customer clicks on the Continue button
     And the customer enters the Otp 
     Then the customer should be logged in successfully
     
-Scenario: Create a booking for Two pet on a randomly selected date
-   Given  the user selects the second pet
+  Scenario: Create a booking for Two pet on a randomly selected date
+    Given  the user selects the second pet
     When the user selects a service
     And  the user fetches the slot list for the selected service using the API
     And the user selects a random slot from the slot list, scrolling the slot picker if necessary
@@ -498,29 +518,61 @@ Scenario: Create a booking for Two pet on a randomly selected date
     Then the user navigates to the Booking Request Successful page
     And the user saves the booking details
     
-    Scenario:  Accounts 
-      Given the customer navigates to the Settings tab
+  Scenario:  Accounts 
+    Given the customer navigates to the Settings tab
     When the customer clicks on Accounts
     And Verify the sales or payment detais are listed their
- And the customer goes back from accounts to the home page
+    And the customer goes back from accounts to the home page
  
- #Scenario:  Customer Second Pet
-#Given  Customer Second Pet
-    
-Scenario: Successfully logout customer
+  Scenario: Customer adds a new pet  
+    Given the customer taps on the profile icon  
+    When the customer taps on My Pets 
+    And the customer presses the FAB button to add pet info  
+    And the user enters the pet's name "PET_NAME"
+    And the user selects the pet's gender
+    And  the user needs to select the birth of dog
+    And the user selects the pet's size
+    And the user selects the pet's breed
+    And the user enters any dietary issues "PET_DIETARY_ISSUES"
+    And the user enters any allergies "PET_ALLERGIES"
+    And the user enters the vet's name "PET_VETNAME"
+    And the user enters the vet's address "PET_VETADDRESS"
+    And the user enters the vet's phone number "PET_VETPHONENUMBER"
+    And the user enters the microchip number "PET_MICROCHIP"
+    And the user enters the contact person's name "PET_CONTACT_PERSONNAME"
+    And the user enters the contact person's phone number "PET_CONTACT_PERSONNUMBER"
+    And the user enters any special instructions "PET_SPECIAL_INSTRUCTIONS"
+    And the user enters the feeding schedule "PET_FEEDING_DETAILS"
+    And the user enters any additional contacts "PET_ADDITIONAL_CONTACT"
+    And the user provides behavioral information
+    And the user clicks on the Save button 
+    And the customer goes back from profile to the home page
+  
+  Scenario: Successfully logout customer
     Given the customer navigates to the Settings tab  
     And the customer clicks on the logout button
     
-    #Scenario: User login using email as admin (predefined account)
-    #Given the user enters their predefined "PREDEFINED_ADMIN_EMAIL" address
-    #When the user clicks on the Continue button
-    #And the user enters the Predefined Otp "PREDEFINED_ADMIN_OTP"
-    #Then the user should be logged in successfully
-   #
-   #Scenario: approve pet
-   #Given approve pet
+  Scenario: User login using email as admin (predefined account)
+    Given the user enters their predefined "PREDEFINED_ADMIN_EMAIL" address
+    When the user clicks on the Continue button
+    And the user enters the Predefined Otp "PREDEFINED_ADMIN_OTP"
+    Then the user should be logged in successfully
+   
+  Scenario: Admin reviews and approves a pending pet request  
+    Given the admin clicks on the Users tab
+    When the admin clicks on the Pending Requests showall option
+    And the admin searches for the pet in the search box under pending requests  
+    And the admin taps on the eye icon in the pet label  
+    Then the admin scrolls down and accepts the pet  
+    And the admin confirms the pet approval  
+    And the admin clicks on the Back button
+    
+  Scenario: Successfully logout Admin 
+    Given the admin navigates to the Settings tab  
+    And the admin clicks on the logout button  
+    Then the admin should be logged out successfully 
 
-Scenario: Staff login using email (already created by admin)
+  Scenario: Staff login using email (already created by admin)
     Given the staff enters their "ADMIN_STAFF_EMAIL" address
     When the staff clicks on the Continue button
     And the staff enters the Otp 

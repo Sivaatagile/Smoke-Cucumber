@@ -3,6 +3,7 @@ package cucumberStepDefinition;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.WE.WE_Admin_Settings;
 import com.WE.WE_Admin_WorkFlow;
 import com.baseClass.Base;
 import com.frontend.Customer_Bookingflow;
@@ -13,9 +14,10 @@ import io.cucumber.java.en.When;
 
 public class AdminWorkflow extends Base {
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object
-
+	static WE_Admin_Settings settings = new WE_Admin_Settings(driver);
 	public static void Assigned() throws Exception {
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object
+		ClickonElement(settings.gethometab());
 		ClickonElement(workflow.getService()); // Click on service filter
 		boolean isElementFound = false; // Initialize flag for element found
 		while (!isElementFound) { // Loop until element is found
@@ -62,7 +64,13 @@ public class AdminWorkflow extends Base {
 		}
 	}
 
-	@Given("the admin navigates to the Pending tab")
+	@Given("the admin navigates to Home tab")
+	public void theAdminNavigatesToHomeTab() {
+		ClickonElement(settings.gethometab());
+
+	}
+	
+	@When("the admin navigates to the Pending tab")
 	public void theAdminNavigatesToThePendingTab() {
 		ClickonElement(workflow.getPending_Tab());
 		System.out.println("kkkk");

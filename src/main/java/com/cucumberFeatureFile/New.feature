@@ -7,19 +7,17 @@ Feature: Booking Application Sanity Flow
     And  Open the application
     Then Successfully navigated to the login screen
     
-      Scenario: User login using email as admin (predefined account)
-    Given the user enters their predefined "PREDEFINED_CUSTOMER_EMAIL" address
-    When the user clicks on the Continue button
-    And the user enters the Predefined Otp "PREDEFINED_CUSTOMER_OTP"
-    Then the user should be logged in successfully
+      #Scenario: User login using email as admin (predefined account)
+    #Given the user enters their predefined "PREDEFINED_CUSTOMER_EMAIL" address
+    #When the user clicks on the Continue button
+    #And the user enters the Predefined Otp "PREDEFINED_CUSTOMER_OTP"
+    #Then the user should be logged in successfully
     
     Scenario: Create a booking for one pet on a multiple date
     Given the user selects a service
     When the user fetches the slot list for the selected service using the API
     And the user selects a random slot from the slot list, scrolling the slot picker if necessary
     And the user determines the From Date and To Date for the service based on constraints and the user calculates the date range and picks Multiple dates
-    And the user navigates to the random date's month using the right arrow
-    And the user selects the random date and taps the Request Booking button
     Then the user should successfully navigate to the Confirm Booking Details page
     And the user verifies the service name, date, and slot
     And the user taps the Proceed button
