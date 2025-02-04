@@ -1,6 +1,7 @@
 package cucumberStepDefinition;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
@@ -46,6 +47,10 @@ public class Booking extends Base {
 	public static String currentMonth;
 	public static Boolean Stripe;
 	public static Boolean Crezco;
+	
+	
+	
+	public static List<String> OverallFilteredDates;
 
 	WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 	WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
@@ -55,6 +60,23 @@ public class Booking extends Base {
 	Api api = new Api(driver);
 	Random random = new Random();
 
+	
+	  public static List<LocalDate> getFilteredDates(List<LocalDate> inputDates, String monthYear) {
+	        String[] parts = monthYear.split(" "); // Split into ["July", "2025"]
+	        int year = Integer.parseInt(parts[1]); // Convert "2025" to 2025
+	        int month = Month.valueOf(parts[0].toUpperCase()).getValue(); // Convert "July" to 7
+
+	        List<LocalDate> filteredDates = new ArrayList<>();
+	        for (LocalDate date : inputDates) {
+	            if (date.getMonthValue() == month && date.getYear() == year) {
+	                filteredDates.add(date);
+	            }
+	        }
+	        return filteredDates;
+	    }
+	
+	
+	
 	@Given("the user selects a service")
 	public void theUserSelectsAService() throws InterruptedException {
 		waitForElement(booking.getassorted());
@@ -602,8 +624,8 @@ public class Booking extends Base {
 		
 	
 
-	@When("the user calculates the date range and picks a random dates")
-	public void theUserCalculatesTheDateRangeAndPicksARandomDates() throws InterruptedException {
+	@When("the user determines the From Date and To Date for the service based on constraints and the user calculates the date range and picks Multiple dates")
+	public void theUserDeterminesTheFromDateAndToDateForTheServiceBasedOnConstraintsAndTheUserCalculatesTheDateRangeAndPicksMultipleDates() throws InterruptedException {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		startDate = LocalDate.parse(api.available_date_from, formatter);
 		endDate = LocalDate.parse(api.available_date_to, formatter);
@@ -646,6 +668,125 @@ public class Booking extends Base {
 		BookingYear = BookingDate.getYear();
 		BookingMonthProperCase = BookingMonth.substring(0, 1) + BookingMonth.substring(1).toLowerCase();
 		Thread.sleep(3000);
+		
+		String monthyear = BookingMonthProperCase+" "+BookingYear;
+		System.out.println("eggdgd   : "+monthyear);
+		
+		String dynamicLocator = "//android.view.View[@content-desc='" + BookingMonthProperCase + " " + BookingYear
+				+ "']";
+		System.out.println("gfyft     " + dynamicLocator);
+		Thread.sleep(3000);
+		String fallbackLocatorFirstTime = "//android.view.View[@content-desc='booking_page_calenderWidget']/android.view.View[2]";
+		String fallbackLocatorSubsequentTimes = "//android.view.View[@content-desc='booking_page_calenderWidget']/android.view.View[3]";
+		boolean isFirstTime = true;
+		boolean isElementFound = false;
+		while (!isElementFound) {
+			try {
+				WebElement element = driver.findElement(By.xpath(dynamicLocator));
+				element.click();
+				isElementFound = true;
+				System.out.println("Dynamic element found and clicked.");
+			} catch (NoSuchElementException e) {
+				String fallbackLocator;
+				if (isFirstTime) {
+					fallbackLocator = fallbackLocatorFirstTime;
+					isFirstTime = false; // Mark first time as done
+				} else {
+					fallbackLocator = fallbackLocatorSubsequentTimes;
+				}
+				try {
+					WebElement fallbackElement = driver.findElement(By.xpath(fallbackLocator));
+					fallbackElement.click();
+					System.out.println("Fallback element clicked (" + fallbackLocator + "), retrying...");
+				} catch (NoSuchElementException fallbackException) {
+					System.out.println("Fallback element not found, stopping.");
+					break;
+				}
+			}
+		}
+		
+		Thread.sleep(4000);
+		List<WebElement> calendarElements = driver.findElements(By.xpath(
+				"//android.view.View[@content-desc=\"booking_page_calenderWidget\"]/android.view.View/android.view.View/android.view.View/android.view.View"));
+		int size = calendarElements.size();
+		if (size > 7) {
+			DateTimeFormatter formatter11 = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
+			String formattedDateStr = BookingDate.format(formatter11);
+			System.out.println("fdrrdrdrdrdr    " + formattedDateStr);
+			// Check if the date portion starts with "0" and remove it if so
+			if (formattedDateStr.charAt(formattedDateStr.indexOf(",") + 6) == '0') {
+				formattedDateStr = formattedDateStr.replaceFirst(" 0", " ");
+			}
+			System.out.println("Formatted Date: " + formattedDateStr);
+//			remainingDates
+			List<LocalDate> filteredDates = getFilteredDates(remainingDates, monthyear);
+			
+			System.out.println("--------------------->    "+filteredDates);
+			
+			
+			 DateTimeFormatter formatter111 = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
+		        OverallFilteredDates = new ArrayList<>();
+
+		        for (LocalDate date : filteredDates) {
+		            String formattedDateStr111 = date.format(formatter111);
+
+		            // Check if the day portion starts with "0" and remove it
+		            if (formattedDateStr111.charAt(formattedDateStr111.indexOf(",") + 6) == '0') {
+		                formattedDateStr111 = formattedDateStr111.replaceFirst(" 0", " ");
+		            }
+
+		            OverallFilteredDates.add(formattedDateStr111);
+		        }
+
+		        // Print formatted date list
+		        System.out.println("--->   "+OverallFilteredDates);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			Thread.sleep(5000);
+			for (String date : OverallFilteredDates) {
+			    String dateXpath = "//android.view.View[@content-desc='" + date.toString() + "']";
+			    System.out.println("ffffff   "+dateXpath);
+			    List<WebElement> dateElements = driver.findElements(By.xpath(dateXpath));
+			    
+			    if (!dateElements.isEmpty()) {  // Check if element exists
+			        dateElements.get(0).click(); // Click first matching element
+			    } else {
+			        System.out.println("Date not found: " + date);
+			    }
+			}
+			
+			
+			
+			
+			
+			WebElement findElement = driver
+					.findElement(By.xpath("//android.view.View[@content-desc='" + formattedDateStr + "']"));
+			findElement.click();
+			Thread.sleep(1000);
+			String Booked_Date123 = findElement.getAttribute("content-desc");
+			System.out.println(Booked_Date123);
+			DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
+			DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+			LocalDate parsedDate = LocalDate.parse(Booked_Date123, inputFormat);
+			Booked_Date = parsedDate.format(outputFormat);
+			System.out.println(Booked_Date);
+			String day = Booked_Date.split(" ")[2].replace(",", "");
+			System.out.println("Day: " + day);
+		} else {
+			System.out.println("There are less than 8 elements, cannot proceed.");
+		}
+		ClickonElement(booking.getRequestBooking());
+		
 	}
 	
 	
