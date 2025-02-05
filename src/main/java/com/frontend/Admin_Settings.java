@@ -257,7 +257,7 @@ public class Admin_Settings extends Base {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		method1("First");
+		PropertyFile("First");
 		Latest_StagingAPK_download(getProperty("STAGING"));
 		Application();
 		ChooseApi(API_BASE_URL.Staging);

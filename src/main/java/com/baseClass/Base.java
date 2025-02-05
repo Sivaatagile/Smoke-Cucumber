@@ -66,9 +66,19 @@ import io.appium.java_client.touch.offset.PointOption;
 import io.qameta.allure.Allure;
 
 public class Base {
-	public static String workspacePath = System.getProperty("user.dir");
-	public static Properties properties;
+	
+//	For Api
+	public static  String BASE_URL ;
+	
+//	For Application
 	public static AndroidDriver driver;
+	public static String workspacePath = System.getProperty("user.dir");
+	public static  boolean	PreprodEnvironment;
+
+//	For Property File
+	public static Properties properties;
+	public static FileInputStream fis;
+
 	public static Boolean target;
 	public static String OTPText;
 	public static String outputAssignedDate;
@@ -76,60 +86,41 @@ public class Base {
 	public static String currentMonth;
 	public static String StatementCreatedDate;
 	public static boolean range;
-	public static  String BASE_URL ;
-	public static  boolean	PreprodEnvironment;
-	public static FileOutputStream output;
-	public static FileInputStream fis;
-//	----------------------------------------------->  Application details
 
-	 public static String generateRandomString(int length) {
-	        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-	        StringBuilder randomString = new StringBuilder();
-	        Random random = new Random();
 
-	        for (int i = 0; i < length; i++) {
-	            int index = random.nextInt(characters.length());
-	            randomString.append(characters.charAt(index));
-	        }
-
-	        return randomString.toString();
-	    }
-		public static enum API_BASE_URL {
-		    Staging,
-		    Uat,
-		    Preprod,
-		    Automation
+	
+//	**********     API DETAILS 
+	
+	public static enum API_BASE_URL {
+		Staging, Uat, Preprod, Automation
+	}
+                                                //----------------------------------------------------
+	public static void ChooseApi(API_BASE_URL Environment) {
+		switch (Environment) {
+		case Staging:
+			BASE_URL = "https://staging.petcaretechnologies.com/api/";
+			break;
+		case Uat:
+			BASE_URL = "https://uat.petcaretechnologies.com/api/";
+			break;
+		case Preprod:
+			PreprodEnvironment = true;
+			BASE_URL = "https://preprod.petcaretechnologies.com/api/";
+			break;
+		case Automation:
+			BASE_URL = "https://paw-845-staging-automation-testing.petcaretechnologies.com/api/";
+			break;
+		default:
+			throw new IllegalArgumentException("Invalid add-on type: " + Environment);
 		}
-		
-		 public static void ChooseApi(API_BASE_URL Environment) {
-		        switch (Environment) {
-		            case Staging:
-		            	
-		            	BASE_URL ="https://staging.petcaretechnologies.com/api/";
-		                break;
-		                
-		            case Uat:
-		            	BASE_URL ="https://uat.petcaretechnologies.com/api/";
-		            	break;
-		            	
-		            case Preprod:
-		            	PreprodEnvironment=true;
-		            	BASE_URL ="https://preprod.petcaretechnologies.com/api/";
-		                break;
-		                
-		            case Automation:
-		            	BASE_URL ="https://paw-845-staging-automation-testing.petcaretechnologies.com/api/";
-		                break;
-		                
-		            default:
-		                throw new IllegalArgumentException("Invalid add-on type: " + Environment);
-		        } 
-		 }
+	}
+                                                //-----------------------------------------------------	
+//	 **********     Application details
+
 	public static void Application() throws MalformedURLException {
 		UiAutomator2Options options = new UiAutomator2Options(); // Create options object
 		String getEmulatorArch = getEmulatorArch("Pixel_6_Pro"); // Get emulator architecture
 		String Apk = workspacePath + "\\Apk\\app-" + getEmulatorArch + "-release.apk"; // APK path
-//		String Apk =getProperty("APK_PATH");
 		options.setAutomationName(getProperty("AUTOMATION_NAME")); // Set automation name
 		options.setPlatformName(getProperty("PLATFORM_NAME")); // Set platform name
 		options.setPlatformVersion(getProperty("PLATFORM_VERSION")); // Set platform version
@@ -140,9 +131,9 @@ public class Base {
 				"C:\\Users\\ACS\\eclipse-workspace\\sanity_booking_app\\dri\\chromedriver.exe");
 		options.setCapability("newCommandTimeout", 100000);
 		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
-
 	}
-	
+    //-----------------------------------------------------	
+
 	public static void ApplicationWithApk(String ApkName) throws MalformedURLException {
 		UiAutomator2Options options = new UiAutomator2Options(); // Create options object
 		String getEmulatorArch = getEmulatorArch("Pixel_6_Pro"); // Get emulator architecture
@@ -157,8 +148,8 @@ public class Base {
 				"C:\\Users\\ACS\\eclipse-workspace\\sanity_booking_app\\dri\\chromedriver.exe");
 		options.setCapability("newCommandTimeout", 100000);
 		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
-
 	}
+    //-----------------------------------------------------	
 
 	public static void OpenApplicationWithoutReset() throws MalformedURLException {
 		UiAutomator2Options options = new UiAutomator2Options(); // Create options object
@@ -166,8 +157,13 @@ public class Base {
 		options.setPlatformName("Android"); // Set platform name
 		options.setPlatformVersion("13.0"); // Set platform version
 		options.setDeviceName("Pixel 6 Pro API 33"); // Set device name
-		options.setCapability("appPackage", getProperty("APP_PACKAGE")); // Set app package
-		options.setCapability("appActivity", getProperty("APP_ACTIVITY")); // Set app activity
+		if (PreprodEnvironment) {
+			options.setCapability("appPackage", getProperty("PREPROD_APP_PACKAGE")); // Set app package
+			options.setCapability("appActivity", getProperty("PREPROD_APP_ACTIVITY")); 
+		}else {
+			options.setCapability("appPackage", getProperty("APP_PACKAGE")); // Set app package
+			options.setCapability("appActivity", getProperty("APP_ACTIVITY")); // Set app activity
+		}
 		options.setNoReset(true); // Set no reset
 		options.setFullReset(false); // Set full reset
 		options.setCapability("chromedriverExecutable",
@@ -175,27 +171,13 @@ public class Base {
 		options.setCapability("newCommandTimeout", 100000);
 		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
 	}
+    //-----------------------------------------------------	
 
-	public static void OpenApplication() throws MalformedURLException {
+	public static void AfterClearCacheOpenApplication() throws MalformedURLException {
 		UiAutomator2Options options = new UiAutomator2Options(); // Create options object
 		options.setAutomationName("UiAutomator2"); // Set automation name
 		options.setPlatformName("Android"); // Set platform name
 		options.setPlatformVersion("13.0"); // Set platform version
-		options.setDeviceName("Pixel 6 Pro API 33"); // Set device name
-		options.setCapability("autoGrantPermissions", "true");
-		options.setCapability("appPackage", getProperty("APP_PACKAGE")); // Set app package
-		options.setCapability("appActivity", getProperty("APP_ACTIVITY")); // Set app activity
-//		options.setNoReset(true); // Set no reset
-//		options.setFullReset(false); // Set full reset
-		options.setCapability("newCommandTimeout", 100000);
-		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
-	}
-
-	public static void applicationNew() throws MalformedURLException {
-		UiAutomator2Options options = new UiAutomator2Options(); // Create options object
-		options.setAutomationName("UiAutomator2"); // Set automation name
-		options.setPlatformName("Android"); // Set platform name
-//		options.setPlatformVersion("13.0"); // Set platform version
 		options.setDeviceName("Pixel 6 Pro API 33"); // Set device name
 		if (PreprodEnvironment) {
 			options.setCapability("appPackage", getProperty("PREPROD_APP_PACKAGE")); // Set app package
@@ -204,8 +186,6 @@ public class Base {
 			options.setCapability("appPackage", getProperty("APP_PACKAGE")); // Set app package
 			options.setCapability("appActivity", getProperty("APP_ACTIVITY"));
 		}
-		
-		
 		 // Set app activity
 		options.setCapability("autoGrantPermissions", "true"); // Set capability
 		options.setCapability("chromedriverExecutable",
@@ -213,25 +193,7 @@ public class Base {
 		options.setCapability("newCommandTimeout", 100000);
 		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options); // Initialize driver
 	}
-
-	public static void clearCache() {
-		try {
-			UiAutomator2Options options = new UiAutomator2Options();
-			String packageName = "com.petcaretechnologies.app";
-			String command = "adb shell pm clear " + packageName;
-			Process process = Runtime.getRuntime().exec(command);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			String line;
-			while ((line = reader.readLine()) != null) {
-				System.out.println(line);
-			}
-			process.waitFor();
-			System.out.println("Cache cleared for package: " + packageName);
-			options.setCapability("autoGrantPermissions", true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    //-----------------------------------------------------	
 
 	public static void clearAppCache(String packageName) throws IOException, InterruptedException {
 		// Command to clear app cache using adb
@@ -240,74 +202,174 @@ public class Base {
 		process.waitFor();
 		System.out.println("Cache cleared for package: " + packageName);
 	}
+    //-----------------------------------------------------	
 
+//	**********     PROPERTY FILE DETAILS 
+	
 	public static String getProperty(String key) {
 		return properties.getProperty(key); // Retrieve property value by key
 	}
+    //-----------------------------------------------------	
 
-	public static void method1(String fileName) throws IOException {
+	public static void PropertyFile(String fileName) throws IOException {
 		properties = new Properties();
 		// Load the properties from the file passed as argument
 		 fis = new FileInputStream("src/test/java/" + fileName + ".properties");
 		properties.load(fis);
-		
-//		 output = new FileOutputStream("src/test/java/" + fileName + ".properties");
-//		properties.list(System.out);
+	//		properties.list(System.out);
 		System.out.println("property file loded");
 	}
+    //-----------------------------------------------------	
 
-	public static void setPropertyValue(String fileName,String Key,String value) throws IOException {
-		 Properties prop = new Properties();
-	        String filePath = "src/test/java/" + fileName + ".properties"; // Your properties file path
-
-	        
-	        
-	        
-	        try {
-	            // Existing properties load பண்ண
-	            FileInputStream fis = new FileInputStream(filePath);
-	            prop.load(fis);
-	            fis.close();
-
-	            // New key-value set பண்ண
-	            prop.setProperty(Key, value);
-
-	            // Updated properties file-ல save பண்ண
-	            FileOutputStream fos = new FileOutputStream(filePath);
-	            prop.store(fos, null);
-	            fos.close();
-
-	            System.out.println("Properties file updated successfully!");
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    
-	    }
+	public static void setPropertyValue(String fileName, String Key, String value) throws IOException {
+		Properties prop = new Properties();
+		String filePath = "src/test/java/" + fileName + ".properties"; // Your properties file path
+		try {
+			// Existing properties load 
+			FileInputStream fis = new FileInputStream(filePath);
+			prop.load(fis);
+			fis.close();
+			// New key-value set 
+			prop.setProperty(Key, value);
+			// Updated properties file
+			FileOutputStream fos = new FileOutputStream(filePath);
+			prop.store(fos, null);
+			fos.close();
+			System.out.println("Properties file updated successfully!");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
     
+
+//	**********     EMULATOR DETAILS 
+	
+	public static String getAdbPath() {
+		String adbPath;
+		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+			adbPath = System.getProperty("user.home") + "\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe"; // Path
+		} else if (System.getProperty("os.name").toLowerCase().contains("linux")) {
+			adbPath = System.getProperty("user.home") + "/Android/Sdk/platform-tools/adb"; // Path for Linux
+		} else {
+			adbPath = System.getProperty("user.home") + "/Library/Android/sdk/platform-tools/adb"; // Path for macOS
+		}
+		return adbPath; // Return adb path
+	}
+    //-----------------------------------------------------	
+
+	public static String getEmulatorArch(String emulatorName) {
+		System.out.printf("Getting architecture for emulator %s%n", emulatorName); // Print emulator name
+		String adbPath = getAdbPath(); // Get adb path
+		String[] command = new String[] { adbPath, "shell", "uname", "-m" }; // Command to get architecture
+		String line = "";
+		try {
+			Process process = new ProcessBuilder(command).start(); // Start process
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream())); // Read process
+			line = reader.readLine(); // Read first line
+			process.waitFor(); // Wait for process to finish
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace(); // Print stack trace
+			System.out.printf("Error getting architecture for emulator %s: %s%n", emulatorName, e.getMessage()); // Print
+		}
+		if (line == null) {
+			System.out.printf("Error getting architecture for emulator %s: %s%n", emulatorName, "line is null"); // Print
+			line = "x86_64"; // Default to x86_64
+		}
+		if (line.contains("arm64-v8a")) {
+			return "arm64-v8a"; // Return arm64-v8a
+		} else if (line.contains("armeabi-v7a")) {
+			return "armeabi-v7a"; // Return armeabi-v7a
+		} else if (line.contains("x86")) {
+			return "x86"; // Return x86
+		} else if (line.contains("x86_64")) {
+			return "x86_64"; // Return x86_64
+		} else {
+			return "Unknown"; // Return unknown
+		}
+	}
+    //-----------------------------------------------------	
+
+	public static void downloadFile(String url, String destinationPath) throws IOException, InterruptedException {
+		URL apkUrl = new URL(url); // Create URL object
+		try (InputStream in = apkUrl.openStream(); FileOutputStream out = new FileOutputStream(destinationPath)) {
+			byte[] buffer = new byte[4096]; // Buffer for reading
+			int bytesRead;
+			while ((bytesRead = in.read(buffer)) != -1) {
+				out.write(buffer, 0, bytesRead); // Write buffer to file
+			}
+		}
+	}
+    //-----------------------------------------------------	
+
+	public static void Latest_StagingAPK_download(String URL) throws InterruptedException {
+		Thread.sleep(10000); // Sleep for 10 seconds
+		String apkUrl = URL + "/app-armeabi-v7a-release.apk"; // Default
+		String getEmulatorArch = getEmulatorArch("Pixel_6_Pro_API_31"); // Get emulator architecture
+		switch (getEmulatorArch) {
+		case "armeabi-v7a":
+			apkUrl = URL + "/app-armeabi-v7a-release.apk"; // URL
+			System.out.println("Downloading APK for armeabi-v7a architecture"); // Print message
+			break;
+		case "x86":
+			apkUrl = URL + "/app-x86_64-release.apk"; // URL
+			System.out.println("Downloading APK for x86 architecture"); // Print message
+			break;
+		case "x86_64":
+			apkUrl = URL + "/app-x86_64-release.apk"; // URL
+			System.out.println("Downloading APK for x86_64 architecture"); // Print message
+			break;
+		case "arm64-v8a":
+			apkUrl = URL + "/app-arm64-v8a-release.apk"; // URL
+			System.out.println("Downloading APK for arm64-v8a architecture"); // Print message
+			break;
+		default:
+			System.out.println("Unknown architecture"); // Print message
+			break;
+		}
+		String destinationPath = workspacePath + "\\Apk\\app-" + getEmulatorArch + "-release.apk"; // Destination path
+		File file = new File(destinationPath); // Create file object
+		if (file.exists()) {
+			file.delete(); // Delete existing file
+		}
+		try {
+			downloadFile(apkUrl, destinationPath); // Download file
+			System.out.println("APK downloaded successfully."); // Print message
+		} catch (IOException e) {
+			System.err.println("Error downloading APK: " + e.getMessage()); // Print error
+		}
+	}
+    //-----------------------------------------------------	
+
+	
+//	**********     BASE FILE 
 	
 	public static void passInput(WebElement element, String input) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120));
 		wait.until(ExpectedConditions.visibilityOf(element)); // Wait until the element is visible
 		element.sendKeys(input);
 	}
+    //-----------------------------------------------------	
 
 	public static void passInput(By locator, String input) {
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120));
 	    WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator)); // Wait until the element is visible
 	    element.sendKeys(input);
 	}
-	
+    //-----------------------------------------------------	
+
 	public static void ClickonElement(WebElement element) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120)); // 10 seconds wait time
 		wait.until(ExpectedConditions.elementToBeClickable(element)); // Wait until the element is clickable
 		element.click();
 	}
+    //-----------------------------------------------------	
 
 	public static void ClickonElementwithoutWAIT(WebElement element) throws InterruptedException {
 		Thread.sleep(3000);
 		element.click();
 	}
-	
+    //-----------------------------------------------------	
+
 	public static void ClearonElement(WebElement element) {
 		// Wait until the element is clickable
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120));
@@ -315,20 +377,22 @@ public class Base {
 		// Clear the content of the element
 		element.clear();
 	}
-	
+    //-----------------------------------------------------	
+
 	public static void clickOnElementUsingBy(By by) throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120)); // 120 seconds wait time
-		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(by)); // Wait until the element is
-																						// clickable
+		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(by)); // Wait until the element is																			// clickable
 		element.click();
 		Thread.sleep(4000);
 	}
+    //-----------------------------------------------------	
 
 	public static void waitForElement(WebElement element) throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120)); // 120 seconds wait time
 		wait.until(ExpectedConditions.elementToBeClickable(element)); // Wait until the element is clickable
 		System.out.println("Find out");
 	}
+    //-----------------------------------------------------	
 
 	public static boolean isElementAvailable(By by) throws InterruptedException {
 		try {
@@ -339,6 +403,7 @@ public class Base {
 			return false; // If not found, return false
 		}
 	}
+    //-----------------------------------------------------	
 
 	public static boolean isScrollViewAvailable() {
 		try {
@@ -376,7 +441,7 @@ public class Base {
 		actions.sendKeys(element, input).perform();
 	}
 
-//	----------------------------------------------------------------------------->    SCROLL -------------------------------------------------------------------
+//	**********     SCROLL VIEW
 
 	public static void scrollDown() {
 		String scrollableList = "new UiScrollable(new UiSelector().scrollable(true).instance(0))";
@@ -394,7 +459,6 @@ public class Base {
 	public static void scrollUntilElementFound12(WebElement scrollElement, By targetBy) throws Exception {
 		while (true) {
 			try {
-
 				WebElement targetElement = driver.findElement(targetBy);
 				if (targetElement.isDisplayed()) {
 					target = true;
@@ -495,27 +559,25 @@ public class Base {
 	}
 	
 	public static void scrollToElement(WebElement element) {
-	    // Get the screen size of the device
-	    Dimension screenSize = driver.manage().window().getSize();
-	    
-	    int screenHeight = screenSize.getHeight();
-	    int screenWidth = screenSize.getWidth();
-	    
-	    // Define start and end points for scrolling
-	    int startX = screenWidth / 2; // Horizontally center
-	    int startY = (int) (screenHeight * 0.75); // Start at 75% from top
-	    int endY = (int) (screenHeight * 0.25);  // End at 25% from top
+		// Get the screen size of the device
+		Dimension screenSize = driver.manage().window().getSize();
+		int screenHeight = screenSize.getHeight();
+		int screenWidth = screenSize.getWidth();
+		// Define start and end points for scrolling
+		int startX = screenWidth / 2; // Horizontally center
+		int startY = (int) (screenHeight * 0.75); // Start at 75% from top
+		int endY = (int) (screenHeight * 0.25); // End at 25% from top
+		// Scroll until the element is visible
+		while (!isElementVisible(element)) {
+			TouchAction action = new TouchAction(driver);
+			action.press(PointOption.point(startX, startY)) // Press at the starting point
+					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))) // Wait for smooth scrolling
+					.moveTo(PointOption.point(startX, endY)) // Move to the end point
+					.release() // Release the press
+					.perform(); // Perform the action
+		}
+	}
 
-	    // Scroll until the element is visible
-	    while (!isElementVisible(element)) {
-	        TouchAction action = new TouchAction(driver);
-	        action.press(PointOption.point(startX, startY)) // Press at the starting point
-	              .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))) // Wait for smooth scrolling
-	              .moveTo(PointOption.point(startX, endY)) // Move to the end point
-	              .release() // Release the press
-	              .perform(); // Perform the action
-	    }  }
-	
 	public static  boolean isElementVisible(WebElement element) {
 	    try {
 	        return element.isDisplayed();
@@ -524,82 +586,63 @@ public class Base {
 	    }
 	}
 
-	
-	
 	public static void scrollToTargetElement(WebElement scrollViewElement, WebElement targetElement) {
-	    // Get the size of the scrollable view
-	    Dimension scrollViewSize = scrollViewElement.getSize();
-	    
-	    // Get the location of the scrollable view
-	    int scrollViewStartX = scrollViewElement.getLocation().getX();
-	    int scrollViewStartY = scrollViewElement.getLocation().getY();
-	    int scrollViewEndY = scrollViewStartY + scrollViewSize.getHeight();
-
-	    // Define start and end points for scrolling within the scrollable view
-	    int startX = scrollViewStartX + (scrollViewSize.getWidth() / 2); // Center horizontally in the scrollable view
-	    int startY = scrollViewEndY - 10; // Start at the bottom of the scrollable view (just inside the boundary)
-	    int endY = scrollViewStartY + 10; // End at the top of the scrollable view (just inside the boundary)
-
-	    // Scroll until the target element is visible
-	    while (!isElementVisible(targetElement)) {
-	        try {
-	            // Perform the scroll action within the scroll view
-	            TouchAction action = new TouchAction(driver);
-	            action.press(PointOption.point(startX, startY)) // Press at the starting point (bottom of the scroll view)
-	                  .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))) // Wait for smooth scrolling
-	                  .moveTo(PointOption.point(startX, endY)) // Move to the end point (top of the scroll view)
-	                  .release() // Release the press
-	                  .perform(); // Perform the action
-
-	        } catch (Exception e) {
-	            System.out.println("Scrolling failed: " + e.getMessage());
-	            break; // Exit if scrolling fails
-	        }
-	    }
-
-	    if (isElementVisible(targetElement)) {
-	        System.out.println("Target element is now visible.");
-	    } else {
-	        System.out.println("Target element is not found after scrolling.");
-	    }
+		// Get the size of the scrollable view
+		Dimension scrollViewSize = scrollViewElement.getSize();
+		// Get the location of the scrollable view
+		int scrollViewStartX = scrollViewElement.getLocation().getX();
+		int scrollViewStartY = scrollViewElement.getLocation().getY();
+		int scrollViewEndY = scrollViewStartY + scrollViewSize.getHeight();
+		// Define start and end points for scrolling within the scrollable view
+		int startX = scrollViewStartX + (scrollViewSize.getWidth() / 2); // Center horizontally in the scrollable view
+		int startY = scrollViewEndY - 10; // Start at the bottom of the scrollable view (just inside the boundary)
+		int endY = scrollViewStartY + 10; // End at the top of the scrollable view (just inside the boundary)
+		// Scroll until the target element is visible
+		while (!isElementVisible(targetElement)) {
+			try {
+				// Perform the scroll action within the scroll view
+				TouchAction action = new TouchAction(driver);
+				action.press(PointOption.point(startX, startY)) // Press at the starting point (bottom of the scroll
+																// view)
+						.waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))) // Wait for smooth scrolling
+						.moveTo(PointOption.point(startX, endY)) // Move to the end point (top of the scroll view)
+						.release() // Release the press
+						.perform(); // Perform the action
+			} catch (Exception e) {
+				System.out.println("Scrolling failed: " + e.getMessage());
+				break; // Exit if scrolling fails
+			}
+		}
+		if (isElementVisible(targetElement)) {
+			System.out.println("Target element is now visible.");
+		} else {
+			System.out.println("Target element is not found after scrolling.");
+		}
 	}
 
-//	private boolean isElementVisible1(WebElement element) {
-//	    try {
-//	        // Check if the element is displayed
-//	        return element.isDisplayed();
-//	    } catch (Exception e) {
-//	        return false; // Element not visible or not found
-//	    }
-//	}
-	
 	public static void slowScrollUntilElementsFound123(By firstLocator, By secondLocator) throws Exception {
-	    boolean firstFound = false;
-	    boolean secondFound = false;
-
-	    while (true) {
-	        try {
-	            WebElement firstElement = driver.findElement(firstLocator);
-	            if (!firstFound && firstElement.isDisplayed()) {
-	                firstFound = true;
-	                firstElement.click();
-	                System.out.println("First element found and clicked.");
-	            }
-
-	            WebElement secondElement = driver.findElement(secondLocator);
-	            if (firstFound && secondElement.isDisplayed()) {
-	                secondFound = true;
-	                System.out.println("Second element found. Stopping scroll.");
-	                break; // Stop scrolling when the second element is found
-	            }
-	        } catch (NoSuchElementException e) {
-	            System.out.println("Element not found, scrolling...");
-	            slowScroll(); // Scroll if the element is not found
-	        }
-	    }
+		boolean firstFound = false;
+		boolean secondFound = false;
+		while (true) {
+			try {
+				WebElement firstElement = driver.findElement(firstLocator);
+				if (!firstFound && firstElement.isDisplayed()) {
+					firstFound = true;
+					firstElement.click();
+					System.out.println("First element found and clicked.");
+				}
+				WebElement secondElement = driver.findElement(secondLocator);
+				if (firstFound && secondElement.isDisplayed()) {
+					secondFound = true;
+					System.out.println("Second element found. Stopping scroll.");
+					break; // Stop scrolling when the second element is found
+				}
+			} catch (NoSuchElementException e) {
+				System.out.println("Element not found, scrolling...");
+				slowScroll(); // Scroll if the element is not found
+			}
+		}
 	}
-	
-	
 	
 	public static void slowScroll() throws Exception {
 		try {
@@ -624,6 +667,7 @@ public class Base {
 		}
 	}
 
+	
 	public static void halfscrollUntilElementFound12(WebElement scrollElement, WebElement targetElement)
 			throws Exception {
 		while (true) {
@@ -661,7 +705,6 @@ public class Base {
 	public static void halfscrollUntilElementFound12(WebElement scrollElement, By targetBy) throws Exception {
 		while (true) {
 			try {
-
 				WebElement targetElement = driver.findElement(targetBy);
 				if (targetElement.isDisplayed()) {
 					target = true;
@@ -748,13 +791,11 @@ public class Base {
 				if (targetElement.isDisplayed()) {
 					target = true;
 					System.out.println("Target element found");
-					Allure.step("Element Found");
 					break; // Exits the loop once target element is found.
 				}
 			} catch (NoSuchElementException e) {
 				target = false;
 				System.out.println("Target element not found, scrolling...");
-				Allure.step("Element not found... Continue Scrolling.");
 				Thread.sleep(1000); // Adds delay between scrolls.
 				scroll(scrollElement); // Scrolls the element to search for target.
 			}
@@ -768,13 +809,11 @@ public class Base {
 				if (targetElement.isDisplayed()) {
 					target = true;
 					System.out.println("Target element found");
-					Allure.step("Element Found");
 					break; // Exits the loop once target element is found.
 				}
 			} catch (NoSuchElementException e) {
 				target = false;
 				System.out.println("Target element not found, scrolling...");
-				Allure.step("Element not found... Continue Scrolling.");
 				Thread.sleep(500); // Adds delay between scrolls.
 				scroll999(scrollElement); // Scrolls the element to search for target.
 			}
@@ -841,108 +880,14 @@ public class Base {
 		}
 	}
 
-	public static String getAdbPath() {
-		String adbPath;
-		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-			adbPath = System.getProperty("user.home") + "\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe"; // Path
-		} else if (System.getProperty("os.name").toLowerCase().contains("linux")) {
-			adbPath = System.getProperty("user.home") + "/Android/Sdk/platform-tools/adb"; // Path for Linux
-		} else {
-			adbPath = System.getProperty("user.home") + "/Library/Android/sdk/platform-tools/adb"; // Path for macOS
-		}
-		return adbPath; // Return adb path
+	public static void waitForElementViewable(By element) throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120)); // 120 seconds wait time
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(element)); // Wait until the element is clickable
+		System.out.println("Find out"); // Debug message
 	}
 
-	/*
-	 * Retrieves the architecture type of the given Android emulator. Runs an ADB
-	 * command to get the architecture and returns "arm64-v8a","armeabi-v7a", "x86",
-	 * or "x86_64". Defaults to "x86_64" if the architecture can't be determined.
-	 */
-	public static String getEmulatorArch(String emulatorName) {
-		System.out.printf("Getting architecture for emulator %s%n", emulatorName); // Print emulator name
-		String adbPath = getAdbPath(); // Get adb path
-		String[] command = new String[] { adbPath, "shell", "uname", "-m" }; // Command to get architecture
-		String line = "";
-		try {
-			Process process = new ProcessBuilder(command).start(); // Start process
-			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream())); // Read process
-			line = reader.readLine(); // Read first line
-			process.waitFor(); // Wait for process to finish
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace(); // Print stack trace
-			System.out.printf("Error getting architecture for emulator %s: %s%n", emulatorName, e.getMessage()); // Print
-		}
-		if (line == null) {
-			System.out.printf("Error getting architecture for emulator %s: %s%n", emulatorName, "line is null"); // Print
-			line = "x86_64"; // Default to x86_64
-		}
-		if (line.contains("arm64-v8a")) {
-			return "arm64-v8a"; // Return arm64-v8a
-		} else if (line.contains("armeabi-v7a")) {
-			return "armeabi-v7a"; // Return armeabi-v7a
-		} else if (line.contains("x86")) {
-			return "x86"; // Return x86
-		} else if (line.contains("x86_64")) {
-			return "x86_64"; // Return x86_64
-		} else {
-			return "Unknown"; // Return unknown
-		}
-	}
-
-//	 Downloads a file from the specified URL and saves it to the given destination path.
-//	 Reads the file in chunks and writes it to the output file.
-	public static void downloadFile(String url, String destinationPath) throws IOException, InterruptedException {
-		URL apkUrl = new URL(url); // Create URL object
-		try (InputStream in = apkUrl.openStream(); FileOutputStream out = new FileOutputStream(destinationPath)) {
-			byte[] buffer = new byte[4096]; // Buffer for reading
-			int bytesRead;
-			while ((bytesRead = in.read(buffer)) != -1) {
-				out.write(buffer, 0, bytesRead); // Write buffer to file
-			}
-		}
-	}
-
-//	 Downloads the latest staging APK based on the emulator's architecture.
-//	 Waits for 10 seconds, determines the emulator's architecture, sets the appropriate APK URL,and downloads the APK to a specified destination path. Deletes any existing file at that path before downloading.
-	public static void Latest_StagingAPK_download(String URL) throws InterruptedException {
-		Thread.sleep(10000); // Sleep for 10 seconds
-		String apkUrl = URL + "/app-armeabi-v7a-release.apk"; // Default
-		String getEmulatorArch = getEmulatorArch("Pixel_6_Pro_API_31"); // Get emulator architecture
-		switch (getEmulatorArch) {
-		case "armeabi-v7a":
-			apkUrl = URL + "/app-armeabi-v7a-release.apk"; // URL
-			System.out.println("Downloading APK for armeabi-v7a architecture"); // Print message
-			break;
-		case "x86":
-			apkUrl = URL + "/app-x86_64-release.apk"; // URL
-			System.out.println("Downloading APK for x86 architecture"); // Print message
-			break;
-		case "x86_64":
-			apkUrl = URL + "/app-x86_64-release.apk"; // URL
-			System.out.println("Downloading APK for x86_64 architecture"); // Print message
-			break;
-		case "arm64-v8a":
-			apkUrl = URL + "/app-arm64-v8a-release.apk"; // URL
-			System.out.println("Downloading APK for arm64-v8a architecture"); // Print message
-			break;
-		default:
-			System.out.println("Unknown architecture"); // Print message
-			break;
-		}
-		String destinationPath = workspacePath + "\\Apk\\app-" + getEmulatorArch + "-release.apk"; // Destination path
-		File file = new File(destinationPath); // Create file object
-		if (file.exists()) {
-			file.delete(); // Delete existing file
-		}
-		try {
-			downloadFile(apkUrl, destinationPath); // Download file
-			System.out.println("APK downloaded successfully."); // Print message
-		} catch (IOException e) {
-			System.err.println("Error downloading APK: " + e.getMessage()); // Print error
-		}
-	}
-
-//	----------------------------------------------------------------------->   Signup Email Credintials
+//	**********     OTP from email
 	public static String getOtpFromSource1() {
 		String host = "imap.gmail.com"; // Email server host
 		String mailStoreType = "imap"; // Email protocol
@@ -988,12 +933,10 @@ public class Base {
 			            for (Address address : recipients) {
 			                String recipientEmail = address.toString();
 			                if (recipientEmail.equalsIgnoreCase(getProperty("SIGNUP_EMAIL"))) {
-			                    
 			                    // Extract the OTP only if the recipient matches the pattern
 			                    String htmlContent = getTextFromMessage(message); // Extract the HTML content from the message
 			                    Document doc = Jsoup.parse(htmlContent); // Parse the HTML content
 			                    System.out.println(htmlContent);
-
 			                    Elements pElements = doc.select("body > table > tbody > tr > td > table > tbody > tr > td > p:nth-of-type(3)");
 			                    if (!pElements.isEmpty()) {
 			                        Element pElement = pElements.first(); // Get the first <p> element
@@ -1107,7 +1050,7 @@ public class Base {
 		return result.toString(); // Return the extracted text
 	}
 
-//	--------------------------------------------->    FOR   BOOKING
+//	**********     FOR   BOOKING
 	public static LocalDate getMinAdvanceBookingDate(LocalDate currentDate, int minAdvanceBooking) {
 		return currentDate.plusDays(minAdvanceBooking);
 	}
@@ -1171,13 +1114,6 @@ public class Base {
 		}
 	}
 
-	public static void waitForElementViewable(By element) throws InterruptedException {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120)); // 120 seconds wait time
-		Thread.sleep(2000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(element)); // Wait until the element is clickable
-		System.out.println("Find out"); // Debug message
-	}
-
 	public static void UpdateNameProperty(String KeyValue) throws FileNotFoundException, IOException {
 		String filePath = workspacePath + getProperty("file_path");
 		File file = new File(filePath);
@@ -1207,7 +1143,6 @@ public class Base {
 			System.out.println("Key not found: " + KeyValue);
 		}
 	}
-	
 	
 	public static void updateNameProperty9(String key, String newValue) throws FileNotFoundException, IOException {
 	    String filePath = workspacePath + getProperty("file_path");
@@ -1314,6 +1249,12 @@ public class Base {
 	    }
 	}
 	
+    public static LocalDate printDate(String dateStr) {
+        LocalDate date = LocalDate.parse(dateStr);
+        System.out.println("Parsed Date: " + date);
+        return date;
+    }
+	
 	public static void sendEmailWithReport(String toEmail, String subject, String body, String reportPath) {
 		final String fromEmail = "testmobileacs@gmail.com"; // Change with your email
 		final String password = "tdrckyprwbzwinlg"; // Change with your email password
@@ -1376,20 +1317,6 @@ public class Base {
 	}
 	
 	public static  void CheckTheDateWithinRange(LocalDate fromDateString, LocalDate toDateString, LocalDate givenDate ) {
-
-		
-//		   String fromDateString = "2025-01-01";
-//	        String toDateString = "2025-12-31";
-//	        String givenDateString = "2025-06-18";
-
-	        // Parse the dates
-//	        LocalDate fromDate = LocalDate.parse(fromDateString);
-//	        System.out.println(fromDate);
-//	        LocalDate toDate = LocalDate.parse(toDateString);
-//	        System.out.println(toDate);
-
-	         
-
 	        // Check if the given date is within the range
 	        if ((givenDate.isEqual(fromDateString) || givenDate.isAfter(fromDateString)) &&
 	            (givenDate.isEqual(toDateString) || givenDate.isBefore(toDateString))) {
@@ -1397,17 +1324,14 @@ public class Base {
 	            System.out.println("The given date is within the range.");
 	        } else {
 	        	range = true;
-
 	            System.out.println("The given date is NOT within the range.");
 	        }
 	}
 	
-	
-	   public static void deleteAllEmails() {
+	public static void deleteAllEmails() {
 	        String host = "imap.gmail.com"; // Email server host
 	        String username = "testmobileacs@gmail.com"; // Email username
 	        String password = "tdrckyprwbzwinlg"; // Email password
-
 	        try {
 	            // Set up email session properties
 	            Properties properties = new Properties();
@@ -1416,48 +1340,41 @@ public class Base {
 	            properties.put("mail.imaps.port", "993");
 	            properties.put("mail.imaps.ssl.enable", "true");
 	            properties.put("mail.imaps.auth", "true");
-
 	            // Authenticate and create email session
 	            Session emailSession = Session.getInstance(properties, new javax.mail.Authenticator() {
 	                protected PasswordAuthentication getPasswordAuthentication() {
 	                    return new PasswordAuthentication(username, password);
 	                }
 	            });
-
 	            // Connect to the email store
 	            Store store = emailSession.getStore("imaps");
 	            store.connect(host, username, password);
-
 	            // Open the inbox folder
 	            Folder emailFolder = store.getFolder("INBOX");
 	            emailFolder.open(Folder.READ_WRITE); // Open in read-write mode to delete emails
-
 	            // Fetch all messages
 	            Message[] messages = emailFolder.getMessages();
 	            System.out.println("Total messages in INBOX: " + messages.length);
-
 	            // Delete each message
 	            for (Message message : messages) {
 	                message.setFlag(Flags.Flag.DELETED, true); // Mark message for deletion
 	                System.out.println("Deleted email with subject: " + message.getSubject());
 	            }
-
 	            // Close the folder and expunge deleted messages
 	            emailFolder.close(true); // 'true' to expunge deleted messages
 	            store.close();
 	            System.out.println("All emails deleted successfully!");
-
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
 	    }
-	   public static void UpdateNameProperty(String KeyValue , String TextDocumentPath) throws FileNotFoundException, IOException {
+	  
+	public static void UpdateNameProperty(String KeyValue , String TextDocumentPath) throws FileNotFoundException, IOException {
 		    String filePath = workspacePath + getProperty("file_path"); // Path to the .properties file
 		    String textFilePath = workspacePath + "/" +TextDocumentPath; // Path to the text file containing names
 		    File file = new File(filePath);
 		    List<String> fileLines = new ArrayList<>();
 		    String updatedValue = null;
-
 		    // Step 1: Read names from the text file
 		    List<String> names = new ArrayList<>();
 		    try (BufferedReader nameReader = new BufferedReader(new FileReader(textFilePath))) {
@@ -1468,16 +1385,13 @@ public class Base {
 		            }
 		        }
 		    }
-
 		    if (names.isEmpty()) {
 		        System.out.println("No names found in the text file.");
 		        return;
 		    }
-
 		    // Step 2: Randomly pick a name
 		    Random random = new Random();
 		    String randomName = names.get(random.nextInt(names.size()));
-
 		    // Step 3: Update the .properties file
 		    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 		        String line;
@@ -1489,7 +1403,6 @@ public class Base {
 		            fileLines.add(line);
 		        }
 		    }
-
 		    // Step 4: Write updated values back to the .properties file
 		    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
 		        for (String fileLine : fileLines) {
@@ -1497,7 +1410,6 @@ public class Base {
 		            writer.newLine();
 		        }
 		    }
-
 		    // Step 5: Output the result
 		    if (updatedValue != null) {
 		        System.out.println("Updated " + KeyValue + ": " + updatedValue);
@@ -1505,6 +1417,88 @@ public class Base {
 		        System.out.println("Key not found: " + KeyValue);
 		    }
 		}
+	
+	public static String generateRandomString(int length) {
+		        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		        StringBuilder randomString = new StringBuilder();
+		        Random random = new Random();
+		        for (int i = 0; i < length; i++) {
+		            int index = random.nextInt(characters.length());
+		            randomString.append(characters.charAt(index));
+		        }
+		        return randomString.toString();
+		    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public static void scroll123(WebElement element) throws Exception {
+	    try {
+	        Dimension elementSize = element.getSize();
+	        Point elementLocation = element.getLocation();
+	        int centerX = elementLocation.x + (elementSize.width / 2);
+	        int startPoint = elementLocation.y + (int) (elementSize.height * 0.99); // Start at 90% of height
+	        int endPoint = elementLocation.y + (int) (elementSize.height * 0.01);  // End at 10% of height
+
+	        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+	        Sequence sequence = new Sequence(finger, 1);
+	        sequence.addAction(finger.createPointerMove(Duration.ofMillis(200), PointerInput.Origin.viewport(), centerX, startPoint));
+	        sequence.addAction(finger.createPointerDown(0));
+	        sequence.addAction(finger.createPointerMove(Duration.ofMillis(200), PointerInput.Origin.viewport(), centerX, endPoint));
+	        sequence.addAction(finger.createPointerUp(0));
+
+	        driver.perform(Arrays.asList(sequence)); // Perform the scroll gesture
+	    } catch (Exception e) {
+	        throw e;
+	    }
+	}
+
+	public static void scrollUntilElementFound1234567890(WebElement scrollElement, By targetBy) throws Exception {
+	    while (true) {
+	        List<WebElement> elements = driver.findElements(targetBy); // Find elements instead of throwing exception
+	        if (!elements.isEmpty() && elements.get(0).isDisplayed()) {
+	            System.out.println("Target element found");
+	            break; // Exit loop if target is found
+	        }
+
+	        System.out.println("Target element not found, scrolling...");
+	        scroll123(scrollElement); // Scroll faster without long delays
+	    }
+	}
+	
+	
+	
+	public static void scrollWhileHolding(WebElement elementToHold, By targetElementBy) {
+	    while (true) {
+	        try {
+	            WebElement targetElement = driver.findElement(targetElementBy);
+	            if (targetElement.isDisplayed()) {
+	                System.out.println("Target element found. Stopping scroll.");
+	                break;
+	            }
+	        } catch (NoSuchElementException e) {
+	            // Target element not found, continue scrolling
+	        }
+
+	        // Perform scrolling while holding the element
+	        new Actions(driver)
+	                .clickAndHold(elementToHold)
+	                .moveByOffset(0, -200) // Adjust offset as needed
+	                .release()
+	                .perform();
+	    }
+	}
 	
 
 }
