@@ -130,7 +130,7 @@ slowScroll();
 
 	@When("the admin sets the {string}")
 	public void theAdminSetsThe(String string) throws Exception {
-		halfscrollUntilElementFound12(Service.getscrollview(), Service.getMax_Advance_Booking_Limit());
+		slowscrolluntilelementfound(Service.getMax_Advance_Booking_Limit());
 		ClickonElement(Service.getMax_Advance_Booking_Limit());
 		passInput(Service.getMax_Advance_Booking_Limit(), getProperty("MAX_ADVANCE_BOOKING_LIMIT"));
 		driver.hideKeyboard();

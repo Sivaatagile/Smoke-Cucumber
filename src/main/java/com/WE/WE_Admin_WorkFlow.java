@@ -196,10 +196,15 @@ public class WE_Admin_WorkFlow extends Base{
 		return    TickButton ;
 	}
 	
-	
-	public static By NoBookingYet = By.xpath(String.format("//android.view.View[contains(@content-desc, 'No bookings yet !!!')]"));
+	public By getBookeddate() {
+		System.out.println(Booking.Selected_Slot);
+		return By.xpath("//android.widget.SeekBar[@content-desc=\"Thu May 22\"]");
+	}
+	public 
+	static By NoBookingYet = By.xpath(String.format("//android.view.View[contains(@content-desc, 'No bookings yet !!!')]"));
 
-	
+	public static By date123 = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"Thu May 22\"]"));
+
 //------------------------------------------------------------------------>   UNASSIGNED TAB 
 	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Select staff\"]")

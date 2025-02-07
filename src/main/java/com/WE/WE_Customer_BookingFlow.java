@@ -129,7 +129,10 @@ public class WE_Customer_BookingFlow extends Base{
 		return   Sucessfullpage_Newbooking  ;
 	}
 	
+	//android.widget.SeekBar[@content-desc="Lunch Time"]
 	
+	public static By slotnameindividual = By.xpath(String.format("//android.widget.SeekBar[contains(@content-desc,\"%s\")]", getProperty("Individual_slot")));
+
 	
 	public static By ServiceViewable = By.xpath(String.format("//android.view.View[contains(@content-desc,\"%s\")]", getProperty("SERVICE_NAME")));
 	//android.view.View[contains(@content-desc, "Hello")]

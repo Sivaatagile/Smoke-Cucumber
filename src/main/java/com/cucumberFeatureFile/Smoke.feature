@@ -467,7 +467,7 @@ Feature: Booking Application Sanity Flow
     When the admin clicks on the Back button
     When the admin clicks on the Back button
     And the admin taps the Home icon
-    
+    #
     
       #Scenario: Successfully create a service  
     #Given the admin navigates to the Service tab  
@@ -486,7 +486,7 @@ Feature: Booking Application Sanity Flow
     #Then the service should be created successfully  
     #When the admin clicks on the Back button
     #And the admin taps the Home icon
-    
+    #
     
   Scenario: Successfully logout Admin 
     Given the admin navigates to the Settings tab  
@@ -577,3 +577,9 @@ Feature: Booking Application Sanity Flow
     When the staff clicks on the Continue button
     And the staff enters the Otp 
     Then the staff should be logged in successfully
+    
+  Scenario: Staff Start the booking service for a booked date
+    Given Staff selects the booked date  
+    When Staff selects the booking and taps Start
+    Then Verify the checkbox is checked while starting the booking  
+    And Capture the snackbar message  

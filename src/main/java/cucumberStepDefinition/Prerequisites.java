@@ -19,8 +19,8 @@ public class Prerequisites extends Base {
 
 	@Given("PropertyFile Loaded")
 	public void propertyfileLoaded() throws IOException {
-		ChooseApi(API_BASE_URL.Staging);
-		method1("First");
+		ChooseApi(API_BASE_URL.Preprod);
+		PropertyFile("First");
 		
 		UpdateEmailProperty("SIGNUP_EMAIL");	
 		UpdateNameProperty("SIGNUP_FIRSTNAME",getProperty("NAME"));
@@ -73,16 +73,16 @@ public class Prerequisites extends Base {
 
 	@Given("Configure driver")
 	public void configureDriver() throws IOException {
-		method1("First");
+		PropertyFile("First");
 		System.out.println("gctgt");
 	}
 
 	@Given("Open the application")
 	public void openTheApplication() throws MalformedURLException, InterruptedException {
-		Latest_StagingAPK_download(getProperty("STAGING"));
-		Application();
+//		Latest_StagingAPK_download(getProperty("AUTOMATION"));
+//		Application();
 //		OpenApplicationWithoutReset();
-//		ApplicationWithApk("preprod_latest 1.apk");
+		ApplicationWithApk("Preprod_v1.7.1_7-2-25.apk");
 		System.out.println("cyhcvf");
 	}
 
@@ -114,7 +114,7 @@ public class Prerequisites extends Base {
 		Api.PoolingList();
 		Api.Compare("POOL_NAME", Api.Uniquepoolingname, Api.PoolingNames, getProperty("POOL"));
 	
-		method1("First");
+		PropertyFile("First");
 	}
 
 
@@ -145,7 +145,7 @@ public class Prerequisites extends Base {
 	@When("the admin opens the application")
 	public void theAdminOpensTheApplication() throws MalformedURLException, InterruptedException {
 		Thread.sleep(5000);
-		applicationNew();
+		AfterClearCacheOpenApplication();
 	}
 
 	@Then("the application launches successfully")
