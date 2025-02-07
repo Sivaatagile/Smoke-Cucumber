@@ -1,5 +1,7 @@
 package com.WE;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,11 +17,25 @@ public class WE_Customer_BookingFlow extends Base{
 		PageFactory.initElements(driver1, this);
 	}
 	
-	@FindBy (xpath ="//android.view.View[@content-desc=\"Show all\"]")
+	@FindBy (xpath ="//android.widget.ImageView[@content-desc=\"Show all\"]")
 	private WebElement   ServiceShowAll ;
 	public WebElement getServiceShowAll() {
 		return    ServiceShowAll ;
 	}
+	
+	@FindBy (xpath ="//android.widget.Button/following-sibling::android.view.View[1]")
+	private WebElement   help ;
+	public WebElement gethelp() {
+		return    help ;
+	}
+	
+	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"booking_page_label\"]/android.view.View")
+	private List<WebElement> petcount   ;
+	public List<WebElement> getpetcount() {
+		return   petcount  ;
+	}
+	
 	
 	public static By ServiceBooking = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("SERVICE_FOR_BOOKING")));
 
@@ -66,6 +82,15 @@ public class WE_Customer_BookingFlow extends Base{
 		return   proceed  ;
 	}
 	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Total\"]//following-sibling::android.view.View[1]")
+	private WebElement   Totalamount ;
+	public WebElement getTotalamount() {
+		return   Totalamount  ;
+	}
+	
+	
+	//android.view.View[@content-desc="booking_page_label"]
+	
 	@FindBy (xpath ="//android.widget.CheckBox")
 	private WebElement  CheckBox  ;
 	public WebElement getCheckBox() {
@@ -104,7 +129,10 @@ public class WE_Customer_BookingFlow extends Base{
 		return   Sucessfullpage_Newbooking  ;
 	}
 	
+	//android.widget.SeekBar[@content-desc="Lunch Time"]
 	
+	public static By slotnameindividual = By.xpath(String.format("//android.widget.SeekBar[contains(@content-desc,\"%s\")]", getProperty("Individual_slot")));
+
 	
 	public static By ServiceViewable = By.xpath(String.format("//android.view.View[contains(@content-desc,\"%s\")]", getProperty("SERVICE_NAME")));
 	//android.view.View[contains(@content-desc, "Hello")]
@@ -177,6 +205,32 @@ public class WE_Customer_BookingFlow extends Base{
 	public WebElement getReviewBooking() {
 	    return ReviewBooking;
 	}
+	
+	@FindBy(xpath="//android.widget.TextView[contains(@text,\"Crezco\")]")
+	private WebElement CrezcoPayment;
+	public WebElement getCrezcoPayment() {
+	    return CrezcoPayment;
+	}
+	
+	@FindBy(xpath="//android.widget.Button[@text=\"Continue\"]")
+	private WebElement CrezcoContinue;
+	public WebElement getCrezcoContinue() {
+	    return CrezcoContinue;
+	}
+	
+	@FindBy(xpath="//android.view.View[@text=\"Crezco Sandbox - GB\"]")
+	private WebElement CrezcoSandbox;
+	public WebElement getCrezcoSandbox() {
+	    return CrezcoSandbox;
+	}
+	
+	@FindBy(xpath="//android.widget.Button[@resource-id=\"submit\"]")
+	private WebElement CrezcoSubmit;
+	public WebElement getCrezcoSubmit() {
+	    return CrezcoSubmit;
+	}
+	
+	
 	
 	
 	

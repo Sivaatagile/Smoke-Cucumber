@@ -5,9 +5,9 @@ import com.baseClass.Base;
 
 import io.cucumber.java.en.*;
 
-public class PreDefinedAccounts extends Base{
+public class PreDefinedAccounts extends Base {
 	WE_Login_Details login = new WE_Login_Details(driver);
-	
+
 	@Given("the user enters their predefined {string} address")
 	public void theUserEntersTheirPredefinedAddress(String PredefinedEmailAddress) {
 		ClickonElement(login.getContinueWithEmail());
@@ -22,5 +22,5 @@ public class PreDefinedAccounts extends Base{
 		passInputUsingActions(login.getOTP(), getProperty(PredefinedOTP));
 		driver.hideKeyboard();
 	}
-	
+
 }

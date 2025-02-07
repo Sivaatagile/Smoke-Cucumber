@@ -31,7 +31,11 @@ public class WE_Admin_User extends  Base{
 		return   PhoneNumber  ;
 	}
 	
-	
+	@FindBy (xpath ="//*[starts-with(@content-desc,'Phone number')]/following-sibling::android.widget.EditText[1]")
+	private WebElement   Phonenumber ;
+	public WebElement getPhonenumber() {
+		return   Phonenumber  ;
+	}
 	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Save\"]")
 	private WebElement    Save;
@@ -44,6 +48,13 @@ public class WE_Admin_User extends  Base{
 	public WebElement getCountryName() {
 		return   CountryName  ;
 	}
+	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"All Customers\"]")
+	private WebElement  AllCustomers;
+	public WebElement getAllCustomers() {
+		return AllCustomers;
+	}
+
 	
 	@FindBy (xpath ="(//android.widget.Button)[2]")
 	private WebElement  FAB  ;
@@ -58,10 +69,21 @@ public class WE_Admin_User extends  Base{
 		return     FirstName;
 	}
 	
+	@FindBy (xpath ="//*[starts-with(@hint,'First name')]")
+	private WebElement  Firstname  ;
+	public WebElement getFirstname() {
+		return     Firstname;
+	}
+	
 	@FindBy (xpath ="//*[starts-with(@hint,'Last Name')]")
 	private WebElement  LastName  ;
 	public WebElement getLastName() {
 		return    LastName ;
+	}
+	@FindBy (xpath ="//*[starts-with(@hint,'Last name')]")
+	private WebElement  Lastname  ;
+	public WebElement getLastname() {
+		return    Lastname ;
 	}
 	
 	@FindBy (xpath ="//*[starts-with(@hint,'Email')]")
@@ -194,6 +216,19 @@ public class WE_Admin_User extends  Base{
 		return   ContactNumber  ;
 	}
 	
+	@FindBy(xpath = "//android.view.View[@content-desc=\"Select\"]")
+	private WebElement select;
+	public WebElement getselect() {
+		return select;
+	}
+	
+	@FindBy(xpath = "//*[starts-with(@content-desc,'Skills')]/following-sibling::android.view.View[1]")
+	private WebElement Skillsset;
+	public WebElement getSkillsset() {
+		return Skillsset;
+	}
+	public static By ServiceSkill = By.xpath(String.format("//android.widget.CheckBox[contains(@content-desc, '"+getProperty("SERVICE_NAME")+"')]"));
+
 	
 //	------------------------------------------------->  USER APPROVAL
 	
@@ -295,5 +330,29 @@ public class WE_Admin_User extends  Base{
 	public WebElement getSnackbarCreatedTag() {
 		return SnackbarCreatedTag;
 	}
+	
+	@FindBy(xpath = "//android.view.View[contains(@content-desc,\"user\")]")
+	private WebElement user;
+	public WebElement getuser() {
+		return user;
+	}
+	
+	@FindBy(xpath = "//android.view.View[contains(@content-desc,\"View\")]")
+	private WebElement view;
+	public WebElement getview() {
+		return view;
+	}
+	
+	@FindBy(xpath = "//android.view.View[contains(@content-desc,\"My Pet\")]")
+	private WebElement MyPet;
+	public WebElement getMyPet() {
+		return MyPet;
+	}
+	//android.view.View[@content-desc="My Pet(s)"]
+	
+	//android.view.View[@content-desc="View Customer"]
+	
+	public static By trySearchingagain = By.xpath("//android.view.View[@content-desc=\"Try searching again using a different spelling or keyword.\"]");
+	
 
 }

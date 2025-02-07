@@ -91,6 +91,22 @@ public class WE_Admin_Services extends Base{
 		return    Save ;
 	}
 	
+	@FindBy (xpath ="//android.widget.Button[contains(@content-desc,\"OK\")]")
+	private WebElement  OKbutton  ;
+	public WebElement getOKbutton() {
+		return    OKbutton ;
+	}
+	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"Add-ons\")]")
+	private WebElement   Addons1 ;
+	public WebElement getAddons1() {
+		return   Addons1  ;
+	}
+	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Add-ons \"]")
+	private WebElement   Addons ;
+	public WebElement getAddons() {
+		return   Addons  ;
+	}
 	
 //	------------------------------------------------------> SERVICE CREATION
 	
@@ -143,7 +159,7 @@ public class WE_Admin_Services extends Base{
 
 	
 	
-	@FindBy (xpath ="//*[starts-with(@content-desc,'Base Price')]/following-sibling::*[starts-with(@content-desc,'pet_label_Price')]/following-sibling::android.widget.EditText")
+	@FindBy (xpath ="//*[starts-with(@content-desc,'pets')]/parent::android.view.View/following-sibling::android.widget.EditText[1]")
 	private List<WebElement>  Baseprice  ;
 	public List<WebElement> getBaseprice() {
 		return   Baseprice  ;
@@ -199,10 +215,29 @@ public class WE_Admin_Services extends Base{
 		return    Year ;
 	}
 	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Fixed\"]")
+	private WebElement   Fixed ;
+	public WebElement getFixed() {
+		return    Fixed ;
+	}
+	
+	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"Capacity type\")]")
+	private WebElement  capacityType  ;
+	public WebElement getcapacityType() {
+		return    capacityType ;
+	}
+	
+	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Availability')]/following-sibling::android.widget.Switch/following-sibling::android.view.View[1]")
 	private WebElement  From_DateDetails  ;
 	public WebElement getFrom_DateDetails() {
 		return   From_DateDetails  ;
+	}
+	
+	@FindBy (xpath ="//*[starts-with(@content-desc,'Availability')]/following-sibling::android.widget.Switch/following-sibling::android.view.View[1]/following-sibling::android.view.View[1]")
+	private WebElement  From_To_DateDetails  ;
+	public WebElement getFrom_To_DateDetails() {
+		return   From_To_DateDetails  ;
 	}
 	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Availability')]/following-sibling::android.widget.Switch/following-sibling::android.view.View[3]")
@@ -224,10 +259,16 @@ public class WE_Admin_Services extends Base{
 		return    scrollview ;
 	}
 	
-	@FindBy (xpath ="(//*[starts-with(@content-desc,'Base Price')]/following-sibling::*[starts-with(@content-desc,'pet_label_Price')]/following-sibling::android.widget.EditText[4])[1]")
+	@FindBy (xpath ="(//*[starts-with(@content-desc,'pets')])[3]/parent::android.view.View/following-sibling::android.widget.EditText[1]")
 	private WebElement  FourthElement  ;
 	public WebElement getFourthElement() {
 		return  FourthElement   ;
+	}
+	
+	@FindBy (xpath ="(//*[starts-with(@content-desc,'Total price')])[1]/parent::android.view.View/following-sibling::android.widget.EditText[1]")
+	private WebElement  FirstElement  ;
+	public WebElement getFirstElement() {
+		return  FirstElement   ;
 	}
 	
 	public static By ToMonthExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Month")));
@@ -299,5 +340,72 @@ public class WE_Admin_Services extends Base{
 	public WebElement getAddon_Max_Advance_Booking_Limit() {
 		return  Addon_Max_Advance_Booking_Limit   ;
 	}
+	
+public static By ToMonthAssignableAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE_TO_Month")));
+	
+	public static By ToDateAssignableAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE_TO_Date")));
+	
+	public static By ToYearAssignableAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE_TO_Year")));
+	
+	
+public static By ToMonthPrivilegeAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE_TO_Month")));
+	
+	public static By ToDatePrivilegeAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE_TO_Date")));
+	
+	public static By ToYearPrivilegeAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE_TO_Year")));
+	
+//	@FindBy(xpath = "//android.widget.SeekBar[@content-desc=\"ADDON_ASSIGNABLE_TO_Month\"]")
+//	private WebElement seekBar;
+//	public WebElement getSeekBar() {
+//	    return seekBar;
+//	}
+
+	public static By getprivilege = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE")));
+
+	public static By getAssignableAddon = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE")));
+
+//	public WebElement getPrivilegeAddon() {
+//	    String xpath = String.format();
+//	    return driver.findElement(By.xpath(xpath));
+//	}
+//	
+//	public WebElement getAssignableAddon() {
+//	    String xpath = String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE"));
+//	    return driver.findElement(By.xpath(xpath));
+//	}
+	
+//	@FindBy (xpath="//android.widget.ScrollView")
+//	private WebElement  scrollview ;
+//	public WebElement getscrollview() {
+//		return scrollview;
+//	}
+	
+	
+//	@FindBy (xpath =)
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	}
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	}
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	}
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	}
+//	
 	
 }

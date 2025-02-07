@@ -1,8 +1,21 @@
 package com.api;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,33 +26,84 @@ import com.baseClass.Base;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import net.bytebuddy.build.Plugin.Factory.UsingReflection.Priority;
 
 public class Api extends Base {
 
-//	       https://paw-845-staging-automation-testing.petcaretechnologies.com/api/
-//	      https://staging.petcaretechnologies.com/api/
-//	private static final String BASE_URL = "https://paw-845-staging-automation-testing.petcaretechnologies.com/api/";
-	private static final String BASE_URL = "https://staging.petcaretechnologies.com/api/";
+//	private static final String BASE_URL = "https://staging.petcaretechnologies.com/api/";
 
+//  LOGIN   DETAILS 
+	
 	public static String token;
 	public static String verifiedAccessToken;
 	public static String VerifiedRefreshToken;
-	public static int timeSlotsCount;
+	
+//	BOOKING Details --> SERVICE DETAILS 
+	
 	public static String Max_allowed_date_for_booking;
 	public static String available_date_from;
 	public static String available_date_to;
 	public static String advance_booking_requirement;
 	public static String maximum_allowed_date_for_booking;
+	public static int timeSlotsCount;
 	public static int days;
 	public static int DAYminAdvanceBooking;
 	public static int DAYmaxAdvanceBooking;
+	
+//	SLOT DETAILS
+	
 	public static int TotalSlotCount;
 	public static List<String> slotNames;
+
+//	PRICINGRULE DETAILS 
 	
-	public static List<String> tagIds;
-	public static List<String> tagNames;
-	public static int  TotalTagCount;
+	public static int priorityNumber;
+	public static List<Integer> priorityList;
+	public static List<String> PricingRuleNames;
+	public static String Uniquepricingrulename;
+
+//	TAG DETAILS
+	
+	public static List<String> OverallTAG;
+	public static int TotalTagCount;
+	public static List<String> TagNames;   // -------> change this to category name 
+	public static String UniqueTag;
+
+//	BREED DETAILS
+	
+	public static List<String> BreedNames;
+	public static String UniqueBreed;
+
+//	SERVICE DETAILS 
+	
+	public static List<String> ServiceNames;
+	public static Integer serviceId;
+	public static String UniqueService;
+	
+//	SLOT DETAILS 
+	
+	public static List<String> SlotNames;
+	public static Integer slotId;
+	public static String UniqueSlot;
+	
+//	ADDON DETAILS 
+	
+	public static List<String> AddonsNames;
+	public static String UniqueAddons;
+
+//	POOLING DETAILS
+	
+	public static List<String> PoolingNames;
+	public static String Uniquepoolingname;
+
+//	CUSTOMER DEAILS
+
+	public static Integer CustomerId;
+	
+	public static List<String> notAvailableDates;
+
 
 	public Api(AndroidDriver driver1) {
 		this.driver = driver1;
@@ -47,22 +111,17 @@ public class Api extends Base {
 	}
 
 	public static String signInAdmin(String username) {
-
-		// Create a JSON object for the request body
 		JSONObject requestBody = new JSONObject();
 		requestBody.put("email", username);
-//        requestBody.put("password", password);
 		Response response = RestAssured.given().header("Content-Type", "application/json")
 				.header("X-API-Version", "100").header("User-Agent", "PostmanRuntime").body(requestBody.toString())
-				.post(BASE_URL + "/user/auth/mail-sign-in");
+				.post(BASE_URL + "user/auth/mail-sign-in");
 		token = response.jsonPath().getString("token");
 		System.out.println("Admin Sign-in Token: " + token);
 		return token;
-
 	}
 
 	public static String verifyOtp(String otp) {
-
 		JSONObject requestBody = new JSONObject();
 		requestBody.put("otp", otp);
 		requestBody.put("token", token);
@@ -79,11 +138,9 @@ public class Api extends Base {
 		VerifiedRefreshToken = response.jsonPath().getString("refresh_token");
 		System.out.println("OTP Verified Token 2 : " + VerifiedRefreshToken);
 		return VerifiedRefreshToken;
-
 	}
 
 	public static String refreshAdminToken(String Refresh) throws InterruptedException {
-
 		JSONObject requestBody = new JSONObject();
 		requestBody.put("token", Refresh);
 		requestBody.put("device_id", "e07061c9-acf1-432f-ad82-c065190f1201");
@@ -98,22 +155,17 @@ public class Api extends Base {
 		String VerifiedRefreshToken1 = response.jsonPath().getString("refresh_token");
 		System.out.println("New Refresh Token: " + VerifiedRefreshToken1);
 		return verifiedAccessToken;
-
 	}
 
 	public static void ServiceSlotTimeCount() throws InterruptedException {
 		Thread.sleep(15000);
 		Response response = RestAssured.given().header("Content-Type", "application/json")
 				.header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
-				.header("Authorization", "Bearer " + VerifiedRefreshToken).get(BASE_URL + "service/list/service"); // replace
-																													// with
-																													// your
-																													// actual
-																													// endpoint
+				.header("Authorization", "Bearer " + VerifiedRefreshToken).get(BASE_URL + "service/list/service"); 
 		if (response.statusCode() == 200) {
 			JSONObject responseObject = new JSONObject(response.asString());
 			JSONArray servicesArray = responseObject.getJSONArray("data");
-			String targetServiceName = getProperty("SERVICE_NAME"); // replace with the desired service name
+			String targetServiceName = getProperty("SERVICE_NAME"); 
 			boolean serviceFound = false;
 			for (int i = 0; i < servicesArray.length(); i++) {
 				JSONObject service = servicesArray.getJSONObject(i);
@@ -160,7 +212,6 @@ public class Api extends Base {
 			System.out.println("Failed to get the response. Status code: " + response.statusCode());
 			System.out.println("Response: " + response.asString());
 		}
-
 	}
 
 	public static void OverallSlotList() {
@@ -182,79 +233,450 @@ public class Api extends Base {
 		}
 		System.out.println("Slot Names: " + slotNames);
 	}
-	
-	
-	
-	public static void OverallTagList() {
-	    // Set the base URI for RestAssured
-	    RestAssured.baseURI = "https://staging.petcaretechnologies.com/api/"; // Replace with your API base URL
 
-	    // Make the API request and capture the response
-	    Response response = RestAssured
-	            .given()
-	            .header("X-API-Version", "100")
-	            .header("User-Agent", "PostmanRuntime")
-	            .header("Content-Type", "application/json")  // Add any necessary headers here
-	            .header("Authorization", "Bearer " + VerifiedRefreshToken)  // Replace with your actual token variable
-	            .get("user/list/add_tag_category");  // Replace with your actual API endpoint
+	public static void Priority() {
+		Response response = RestAssured.given().header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
+				.header("Content-Type", "application/json") // Add any necessary headers here
+				.header("Authorization", "Bearer " + VerifiedRefreshToken) // Replace with your actual token variable
+				.get(BASE_URL + "service/availability-pricing-rule/list"); // Replace with your actual API endpoint
+		System.out.println("Response Status Code: " + response.getStatusCode());
+		String responseBody = response.getBody().asString();
+		JSONObject jsonResponse = new JSONObject(responseBody);
+		JSONArray dataArray = jsonResponse.getJSONArray("data");
+		List<String> nameList = new ArrayList<>();
+		priorityList = new ArrayList<>();
+		for (int i = 0; i < dataArray.length(); i++) {
+			JSONObject dataObject = dataArray.getJSONObject(i);
+			String name = dataObject.getString("name");
+			int priority = dataObject.getInt("priority");
+			nameList.add(name);
+			priorityList.add(priority);
+		}
+		System.out.println("Names: " + nameList);
+		System.out.println("Priorities: " + priorityList);
+	}
 
-	    // Print the status code to verify the request was successful
-	    System.out.println("Response Status Code: " + response.getStatusCode());
-
-	    // Convert the response body to a String
-	    String responseBody = response.getBody().asString();
-
-	    // Parse the response body as a JSONObject
-	    JSONObject jsonResponse = new JSONObject(responseBody);
-
-	    // Extract 'recordsTotal'
-	    int TotalTagCount = jsonResponse.getInt("recordsTotal");
-	    System.out.println("Records Total: " + TotalTagCount);
-
-	    // Extract the 'data' array
-	    JSONArray dataArray = jsonResponse.getJSONArray("data");
-
-	    // Initialize a list to store formatted tag and subdata names
-	    List<String> formattedOutput = new ArrayList<>();
-
-	    // Loop through the array and format the output
-	    for (int i = 0; i < dataArray.length(); i++) {
-	        JSONObject tag = dataArray.getJSONObject(i);
-	        String tagName = tag.getString("category_name");
-
-	        // Check if the tag has 'subdata' and it's not empty
-	        if (tag.has("subdata") && tag.getJSONArray("subdata").length() > 0) {
-	            JSONArray subdataArray = tag.getJSONArray("subdata");
-
-	            // Loop through each item in 'subdata'
-	            for (int j = 0; j < subdataArray.length(); j++) {
-	                JSONObject subdataItem = subdataArray.getJSONObject(j);
-	                String subName = subdataItem.getString("name");  // Extract the sub-name
-
-	                // Add the formatted tag and sub-name to the list
-	                formattedOutput.add(tagName + " , " + subName);
-	            }
-	        } else {
-	            // If there is no subdata for this tag
-	            formattedOutput.add(tagName + " , No subdata available");
-	        }
-	    }
-
-	    // Print the formatted output
-	    for (String line : formattedOutput) {
-	        System.out.println(line);
-	    }
+	public static void eliminatefrom100() {
+		List<Integer> rangeList = new ArrayList<>();
+		for (int i = 0; i <= 100; i++) {
+			rangeList.add(i);
+		}
+		for (Integer priority : priorityList) {
+			rangeList.remove(priority);
+		}
+		System.out.println("gggg  :  " + rangeList);
+		if (!rangeList.isEmpty()) {
+			priorityNumber = Collections.min(rangeList);
+			System.out.println("Smallest number in range: " + priorityNumber);
+		} else {
+			System.out.println("Range list is empty.");
+		}
 	}
 	
+	public static  void PricingRuleList() {
+	       Response response = RestAssured.given()
+	                .header("X-API-Version", "100")
+	                .header("User-Agent", "PostmanRuntime")
+	                .header("Content-Type", "application/json")
+	                .header("Authorization", "Bearer " + VerifiedRefreshToken)
+	                .get(BASE_URL + "/service/availability-pricing-rule/list");
+	        System.out.println("Response Status Code: " + response.getStatusCode());
+	        String responseBody = response.getBody().asString();
+	        JSONObject jsonResponse = new JSONObject(responseBody);
+	        int TotalTagCount = jsonResponse.getInt("recordsTotal");
+	        System.out.println("Records Total: " + TotalTagCount);
+	        JSONArray dataArray = jsonResponse.getJSONArray("data");
+	        PricingRuleNames = new ArrayList<>();
+	        for (int i = 0; i < dataArray.length(); i++) {
+	            JSONObject tag = dataArray.getJSONObject(i);
+	            PricingRuleNames.add(tag.getString("name")); // tagName add panniruken
+	        }
+	        // Print the list
+	        System.out.println("Tag Names List: " + PricingRuleNames);
+	}
 
+	public static void OverallTagList() {
+		Response response = RestAssured.given().header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
+				.header("Content-Type", "application/json") // Add any necessary headers here
+				.header("Authorization", "Bearer " + VerifiedRefreshToken) // Replace with your actual token variable
+				.get(BASE_URL + "user/list/add_tag_category"); // Replace with your actual API endpoint
+		System.out.println("Response Status Code: " + response.getStatusCode());
+		String responseBody = response.getBody().asString();
+		JSONObject jsonResponse = new JSONObject(responseBody);
+		TotalTagCount = jsonResponse.getInt("recordsTotal");
+		System.out.println("Records Total: " + TotalTagCount);
+		JSONArray dataArray = jsonResponse.getJSONArray("data");
+		OverallTAG = new ArrayList<>();
+		for (int i = 0; i < dataArray.length(); i++) {
+			JSONObject tag = dataArray.getJSONObject(i);
+			String tagName = tag.getString("category_name");
+			if (tag.has("subdata") && tag.getJSONArray("subdata").length() > 0) {
+				JSONArray subdataArray = tag.getJSONArray("subdata");
+				for (int j = 0; j < subdataArray.length(); j++) {
+					JSONObject subdataItem = subdataArray.getJSONObject(j);
+					String subName = subdataItem.getString("name"); // Extract the sub-name
+					OverallTAG.add(tagName + " , " + subName);
+				}
+			} else {
+				OverallTAG.add(tagName + " , No subdata available");
+			}
+		}
+		for (String line : OverallTAG) {
+			System.out.println(line);
+		}
+		System.out.println(OverallTAG);
+	}
+	
+	public static  void TagList() {
+	       Response response = RestAssured.given()
+	                .header("X-API-Version", "100")
+	                .header("User-Agent", "PostmanRuntime")
+	                .header("Content-Type", "application/json")
+	                .header("Authorization", "Bearer " + VerifiedRefreshToken)
+	                .get(BASE_URL + "/user/list/add_tag_category");
+	        System.out.println("Response Status Code: " + response.getStatusCode());
+	        String responseBody = response.getBody().asString();
+	        JSONObject jsonResponse = new JSONObject(responseBody);
+	        int TotalTagCount = jsonResponse.getInt("recordsTotal");
+	        System.out.println("Records Total: " + TotalTagCount);
+	        JSONArray dataArray = jsonResponse.getJSONArray("data");
+	        TagNames = new ArrayList<>();                        //   -------------------------------------------------------------------------------------------------------------------->    Category Names 
+	        for (int i = 0; i < dataArray.length(); i++) {
+	            JSONObject tag = dataArray.getJSONObject(i);
+	            TagNames.add(tag.getString("category_name")); // tagName add panniruken
+	        }
+	        // Print the list
+	        System.out.println("Tag Names List: " + TagNames);
+	}
+	
+	public static  void BreedList() {
+	       Response response = RestAssured.given()
+	                .header("X-API-Version", "100")
+	                .header("User-Agent", "PostmanRuntime")
+	                .header("Content-Type", "application/json")
+	                .header("Authorization", "Bearer " + VerifiedRefreshToken)
+	                .get(BASE_URL + "user/list/beneficiary_subtype");
+	        System.out.println("Response Status Code: " + response.getStatusCode());
+	        String responseBody = response.getBody().asString();
+	        JSONObject jsonResponse = new JSONObject(responseBody);
+	        int TotalTagCount = jsonResponse.getInt("recordsTotal");
+	        System.out.println("Records Total: " + TotalTagCount);
+	        JSONArray dataArray = jsonResponse.getJSONArray("data");
+	        BreedNames = new ArrayList<>();
+	        for (int i = 0; i < dataArray.length(); i++) {
+	            JSONObject tag = dataArray.getJSONObject(i);
+	            BreedNames.add(tag.getString("name")); // tagName add panniruken
+	        }
+	        // Print the list
+	        System.out.println("Tag Names List: " + BreedNames);
+	}
+	
+	public static  void ServiceList() {
+	       Response response = RestAssured.given()
+	                .header("X-API-Version", "100")
+	                .header("User-Agent", "PostmanRuntime")
+	                .header("Content-Type", "application/json")
+	                .header("Authorization", "Bearer " + VerifiedRefreshToken)
+	                .get(BASE_URL + "service/list/service");
+	        System.out.println("Response Status Code: " + response.getStatusCode());
+	        String responseBody = response.getBody().asString();
+	        JSONObject jsonResponse = new JSONObject(responseBody);
+	        int TotalTagCount = jsonResponse.getInt("recordsTotal");
+	        System.out.println("Records Total: " + TotalTagCount);
+	        JSONArray dataArray = jsonResponse.getJSONArray("data");
+	        ServiceNames = new ArrayList<>();
+	        for (int i = 0; i < dataArray.length(); i++) {
+	            JSONObject tag = dataArray.getJSONObject(i);
+	            ServiceNames.add(tag.getString("name")); // tagName add panniruken
+	        }
+	        // Print the list
+	        System.out.println("Tag Names List: " + ServiceNames);
+	}
+
+	public static  void getserviceID(String serviceName) {
+		Response response = RestAssured.given().header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
+				.header("Content-Type", "application/json") // Add any necessary headers here
+				.header("Authorization", "Bearer " + VerifiedRefreshToken) // Replace with your actual token variable
+				.get(BASE_URL + "service/list/service");
+		String responseBody = response.getBody().asString();
+		 JSONObject responseObject = new JSONObject(responseBody);
+	        JSONArray servicesArray = responseObject.getJSONArray("data");
+	        // Extract the ID based on the service name
+	         serviceId = getServiceIdByName(servicesArray, serviceName);
+	        if (serviceId != null) {
+	            System.out.println("The ID for the service \"" + serviceName + "\" is: " + serviceId);
+	        } else {
+	            System.out.println("Service name \"" + serviceName + "\" not found in the response.");
+	        }
+	}
+	
+    public static  void SlotList() {
+	       Response response = RestAssured.given()
+	                .header("X-API-Version", "100")
+	                .header("User-Agent", "PostmanRuntime")
+	                .header("Content-Type", "application/json")
+	                .header("Authorization", "Bearer " + VerifiedRefreshToken)
+	                .get(BASE_URL + "service/list/time_slots");
+	        System.out.println("Response Status Code: " + response.getStatusCode());
+	        String responseBody = response.getBody().asString();
+	        JSONObject jsonResponse = new JSONObject(responseBody);
+	        int TotalTagCount = jsonResponse.getInt("recordsTotal");
+	        System.out.println("Records Total: " + TotalTagCount);
+	        JSONArray dataArray = jsonResponse.getJSONArray("data");
+	        SlotNames = new ArrayList<>();
+	        for (int i = 0; i < dataArray.length(); i++) {
+	            JSONObject tag = dataArray.getJSONObject(i);
+	            SlotNames.add(tag.getString("name")); // tagName add panniruken
+	        }
+	        // Print the list
+	        System.out.println("Tag Names List: " + SlotNames);
+	}
+	
+    public static  void getslotID(String slotName) {
+		Response response = RestAssured.given().header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
+				.header("Content-Type", "application/json") // Add any necessary headers here
+				.header("Authorization", "Bearer " + VerifiedRefreshToken) // Replace with your actual token variable
+				.get(BASE_URL + "service/list/time_slots");
+		String responseBody = response.getBody().asString();
+		 JSONObject responseObject = new JSONObject(responseBody);
+	        JSONArray servicesArray = responseObject.getJSONArray("data");
+	        // Extract the ID based on the service name
+	        slotId = getSlotIdByName(servicesArray, slotName);
+	        if (slotId != null) {
+	            System.out.println("The ID for the service \"" + slotName + "\" is: " + slotId);
+	        } else {
+	            System.out.println("Service name \"" + slotName + "\" not found in the response.");
+	        }
+	}
+    
+    public static  void AddonList() {
+	       Response response = RestAssured.given()
+	                .header("X-API-Version", "100")
+	                .header("User-Agent", "PostmanRuntime")
+	                .header("Content-Type", "application/json")
+	                .header("Authorization", "Bearer " + VerifiedRefreshToken)
+	                .get(BASE_URL + "/service/list/add_ons");
+	        System.out.println("Response Status Code: " + response.getStatusCode());
+	        String responseBody = response.getBody().asString();
+	        JSONObject jsonResponse = new JSONObject(responseBody);
+	        int TotalTagCount = jsonResponse.getInt("recordsTotal");
+	        System.out.println("Records Total: " + TotalTagCount);
+	        JSONArray dataArray = jsonResponse.getJSONArray("data");
+	        AddonsNames = new ArrayList<>();
+	        for (int i = 0; i < dataArray.length(); i++) {
+	            JSONObject tag = dataArray.getJSONObject(i);
+	            AddonsNames.add(tag.getString("name")); // tagName add panniruken
+	        }
+	        // Print the list
+	        System.out.println("Tag Names List: " + AddonsNames);
+	}
+	
+	public static  void PoolingList() {
+	       Response response = RestAssured.given()
+	                .header("X-API-Version", "100")
+	                .header("User-Agent", "PostmanRuntime")
+	                .header("Content-Type", "application/json")
+	                .header("Authorization", "Bearer " + VerifiedRefreshToken)
+	                .get(BASE_URL + "service/service-pools/list");
+	        System.out.println("Response Status Code: " + response.getStatusCode());
+	        String responseBody = response.getBody().asString();
+	        JSONObject jsonResponse = new JSONObject(responseBody);
+	        int TotalTagCount = jsonResponse.getInt("recordsTotal");
+	        System.out.println("Records Total: " + TotalTagCount);
+	        JSONArray dataArray = jsonResponse.getJSONArray("data");
+	        PoolingNames = new ArrayList<>();
+	        for (int i = 0; i < dataArray.length(); i++) {
+	            JSONObject tag = dataArray.getJSONObject(i);
+	            PoolingNames.add(tag.getString("name")); // tagName add panniruken
+	        }
+	        // Print the list
+	        System.out.println("Tag Names List: " + PoolingNames);
+	}
+	
+	public static  void getcustomerID(String CustomerEmail) {
+		Response response = RestAssured.given().header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
+				.header("Content-Type", "application/json") // Add any necessary headers here
+				.header("Authorization", "Bearer " + VerifiedRefreshToken) // Replace with your actual token variable
+				.get(BASE_URL + "user/list/user_management");
+		String responseBody = response.getBody().asString();
+		 JSONObject responseObject = new JSONObject(responseBody);
+	        JSONArray servicesArray = responseObject.getJSONArray("data");
+	        // Extract the ID based on the service name
+	        CustomerId = getCustomerIdByemail(servicesArray, CustomerEmail);
+	        if (CustomerId != null) {
+	            System.out.println("The ID for the service \"" + CustomerEmail + "\" is: " + CustomerId);
+	        } else {
+	            System.out.println("Service name \"" + CustomerEmail + "\" not found in the response.");
+	        }
+	}
+	
+//	   -------------------------*****  BASE FILE FOR API *****-------------------------------------------------
+	
+	public static  void NotAvailableDates(int serviceID , int slotID , int customerID , String Startdate , String EndDate) {
+		JSONObject requestBody = new JSONObject();
+		requestBody.put("service_id",serviceID );
+		requestBody.put("slot_id", slotID);
+		requestBody.put("start_date", Startdate);
+		requestBody.put("end_date", EndDate);
+		requestBody.put("customer_id", customerID);
+	        // Send the POST request
+	        Response response = RestAssured.given()
+	                .contentType(ContentType.JSON)
+	                .header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
+					.header("Authorization", "Bearer " + VerifiedRefreshToken).body(requestBody.toString())
+	                .get(BASE_URL + "booking/not-available-dates"); // Replace "/your-endpoint" with the specific API route
+	        // Check if the response is successful
+	        if (response.statusCode() == 200) {
+	            System.out.println("Request successful!");
+	            // Parse the response and extract `not_available_dates`
+	             notAvailableDates = response.jsonPath().getList("not_available_dates");
+	            // Print the dates
+	            System.out.println("Not Available Dates:");
+	            for (String date : notAvailableDates) {
+	                System.out.println(date);
+	            }
+	        } else {
+	            System.out.println("Request failed with status code: " + response.statusCode());
+	            System.out.println("Response: " + response.body().asString());
+	        }
+	        System.out.println(" list : ------------------------>       "+ notAvailableDates);
+	    }
+		
+	public static void Compare(String Key, String UniqueName, List<String> Api_list, String TextDocumentPath)
+				throws IOException {
+			String filePath = workspacePath + getProperty("file_path"); // Path to the .properties file
+			String textFilePath = workspacePath + "/" + TextDocumentPath;
+			File file = new File(filePath);
+			List<String> fileLines = new ArrayList<>();
+			String updatedValue = null;
+			List<String> list2 = new ArrayList<>();
+			try (BufferedReader br = new BufferedReader(new FileReader(textFilePath))) {
+				String line;
+				while ((line = br.readLine()) != null) {
+					list2.add(line.trim());
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			// Find missing breeds from list2 that are NOT in list1
+			List<String> missingBreeds = new ArrayList<>();
+			for (String breed : list2) {
+				if (!Api_list.contains(breed)) {
+					missingBreeds.add(breed);
+				}
+			}
+			// Pick one random missing breed if available
+			if (!missingBreeds.isEmpty()) {
+				Random random = new Random();
+				UniqueName = missingBreeds.get(random.nextInt(missingBreeds.size())); // Pick random breed
+				System.out.println("Selected missing breed: " + UniqueName);
+			} else {
+				System.out.println("No missing breeds found. All breeds in list2 exist in list1.");
+			}
+			boolean isUpdated = false;
+			try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+				String line;
+				while ((line = reader.readLine()) != null) {
+					if (line.startsWith(Key + "=")) {
+						line = Key + "=" + UniqueName;
+						isUpdated = true;
+					}
+					fileLines.add(line);
+				}
+			}
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+				for (String fileLine : fileLines) {
+					writer.write(fileLine);
+					writer.newLine();
+				}
+			}
+			if (isUpdated) {
+				System.out.println("Updated " + Key + ": " + UniqueName);
+			} else {
+				System.out.println("Key not found: " + Key);
+			}
+		}
+            
+    public static List<String> filterDates(List<String> dateList, LocalDate fromDate, LocalDate toDate) {
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Adjust format if needed
+       return dateList.stream()
+               .map(date -> LocalDate.parse(date, formatter)) // Convert String to LocalDate
+               .filter(date -> date.isBefore(fromDate) || date.isAfter(toDate)) // Filter dates
+               .map(date -> date.format(formatter)) // Convert LocalDate back to String
+               .collect(Collectors.toList());
+   }
+        
+    public static List<LocalDate> getRemainingDates(List<String> dateList, LocalDate fromDate, LocalDate toDate) {
+ 	   // Convert dateList from String to LocalDate
+     List<LocalDate> bookedDates = dateList.stream()
+             .map(LocalDate::parse) // Convert String to LocalDate
+             .collect(Collectors.toList());
+     // Generate full range of dates from fromDate to toDate
+     List<LocalDate> fullDateRange = Stream.iterate(fromDate, date -> date.plusDays(1))
+             .limit(toDate.toEpochDay() - fromDate.toEpochDay() + 1)
+             .collect(Collectors.toList());
+     // Remove booked dates from the full range
+     fullDateRange.removeAll(bookedDates);
+     return fullDateRange;
+ }
+	
+	private static Integer getSlotIdByName(JSONArray slotsArray, String slotName) {
+       for (int i = 0; i < slotsArray.length(); i++) {
+           JSONObject service = slotsArray.getJSONObject(i);
+           if (slotName.equals(service.getString("name"))) {
+               return service.getInt("id");
+           }
+       }
+       return null; // Return null if service name is not found
+   }
+	
+	private static Integer getServiceIdByName(JSONArray servicesArray, String serviceName) {
+	     for (int i = 0; i < servicesArray.length(); i++) {
+	         JSONObject service = servicesArray.getJSONObject(i);
+	         if (serviceName.equals(service.getString("name"))) {
+	             return service.getInt("id");
+	         }
+	     }
+	     return null; // Return null if service name is not found
+	 }
+
+	private static Integer getCustomerIdByemail(JSONArray customerArray, String CustomerEmail) {
+       for (int i = 0; i < customerArray.length(); i++) {
+           JSONObject service = customerArray.getJSONObject(i);
+           if (CustomerEmail.equals(service.getString("email"))) {
+               return service.getInt("id");
+           }
+       }
+       return null; // Return null if service name is not found
+     }
+	
+	
+	
+	
 	public static void main(String[] args) throws InterruptedException, IOException {
-		method1("First");
+		PropertyFile("First");
 		signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 		verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
-		refreshAdminToken(VerifiedRefreshToken);
-		ServiceSlotTimeCount();
-		OverallSlotList();
+		TagList();
 		OverallTagList();
+//		BreedList();
+//		Compare("BREED_Name",UniqueBreed, BreedNames, getProperty("BREED"));
+//		ServiceList();
+//		Compare("SERVICE_NAME", UniqueService, ServiceNames, getProperty("SERVICE"));
+//		SlotList();
+//		Compare("SLOT_NAME", UniqueSlot, SlotNames, getProperty("SLOTS"));
+//		AddonList();
+//		Compare("ADDON_PRIVILAGE", UniqueAddons, AddonsNames, getProperty("ADDON"));
+//		Compare("ADDON_ASSIGNABLE", UniqueAddons, AddonsNames, getProperty("ADDON"));
+//		TagList();
+//		Compare("ADMIN_TAG_CATEGORY_NAME", UniqueTag, TagNames, getProperty("TAGS"));
+//		PricingRuleList();
+//		Compare("Pricingrulename_Onetime_premium", Uniquepricingrulename, PricingRuleNames, getProperty("PREMIUM_PRICINGRULE_NAME"));
+//		Compare("Pricingrulename_Onetime_discount", Uniquepricingrulename, PricingRuleNames, getProperty("DISCOUNT_PRICINGRULE_NAME"));
+//		Compare("Pricingrulename_Onetime_notavailable", Uniquepricingrulename, PricingRuleNames, getProperty("NOTAVAILABLE_PRICINGRULE_NAME"));
+//      PoolingList();
+//      Compare("POOL_NAME", Uniquepoolingname, PoolingNames, getProperty("POOL"));
+	
 	}
 
 }

@@ -6,6 +6,7 @@ import com.WE.WE_Info;
 import com.baseClass.Base;
 
 import io.cucumber.java.en.*;
+import io.qameta.allure.Allure;
 
 public class AdminUserApproval extends Base {
 	WE_Admin_User user = new WE_Admin_User(driver);
@@ -17,8 +18,8 @@ public class AdminUserApproval extends Base {
 		ClickonElement(workflow.getUsers_navigation_Bar());
 	}
 
-	@When("clicks on the Pending Requests showall option")
-	public void clicksOnThePendingRequestsShowallOption() {
+	@When("the admin clicks on the Pending Requests showall option")
+	public void theAdminClicksOnThePendingRequestsShowallOption() {
 		ClickonElement(user.getShowall_PendingRequest());
 	}
 
@@ -48,8 +49,8 @@ public class AdminUserApproval extends Base {
 		clickOnElementUsingBy(user.EyeIcon1);
 	}
 
-	@When("scrolls down to find the Accept button and click it")
-	public void scrollsDownToFindTheAcceptButtonAndClickIt() throws InterruptedException {
+	@When("scrolls down to find the Accept button and clicks it")
+	public void scrollsDownToFindTheAcceptButtonAndClicksIt() throws InterruptedException {
 		boolean isElementFound = false;
 		Thread.sleep(1000);
 		while (!isElementFound) {
@@ -74,8 +75,9 @@ public class AdminUserApproval extends Base {
 	}
 
 	@Then("the customer request is successfully approved")
-	public void theCustomerRequestIsSuccessfullyApproved() {
+	public void theCustomerRequestIsSuccessfullyApproved() throws InterruptedException {
 		System.out.println("Check the snack bar");
+		Thread.sleep(5000);
 		ClickonElement(info.getBackButton());
 	}
 
@@ -83,4 +85,45 @@ public class AdminUserApproval extends Base {
 	public void theAdminIsNavigatedBackToTheHomePage() {
 		ClickonElement(user.getHome());
 	}
-}
+	
+	
+	@Given("approve pet")
+	public void approvePet() throws InterruptedException {
+
+			ClickonElement(workflow.getUsers_navigation_Bar());
+			ClickonElement(user.getShowall_PendingRequest());
+			Thread.sleep(4000);
+			ClickonElement(user.getSearchBox());
+			Thread.sleep(3000);
+			passInput(user.getSearchBox(), getProperty("PET_NAME"));
+			driver.hideKeyboard();
+			Thread.sleep(4000);
+			if (isElementAvailable(user.PetLocator1)) {
+				System.out.println("Pet found");
+			} else {
+				System.out.println("Pet not found");
+				throw new Error("Pet not found");
+			}
+			clickOnElementUsingBy(user.PetEyeIcon1);
+			waitForElement(user.getgender());
+			boolean isElementFound = false;
+			while (!isElementFound) {
+				try {
+					if (isScrollViewAvailable()) {
+						Thread.sleep(3000);
+						scrolling();
+						Allure.step("Scroll the Customer Info");
+						Thread.sleep(2000);
+						ClickonElementwithoutWAIT(user.getAccept());
+						isElementFound = true;
+					}
+				} catch (Exception e) {
+					System.out.println("Accept element not found, scrolling again...");
+				}
+			}
+			ClickonElement(user.getConfirm());
+
+		}
+	}
+	
+

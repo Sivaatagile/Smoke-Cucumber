@@ -1,0 +1,150 @@
+VIP Customer
+Frequent Visitor
+Long-term Client
+Active User
+Inactive User
+High Interaction
+High-Spending Customer
+Low-Spending Customer
+Budget-Friendly Client
+Premium Services User
+Economy Services User
+Add-on Enthusiast
+Early Bird
+Last-minute Booker
+Seasonal User
+Local Customer
+International Customer
+Remote Area Client
+Priority Assistance
+Custom Requests
+Accessibility Required
+Coupon User
+Offer Redeemer
+Referral Bonus User
+Positive Reviewer
+Neutral Feedback
+Improvement Needed
+Trial User
+Active Subscription
+Expired Subscription
+Weekend User
+Weekday User
+New Customer
+Returning Customer
+Regular User
+First-Time Buyer
+Exclusive Member
+Limited Access User
+Gift Card Holder
+Seasonal Discount User
+Subscription Plan A
+Subscription Plan B
+Subscription Plan C
+Promotional Subscriber
+Multi-Service User
+One-Time Buyer
+Bundle Package Buyer
+Pay-as-you-go User
+Family Plan User
+Corporate Client
+Student User
+Senior Citizen Discount User
+Special Event Participant
+Beta Tester
+Feedback Contributor
+Premium Support User
+Personalized Package User
+Long-Distance User
+City-Based Customer
+Country-Based Customer
+Region-Based Customer
+Test Group User
+Loyalty Points Redeemer
+Gift Package User
+Seasonal Promotion Buyer
+VIP Tier 1
+VIP Tier 2
+VIP Tier 3
+Referral Contributor
+High Priority Client
+Cancelled Subscription
+One-Month Subscription
+Annual Subscriber
+Frequent App User
+Rare App User
+Frequent Website Visitor
+Rare Website Visitor
+Member with Add-ons
+Gift Service User
+Social Media Follower
+High-Value Account
+Medium-Value Account
+Low-Value Account
+Corporate Plan Member
+Individual Plan Member
+Partner Program Member
+Family Account User
+Pet Lover Tier 1
+Pet Lover Tier 2
+Pet Lover Tier 3
+Special Needs User
+Eco-Friendly Buyer
+Charitable Contributor
+Multi-Language User
+High Feedback Rating
+Neutral Feedback Rating
+Low Feedback Rating
+Custom Plan User
+First Responder Discount
+Subscription Downgrade
+Subscription Upgrade
+Ad-Free Plan User
+Discount Enthusiast
+Frequent Contact
+Rare Contact
+Help Center User
+Priority Ticket User
+Basic Plan Subscriber
+Advanced Plan Subscriber
+Elite Plan Subscriber
+Organization Member
+Individual Client
+Non-Profit User
+Business Package User
+Frequent Scheduler
+Rare Scheduler
+Weekend Scheduler
+Night-Time User
+Day-Time User
+Promotional Offer Buyer
+Multi-Currency User
+Account Verified
+Account Pending Verification
+Guest User
+Registered User
+Long-Term Registered User
+Expired Membership
+Active Membership
+Blocked User
+Suspended Account
+Freelance Client
+Recurring Client
+Single-Service Client
+Multi-Service Client
+Exclusive Discount User
+Event Participant
+Holiday Buyer
+Early Access User
+Limited-Time User
+High-Credit User
+Low-Credit User
+Active Feedback User
+New Feedback User
+Early Signup User
+Retired User
+High Referrer
+Regional Leader
+Online Shopper
+Offline Buyer
+Custom Feature User
