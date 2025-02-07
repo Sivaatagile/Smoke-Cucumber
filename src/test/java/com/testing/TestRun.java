@@ -7,6 +7,8 @@ import java.net.MalformedURLException;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.support.ui.Sleeper;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -27,8 +29,11 @@ import com.frontend.sample;
 
 import io.appium.java_client.android.options.UiAutomator2Options;
 
-public class TestRun extends Base {
+ 
 
+	public class TestRun extends Base{
+		     
+		  
 	@BeforeTest()
 	public static void load_Properties() throws IOException {
 		PropertyFile("First");

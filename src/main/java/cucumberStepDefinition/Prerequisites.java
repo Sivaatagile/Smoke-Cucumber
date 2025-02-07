@@ -19,7 +19,7 @@ public class Prerequisites extends Base {
 
 	@Given("PropertyFile Loaded")
 	public void propertyfileLoaded() throws IOException {
-		ChooseApi(API_BASE_URL.Staging);
+		ChooseApi(API_BASE_URL.Preprod);
 		PropertyFile("First");
 		
 		UpdateEmailProperty("SIGNUP_EMAIL");	
@@ -79,10 +79,10 @@ public class Prerequisites extends Base {
 
 	@Given("Open the application")
 	public void openTheApplication() throws MalformedURLException, InterruptedException {
-		Latest_StagingAPK_download(getProperty("STAGING"));
-		Application();
+//		Latest_StagingAPK_download(getProperty("AUTOMATION"));
+//		Application();
 //		OpenApplicationWithoutReset();
-//		ApplicationWithApk("preprod_latest 1.apk");
+		ApplicationWithApk("Preprod_v1.7.1_7-2-25.apk");
 		System.out.println("cyhcvf");
 	}
 
