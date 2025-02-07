@@ -113,8 +113,7 @@ public class AdminWorkflow extends Base {
 	@When("the admin selects the specific booking")
 	public void theAdminSelectsTheSpecificBooking() throws Exception {
 		ClickonElement(workflow.getStaffDropDown()); // Click on Staff filter
-		Thread.sleep(2000);
-//		waitForElement(workflow.getscrollview());
+		waitForElement(workflow.getscrollview());
 		Staff_for_assigned(); // Call Staff_for_assigned method
 
 	}

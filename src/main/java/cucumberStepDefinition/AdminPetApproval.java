@@ -58,11 +58,9 @@ public class AdminPetApproval extends Base{
 
 	}
 	@Then("the admin confirms the pet approval")
-	public void theAdminConfirmsThePetApproval() throws InterruptedException {
+	public void theAdminConfirmsThePetApproval() {
 
 		ClickonElement(user.getConfirm());
-		
-		Thread.sleep(6000);
 	}
 	
 	

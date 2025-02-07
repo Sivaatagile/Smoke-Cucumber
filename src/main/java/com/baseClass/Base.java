@@ -666,6 +666,7 @@ public class Base {
 			throw e;
 		}
 	}
+
 	
 	public static void halfscrollUntilElementFound12(WebElement scrollElement, WebElement targetElement)
 			throws Exception {
@@ -1475,6 +1476,8 @@ public class Base {
 	        scroll123(scrollElement); // Scroll faster without long delays
 	    }
 	}
+	
+	
 	
 	public static void scrollWhileHolding(WebElement elementToHold, By targetElementBy) {
 	    while (true) {

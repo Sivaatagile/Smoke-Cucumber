@@ -75,9 +75,8 @@ public class AdminUserApproval extends Base {
 	}
 
 	@Then("the customer request is successfully approved")
-	public void theCustomerRequestIsSuccessfullyApproved() throws InterruptedException {
+	public void theCustomerRequestIsSuccessfullyApproved() {
 		System.out.println("Check the snack bar");
-		Thread.sleep(5000);
 		ClickonElement(info.getBackButton());
 	}
 

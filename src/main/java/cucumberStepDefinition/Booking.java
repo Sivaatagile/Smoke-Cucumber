@@ -158,16 +158,16 @@ public class Booking extends Base {
         api.getserviceID(getProperty("SERVICE_NAME"));
         api.getslotID(Selected_Slot);
         api.getcustomerID(getProperty("SIGNUP_EMAIL"));
-//        api.NotAvailableDates(api.serviceId, api.slotId, api.CustomerId, minimumDate,maximumDate );
-//        List<LocalDate> remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
-//        Collections.shuffle(remainingDates);
-//        BookingDate = remainingDates.get(0);
+        api.NotAvailableDates(api.serviceId, api.slotId, api.CustomerId, minimumDate,maximumDate );
+        List<LocalDate> remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
+        Collections.shuffle(remainingDates);
+        BookingDate = remainingDates.get(0);
         
-		BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
-		System.out.println(
-				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
-		long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
-		System.out.println("Number of days between the two dates: " + daysBetween);
+//		BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
+//		System.out.println(
+//				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
+//		long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+//		System.out.println("Number of days between the two dates: " + daysBetween);
 		String BookingMonth = getMonthName(BookingDate);
 		BookingYear = BookingDate.getYear();
 		BookingMonthProperCase = BookingMonth.substring(0, 1) + BookingMonth.substring(1).toLowerCase();
