@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import com.WE.WE_Admin_User;
 import com.WE.WE_Admin_WorkFlow;
 import com.WE.WE_Info;
+import com.WE.WE_Snackbar;
 import com.baseClass.Base;
 
 import io.cucumber.java.en.*;
@@ -13,6 +14,8 @@ public class AdminCreateStaff extends Base {
 	WE_Admin_User user = new WE_Admin_User(driver);
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
 	WE_Info info = new WE_Info(driver);
+	WE_Snackbar snack = new WE_Snackbar(driver);
+
 
 	@When("the admin clicks on Staff's Show All")
 	public void theAdminClicksOnStaffSShowAll() {
@@ -83,5 +86,12 @@ public class AdminCreateStaff extends Base {
 		passInput(user.getContactNumber(), getProperty(Contact));
 		driver.hideKeyboard();
 	}
+	
+	
+	@When("the admin verifies the snackbar after creating the new staff")
+	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewStaff() throws InterruptedException {
+	 waitForElement(snack.getRecordCreatedSuccessfully());
+	}
+	
 
 }

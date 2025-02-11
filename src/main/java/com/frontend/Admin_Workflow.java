@@ -20,9 +20,7 @@ import io.qameta.allure.Allure;
 
 public class Admin_Workflow extends Base {
 
-	public static String Selected_Slot_as_ADMIN;
-	public static LocalDate BookingDate_as_ADMIN;
-	public static String Booked_Date_as_ADMIN;
+
 
 	public static void Assigned() throws Exception {
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object

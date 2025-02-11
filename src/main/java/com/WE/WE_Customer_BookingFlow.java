@@ -230,8 +230,13 @@ public class WE_Customer_BookingFlow extends Base{
 	    return CrezcoSubmit;
 	}
 	
+	@FindBy(xpath="//android.view.View[@content-desc=\"Confirm booking details\"]")
+	private WebElement ConfirmBookingDetails;
+	public WebElement getConfirmBookingDetails() {
+	    return ConfirmBookingDetails;
+	}
 	
 	
-	
+
 	
 }

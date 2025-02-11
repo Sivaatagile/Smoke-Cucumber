@@ -15,6 +15,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.apache.velocity.runtime.directive.Break;
 import org.jspecify.annotations.Nullable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -31,17 +32,7 @@ import com.baseClass.Base;
 import cucumberStepDefinition.Booking;
 
 public class Customer_Bookingflow extends Base {
-	public static String TotalAmountWithSymbol;
 
-	public static String BookingPaidAmount;
-	public static String BookingPaymentTime;
-	public static String Selected_Slot;
-	public static String Booked_Date;
-	public static String Booked_service;
-	public static String BookingPaidAmountwithdecimal;
-	public static LocalDate BookingDate;
-	public static Boolean Stripe;
-	public static Boolean Crezco;
 
 	public static void Crezco_Payment() throws InterruptedException {
 		WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);// Create Stripe object
@@ -612,7 +603,7 @@ public class Customer_Bookingflow extends Base {
 	
 	
 	
-	public static void BookingFlow(String ServiceName ,String dateStr ) throws Exception {
+	public static void BookingFlow(String ServiceName ,String dateStr , String IndividualSLot) throws Exception {
 		WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 		Api api = new Api(driver);
 		WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
@@ -634,62 +625,24 @@ public class Customer_Bookingflow extends Base {
 			driver.hideKeyboard();
 			ClickonElement(booking.getSelectService());
 		} else if (isElementAvailable(booking.ServiceViewable)) {
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			clickOnElementUsingBy(booking.ServiceViewable);
 		} else {
 			System.out.println("Service is not available");
 		}
-		
-		
-		scrollUntilElementFound(booking.getseekbar(), booking.slotnameindividual);
-		
-//		int SlotCount = api.timeSlotsCount;
-//		System.out.println("slot  :  " + SlotCount);
-//		int randomValue = random.nextInt(SlotCount);
-//		System.out.println("Random value: " + randomValue);
-//		Thread.sleep(4000);
-//		for (int i = 1; i < randomValue; i++) {
-//			scroll(booking.getseekbar());
-//			System.out.println(i);
-//			Thread.sleep(500); // waits for 500ms
-//		}
-//		Thread.sleep(2500);
-//		Selected_Slot = booking.getseekbar().getAttribute("content-desc");
-//		System.out.println(Selected_Slot);
-		
-		
-//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-//		LocalDate startDate = LocalDate.parse(api.available_date_from, formatter);
-//		LocalDate endDate = LocalDate.parse(api.available_date_to, formatter);
-//		long daysBetweenSpecificDates = ChronoUnit.DAYS.between(startDate, endDate);
-//		System.out.println("Number of days between " + startDate + " and " + endDate + ": " + daysBetweenSpecificDates);
-//		LocalDate currentDate = LocalDate.now();
-//		long daysFromCurrentToEndDate = ChronoUnit.DAYS.between(currentDate, endDate);
-//		System.out.println("Number of days from the current date (" + currentDate + ") to the end date (" + endDate
-//				+ "): " + daysFromCurrentToEndDate);
-//		LocalDate minAdvanceBookingDate = getMinAdvanceBookingDate(currentDate, api.DAYminAdvanceBooking);
-//		LocalDate maxBookingDate = getMaxBookingDate(currentDate, endDate, api.DAYminAdvanceBooking,
-//				api.DAYmaxAdvanceBooking);
-//		System.out.println("Minimum Advance Booking Date: " + minAdvanceBookingDate);
-//		System.out.println("Booking can be made up to: " + maxBookingDate);
-//		String minMonthName = getMonthName(minAdvanceBookingDate);
-//		String maxMonthName = getMonthName(maxBookingDate);
-//		System.out.println("Month of minimum advance booking date: " + minMonthName);
-//		System.out.println("Month of maximum booking date: " + maxMonthName);
-//		BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
-//		System.out.println(
-//				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
-//		long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
-//		System.out.println("Number of days between the two dates: " + daysBetween);
+		By xpath = By.xpath(String.format("//android.widget.SeekBar[contains(@content-desc,\"%s\")]", IndividualSLot ));
+
+		scrollUntilElementFound(booking.getseekbar(), xpath);
+
 		LocalDate printDate = printDate(dateStr);
 		String BookingMonth = getMonthName(printDate);
 		int BookingYear = printDate.getYear();
 		String BookingMonthProperCase = BookingMonth.substring(0, 1) + BookingMonth.substring(1).toLowerCase();
-		Thread.sleep(3000);
+		Thread.sleep(1500);
 		String dynamicLocator = "//android.view.View[@content-desc='" + BookingMonthProperCase + " " + BookingYear
 				+ "']";
 		System.out.println("gfyft     " + dynamicLocator);
-		Thread.sleep(3000);
+		Thread.sleep(1500);
 		String fallbackLocatorFirstTime = "//android.view.View[@content-desc='booking_page_calenderWidget']/android.view.View[2]";
 		String fallbackLocatorSubsequentTimes = "//android.view.View[@content-desc='booking_page_calenderWidget']/android.view.View[3]";
 		boolean isFirstTime = true;
@@ -749,6 +702,14 @@ public class Customer_Bookingflow extends Base {
 		}
 		ClickonElement(booking.getRequestBooking());
 		Thread.sleep(2000);
+		boolean elementAvailable = isElementAvailable(booking.getConfirmBookingDetails());
+		System.out.println(elementAvailable);
+if (elementAvailable) {
+	System.out.println("proceed with the bookings");
+}else if (!elementAvailable) {
+	throw new Error("Not available date");
+	
+} 
 		Booked_service = booking.getserviceName().getAttribute("content-desc");
 		System.out.println("ssssss    :  " + Booked_service);
 		ClickonElement(booking.getproceed());
@@ -836,6 +797,11 @@ public class Customer_Bookingflow extends Base {
 		System.out.println("Check the total amount and remaining credit amount  ");
 	}
 
+
+	private static void Error(String string) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	public static void Accounts() throws InterruptedException {
 

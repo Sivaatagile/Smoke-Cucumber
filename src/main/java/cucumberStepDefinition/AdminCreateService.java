@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 
 import com.WE.WE_Admin_Services;
 import com.WE.WE_Info;
+import com.WE.WE_Snackbar;
 import com.api.Api;
 import com.baseClass.Base;
 
@@ -19,6 +20,8 @@ public class AdminCreateService extends Base {
 	WE_Admin_Services Service = new WE_Admin_Services(driver);
 	WE_Info info = new WE_Info(driver);
 	Api api = new Api(driver);
+	WE_Snackbar snack = new WE_Snackbar(driver);
+
 
 	public static void selectSlot(List<String> slotList) throws Exception {
 		WE_Admin_Services Service = new WE_Admin_Services(driver);
@@ -171,6 +174,23 @@ slowScroll();
 		ClickonElement(Service.getService_Save());
 	}
 
+	
+	@When("the admin verifies the snackbar after creating the new service")
+	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewService() throws InterruptedException {
+	   
+		waitForElement(snack.getRecordCreatedSuccessfully());
+	}
+	
+	
+	@When("the admin verifies the snackbar after creating the new service with addon")
+	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewServiceWithAddon() throws InterruptedException {
+	   
+		waitForElement(snack.getRecordCreatedSuccessfully());
+
+	}
+	
+	
+	
 	@Then("the service should be created successfully")
 	public void theServiceShouldBeCreatedSuccessfully() {
 		System.out.println("Check the snack bar ");

@@ -475,11 +475,21 @@ public class WE_Admin_Settings extends Base{
 	}
 	
 	
-public static By ToMonthExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Month_PricingRule")));
+public static By ToMonthExpectedPremium = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Month_Premium_PricingRule")));
 	
-	public static By ToDateExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Date_PricingRule")));
+	public static By ToDateExpectedPremium = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Date_Premium_PricingRule")));
 	
-	public static By ToYearExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Year_PricingRule")));
+	public static By ToYearExpectedPremium = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Year_Premium_PricingRule")));
+	
+	
+	
+public static By ToMonthExpectedDiscount = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Month_Discount_PricingRule")));
+	
+	public static By ToDateExpectedDiscount = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Date_Discount_PricingRule")));
+	
+	public static By ToYearExpectedDiscount = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Year_Discount_PricingRule")));
+	
+	
 	
 	
 	

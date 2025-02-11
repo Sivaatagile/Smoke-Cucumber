@@ -3,13 +3,15 @@ package cucumberStepDefinition;
 import org.openqa.selenium.WebElement;
 
 import com.WE.WE_Info;
+import com.WE.WE_Snackbar;
 import com.baseClass.Base;
 
 import io.cucumber.java.en.*;
 
 public class UserData extends Base {
 
-	WE_Info UserInfo = new WE_Info(driver);
+	WE_Info UserInfo = new WE_Info(driver); 
+	WE_Snackbar snackbar = new WE_Snackbar(driver);
 
 	@Given("the user has successfully signed up")
 	public void theUserHasSuccessfullySignedUp() throws InterruptedException {
@@ -111,11 +113,19 @@ public class UserData extends Base {
 		ClickonElement(UserInfo.getCountryTab());
 	}
 
-	@Then("the user should be taken to the pet info page")
+	
+	@When("the user verifies the snackbar after entering the user data")
+	public void theUserVerifiesTheSnackbarAfterEnteringTheUserData() throws InterruptedException {
+		waitForElement(snackbar.getRecordUpdatedSuccessfully());
+		
+	}
+	
+	@When("the user should be taken to the pet info page")
 	public void theUserShouldBeTakenToThePetInfoPage() throws InterruptedException {
-		waitForElement(UserInfo.getSnackbarAfterAddinfo());
-		if (isElementAvailable(UserInfo.getSnackbarAfterAddinfo())) {
-			System.out.println("Snack bar displays");
+		
+		if (isElementAvailable(snackbar.getRecordUpdatedSuccessfully())) {
+			System.out.println("Snack bar verified successfully");
+			Thread.sleep(2500);
 			WE_Info PetInfo = new WE_Info(driver);
 			waitForElement(PetInfo.getAddPetInfoPageElement());
 			boolean isLocator1Present = !driver.findElements(PetInfo.AddPetSignup).isEmpty();
@@ -126,6 +136,8 @@ public class UserData extends Base {
 				System.out.println("No locators found");
 			}
 
+		}else {
+			System.out.println("owaste");
 		}
 
 	}

@@ -2,6 +2,7 @@ package cucumberStepDefinition;
 
 import com.WE.WE_Admin_Settings;
 import com.WE.WE_Admin_WorkFlow;
+import com.WE.WE_Snackbar;
 import com.baseClass.Base;
 
 import io.cucumber.java.en.Given;
@@ -12,6 +13,8 @@ public class AdminCreateBreed extends Base {
 
 	WE_Admin_Settings settings = new WE_Admin_Settings(driver);
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+	WE_Snackbar snack = new WE_Snackbar(driver);
+
 
 	@Given("the admin opens the Manage Breed section")
 	public void theAdminOpensTheManageBreedSection() {
@@ -40,6 +43,16 @@ if (isElementAvailable(settings.getmanageBreed())) {
 		
 		
 		System.out.println("snack bar ");
+	}
+	
+	
+	
+	
+	@When("the admin verifies the snackbar after creating the new breed")
+	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewBreed() throws InterruptedException {
+	   waitForElement(snack.getRecordCreatedSuccessfully());
+		
+		
 	}
 
 }

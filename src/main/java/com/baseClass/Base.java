@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -87,6 +88,34 @@ public class Base {
 	public static String StatementCreatedDate;
 	public static boolean range;
 
+
+	
+	
+	
+	
+	
+	public static LocalDate prdate ;
+	 public static   String formattedDatesss;
+	 
+		public static String Selected_Slot_as_ADMIN;
+		public static LocalDate BookingDate_as_ADMIN;
+		public static String Booked_Date_as_ADMIN;
+		
+		
+		
+		
+		public static String TotalAmountWithSymbol;
+
+		public static String BookingPaidAmount;
+		public static String BookingPaymentTime;
+		public static String Selected_Slot;
+		public static String Booked_Date;
+		public static String Booked_service;
+		public static String BookingPaidAmountwithdecimal;
+		public static LocalDate BookingDate;
+		public static Boolean Stripe;
+		public static Boolean Crezco;
+		
 
 	
 //	**********     API DETAILS 
@@ -819,6 +848,36 @@ public class Base {
 		}
 	}
 
+	public static  String MergePricingruleDate(String Month , String Date , String Year) {
+      String SingleDatePremiumPricingRule =Month+ Date +","+ Year;
+		System.out.println(SingleDatePremiumPricingRule);
+		System.out.println("yyyy  :  "+SingleDatePremiumPricingRule);
+		 DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMMMd,yyyy");
+		 LocalDate  prdate = LocalDate.parse(SingleDatePremiumPricingRule, inputFormatter);
+	        // Format to new string
+		 String PricingruleNotAvailableDate = prdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+	        // Print results
+	        System.out.println("Formatted Date: " + PricingruleNotAvailableDate);
+	        System.out.println("LocalDate: " + prdate);
+	        return PricingruleNotAvailableDate;
+	}
+	
+	public static  String SelectOneRandomlyFromList(List<String>  List) {
+
+		
+		   Random random = new Random();
+
+	        // Generate a random index
+	        int randomIndex = random.nextInt(List.size()); // This will give a number between 0 and size-1
+
+	        // Select a random option
+	        String selectedOption = List.get(randomIndex);
+
+	        // Output the selected option
+	        System.out.println("Randomly selected: " + selectedOption);
+	        return selectedOption;
+	}
 	public static void scroll999(WebElement element) throws Exception {
 		try {
 			Dimension elementSize = element.getSize();
