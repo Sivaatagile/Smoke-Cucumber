@@ -3,6 +3,7 @@ package cucumberStepDefinition;
 import com.WE.WE_Admin_User;
 import com.WE.WE_Admin_WorkFlow;
 import com.WE.WE_Info;
+import com.WE.WE_Snackbar;
 import com.baseClass.Base;
 
 import io.cucumber.java.en.*;
@@ -11,7 +12,8 @@ import io.qameta.allure.Allure;
 public class AdminUserApproval extends Base {
 	WE_Admin_User user = new WE_Admin_User(driver);
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
-	WE_Info info = new WE_Info(driver);
+	WE_Info info = new WE_Info(driver); 
+	WE_Snackbar snack = new WE_Snackbar(driver);
 
 	@Given("the admin clicks on the Users tab")
 	public void theAdminClicksOnTheUsersTab() {
@@ -70,8 +72,9 @@ public class AdminUserApproval extends Base {
 	}
 
 	@Then("a confirmation popup is displayed then the admin clicks on the Confirm button in the popup")
-	public void aConfirmationPopupIsDisplayedThenTheAdminClicksOnTheConfirmButtonInThePopup() {
+	public void aConfirmationPopupIsDisplayedThenTheAdminClicksOnTheConfirmButtonInThePopup() throws InterruptedException {
 		ClickonElement(user.getConfirm());
+		waitForElement(snack.getAccountApprovedSuccessfully());
 	}
 
 	@Then("the customer request is successfully approved")

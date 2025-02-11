@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import com.WE.WE_Admin_User;
 import com.WE.WE_Admin_WorkFlow;
 import com.WE.WE_Info;
+import com.WE.WE_Snackbar;
 import com.baseClass.Base;
 
 
@@ -16,7 +17,7 @@ public class AdminCreateCustomer extends Base{
 	WE_Admin_User user = new WE_Admin_User(driver);
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
 	WE_Info info = new WE_Info(driver);
-	
+	WE_Snackbar snack = new WE_Snackbar(driver);
 	
 	@When("the admin enters the Customer first name {string}")
 	public void theAdminEntersTheCustomerFirstName(String CUSTOMER_FIRSTNAME) {
@@ -77,6 +78,17 @@ waitForElement(user.getAllCustomers());
 		driver.hideKeyboard();
 
 	}
+	
+	@When("the admin verifies the snackbar after creating the new customer")
+	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewCustomer() throws InterruptedException {
+	  System.out.println("123");
+		waitForElement(snack.getRecordCreatedSuccessfully());
+	
+		  System.out.println("124443");
+
+	}
+	
+	
 	@Then("the new customer details should be successfully saved")
 	public void theNewCustomerDetailsShouldBeSuccessfullySaved() {
 		System.out.println("Admin created ");

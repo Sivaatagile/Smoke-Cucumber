@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import com.WE.WE_Admin_Services;
 import com.WE.WE_Admin_Services.AddOnType;
 import com.WE.WE_Info;
+import com.WE.WE_Snackbar;
 import com.api.Api;
 import com.baseClass.Base;
 
@@ -21,6 +22,8 @@ public class AdminCreateAddon extends Base{
 	WE_Admin_Services addon = new WE_Admin_Services(driver);
 	WE_Info info = new WE_Info(driver);
 	Api api = new Api(driver);
+	WE_Snackbar snack = new WE_Snackbar(driver);
+
 	
 	public static void selectSlot(List<String> slotList) throws Exception {
 		WE_Admin_Services Service = new WE_Admin_Services(driver);
@@ -199,6 +202,20 @@ public class AdminCreateAddon extends Base{
 		Thread.sleep(2000);
 		ClickonElement(addon.getSelect1());
 		
+	}
+	
+	
+	@When("the admin verifies the snackbar after creating the new Assignable addon")
+	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewAssignableAddon() throws InterruptedException {
+	    
+		waitForElement(snack.getRecordCreatedSuccessfully());
+
+	}
+	
+	@When("the admin verifies the snackbar after creating the new privilege addon")
+	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewPrivilegeAddon() throws InterruptedException {
+		waitForElement(snack.getRecordCreatedSuccessfully());
+
 	}
 	
 }

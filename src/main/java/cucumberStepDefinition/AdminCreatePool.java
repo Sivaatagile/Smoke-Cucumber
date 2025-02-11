@@ -2,6 +2,7 @@ package cucumberStepDefinition;
 
 import com.WE.WE_Admin_Settings;
 import com.WE.WE_Admin_WorkFlow;
+import com.WE.WE_Snackbar;
 import com.baseClass.Base;
 
 import io.cucumber.java.en.Then;
@@ -10,6 +11,8 @@ import io.cucumber.java.en.When;
 public class AdminCreatePool extends Base {
 	WE_Admin_Settings settings = new WE_Admin_Settings(driver);
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+	WE_Snackbar snack = new WE_Snackbar(driver);
+
 
 	@When("the admin navigates to Manage Service Pools")
 	public void theAdminNavigatesToManageServicePools() {
@@ -53,6 +56,13 @@ public class AdminCreatePool extends Base {
 	public void theAdminShouldSeeAConfirmationMessageOfPoolCreation() {
 
 		System.out.println("sanck bar");
+	}
+	
+	@When("the admin verifies the snackbar after creating the new service pool")
+	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewServicePool() throws InterruptedException {
+	   
+		waitForElement(snack.getDataInsertedSuccessfully());
+		
 	}
 
 }

@@ -3,6 +3,7 @@ package cucumberStepDefinition;
 import com.WE.WE_Admin_User;
 import com.WE.WE_Admin_WorkFlow;
 import com.WE.WE_Info;
+import com.WE.WE_Snackbar;
 import com.baseClass.Base;
 
 import io.cucumber.java.en.*;
@@ -11,6 +12,8 @@ public class AdminCreateTag extends Base {
 	WE_Admin_User user = new WE_Admin_User(driver);
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
 	WE_Info info = new WE_Info(driver);
+	WE_Snackbar snack = new WE_Snackbar(driver);
+
 
 	@Given("the admin clicks on Show All under tag categories")
 	public void theAdminClicksOnShowAllUnderTagCategories() throws Exception {
@@ -77,7 +80,11 @@ public class AdminCreateTag extends Base {
 	public void theAdminClickOnTheSaveButton() throws InterruptedException {
 		ClickonElement(user.getSave());
 		System.out.println("Check the snack bar ");
-		Thread.sleep(2000);
+	}
+	
+	@When("the admin verifies the snackbar after creating the new tag")
+	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewTag() throws InterruptedException {
+	    waitForElement(snack.getRecordCreatedSuccessfully());
 	}
 
 	@Then("the new Tag details should be successfully saved")

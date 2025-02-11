@@ -59,7 +59,14 @@ public class AdminCreateSlot extends Base {
 	@When("the admin clicks on the save button")
 	public void theAdminClicksOnTheSaveButton() throws InterruptedException {
 		ClickonElement(slot.getSave());
-		Thread.sleep(5000);
+//		Thread.sleep(5000);
+	}
+	
+	
+	@When("the admin verifies the snackbar after creating the new slot {string}")
+	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewSlot(String string) throws InterruptedException {
+	   System.out.println("dddddd     :    "+slot.getslotcreatedsnackbar);
+		waitForElementViewable(slot.getslotcreatedsnackbar);
 	}
 
 	@Then("the slot should be created successfully")

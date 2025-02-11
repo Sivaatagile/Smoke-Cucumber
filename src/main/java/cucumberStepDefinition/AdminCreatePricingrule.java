@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import com.WE.WE_Admin_Settings;
 import com.WE.WE_Admin_WorkFlow;
+import com.WE.WE_Snackbar;
 import com.api.Api;
 import com.baseClass.Base;
 
@@ -15,6 +16,10 @@ public class AdminCreatePricingrule extends Base {
 
 	WE_Admin_Settings settings = new WE_Admin_Settings(driver);
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+	WE_Snackbar snack = new WE_Snackbar(driver);
+
+	
+	public static String PricingruleNotAvailableDate;
 
 	@When("the admin navigates to Pricing Rule")
 	public void theAdminNavigatesToPricingRule() {
@@ -56,6 +61,56 @@ public class AdminCreatePricingrule extends Base {
 		driver.hideKeyboard();
 
 	}
+	
+	@When("the admin choose the single date for premium rule")
+	public void theAdminChooseTheSingleDateForPremiumRule() throws Exception {
+		Thread.sleep(2000);
+
+		ClickonElement(settings.getSelectdate());
+		waitForElement(settings.getpricingruleDate());
+		String From_Month = settings.getMonth().getAttribute("Content-desc");
+		System.out.println("Month  : " + From_Month);
+		String From_Date = settings.getDate().getAttribute("Content-desc");
+		System.out.println("Date  : " + From_Date);
+		String From_Year = settings.getYear().getAttribute("Content-desc");
+		System.out.println("Year  : " + From_Year);
+	
+		scrollUntilElementFound12(settings.getMonth(), settings.ToMonthExpectedPremium);
+		String To_Month = settings.getMonth().getAttribute("Content-desc");
+		System.out.println("Month  : " + To_Month);
+		scrollUntilElementFound12(settings.getDate(), settings.ToDateExpectedPremium);
+		String To_Date = settings.getDate().getAttribute("Content-desc");
+		System.out.println("Date  : " + To_Date);
+		scrollUntilElementFound12(settings.getYear(), settings.ToYearExpectedPremium);
+		String To_Year = settings.getYear().getAttribute("Content-desc");
+		System.out.println("Year  : " + To_Year);
+		
+		String SingleDatePremiumPricingRule =getProperty("TO_Month_Premium_PricingRule") + getProperty("TO_Date_Premium_PricingRule") +","+ getProperty("TO_Year_Premium_PricingRule");
+		
+		System.out.println(SingleDatePremiumPricingRule);
+		
+		
+		
+		
+		System.out.println("yyyy  :  "+SingleDatePremiumPricingRule);
+		
+		 DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMMMd,yyyy");
+		 LocalDate  prdate = LocalDate.parse(SingleDatePremiumPricingRule, inputFormatter);
+
+	        // Format to new string
+	        String formattedDatesss = prdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+	        // Print results
+	        System.out.println("Formatted Date: " + formattedDatesss);
+	        System.out.println("LocalDate: " + prdate);
+		ClickonElement(settings.getSelect());
+	}
+	
+	
+	
+	
+	
+	
 
 	@When("the admin enters Pricing Rule type as premium")
 	public void theAdminEntersPricingRuleTypeAsPremium() throws InterruptedException {
@@ -79,6 +134,56 @@ public class AdminCreatePricingrule extends Base {
 		System.out.println("snack bar ");
 	}
 	
+	
+	@When("the admin choose the single date for discount rule")
+	public void theAdminChooseTheSingleDateForDiscountRule() throws Exception {
+	   
+		Thread.sleep(2000);
+
+		ClickonElement(settings.getSelectdate());
+		waitForElement(settings.getpricingruleDate());
+		String From_Month = settings.getMonth().getAttribute("Content-desc");
+		System.out.println("Month  : " + From_Month);
+		String From_Date = settings.getDate().getAttribute("Content-desc");
+		System.out.println("Date  : " + From_Date);
+		String From_Year = settings.getYear().getAttribute("Content-desc");
+		System.out.println("Year  : " + From_Year);
+	
+		scrollUntilElementFound12(settings.getMonth(), settings.ToMonthExpectedDiscount);
+		String To_Month = settings.getMonth().getAttribute("Content-desc");
+		System.out.println("Month  : " + To_Month);
+		scrollUntilElementFound12(settings.getDate(), settings.ToDateExpectedDiscount);
+		String To_Date = settings.getDate().getAttribute("Content-desc");
+		System.out.println("Date  : " + To_Date);
+		scrollUntilElementFound12(settings.getYear(), settings.ToYearExpectedDiscount);
+		String To_Year = settings.getYear().getAttribute("Content-desc");
+		System.out.println("Year  : " + To_Year);
+		
+		
+		
+String SingleDatePremiumPricingRule =getProperty("TO_Month_Discount_PricingRule") + getProperty("TO_Date_Discount_PricingRule") +","+ getProperty("TO_Year_Discount_PricingRule");
+		
+		System.out.println(SingleDatePremiumPricingRule);
+		
+		
+		
+		
+		System.out.println("yyyy  :  "+SingleDatePremiumPricingRule);
+		
+		 DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMMMd,yyyy");
+		 LocalDate  prdate = LocalDate.parse(SingleDatePremiumPricingRule, inputFormatter);
+
+	        // Format to new string
+	        String formattedDatesss = prdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+	        // Print results
+	        System.out.println("Formatted Date: " + formattedDatesss);
+	        System.out.println("LocalDate: " + prdate);
+		
+		
+		ClickonElement(settings.getSelect());
+		
+	}
 	
 	
 	
@@ -122,6 +227,11 @@ public class AdminCreatePricingrule extends Base {
 		driver.hideKeyboard();
 		
 	}
+	
+	
+	
+	
+	
 	@When("the admin choose the single date for not available rule")
 	public void theAdminChooseTheSingleDateForNotAvailableRule() throws Exception {
 	   
@@ -149,27 +259,24 @@ public class AdminCreatePricingrule extends Base {
 		System.out.println("Year  : " + To_Year);
 		
 		
-		String From_Month1 = settings.getMonth().getAttribute("Content-desc");
-		System.out.println("Month  : " + From_Month1);
-		String From_Date1 = settings.getDate().getAttribute("Content-desc");
-		System.out.println("Date  : " + From_Date1);
-		String From_Year1 = settings.getYear().getAttribute("Content-desc");
-		System.out.println("Year  : " + From_Year1);
+String SingleDatePremiumPricingRule =getProperty("TO_Month_PricingRule_NotAvailable") + getProperty("TO_Date_PricingRule_NotAvailable") +","+ getProperty("TO_Year_PricingRule_NotAvailable");
 		
-		String  date = From_Month1 + From_Date1+"," + From_Year1;
+		System.out.println(SingleDatePremiumPricingRule);
 		
-		System.out.println("yyyy  :  "+date);
+		
+		
+		
+		System.out.println("yyyy  :  "+SingleDatePremiumPricingRule);
 		
 		 DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMMMd,yyyy");
-		 LocalDate  prdate = LocalDate.parse(date, inputFormatter);
+		 LocalDate  prdate = LocalDate.parse(SingleDatePremiumPricingRule, inputFormatter);
 
 	        // Format to new string
-	        String formattedDatesss = prdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+	        PricingruleNotAvailableDate = prdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
 	        // Print results
-	        System.out.println("Formatted Date: " + formattedDatesss);
+	        System.out.println("Formatted Date: " + PricingruleNotAvailableDate);
 	        System.out.println("LocalDate: " + prdate);
-		
 		
 		
 		ClickonElement(settings.getSelect());
@@ -181,6 +288,19 @@ public class AdminCreatePricingrule extends Base {
 		ClickonElement(settings.getNotAvailable());
 	}
 	
+	@When("the admin verifies the snackbar after creating the new premium pricing rule")
+	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewPremiumPricingRule() throws InterruptedException {
+		waitForElement(snack.getRecordCreatedSuccessfully());
+	}
 	
+	@When("the admin verifies the snackbar after creating the new discount pricing rule")
+	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewDiscountPricingRule() throws InterruptedException {
+		waitForElement(snack.getRecordCreatedSuccessfully());
+	}
+	
+	@When("the admin verifies the snackbar after creating the new Not Available pricing rule")
+	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewNotAvailablePricingRule() throws InterruptedException {
+		waitForElement(snack.getRecordCreatedSuccessfully());
+	}
 
 }

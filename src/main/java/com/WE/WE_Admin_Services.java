@@ -364,16 +364,20 @@ public static By ToMonthPrivilegeAddonExpected = By.xpath(String.format("//andro
 
 	public static By getAssignableAddon = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE")));
 
+//	public static By getslotcreatedsnackbar = By.xpath(String.format("//android.view.View[@content-desc='"+getProperty("SIGNUP_FIRSTNAME")+"'\" slot created successfully\"")));
+	public static By getslotcreatedsnackbar = By.xpath("//*[starts-with(@content-desc,'"+getProperty("SLOT_NAME")+" slot created successfully')]");
+
+	
 //	public WebElement getPrivilegeAddon() {
 //	    String xpath = String.format();
 //	    return driver.findElement(By.xpath(xpath));
 //	}
 //	
 //	public WebElement getAssignableAddon() {
-//	    String xpath = String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE"));
+//	    String xpath = String.format("//android.view.View[@content-desc="+getProperty("SLOT_NAME")+"\" slot created successfully\"]"));
 //	    return driver.findElement(By.xpath(xpath));
 //	}
-	
+//	
 //	@FindBy (xpath="//android.widget.ScrollView")
 //	private WebElement  scrollview ;
 //	public WebElement getscrollview() {
@@ -381,7 +385,7 @@ public static By ToMonthPrivilegeAddonExpected = By.xpath(String.format("//andro
 //	}
 	
 	
-//	@FindBy (xpath =)
+//	@FindBy (xpath ="//android.view.View[@content-desc=\"ss slot created successfully\"]")
 //	private WebElement    ;
 //	public WebElement get() {
 //		return     ;

@@ -15,8 +15,7 @@ import com.baseClass.Base.API_BASE_URL;
 
 public class Admin_Settings extends Base {
 	
-	 public static LocalDate prdate ;
-	 public static   String formattedDatesss;
+	 
 
 	public static void CreateBreed() throws InterruptedException {
 		WE_Admin_Settings settings = new WE_Admin_Settings(driver);
@@ -90,16 +89,34 @@ public class Admin_Settings extends Base {
 		String From_Year = settings.getYear().getAttribute("Content-desc");
 		System.out.println("Year  : " + From_Year);
 	
-		scrollUntilElementFound12(settings.getMonth(), settings.ToMonthExpected);
+		scrollUntilElementFound12(settings.getMonth(), settings.ToMonthExpectedPremium);
 		String To_Month = settings.getMonth().getAttribute("Content-desc");
 		System.out.println("Month  : " + To_Month);
-		scrollUntilElementFound12(settings.getDate(), settings.ToDateExpected);
+		scrollUntilElementFound12(settings.getDate(), settings.ToDateExpectedPremium);
 		String To_Date = settings.getDate().getAttribute("Content-desc");
 		System.out.println("Date  : " + To_Date);
-		scrollUntilElementFound12(settings.getYear(), settings.ToYearExpected);
+		scrollUntilElementFound12(settings.getYear(), settings.ToYearExpectedPremium);
 		String To_Year = settings.getYear().getAttribute("Content-desc");
 		System.out.println("Year  : " + To_Year);
 		
+String SingleDatePremiumPricingRule =getProperty("TO_Month_Premium_PricingRule") + getProperty("TO_Date_Premium_PricingRule") +","+ getProperty("TO_Year_Premium_PricingRule");
+		
+		System.out.println(SingleDatePremiumPricingRule);
+		
+		
+		
+		
+		System.out.println("yyyy  :  "+SingleDatePremiumPricingRule);
+		
+		 DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMMMd,yyyy");
+		 LocalDate  prdate = LocalDate.parse(SingleDatePremiumPricingRule, inputFormatter);
+
+	        // Format to new string
+	        String formattedDatesss = prdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+	        // Print results
+	        System.out.println("Formatted Date: " + formattedDatesss);
+	        System.out.println("LocalDate: " + prdate);
 		ClickonElement(settings.getSelect());
 		
 		Thread.sleep(2000);
@@ -149,18 +166,37 @@ public class Admin_Settings extends Base {
 		String From_Year = settings.getYear().getAttribute("Content-desc");
 		System.out.println("Year  : " + From_Year);
 	
-		scrollUntilElementFound12(settings.getMonth(), settings.ToMonthExpected);
+		scrollUntilElementFound12(settings.getMonth(), settings.ToMonthExpectedDiscount);
 		String To_Month = settings.getMonth().getAttribute("Content-desc");
 		System.out.println("Month  : " + To_Month);
-		scrollUntilElementFound12(settings.getDate(), settings.ToDateExpected);
+		scrollUntilElementFound12(settings.getDate(), settings.ToDateExpectedDiscount);
 		String To_Date = settings.getDate().getAttribute("Content-desc");
 		System.out.println("Date  : " + To_Date);
-		scrollUntilElementFound12(settings.getYear(), settings.ToYearExpected);
+		scrollUntilElementFound12(settings.getYear(), settings.ToYearExpectedDiscount);
 		String To_Year = settings.getYear().getAttribute("Content-desc");
 		System.out.println("Year  : " + To_Year);
 		
-		ClickonElement(settings.getSelect());
+String SingleDatePremiumPricingRule =getProperty("TO_Month_Discount_PricingRule") + getProperty("TO_Date_Discount_PricingRule") +","+ getProperty("TO_Year_Discount_PricingRule");
 		
+		System.out.println(SingleDatePremiumPricingRule);
+		
+		
+		
+		
+		System.out.println("yyyy  :  "+SingleDatePremiumPricingRule);
+		
+		 DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMMMd,yyyy");
+		 LocalDate  prdate = LocalDate.parse(SingleDatePremiumPricingRule, inputFormatter);
+
+	        // Format to new string
+	        String formattedDatesss = prdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+	        // Print results
+	        System.out.println("Formatted Date: " + formattedDatesss);
+	        System.out.println("LocalDate: " + prdate);
+		
+		
+		ClickonElement(settings.getSelect());		
 		Thread.sleep(2000);
 		ClickonElement(settings.getdiscount());
 		halfscroll(settings.getscrollview());
@@ -202,18 +238,38 @@ public class Admin_Settings extends Base {
 		String From_Year = settings.getYear().getAttribute("Content-desc");
 		System.out.println("Year  : " + From_Year);
 	
-		scrollUntilElementFound12(settings.getMonth(), settings.ToMonthExpected);
+		scrollUntilElementFound12(settings.getMonth(), settings.ToMonthExpectedNotAvailable);
 		String To_Month = settings.getMonth().getAttribute("Content-desc");
 		System.out.println("Month  : " + To_Month);
-		scrollUntilElementFound12(settings.getDate(), settings.ToDateExpected);
+		scrollUntilElementFound12(settings.getDate(), settings.ToDateExpectedNotAvailable);
 		String To_Date = settings.getDate().getAttribute("Content-desc");
 		System.out.println("Date  : " + To_Date);
-		scrollUntilElementFound12(settings.getYear(), settings.ToYearExpected);
+		scrollUntilElementFound12(settings.getYear(), settings.ToYearExpectedNotAvailable);
 		String To_Year = settings.getYear().getAttribute("Content-desc");
 		System.out.println("Year  : " + To_Year);
 		
-		ClickonElement(settings.getSelect());
+String SingleDatePremiumPricingRule =getProperty("TO_Month_PricingRule_NotAvailable") + getProperty("TO_Date_PricingRule_NotAvailable") +","+ getProperty("TO_Year_PricingRule_NotAvailable");
 		
+		System.out.println(SingleDatePremiumPricingRule);
+		
+		
+		
+		
+		System.out.println("yyyy  :  "+SingleDatePremiumPricingRule);
+		
+		 DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMMMd,yyyy");
+		 LocalDate  prdate = LocalDate.parse(SingleDatePremiumPricingRule, inputFormatter);
+
+	        // Format to new string
+	        String formattedDatesss = prdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+	        // Print results
+	        System.out.println("Formatted Date: " + formattedDatesss);
+	        System.out.println("LocalDate: " + prdate);
+		
+		
+		ClickonElement(settings.getSelect());
+				
 		Thread.sleep(2000);
 		ClickonElement(settings.getNotAvailable());
 	

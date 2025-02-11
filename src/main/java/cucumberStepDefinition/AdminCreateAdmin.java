@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import com.WE.WE_Admin_User;
 import com.WE.WE_Admin_WorkFlow;
 import com.WE.WE_Info;
+import com.WE.WE_Snackbar;
 import com.baseClass.Base;
 import io.cucumber.java.en.*;
 
@@ -12,6 +13,7 @@ public class AdminCreateAdmin extends Base {
 	WE_Admin_User user = new WE_Admin_User(driver);
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
 	WE_Info info = new WE_Info(driver);
+	WE_Snackbar snack = new WE_Snackbar(driver);
 
 	@When("the admin clicks on Admin's Show All")
 	public void theAdminClicksOnAdminSShowAll() {
@@ -119,8 +121,19 @@ public class AdminCreateAdmin extends Base {
 	@When("the admin clicks on the Save button")
 	public void theAdminClicksOnTheSaveButton() throws InterruptedException {
 		ClickonElement(user.getSave());
-		Thread.sleep(5000);
+//		Thread.sleep(5000);
 	}
+	
+	@When("the admin verifies the snackbar after creating the new admin")
+	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewAdmin() throws InterruptedException {
+	    waitForElement(snack.getRecordCreatedSuccessfully());
+	    if (isElementAvailable(snack.getRecordCreatedSuccessfully())) {
+	    	
+	    	System.out.println("Snck bar verifies successfully ");
+			
+		}
+	}
+	
 
 	@Then("the new admin details should be successfully saved")
 	public void theNewAdminDetailsShouldBeSuccessfullySaved() throws InterruptedException {

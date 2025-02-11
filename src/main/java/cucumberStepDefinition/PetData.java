@@ -4,6 +4,7 @@ import java.text.BreakIterator;
 import java.util.Random;
 
 import com.WE.WE_Info;
+import com.WE.WE_Snackbar;
 import com.baseClass.Base;
 
 import io.cucumber.java.en.*;
@@ -11,6 +12,9 @@ import io.cucumber.java.en.*;
 public class PetData extends Base {
 	static Random random = new Random();
 	WE_Info PetInfo = new WE_Info(driver);
+	
+	WE_Snackbar snackbar = new WE_Snackbar(driver);
+
 
 	@Given("the user navigates to the pet info page")
 	public void theUserNavigatesToThePetInfoPage() throws InterruptedException {
@@ -178,17 +182,26 @@ public class PetData extends Base {
 		ClickonElement(PetInfo.getSave());
 		Thread.sleep(2000);
 	}
+	
+	@When("the user verifies the snackbar after entering the pet data")
+	public void theUserVerifiesTheSnackbarAfterEnteringThePetData() throws InterruptedException {
+		waitForElement(snackbar.getRecordCreatedSuccessfully());
 
-	@Then("the pet information should be saved successfully")
+		
+	}
+
+	@When("the pet information should be saved successfully")
 	public void thePetInformationShouldBeSavedSuccessfully() throws InterruptedException {
-		waitForElement(PetInfo.getSnackbarAfterPetinfo());
-		if (isElementAvailable(PetInfo.getSnackbarAfterPetinfo())) {
-			System.out.println("snackbar displays");
+		if (isElementAvailable(snackbar.getRecordCreatedSuccessfully())) {
+			System.out.println("Snack bar verified successfully");
+//			Thread.sleep(2500);
 			if (isElementAvailable(PetInfo.getProfileWord())) {
 				System.out.println("admin created a pet for a customer completed successfully");
 			} else if (isElementAvailable(PetInfo.getcloseApp())) {
 				System.out.println("Customer signed up successfully");
 			}
+		}else {
+			System.out.println("waste");
 		}
 
 	}
