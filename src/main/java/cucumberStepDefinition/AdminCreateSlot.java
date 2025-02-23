@@ -17,26 +17,27 @@ public class AdminCreateSlot extends Base {
 	@Given("the admin clicks on Show All under slots")
 	public void theAdminClicksOnShowAllUnderSlots() throws InterruptedException {
 		ClickonElement(slot.getSlot_Showall());
-		Thread.sleep(3000);
 	}
 
+	@Then("the admin is navigated to the slot's list page")
+	public void theAdminIsNavigatedToTheSlotSListPage() throws InterruptedException {
+	   waitForElement(slot.getSlot());
+	}
+	
 	@Given("the admin taps the plus button to create a new slot")
 	public void theAdminTapsThePlusButtonToCreateANewSlot() throws InterruptedException {
 		ClickonElement(slot.getfab());
-		Thread.sleep(3000);
 	}
 
 	@When("the admin enters {string} in the slot name input field")
 	public void theAdminEntersInTheSlotNameInputField(String SlotName) throws InterruptedException {
 		ClickonElement(slot.getSlotName());
-		Thread.sleep(3000);
 		passInput(slot.getSlotName(), getProperty(SlotName));
 		driver.hideKeyboard();
 	}
 
 	@When("the admin provides {string} in the slot description field")
 	public void theAdminProvidesInTheSlotDescriptionField(String SlotDescription) throws InterruptedException {
-		Thread.sleep(3000);
 		ClickonElement(slot.getDescriptionTextBox());
 		passInput(slot.getDescriptionTextBox(), getProperty(SlotDescription));
 		driver.hideKeyboard();
@@ -44,15 +45,15 @@ public class AdminCreateSlot extends Base {
 
 	@When("sets Slot Starting Time as the starting time for the slot")
 	public void setsSlotStartingTimeAsTheStartingTimeForTheSlot() throws Exception {
-		Thread.sleep(3000);
+		Thread.sleep(1000);
 		ClickonElement(slot.getStartTime());
-		Thread.sleep(3000);
-		scrollUntilElementFound_DatePicker_Time(slot.getHours(), slot.HoursExpected);
-		Thread.sleep(3000);
-		scrollUntilElementFound_DatePicker_Time(slot.getMinutes(), slot.MinutesExpected);
-		Thread.sleep(3000);
-		scrollUntilElementFound_DatePicker_Time(slot.getSession(), slot.SessionExpected);
-		Thread.sleep(3000);
+		Thread.sleep(1000);
+		scrollUntilElementFound_DatePicker_Time1(slot.getHours(), slot.HoursExpected);
+		Thread.sleep(1000);
+		scrollUntilElementFound_DatePicker_Time1(slot.getMinutes(), slot.MinutesExpected);
+		Thread.sleep(1000);
+		scrollUntilElementFound_DatePicker_Time1(slot.getSession(), slot.SessionExpected);
+		Thread.sleep(1000);
 		ClickonElement(slot.getSelect());
 	}
 
@@ -70,9 +71,8 @@ public class AdminCreateSlot extends Base {
 	}
 
 	@Then("the slot should be created successfully")
-	public void theSlotShouldBeCreatedSuccessfully() {
-		System.out.println("Check the snack bar ");
-//		ClickonElement(info.getBackButton());
+	public void theSlotShouldBeCreatedSuccessfully() throws InterruptedException {
+		 waitForElement(slot.getSlot());
 	}
 
 }

@@ -12,10 +12,7 @@ public class StepDefinition extends Base {
 
 	WE_Login_Details Login = new WE_Login_Details(driver);
 
-	@Then("Successfully navigated to the login screen")
-	public void successfullyNavigatedToTheLoginScreen() {
-		System.out.println("Successfully opened the application");
-	}
+
 
 	@Given("Enter the Users valid E-mail adddress")
 	public void enterTheUsersValidEMailAdddress() throws InterruptedException {

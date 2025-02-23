@@ -27,7 +27,6 @@ import io.cucumber.java.en.*;
 public class Booking extends Base {
 	public static String BookingPaidAmount;
 	public static String BookingPaymentTime;
-	public static String Selected_Slot;
 	public static String Booked_Date;
 	public static String Booked_service;
 	public static String BookingPaidAmountwithdecimal;
@@ -38,7 +37,6 @@ public class Booking extends Base {
 	public static LocalDate minAdvanceBookingDate;
 	public static LocalDate maxBookingDate;
 	public static int BookingYear;
-	public static String BookingMonthProperCase;
 	public static String StatementCreatedDate;
 	
 	public static String TotalAmountWithSymbol;
@@ -106,7 +104,7 @@ public class Booking extends Base {
 
 	@When("the user fetches the slot list for the selected service using the API")
 	public void theUserFetchesTheSlotListForTheSelectedServiceUsingTheAPI() throws InterruptedException {
-		Api.ServiceSlotTimeCount();
+		Api.ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
 		int SlotCount = api.timeSlotsCount;
 		System.out.println("slot  :  " + SlotCount);
 		randomValue = random.nextInt(SlotCount);

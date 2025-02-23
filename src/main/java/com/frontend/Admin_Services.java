@@ -103,7 +103,6 @@ public class Admin_Services extends Base {
 		api.OverallSlotList();
 		selectSlot(api.slotNames);
 		Thread.sleep(5000);
-		
 		slowscrolluntilelementfound(Service.getFirstElement());
 		ClickonElement(Service.getFirstElement());
 		passInput(Service.getFirstElement(), getProperty("BASE_PRICE_AMOUNT"));
@@ -253,20 +252,14 @@ public class Admin_Services extends Base {
 
 	}
 	public static void main(String[] args) throws Exception {
-		PropertyFile("First");
+		PropertyFile("Data");
 		Latest_StagingAPK_download(getProperty("STAGING"));
 		Application();
-		ChooseApi(API_BASE_URL.Staging);
-		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
-		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
-		Api.OverallSlotList();
+		
 		Login_Details.login_Admin();
-//		slot_creation();
 		ServiceCreation();
 		AddonCreation(AddOnType.ASSIGNABLE,getProperty("ADDON_ASSIGNABLE") );
-		AddonCreation(AddOnType.PRIVILEGE,getProperty("ADDON_PRIVILAGE") );
-
-		
+		AddonCreation(AddOnType.PRIVILEGE,getProperty("ADDON_PRIVILAGE") );	
 	
 	}
 	

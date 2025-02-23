@@ -257,18 +257,26 @@ public class WE_Admin_WorkFlow extends Base{
 	public WebElement getPartiallyAssignedToggle() {
 		return  PartiallyAssignedToggle   ;
 	}
+	
+	public static By StaffLocator = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_STAFF_FIRST_NAME")));
+	public static By ServiceLocator  = By.xpath(String.format("(//android.view.View[@content-desc=\"%s\"])[2]", getProperty("SERVICE_NAME")));
+
+	public static By SecondStaffLocator = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_STAFF_2_FIRST_NAME")));
+
+	//android.view.View[@content-desc="Keerthi"]
+	
 //	
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
+	@FindBy (xpath ="((//android.view.View[contains(@content-desc,\"staff_assigned\")])[1]/android.widget.ImageView)[last()]")
+	private WebElement  CheckBoxAssigned  ;
+	public WebElement getCheckBoxAssigned() {
+		return   CheckBoxAssigned  ;
+	}
+	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Reassign Selected\"]")
+	private WebElement  ReassignSelected  ;
+	public WebElement getReassignSelected() {
+		return   ReassignSelected  ;
+	}
 //	
 //	@FindBy (xpath ="")
 //	private WebElement    ;
@@ -333,8 +341,8 @@ public class WE_Admin_WorkFlow extends Base{
 
 //	 Method to get the locator for a booked slot using dynamic XPath
 	public By getBookedSlotLocator() {
-		System.out.println(Booking.Selected_Slot);
-		return By.xpath("//android.widget.SeekBar[@content-desc='"+ Booking.Selected_Slot +"']");
+		System.out.println(Selected_Slot);
+		return By.xpath("//android.widget.SeekBar[@content-desc='"+ Selected_Slot +"']");
 	}
 
 

@@ -100,10 +100,8 @@ Feature: Booking Application Sanity Flow
     #And the admin enters the city or town "ADMIN_ADMIN_CITY"
     #And the admin enters the post code "ADMIN_ADMIN_POSTCODE"
     #And the admin clicks on the Save button
-    #And the admin verifies the snackbar after creating the new admin
     #Then the new admin details should be successfully saved
     #When the admin clicks on the Back button
-    #And the admin taps the Home icon
     #Then the admin is navigated back to the home page
     #
   #Scenario: Adding a new customer through the admin portal
@@ -122,15 +120,14 @@ Feature: Booking Application Sanity Flow
     #And the admin enters the city or town "ADMIN_CUSTOMER_CITYTOWN"
     #And the admin enters the post code "ADMIN_CUSTOMER_POSTCODE"
     #And the admin clicks on the Save button
-    #And the admin verifies the snackbar after creating the new customer
     #Then the new customer details should be successfully saved
     #When the admin clicks on the Back button
-    #And the admin taps the Home icon
     #Then the admin is navigated back to the home page
     #
   #Scenario: Successfully create a tag category  
     #Given the admin clicks on the Users tab
-    #And the admin clicks on Show All under tag categories  
+    #And the admin clicks on Show All under tag categories 
+    #Then the admin is navigated to the Tag's list page 
     #And the admin taps the plus button to create a new tag category  
     #When the admin enters "ADMIN_TAG_CATEGORY_NAME" in the category name input field  
     #And the admin selects default from the tabs  
@@ -140,28 +137,27 @@ Feature: Booking Application Sanity Flow
     #And the admin provides "ADMIN_TAG_TAGS_DESCRIPTION1" in the tag description field  
     #And the admin clicks on the tick button  
     #And the admin clicks on the save button  
-    #And the admin verifies the snackbar after creating the new tag
     #Then the new Tag details should be successfully saved
     #When the admin clicks on the Back button
-    #And the admin taps the Home icon
     #Then the admin is navigated back to the home page
 #
   #Scenario: Successfully create a slot  
     #Given the admin navigates to the Service tab  
     #And the admin clicks on Show All under slots  
+    #Then the admin is navigated to the slot's list page 
     #And the admin taps the plus button to create a new slot  
     #When the admin enters "SLOT_NAME" in the slot name input field  
     #And the admin provides "SLOT_DESCRIPTION" in the slot description field  
     #And sets Slot Starting Time as the starting time for the slot  
     #And the admin clicks on the save button  
-    #And the admin verifies the snackbar after creating the new slot "SLOT_NAME"
     #Then the slot should be created successfully  
     #When the admin clicks on the Back button
-    #And the admin taps the Home icon
+    #Then the admin is navigated back to the home page
 #
   #Scenario: Successfully create a service  
     #Given the admin navigates to the Service tab  
     #And the admin taps on Show All under services  
+    #And the admin is navigated to the services's list page
     #And the admin taps the plus button to create a new service
     #And the admin select the service while creating a service  
     #When the admin enters "SERVICE_NAME" in the service name input field  
@@ -174,14 +170,14 @@ Feature: Booking Application Sanity Flow
     #And the admin sets the "Maximum Advance Booking Limit"  
     #And the admin provides "Service Validity From" and "Service Validity To" dates  
     #And the admin taps the save button 
-    #And the admin verifies the snackbar after creating the new service
     #Then the service should be created successfully  
     #When the admin clicks on the Back button
-    #And the admin taps the Home icon
+    #Then the admin is navigated back to the home page
     #
   #Scenario: Successfully create a Privilege Addon  
     #Given the admin navigates to the Service tab  
     #And the admin taps on Show All under services  
+    #And the admin is navigated to the services's list page
     #And the admin taps the plus button to create a new addon
     #And the admin select the Addon while creating a addon  
     #When the admin enters "ADDON_PRIVILAGE" in the addon name input field  
@@ -194,14 +190,14 @@ Feature: Booking Application Sanity Flow
     #And the admin sets the "ADDON_PRIVILAGE_MAX_CAPACITY_STAFF" for addon maximum capacity per staff
     #And the admin provides "Service Validity From" and "Service Validity To" dates for privilege addon
     #And the admin taps the save button  
-    #And the admin verifies the snackbar after creating the new privilege addon
-    #Then the service should be created successfully  
+    #Then the addon should be created successfully  
     #When the admin clicks on the Back button
-    #And the admin taps the Home icon
+    #Then the admin is navigated back to the home page
     #
   #Scenario: Successfully create a Assignable Addon  
     #Given the admin navigates to the Service tab  
-    #And the admin taps on Show All under services  
+    #And the admin taps on Show All under services
+    #And the admin is navigated to the services's list page  
     #And the admin taps the plus button to create a new addon
     #And the admin select the Addon while creating a addon  
     #When the admin enters "ADDON_ASSIGNABLE" in the addon name input field  
@@ -214,14 +210,14 @@ Feature: Booking Application Sanity Flow
     #And the admin sets the "ADDON_ASSIGNABLE_MAX_CAPACITY_STAFF" for addon maximum capacity per staff
     #And the admin provides "Service Validity From" and "Service Validity To" dates for assignable addon
     #And the admin taps the save button
-    #And the admin verifies the snackbar after creating the new Assignable addon  
-    #Then the service should be created successfully  
+    #Then the addon should be created successfully  
     #When the admin clicks on the Back button
-    #And the admin taps the Home icon
+    #Then the admin is navigated back to the home page
     #
   #Scenario: Successfully create a service  with addon
     #Given the admin navigates to the Service tab  
-    #And the admin taps on Show All under services  
+    #And the admin taps on Show All under services 
+    #And the admin is navigated to the services's list page 
     #And the admin taps the plus button to create a new service
     #And the admin select the service while creating a service  
     #When the admin enters "ADDON_SERVICE_NAME" in the service name input field  
@@ -238,7 +234,7 @@ Feature: Booking Application Sanity Flow
     #And the admin verifies the snackbar after creating the new service with addon  
     #Then the service should be created successfully  
     #When the admin clicks on the Back button
-    #And the admin taps the Home icon
+    #Then the admin is navigated back to the home page
     #
   #Scenario: Adding a new staff through the admin portal
     #Given the admin clicks on the Users tab
@@ -258,51 +254,71 @@ Feature: Booking Application Sanity Flow
     #And the admin enters the post code "ADMIN_STAFF_POSTCODE"
     #And the admin clicks on the Skills dropdown and selects the staff's skill
     #When the admin clicks on the Save button
-    #And the admin verifies the snackbar after creating the new staff
     #Then the new staff details should be successfully saved
     #When the admin clicks on the Back button
-    #And the admin taps the Home icon
     #Then the admin is navigated back to the home page
   #
+      #Scenario: Adding a new  second staff through the admin portal
+    #Given the admin clicks on the Users tab
+    #When the admin clicks on Staff's Show All
+    #Then the admin is navigated to the staff list page
+    #When the admin clicks on the + button to add a new staff
+    #And the admin enters the first name "ADMIN_STAFF_2_FIRST_NAME"
+    #And the admin enters the last name "ADMIN_STAFF_2_LAST_NAME"
+    #And the admin enters the email "ADMIN_STAFF_2_EMAIL"
+    #And the admin selects the gender for Staff
+    #And the admin enters the Contact number "ADMIN_STAFF_2_CONTACTNUMBER"
+    #And the admin enters the additional contact number "ADMIN_STAFF_2_ADDITIONAL_CONTACT_NUMBER"
+    #And the admin enters the address line for staff 1
+    #And the admin enters the address line for staff 2
+    #And the admin selects the country
+    #And the admin enters the city or town "ADMIN_STAFF_2_CITY"
+    #And the admin enters the post code "ADMIN_STAFF_2_POSTCODE"
+    #And the admin clicks on the Skills dropdown and selects the staff's skill
+    #When the admin clicks on the Save button
+    #Then the new staff details should be successfully saved
+    #When the admin clicks on the Back button
+    #Then the admin is navigated back to the home page
+    #
   #Scenario: create a breed
     #Given the admin navigates to the Settings tab 
     #And the admin opens the Manage Breed section
+    #Then the admin is navigated to the Breed list page
     #When the admin clicks on the Plus button to add a new breed
     #And the admin enters Breed Name in the breed name field
     #And the admin taps the save button
-    #And the admin verifies the snackbar after creating the new breed
-    #Then the admin should see a confirmation message of Breed creation
+    #Then the new breed details should be successfully saved
     #When the admin clicks on the Back button
-    #And the admin taps the Home icon
     #Then the admin is navigated back to the home page
 #
   #Scenario: create a new service pool
     #Given the admin navigates to the Settings tab 
     #When the admin navigates to Manage Service Pools
+    #Then the admin is navigated to the service pools list page
     #And the admin clicks on the Plus button to add a new pool
     #And the admin enters Pool Name 
     #And the admin enters Pool Remarks 
     #And the admin enters Pool Capacity 
     #And the admin clicks on the Save button
-    #And the admin verifies the snackbar after creating the new service pool
-    #Then the admin should see a confirmation message of Pool creation
+    #Then the new service pool details should be successfully saved
     #When the admin clicks on the Back button
     #And the admin taps the Home icon
     #Then the admin is navigated back to the home page
   #
   #Scenario: Define a pricing rule for premium based on a single date.
     #Given the admin navigates to the Settings tab 
-    #When the admin navigates to Pricing Rule  
+    #When the admin navigates to Pricing Rule 
+    #Then the admin is navigated to the pricing rule list page 
     #And the admin clicks on the FAB button to add a new pricing rule  
     #And the admin enters Pricing Rule Name as Single Date Premium  
     #And the admin enters Pricing Rule Description as Rule for premium pricing on a single date  
     #And the admin enters Pricing Rule Priority 
      #And the admin choose the single date for premium rule
+     #And the admin unselect all the tags in pricingrule
     #And the admin enters Pricing Rule type as premium
     #And the admin enters the pricing offset value
     #And the admin clicks on the Save button  
-    #And the admin verifies the snackbar after creating the new premium pricing rule 
-    #Then the admin should see a confirmation message of Pricing Rule creation
+    #Then the new pricing rule details should be successfully saved
     #When the admin clicks on the Back button
     #And the admin taps the Home icon
     #Then the admin is navigated back to the home page
@@ -310,16 +326,19 @@ Feature: Booking Application Sanity Flow
   #Scenario: Define a pricing rule for discount based on a single date.
     #Given the admin navigates to the Settings tab 
     #When the admin navigates to Pricing Rule  
+        #Then the admin is navigated to the pricing rule list page
     #And the admin clicks on the FAB button to add a new pricing rule  
     #And the admin enters Pricing Rule Name as Single Date discount  
     #And the admin enters Pricing Rule Description as Rule for discount pricing on a single date  
     #And the admin enters Pricing Rule Priority 
      #And the admin choose the single date for discount rule
+          #And the admin unselect all the tags in pricingrule
+     #
     #And the admin enters Pricing Rule type as discount
     #And the admin enters the pricing offset value
     #And the admin clicks on the Save button
-    #And the admin verifies the snackbar after creating the new discount pricing rule   
-    #Then the admin should see a confirmation message of Pricing Rule creation
+        #Then the new pricing rule details should be successfully saved
+   #
     #When the admin clicks on the Back button
     #And the admin taps the Home icon
     #Then the admin is navigated back to the home page
@@ -327,14 +346,18 @@ Feature: Booking Application Sanity Flow
   #Scenario: Define a pricing rule for Not Available  based on a single date.
     #Given the admin navigates to the Settings tab 
     #When the admin navigates to Pricing Rule  
+            #Then the admin is navigated to the pricing rule list page
+    #
     #And the admin clicks on the FAB button to add a new pricing rule  
     #And the admin enters Pricing Rule Name as Single Date not available  
     #And the admin enters Pricing Rule Description as Rule for not available pricing on a single date  
     #And the admin choose the single date for not available rule
+         #And the admin unselect all the tags in pricingrule
+    #
     #And the admin enters Pricing Rule type as Not available
     #And the admin clicks on the Save button
-    #And the admin verifies the snackbar after creating the new Not Available pricing rule 
-    #Then the admin should see a confirmation message of Pricing Rule creation
+        #Then the new pricing rule details should be successfully saved
+    #
     #When the admin clicks on the Back button
     #And the admin taps the Home icon
     #Then the admin is navigated back to the home page
@@ -343,7 +366,7 @@ Feature: Booking Application Sanity Flow
     #Given the admin navigates to the Settings tab  
     #And the admin clicks on the logout button  
     #Then the admin should be logged out successfully  
-    #
+    
   Scenario: Customer login using email (already created by admin)
     Given the customer enters their "SIGNUP_EMAIL" address
     When the customer clicks on the Continue button
@@ -485,26 +508,8 @@ Feature: Booking Application Sanity Flow
     When the admin clicks on the Back button
     When the admin clicks on the Back button
     And the admin taps the Home icon
-    #
     
-      #Scenario: Successfully create a service  
-    #Given the admin navigates to the Service tab  
-    #And the admin taps on Show All under services  
-    #And the admin taps the plus button to create a new addon  
-    #When the admin enters "Service Name" in the service name input field  
-    #And the admin provides "Description" in the service description field  
-    #And the admin fetches the overall slot list using the API  
-    #And the admin sets the "Base Price" for 1 to 4 pets  
-    #And the admin selects "Capacity Type" from the tab  
-    #And the admin sets the "Maximum Capacity" for the service  
-    #And the admin sets the "Maximum Capacity per Staff"  
-    #And the admin sets the "Maximum Advance Booking Limit"  
-    #And the admin provides "Service Validity From" and "Service Validity To" dates  
-    #And the admin taps the save button  
-    #Then the service should be created successfully  
-    #When the admin clicks on the Back button
-    #And the admin taps the Home icon
-    #
+    
     
   Scenario: Successfully logout Admin 
     Given the admin navigates to the Settings tab  
@@ -596,8 +601,86 @@ Feature: Booking Application Sanity Flow
     And the customer enters the Otp 
     Then the customer should be logged in successfully
     
-    Scenario:  Booking for individual date for pricing rule 
-    Given pricingrule booking
+Scenario: Booking a Service with a Discount Pricing Rule
+Given the user is on the Customer Home Page
+When the user sees the Pricing Rule Type as "DISCOUNT"
+And the user selects the desired Service as "SERVICE_NAME"
+And the user fetches available time slots from the API for discount
+And the user chooses an available Time Slot
+And the user gathering the pricingrule discount date from propertyfile
+And the user opens the Calendar and navigates to the correct Month
+And the user selects a Date that falls under the Pricing Rule
+And the user taps Request Booking
+Then the user navigates to the Confirm Booking Details page
+When the user taps Proceed
+Then the user navigates to the Review Booking page
+And the user verifies the Pricing Rule Details on the Review Booking page
+When the user completes the Payment Process or uses the Remaining Credit Balance if applicable
+Then the user taps New Booking to start a new booking process
+    
+  Scenario: Booking a Service with a Premium Pricing Rule
+Given the user is on the Customer Home Page
+When the user sees the Pricing Rule Type as "PREMIUM"
+And the user selects the desired Service as "SERVICE_NAME"
+And the user fetches available time slots from the API for premium
+And the user chooses an available Time Slot
+And the user gathering the pricingrule premium date from propertyfile
+And the user opens the Calendar and navigates to the correct Month
+And the user selects a Date that falls under the Pricing Rule
+And the user taps Request Booking
+Then the user navigates to the Confirm Booking Details page
+When the user taps Proceed
+Then the user navigates to the Review Booking page
+And the user verifies the Pricing Rule Details on the Review Booking page
+When the user completes the Payment Process or uses the Remaining Credit Balance if applicable
+Then the user taps New Booking to start a new booking process  
+    
+      Scenario: Booking a Service with a Not Available Pricing Rule
+Given the user is on the Customer Home Page
+When the user sees the Pricing Rule Type as "NOT AVAILABLE"
+And the user selects the desired Service as "SERVICE_NAME"
+And the user fetches available time slots from the API for Not Available
+And the user chooses an available Time Slot
+And the user gathering the pricingrule Not available date from propertyfile
+And the user opens the Calendar and navigates to the correct Month
+And the user selects a Date that falls under the Pricing Rule
+And the user taps Request Booking
+Then the user navigates to the Confirm Booking Details page
+When the user taps Proceed
+Then the user navigates to the Review Booking page
+And the user verifies the Pricing Rule Details on the Review Booking page
+When the user completes the Payment Process or uses the Remaining Credit Balance if applicable
+Then the user taps New Booking to start a new booking process 
+    
+      #Scenario: Create a booking for service with addon
+      #Given the user is on the Customer Home Page
+    #When the user selects a "ADDON_SERVICE_NAME" for booking
+    #And the user select the addon mentioned in the service "Addon"
+    #And the user select the random slot mentioned in the service
+    #And the user 
+    
+    
+     Scenario: Create a booking for one pet on a randomly selected date
+    Given the user selects a service
+    When the user fetches the slot list for the selected service using the API
+    And the user selects a random slot from the slot list, scrolling the slot picker if necessary
+    And the user determines the From Date and To Date for the service based on constraints
+    And the user calculates the date range and picks a random date
+    And the user navigates to the random date's month using the right arrow
+    And the user selects the random date and taps the Request Booking button
+    Then the user should successfully navigate to the Confirm Booking Details page
+    And the user verifies the service name, date, and slot
+    And the user taps the Proceed button
+    Then the user navigates to the Review Booking page
+    And the user reviews the total amount and remaining credit amount
+    And the user taps the checkbox and taps the Confirm and Pay button
+    Then the user initiates the payment process
+    Then the user navigates to the Booking Request Successful page
+    And the user saves the booking details
+    And the user taps the My Bookings button
+    Then the user navigates to the My Bookings page
+    And the user verifies that the booking is listed on the My Bookings page
+
 
  Scenario: Successfully logout customer
     Given the customer navigates to the Settings tab  

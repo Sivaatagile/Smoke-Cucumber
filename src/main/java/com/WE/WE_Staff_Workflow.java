@@ -95,5 +95,4 @@ public class WE_Staff_Workflow extends Base{
 		return yes;
 	}
 	
-	
 }

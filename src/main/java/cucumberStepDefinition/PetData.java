@@ -48,11 +48,8 @@ public class PetData extends Base {
 	@When("the user needs to select the birth of dog")
 	public void theUserNeedsToSelectTheBirthOfDog() throws Exception {
 		ClickonElement(PetInfo.getDate_Of_Birth());
-		Thread.sleep(2000);
 		scrollupRandomly(PetInfo.getDate_Format().get(2));
-		Thread.sleep(2000);
 		scrolldownRandomly(PetInfo.getDate_Format().get(0));
-		Thread.sleep(2000);
 		scrolldownRandomly(PetInfo.getDate_Format().get(1));
 		ClickonElement(PetInfo.getSelect());
 	}
@@ -180,7 +177,6 @@ public class PetData extends Base {
 	@When("the user clicks on the Save button")
 	public void theUserClicksOnTheSaveButton() throws InterruptedException {
 		ClickonElement(PetInfo.getSave());
-		Thread.sleep(2000);
 	}
 	
 	@When("the user verifies the snackbar after entering the pet data")

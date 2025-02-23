@@ -17,12 +17,17 @@ public class AdminCreateTag extends Base {
 
 	@Given("the admin clicks on Show All under tag categories")
 	public void theAdminClicksOnShowAllUnderTagCategories() throws Exception {
-		Thread.sleep(4000);
+		Thread.sleep(5000);
 		halfscrollUntilElementFound12(user.getTagscrollview(), user.getTagCategoriesShowall());
 		Thread.sleep(1000);
 		ClickonElement(user.getTagCategoriesShowall());
 	}
 
+	@Then("the admin is navigated to the Tag's list page")
+	public void theAdminIsNavigatedToTheTagSListPage() throws InterruptedException {
+	   waitForElement(user.getTagCategories());
+	}
+	
 	@Given("the admin taps the plus button to create a new tag category")
 	public void theAdminTapsThePlusButtonToCreateANewTagCategory() {
 		ClickonElement(user.getFAB());
@@ -52,7 +57,6 @@ public class AdminCreateTag extends Base {
 		ClickonElement(user.getDecsription());
 		passInput(user.getDecsription(), getProperty(CategoryDescription));
 		driver.hideKeyboard();
-		Thread.sleep(2000);
 	}
 
 	@When("the admin enters {string} in the tag name field")
@@ -60,7 +64,6 @@ public class AdminCreateTag extends Base {
 		ClickonElement(user.getTagName());
 		passInput(user.getTagName(), getProperty(TagName));
 		driver.hideKeyboard();
-		Thread.sleep(2000);
 	}
 
 	@When("the admin provides {string} in the tag description field")
@@ -68,7 +71,6 @@ public class AdminCreateTag extends Base {
 		ClickonElement(user.getTagDescription());
 		passInput(user.getTagDescription(), getProperty(TagDescription));
 		driver.hideKeyboard();
-		Thread.sleep(2000);
 	}
 
 	@When("the admin clicks on the tick button")
@@ -90,10 +92,7 @@ public class AdminCreateTag extends Base {
 	@Then("the new Tag details should be successfully saved")
 	public void theNewTagDetailsShouldBeSuccessfullySaved() throws InterruptedException {
 
-//		waitForElement(user.getSnackbarCreatedTag());
-//		if (isElementAvailable(user.getSnackbarCreatedTag())) {
-		System.out.println("Tag created ");
-//		}
+		   waitForElement(user.getTagCategories());
 
 	}
 

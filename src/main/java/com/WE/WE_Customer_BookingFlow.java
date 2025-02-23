@@ -29,13 +29,11 @@ public class WE_Customer_BookingFlow extends Base{
 		return    help ;
 	}
 	
-	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"booking_page_label\"]/android.view.View")
 	private List<WebElement> petcount   ;
 	public List<WebElement> getpetcount() {
 		return   petcount  ;
 	}
-	
 	
 	public static By ServiceBooking = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("SERVICE_FOR_BOOKING")));
 
@@ -57,25 +55,25 @@ public class WE_Customer_BookingFlow extends Base{
 	    SelectService = driver.findElement(By.xpath(dynamicXPath));
 	    return SelectService;
 	}
-//	
+
 	@FindBy (xpath ="//android.widget.SeekBar")
 	private WebElement   seekbar ;
 	public   WebElement getseekbar() {
 		return    seekbar ;
 	}
-//	
+
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Request Booking\"]")
 	private WebElement  RequestBooking  ;
 	public WebElement getRequestBooking() {
 		return    RequestBooking ;
 	}
-//	[//*[starts-with(@content-desc,'invoice_number')]and .//android.view.View[contains(@content-desc, 'Nov 07 2024')]and .//android.view.View[contains(@content-desc, '£ 0.00')]]
+	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Available\"]/following-sibling::android.view.View/android.view.View")
 	private WebElement   serviceName ;
 	public WebElement getserviceName() {
 		return   serviceName  ;
 	}
-//	
+
 	@FindBy (xpath ="//android.widget.Button[@content-desc=\"Proceed\"]")
 	private WebElement   proceed ;
 	public WebElement getproceed() {
@@ -87,10 +85,7 @@ public class WE_Customer_BookingFlow extends Base{
 	public WebElement getTotalamount() {
 		return   Totalamount  ;
 	}
-	
-	
-	//android.view.View[@content-desc="booking_page_label"]
-	
+		
 	@FindBy (xpath ="//android.widget.CheckBox")
 	private WebElement  CheckBox  ;
 	public WebElement getCheckBox() {
@@ -109,13 +104,11 @@ public class WE_Customer_BookingFlow extends Base{
 		return   SuccessfullpageNavigation  ;
 	}
 	
-	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Amount\"]/parent::android.view.View[1]/following-sibling::android.view.View[1]/android.view.View[1]")
 	private WebElement  Sucessfullpage_Amount  ;
 	public WebElement getSucessfullpage_Amount() {
 		return   Sucessfullpage_Amount  ;
 	}
-	
 	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Payment Time\"]/parent::android.view.View[1]/following-sibling::android.view.View[1]/android.view.View[1]")
 	private WebElement  Sucessfullpage_PaymentTime ;
@@ -128,14 +121,12 @@ public class WE_Customer_BookingFlow extends Base{
 	public WebElement getSucessfullpage_Newbooking() {
 		return   Sucessfullpage_Newbooking  ;
 	}
-	
-	//android.widget.SeekBar[@content-desc="Lunch Time"]
-	
+		
 	public static By slotnameindividual = By.xpath(String.format("//android.widget.SeekBar[contains(@content-desc,\"%s\")]", getProperty("Individual_slot")));
 
-	
 	public static By ServiceViewable = By.xpath(String.format("//android.view.View[contains(@content-desc,\"%s\")]", getProperty("SERVICE_NAME")));
-	//android.view.View[contains(@content-desc, "Hello")]
+	
+	public static By AddonServiceViewable = By.xpath(String.format("//android.view.View[contains(@content-desc,\"%s\")]", getProperty("ADDON_SERVICE_NAME")));
 	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Assorted\"]")
 	private WebElement  assorted ;
@@ -163,10 +154,10 @@ public class WE_Customer_BookingFlow extends Base{
 	
 	@FindBy(xpath="//input[@id='email']")
 	private WebElement Email;
-	// Getter method to access the Gmail WebElement
 	public WebElement getEmail() {
 	    return Email;
 	}
+	
 	@FindBy(xpath="//div[@class='SubmitButton-IconContainer']")
 	private WebElement CompleteOrder;
 	public WebElement getCompleteOrder() {
@@ -179,21 +170,18 @@ public class WE_Customer_BookingFlow extends Base{
 	    return CardNumber;
 	}
 	
-//	 Getter method to access the CardExpiry WebElement
 	@FindBy(xpath="//input[@id='cardExpiry']")
 	private WebElement CardExpiry;
 	public WebElement getCardExpiry() {
 	    return CardExpiry;
 	}
 
-//	 Getter method to access the CVV WebElement
 	@FindBy(xpath="//input[@id='cardCvc']")
 	private WebElement CVV;
 	public WebElement getCVV() {
 	    return CVV;
 	}
 
-//	 Getter method to access the BillingName WebElement
 	@FindBy(xpath="//input[@id='billingName']")
 	private WebElement BillingName;
 	public WebElement getBillingName() {
@@ -236,7 +224,23 @@ public class WE_Customer_BookingFlow extends Base{
 	    return ConfirmBookingDetails;
 	}
 	
-	
+	public static By PremiumPricingRuleName = By.xpath(String.format("//android.view.View[contains(@content-desc,\"%s\")]", getProperty("Pricingrulename_Onetime_premium")));
 
+	public static By DiscountPricingRuleName = By.xpath(String.format("//android.view.View[contains(@content-desc,\"%s\")]", getProperty("Pricingrulename_Onetime_discount")));
 	
+	@FindBy(xpath="//android.view.View[@content-desc=\"Add-Ons\"]")
+	private WebElement Addons;
+	public WebElement getAddons() {
+	    return Addons;
+	}
+	public static By PrivilegeAddon = By.xpath(String.format("//android.view.View[contains(@content-desc,\"%s\")]", getProperty("ADDON_PRIVILAGE")));
+
+	public static By AssignableAddon = By.xpath(String.format("//android.view.View[contains(@content-desc,\"%s\")]", getProperty("ADDON_ASSIGNABLE")));
+
+	private WebElement SelectAddonService;
+	public WebElement getSelectAddonService() {
+	    String dynamicXPath = String.format("//android.view.View[@content-desc='%s']", getProperty("ADDON_SERVICE_NAME"));
+	    SelectService = driver.findElement(By.xpath(dynamicXPath));
+	    return SelectService;
+	}
 }

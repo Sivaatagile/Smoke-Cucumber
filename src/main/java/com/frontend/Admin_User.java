@@ -66,7 +66,6 @@ public class Admin_User extends Base {
 		driver.hideKeyboard();
 
 		ClickonElement(user.getSave());
-
 		ClickonElement(info.getBackButton());
 
 	}
@@ -122,7 +121,6 @@ public class Admin_User extends Base {
 		WE_Info info = new WE_Info(driver);
 
 		ClickonElement(workflow.getUsers_navigation_Bar());
-
 		waitForElement(user.getShowall_AllCustomers());
 		Thread.sleep(2000);
 		halfscrollUntilElementFound12(user.getTagscrollview(), user.getTagCategoriesShowall());
@@ -224,14 +222,80 @@ public class Admin_User extends Base {
 	}
 
 	
+	public static void Create_Second_Staff() throws Exception {
+
+		WE_Admin_User user = new WE_Admin_User(driver);
+		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+		WE_Info info = new WE_Info(driver);
+
+		ClickonElement(workflow.getUsers_navigation_Bar());
+		ClickonElement(user.getShowall_AllStaff());
+		ClickonElement(user.getFAB());
+
+		ClickonElement(user.getFirstName());
+		passInput(user.getFirstName(), getProperty("ADMIN_STAFF_2_FIRST_NAME"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getLastName());
+		passInput(user.getLastName(), getProperty("ADMIN_STAFF_2_LAST_NAME"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getEmail());
+		passInput(user.getEmail(), getProperty("ADMIN_STAFF_2_EMAIL"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getFemale());
+		ClickonElement(user.getMale());
+
+		ClickonElement(user.getContactNumber());
+		passInput(user.getContactNumber(), getProperty("ADMIN_STAFF_2_CONTACTNUMBER"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getAdditionalContactNumber());
+		passInput(user.getAdditionalContactNumber(), getProperty("ADMIN_STAFF_2_ADDITIONAL_CONTACT_NUMBER"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getAddressLine1());
+		passInput(user.getAddressLine1(), getProperty("ADMIN_STAFF_ADDRESSLINE_1"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getAddressLine2());
+		passInput(user.getAddressLine2(), getProperty("ADMIN_STAFF_ADDRESSLINE_2"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getCity());
+		passInput(user.getCity(), getProperty("ADMIN_STAFF_2_CITY"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getCountry());
+		ClickonElement(user.getCountryName());
+
+		ClickonElement(user.getPostCode());
+		passInput(user.getPostCode(), getProperty("ADMIN_STAFF_2_POSTCODE"));
+		driver.hideKeyboard();
+		Thread.sleep(2000);
+		ClickonElement(user.getSkillsset());
+		if (isElementAvailable(user.ServiceSkill)) {
+			clickOnElementUsingBy(user.ServiceSkill);
+		} else {
+			halfscrollUntilElementFound12(user.getscroll(), user.ServiceSkill);
+			clickOnElementUsingBy(user.ServiceSkill);
+		}
+		ClickonElement(user.getselect());
+		ClickonElement(user.getSave());
+
+		ClickonElement(info.getBackButton());
+	}
+	
+	
+	
+	
 	public static  void second_pet() throws Exception {
 		WE_Admin_User user = new WE_Admin_User(driver);
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
 		WE_Info info = new WE_Info(driver);
 
-		
 		ClickonElement(workflow.getUsers_navigation_Bar());
-
 		waitForElement(user.getShowall_AllCustomers());
 		Thread.sleep(2000);
 		ClickonElement(user.getShowall_AllCustomers());
@@ -246,20 +310,14 @@ public class Admin_User extends Base {
 			ClickonElement(user.getuser());
 			ClickonElement(user.getview());
 			ClickonElement(user.getMyPet());
-			
 			ClickonElement(user.getFAB());
 			Info.Pet_Data();
-			
+		    ClickonElement(info.getBackButton());
 			ClickonElement(info.getBackButton());
-			ClickonElement(info.getBackButton());
-
-			
-			
 		} else if (isElementAvailable(user.trySearchingagain)) {
 			System.out.println("User not found");
 			throw new Error("User not found");
 		}
-		
 	}
 
 	public static void approveUserUsingSearch() throws Exception {
@@ -307,6 +365,7 @@ public class Admin_User extends Base {
 	public static void approvePetUsingSearch() throws InterruptedException, Error {
 		WE_Admin_User user = new WE_Admin_User(driver);
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+		WE_Info info = new WE_Info(driver);
 
 		ClickonElement(workflow.getUsers_navigation_Bar());
 		ClickonElement(user.getShowall_PendingRequest());
@@ -340,7 +399,7 @@ public class Admin_User extends Base {
 			}
 		}
 		ClickonElement(user.getConfirm());
-
+        ClickonElement(info.getBackButton());
 	}
 	
 	
@@ -360,6 +419,4 @@ public class Admin_User extends Base {
 		
 	}
 	
-	
-//	ect1a 1bb
 }

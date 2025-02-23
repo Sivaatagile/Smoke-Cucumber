@@ -26,7 +26,8 @@ public class LoginLogout extends Base {
 	}
 
 	@Given("the customer enters their {string} address")
-	public void theCustomerEntersTheirAddress(String customerEmail) {
+	public void theCustomerEntersTheirAddress(String customerEmail) throws InterruptedException {
+		Thread.sleep(5000);
 		ClickonElement(login.getContinueWithEmail());
 		passInput(login.getContinueWithEmail(), getProperty(customerEmail));
 		driver.hideKeyboard();
@@ -44,12 +45,15 @@ public class LoginLogout extends Base {
 	}
 
 	@Given("the customer navigates to the Settings tab")
-	public void theCustomerNavigatesToTheSettingsTab() {
+	public void theCustomerNavigatesToTheSettingsTab() throws InterruptedException {
+		Thread.sleep(3500);
+
 		ClickonElement(login.getSettings());
 	}
 
 	@Given("the customer clicks on the logout button")
 	public void theCustomerClicksOnTheLogoutButton() {
+		
 		ClickonElement(login.getLogout());
 	}
 	

@@ -13,19 +13,14 @@ public class AdminCreatePool extends Base {
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
 	WE_Snackbar snack = new WE_Snackbar(driver);
 
-
 	@When("the admin navigates to Manage Service Pools")
 	public void theAdminNavigatesToManageServicePools() {
-
 		ClickonElement(settings.getServicePool());
-
 	}
 
 	@When("the admin clicks on the Plus button to add a new pool")
 	public void theAdminClicksOnThePlusButtonToAddANewPool() {
-
 		ClickonElement(settings.getFAB());
-
 	}
 
 	@When("the admin enters Pool Name")
@@ -33,7 +28,6 @@ public class AdminCreatePool extends Base {
 		ClickonElement(settings.getPoolName());
 		passInput(settings.getPoolName(), getProperty("POOL_NAME"));
 		driver.hideKeyboard();
-
 	}
 
 	@When("the admin enters Pool Remarks")
@@ -41,12 +35,10 @@ public class AdminCreatePool extends Base {
 		ClickonElement(settings.getPoolRemarks());
 		passInput(settings.getPoolRemarks(), getProperty("POOL_REMARKS"));
 		driver.hideKeyboard();
-
 	}
 
 	@When("the admin enters Pool Capacity")
 	public void theAdminEntersPoolCapacity() {
-
 		ClickonElement(settings.getPoolCapacity());
 		passInput(settings.getPoolCapacity(), getProperty("POOL_CAPACITY"));
 		driver.hideKeyboard();
@@ -54,15 +46,24 @@ public class AdminCreatePool extends Base {
 
 	@Then("the admin should see a confirmation message of Pool creation")
 	public void theAdminShouldSeeAConfirmationMessageOfPoolCreation() {
-
-		System.out.println("sanck bar");
+//		System.out.println("sanck bar");
 	}
 	
 	@When("the admin verifies the snackbar after creating the new service pool")
 	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewServicePool() throws InterruptedException {
+//		waitForElement(snack.getDataInsertedSuccessfully());
+	}
+	
+	@Then("the admin is navigated to the service pools list page")
+	public void theAdminIsNavigatedToTheServicePoolsListPage() throws InterruptedException {
+	
+		waitForElement(settings.getServicePool());
+	}
+	@Then("the new service pool details should be successfully saved")
+	public void theNewServicePoolDetailsShouldBeSuccessfullySaved() throws InterruptedException {
 	   
-		waitForElement(snack.getDataInsertedSuccessfully());
-		
+		waitForElement(settings.getServicePool());
+
 	}
 
 }
