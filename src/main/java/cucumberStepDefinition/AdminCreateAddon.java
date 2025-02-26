@@ -45,8 +45,7 @@ public class AdminCreateAddon extends Base{
 				}
 			}
 		}
-	}
-	
+	}	
 	
 	@Given("the admin taps the plus button to create a new addon")
 	public void theAdminTapsThePlusButtonToCreateANewAddon() {

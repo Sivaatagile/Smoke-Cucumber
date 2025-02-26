@@ -147,7 +147,7 @@ public class WE_Admin_WorkFlow extends Base{
 		return   Date  ;
 	}
 	
-	@FindBy (xpath ="(//android.widget.SeekBar)[2]")
+	@FindBy (xpath ="//android.widget.SeekBar")
 	private WebElement   Slot ;
 	public WebElement getSlot() {
 		return   Slot  ;
@@ -158,7 +158,19 @@ public class WE_Admin_WorkFlow extends Base{
 	public WebElement getSelect() {
 		return   Select  ;
 	}
-
+	
+	@FindBy (xpath ="//android.widget.ImageView[contains(@content-desc,\"start_date\")]")
+	private WebElement   datefilter ;
+	public WebElement getdatefilter() {
+		return   datefilter  ;
+	}
+	
+	@FindBy (xpath ="//android.widget.Button[@content-desc=\"Done\"]")
+	private WebElement   DoneButton ;
+	public WebElement getDoneButton() {
+		return   DoneButton  ;
+	}
+	
 	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Add-on\"]")
 	private WebElement  Addon_Text  ;
@@ -301,7 +313,7 @@ public class WE_Admin_WorkFlow extends Base{
 //		return     ;
 //	}
 	
-	@FindBy(xpath = "//android.view.View[@content-desc=\"Service\"]")
+	@FindBy(xpath = "//android.view.View[@content-desc=\"All Services\"]")
 	private WebElement Service;
 	// Getter method to access the "Service" WebElement
 	public WebElement getService() {
@@ -321,6 +333,13 @@ public class WE_Admin_WorkFlow extends Base{
 		return Date_Slot;
 	}
 
+	@FindBy(xpath = "//android.view.View[@content-desc=\"All Slots\"]")
+	private WebElement Allslots;
+	// Getter method to access the "Date & Slot" WebElement
+	public WebElement getAllslots() {
+		return Allslots;
+	}
+	
 //	 Method to get the locator for a booked date using dynamic XPath
 	public By getBookedDateLocator() {
 		return By.xpath("//android.widget.SeekBar[contains(@content-desc,'"+outputAssignedDate+"')]");

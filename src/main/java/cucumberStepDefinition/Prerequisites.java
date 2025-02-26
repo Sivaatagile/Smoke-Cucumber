@@ -16,7 +16,7 @@ public class Prerequisites extends Base {
 	
 	@Given("PropertyFile Loaded")
 	public void propertyfileLoaded() throws IOException, InterruptedException {
-		ChooseApi(API_BASE_URL.Automation);
+		ChooseApi(API_BASE_URL.Staging);
 		PropertyFile("Data");
 		
 		com.api.Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
@@ -96,9 +96,9 @@ public class Prerequisites extends Base {
 	
 	@Given("Open the application")
 	public void openTheApplication() throws MalformedURLException, InterruptedException {
-		Latest_StagingAPK_download(getProperty("AUTOMATION"));
-		Application();
-//		OpenApplicationWithoutReset();
+//		Latest_StagingAPK_download(getProperty("AUTOMATION"));
+//		Application();
+		OpenApplicationWithoutReset();
 //		ApplicationWithApk("Preprod_v1.7.1_7-2-25.apk");
 		System.out.println("\033[1mOpen the application\033[0m");
 	}

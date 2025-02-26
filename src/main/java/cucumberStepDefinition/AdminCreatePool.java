@@ -56,14 +56,12 @@ public class AdminCreatePool extends Base {
 	
 	@Then("the admin is navigated to the service pools list page")
 	public void theAdminIsNavigatedToTheServicePoolsListPage() throws InterruptedException {
-	
 		waitForElement(settings.getServicePool());
 	}
+	
 	@Then("the new service pool details should be successfully saved")
-	public void theNewServicePoolDetailsShouldBeSuccessfullySaved() throws InterruptedException {
-	   
+	public void theNewServicePoolDetailsShouldBeSuccessfullySaved() throws InterruptedException {   
 		waitForElement(settings.getServicePool());
-
 	}
 
 }

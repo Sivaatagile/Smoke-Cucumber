@@ -37,10 +37,11 @@ public class AdminCreatePricingrule extends Base {
 	}
 
 	@When("the admin enters Pricing Rule Description as Rule for premium pricing on a single date")
-	public void theAdminEntersPricingRuleDescriptionAsRuleForPremiumPricingOnASingleDate() {
+	public void theAdminEntersPricingRuleDescriptionAsRuleForPremiumPricingOnASingleDate() throws InterruptedException {
 	    ClickonElement(settings.getDescription());
 		passInput(settings.getDescription(), getProperty("PricingruleDescription_premium"));
 		driver.hideKeyboard();
+		Thread.sleep(25000);
 	}
 
 	@When("the admin enters Pricing Rule Priority")
@@ -142,10 +143,12 @@ public class AdminCreatePricingrule extends Base {
 	}
 	
 	@When("the admin enters Pricing Rule Description as Rule for discount pricing on a single date")
-	public void theAdminEntersPricingRuleDescriptionAsRuleForDiscountPricingOnASingleDate() {
+	public void theAdminEntersPricingRuleDescriptionAsRuleForDiscountPricingOnASingleDate() throws InterruptedException {
 		ClickonElement(settings.getDescription());
 		passInput(settings.getDescription(), getProperty("PricingruleDescription_discount"));
 		driver.hideKeyboard();
+		Thread.sleep(25000);
+
 	}
 	
 	@When("the admin enters Pricing Rule type as discount")
@@ -162,10 +165,12 @@ public class AdminCreatePricingrule extends Base {
 	}
 	
 	@When("the admin enters Pricing Rule Description as Rule for not available pricing on a single date")
-	public void theAdminEntersPricingRuleDescriptionAsRuleForNotAvailablePricingOnASingleDate() {
+	public void theAdminEntersPricingRuleDescriptionAsRuleForNotAvailablePricingOnASingleDate() throws InterruptedException {
 		ClickonElement(settings.getDescription());
 		passInput(settings.getDescription(), getProperty("PricingruleDescription_notavailable"));
 		driver.hideKeyboard();
+		Thread.sleep(25000);
+
 	}
 	
 	@When("the admin choose the single date for not available rule")
@@ -208,20 +213,13 @@ public class AdminCreatePricingrule extends Base {
 	
 	@Then("the admin is navigated to the pricing rule list page")
 	public void theAdminIsNavigatedToThePricingRuleListPage() throws InterruptedException {
-	    waitForElement(settings.getpricingrule());
-		
+	    waitForElement(settings.getpricingrule());		
 	}
 	
 	@Then("the new pricing rule details should be successfully saved")
-	public void theNewPricingRuleDetailsShouldBeSuccessfullySaved() throws InterruptedException {
-	   
-	    waitForElement(settings.getpricingrule());
-
-		
+	public void theNewPricingRuleDetailsShouldBeSuccessfullySaved() throws InterruptedException {	   
+	    waitForElement(settings.getpricingrule());	
 	}
-	
-	
-	
 	
 	@When("the admin enters Pricing Rule type as Not available")
 	public void theAdminEntersPricingRuleTypeAsNotAvailable() {

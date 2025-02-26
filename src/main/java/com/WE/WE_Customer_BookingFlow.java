@@ -92,6 +92,47 @@ public class WE_Customer_BookingFlow extends Base{
 		return  CheckBox   ;
 	}
 	
+	@FindBy (xpath ="(//android.widget.CheckBox)[2]")
+	private WebElement  CheckBox2  ;
+	public WebElement getCheckBox2() {
+		return  CheckBox2   ;
+	}
+	
+	@FindBy (xpath ="//android.widget.ImageView[@content-desc=\"Card\"]	")
+	private WebElement  card  ;
+	public WebElement getcard() {
+		return  card   ;
+	}
+	
+	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"No payment methods are currently available. Please contact support.\")]")
+	private WebElement  Nopayment  ;
+	public WebElement getNopayment() {
+		return  Nopayment   ;
+	}
+	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Use Account Balance\"]")
+	private WebElement  UseAccountBalance  ;
+	public WebElement getUseAccountBalance() {
+		return  UseAccountBalance   ;
+	}
+	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"Available Balance : £ \")]")
+	private WebElement  UseAccountAvailableBalance  ;
+	public WebElement getUseAccountAvailableBalance() {
+		return  UseAccountAvailableBalance   ;
+	}
+	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Proceed to Payment\"]")
+	private WebElement  proceedtopayment  ;
+	public WebElement getproceedtopayment() {
+		return  proceedtopayment   ;
+	}
+	
+	@FindBy (xpath ="//android.widget.ImageView[contains(@content-desc,\"Pay Later\")]")
+	private WebElement  paylater  ;
+	public WebElement getpaylater() {
+		return  paylater   ;
+	}
+	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Confirm and Pay')]")
 	private WebElement  ConfirmANDPay  ;
 	public WebElement getConfirmANDPay() {
@@ -198,6 +239,12 @@ public class WE_Customer_BookingFlow extends Base{
 	private WebElement CrezcoPayment;
 	public WebElement getCrezcoPayment() {
 	    return CrezcoPayment;
+	}
+	
+	@FindBy(xpath="//android.widget.ImageView[contains(@content-desc, \"Bank Transfer\")]")
+	private WebElement BankTransfer;
+	public WebElement getBankTransfer() {
+	    return BankTransfer;
 	}
 	
 	@FindBy(xpath="//android.widget.Button[@text=\"Continue\"]")

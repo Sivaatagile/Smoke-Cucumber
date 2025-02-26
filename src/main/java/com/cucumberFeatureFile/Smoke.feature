@@ -313,8 +313,8 @@ Feature: Booking Application Sanity Flow
     #And the admin enters Pricing Rule Name as Single Date Premium  
     #And the admin enters Pricing Rule Description as Rule for premium pricing on a single date  
     #And the admin enters Pricing Rule Priority 
-     #And the admin choose the single date for premium rule
-     #And the admin unselect all the tags in pricingrule
+    #And the admin choose the single date for premium rule
+    #And the admin unselect all the tags in pricingrule
     #And the admin enters Pricing Rule type as premium
     #And the admin enters the pricing offset value
     #And the admin clicks on the Save button  
@@ -326,19 +326,17 @@ Feature: Booking Application Sanity Flow
   #Scenario: Define a pricing rule for discount based on a single date.
     #Given the admin navigates to the Settings tab 
     #When the admin navigates to Pricing Rule  
-        #Then the admin is navigated to the pricing rule list page
+    #Then the admin is navigated to the pricing rule list page
     #And the admin clicks on the FAB button to add a new pricing rule  
     #And the admin enters Pricing Rule Name as Single Date discount  
     #And the admin enters Pricing Rule Description as Rule for discount pricing on a single date  
     #And the admin enters Pricing Rule Priority 
-     #And the admin choose the single date for discount rule
-          #And the admin unselect all the tags in pricingrule
-     #
+    #And the admin choose the single date for discount rule
+    #And the admin unselect all the tags in pricingrule 
     #And the admin enters Pricing Rule type as discount
     #And the admin enters the pricing offset value
     #And the admin clicks on the Save button
-        #Then the new pricing rule details should be successfully saved
-   #
+    #Then the new pricing rule details should be successfully saved
     #When the admin clicks on the Back button
     #And the admin taps the Home icon
     #Then the admin is navigated back to the home page
@@ -346,18 +344,15 @@ Feature: Booking Application Sanity Flow
   #Scenario: Define a pricing rule for Not Available  based on a single date.
     #Given the admin navigates to the Settings tab 
     #When the admin navigates to Pricing Rule  
-            #Then the admin is navigated to the pricing rule list page
-    #
+    #Then the admin is navigated to the pricing rule list page
     #And the admin clicks on the FAB button to add a new pricing rule  
     #And the admin enters Pricing Rule Name as Single Date not available  
     #And the admin enters Pricing Rule Description as Rule for not available pricing on a single date  
     #And the admin choose the single date for not available rule
-         #And the admin unselect all the tags in pricingrule
-    #
+    #And the admin unselect all the tags in pricingrule
     #And the admin enters Pricing Rule type as Not available
     #And the admin clicks on the Save button
-        #Then the new pricing rule details should be successfully saved
-    #
+#		Then the new pricing rule details should be successfully saved
     #When the admin clicks on the Back button
     #And the admin taps the Home icon
     #Then the admin is navigated back to the home page
@@ -433,20 +428,7 @@ Feature: Booking Application Sanity Flow
     And the admin clicks on the Back button
     And the admin should see a snackbar with the message 
     
-  Scenario: Admin adds an Adhoc amount to a customer
-    Given the admin navigates to the Settings tab  
-    And the admin selects the accounts 
-    When the admin taps the plus icon in that account
-    And the admin taps the search button in account
-    And the admin enters the customer name
-    And the admin finds the customer and select it
-    And the admin taps on the Adhoc amount
-    And the admin enters the amount in Adhoc amount
-    And the admin taps on the remarks field in Adhoc 
-    And the admin enters the remark details in Adhoc
-    Then the admin taps on the submit button in adhoc 
-    And the admin clicks on the Back button
-    
+
   Scenario: Admin views statements for a customer booking  
     Given the admin navigates to the Settings tab  
     When the admin taps on Statements  
@@ -508,9 +490,7 @@ Feature: Booking Application Sanity Flow
     When the admin clicks on the Back button
     When the admin clicks on the Back button
     And the admin taps the Home icon
-    
-    
-    
+       
   Scenario: Successfully logout Admin 
     Given the admin navigates to the Settings tab  
     And the admin clicks on the logout button  
@@ -590,6 +570,20 @@ Feature: Booking Application Sanity Flow
     And the admin confirms the pet approval  
     And the admin clicks on the Back button
     
+      Scenario: Admin adds an Adhoc amount to a customer
+    Given the admin navigates to the Settings tab  
+    And the admin selects the accounts 
+    When the admin taps the plus icon in that account
+    And the admin taps the search button in account
+    And the admin enters the customer name
+    And the admin finds the customer and select it
+    And the admin taps on the Adhoc amount
+    And the admin enters the amount in Adhoc amount
+    And the admin taps on the remarks field in Adhoc 
+    And the admin enters the remark details in Adhoc
+    Then the admin taps on the submit button in adhoc 
+    And the admin clicks on the Back button
+    
   Scenario: Successfully logout Admin 
     Given the admin navigates to the Settings tab  
     And the admin clicks on the logout button  
@@ -600,6 +594,25 @@ Feature: Booking Application Sanity Flow
     When the customer clicks on the Continue button
     And the customer enters the Otp 
     Then the customer should be logged in successfully
+    
+      Scenario: Create a booking for Three pet on a randomly selected date
+    Given  the user selects the Third pet
+    When the user selects a service
+    And  the user fetches the slot list for the selected service using the API
+    And the user selects a random slot from the slot list, scrolling the slot picker if necessary
+    And the user determines the From Date and To Date for the service based on constraints
+    And the user calculates the date range and picks a random date
+    And the user navigates to the random date's month using the right arrow
+    And the user selects the random date and taps the Request Booking button
+    Then the user should successfully navigate to the Confirm Booking Details page
+    And the user verifies the service name, date, and slot
+    And the user taps the Proceed button
+    Then the user navigates to the Review Booking page
+    And the user reviews the total amount and remaining credit amount
+    And the user taps the checkbox and taps the Confirm and Pay button
+    Then the user initiates the payment process
+    Then the user navigates to the Booking Request Successful page
+    And the user saves the booking details
     
 Scenario: Booking a Service with a Discount Pricing Rule
 Given the user is on the Customer Home Page

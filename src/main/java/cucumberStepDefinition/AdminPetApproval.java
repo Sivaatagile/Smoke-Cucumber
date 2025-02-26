@@ -14,8 +14,6 @@ public class AdminPetApproval extends Base{
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
 	WE_Info info = new WE_Info(driver);
 	
-
-
 	@When("the admin searches for the pet in the search box under pending requests")
 	public void theAdminSearchesForThePetInTheSearchBoxUnderPendingRequests() throws InterruptedException {
 		Thread.sleep(4000);
@@ -23,11 +21,10 @@ public class AdminPetApproval extends Base{
 		Thread.sleep(3000);
 		passInput(user.getSearchBox(), getProperty("PET_NAME"));
 		driver.hideKeyboard();
-
 	}
+	
 	@When("the admin taps on the eye icon in the pet label")
 	public void theAdminTapsOnTheEyeIconInThePetLabel() throws InterruptedException, Error {
-
 		Thread.sleep(4000);
 		if (isElementAvailable(user.PetLocator1)) {
 			System.out.println("Pet found");
@@ -55,16 +52,12 @@ public class AdminPetApproval extends Base{
 				System.out.println("Accept element not found, scrolling again...");
 			}
 		}
-
 	}
+	
 	@Then("the admin confirms the pet approval")
 	public void theAdminConfirmsThePetApproval() throws InterruptedException {
-
-		ClickonElement(user.getConfirm());
-		
+		ClickonElement(user.getConfirm());	
 		Thread.sleep(6000);
 	}
-	
-	
-	
+		
 }

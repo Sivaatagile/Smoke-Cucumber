@@ -79,8 +79,7 @@ public class AdminUserApproval extends Base {
 	public void theAdminIsNavigatedBackToTheHomePage() {
 		ClickonElement(user.getHome());
 	}
-	
-	
+		
 	@Given("approve pet")
 	public void approvePet() throws InterruptedException {
 

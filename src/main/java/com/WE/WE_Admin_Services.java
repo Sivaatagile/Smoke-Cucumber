@@ -24,6 +24,12 @@ public class WE_Admin_Services extends Base{
 		return     service_Tab;
 	}
 	
+	@FindBy (xpath ="//*[starts-with(@hint,'Search')]")
+	private WebElement   SearchBox ;
+	public WebElement getSearchBox() {
+		return   SearchBox  ;
+	}
+	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Slots\"]")
 	private WebElement  slot  ;
 	public WebElement getSlot() {
@@ -47,6 +53,15 @@ public class WE_Admin_Services extends Base{
 	public WebElement getSlotName() {
 		return    SlotName ;
 	}
+	
+	@FindBy (xpath ="(//android.widget.ImageView)[1]")
+	private WebElement   SlotEditICON ;
+	public WebElement getSlotEditICON() {
+		return    SlotEditICON ;
+	}
+	
+	public static By ExpectedSlot = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("SLOT_NAME")));
+
 	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Description')]/following-sibling::android.widget.EditText")
 	private WebElement   DescriptionTextBox ;

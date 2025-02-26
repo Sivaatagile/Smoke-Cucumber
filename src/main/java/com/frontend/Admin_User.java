@@ -26,45 +26,34 @@ public class Admin_User extends Base {
 		ClickonElement(user.getFirstName());
 		passInput(user.getFirstName(), getProperty("ADMIN_ADMIN_FIRST_NAME"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getLastName());
 		passInput(user.getLastName(), getProperty("ADMIN_ADMIN_LAST_NAME"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getEmail());
 		passInput(user.getEmail(), getProperty("ADMIN_ADMIN_EMAIL"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getFemale());
 		ClickonElement(user.getMale());
-
 		ClickonElement(user.getPhoneNumber());
 		passInput(user.getPhoneNumber(), getProperty("ADMIN_ADMIN_CONTACTNUMBER"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getAdditionalContactNumber());
 		passInput(user.getAdditionalContactNumber(), getProperty("ADMIN_ADMIN_ADDITIONAL_CONTACT_NUMBER"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getAddressLine1());
 		passInput(user.getAddressLine1(), getProperty("ADMIN_ADMIN_ADDRESSLINE_1"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getAddressLine2());
 		passInput(user.getAddressLine2(), getProperty("ADMIN_ADMIN_ADDRESSLINE_2"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getCity());
 		passInput(user.getCity(), getProperty("ADMIN_ADMIN_CITY"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getCountry());
 		ClickonElement(user.getCountryName());
-
 		ClickonElement(user.getPostCode());
 		passInput(user.getPostCode(), getProperty("ADMIN_ADMIN_POSTCODE"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getSave());
 		ClickonElement(info.getBackButton());
 
@@ -126,20 +115,16 @@ public class Admin_User extends Base {
 		halfscrollUntilElementFound12(user.getTagscrollview(), user.getTagCategoriesShowall());
 		ClickonElement(user.getTagCategoriesShowall());
 		ClickonElement(user.getFAB());
-
 		ClickonElement(user.getCategoryName());
 		passInput(user.getCategoryName(), getProperty("ADMIN_TAG_CATEGORY_NAME"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getMaximumEntityLevel());
 		passInput(user.getMaximumEntityLevel(), getProperty("ADMIN_TAG_MAXIMUM_ENTITY_LEVEL"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getDecsription());
 		passInput(user.getDecsription(), getProperty("ADMIN_TAG_CATEGORY_DESCRIPTION"));
 		driver.hideKeyboard();
 		Thread.sleep(2000);
-
 		ClickonElement(user.getTagName());
 		passInput(user.getTagName(), getProperty("ADMIN_TAG_TAGS_NAME1"));
 		driver.hideKeyboard();
@@ -148,7 +133,6 @@ public class Admin_User extends Base {
 		passInput(user.getTagDescription(), getProperty("ADMIN_TAG_TAGS_DESCRIPTION1"));
 		driver.hideKeyboard();
 		Thread.sleep(2000);
-
 		ClickonElement(user.getTickButton());
 		ClickonElement(user.getSave());
 		ClickonElement(info.getBackButton());
@@ -164,45 +148,34 @@ public class Admin_User extends Base {
 		ClickonElement(workflow.getUsers_navigation_Bar());
 		ClickonElement(user.getShowall_AllStaff());
 		ClickonElement(user.getFAB());
-
 		ClickonElement(user.getFirstName());
 		passInput(user.getFirstName(), getProperty("ADMIN_STAFF_FIRST_NAME"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getLastName());
 		passInput(user.getLastName(), getProperty("ADMIN_STAFF_LAST_NAME"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getEmail());
 		passInput(user.getEmail(), getProperty("ADMIN_STAFF_EMAIL"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getFemale());
 		ClickonElement(user.getMale());
-
 		ClickonElement(user.getContactNumber());
 		passInput(user.getContactNumber(), getProperty("ADMIN_STAFF_CONTACTNUMBER"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getAdditionalContactNumber());
 		passInput(user.getAdditionalContactNumber(), getProperty("ADMIN_STAFF_ADDITIONAL_CONTACT_NUMBER"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getAddressLine1());
 		passInput(user.getAddressLine1(), getProperty("ADMIN_STAFF_ADDRESSLINE_1"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getAddressLine2());
 		passInput(user.getAddressLine2(), getProperty("ADMIN_STAFF_ADDRESSLINE_2"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getCity());
 		passInput(user.getCity(), getProperty("ADMIN_STAFF_CITY"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getCountry());
 		ClickonElement(user.getCountryName());
-
 		ClickonElement(user.getPostCode());
 		passInput(user.getPostCode(), getProperty("ADMIN_STAFF_POSTCODE"));
 		driver.hideKeyboard();
@@ -216,11 +189,8 @@ public class Admin_User extends Base {
 		}
 		ClickonElement(user.getselect());
 		ClickonElement(user.getSave());
-
 		ClickonElement(info.getBackButton());
-
 	}
-
 	
 	public static void Create_Second_Staff() throws Exception {
 
@@ -286,9 +256,6 @@ public class Admin_User extends Base {
 
 		ClickonElement(info.getBackButton());
 	}
-	
-	
-	
 	
 	public static  void second_pet() throws Exception {
 		WE_Admin_User user = new WE_Admin_User(driver);

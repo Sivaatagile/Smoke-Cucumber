@@ -14,7 +14,6 @@ public class AdminCreateTag extends Base {
 	WE_Info info = new WE_Info(driver);
 	WE_Snackbar snack = new WE_Snackbar(driver);
 
-
 	@Given("the admin clicks on Show All under tag categories")
 	public void theAdminClicksOnShowAllUnderTagCategories() throws Exception {
 		Thread.sleep(5000);
@@ -91,9 +90,7 @@ public class AdminCreateTag extends Base {
 
 	@Then("the new Tag details should be successfully saved")
 	public void theNewTagDetailsShouldBeSuccessfullySaved() throws InterruptedException {
-
-		   waitForElement(user.getTagCategories());
-
+		waitForElement(user.getTagCategories());
 	}
 
 }

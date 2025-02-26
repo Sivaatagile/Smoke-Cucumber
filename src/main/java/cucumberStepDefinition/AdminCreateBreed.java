@@ -22,8 +22,7 @@ public class AdminCreateBreed extends Base {
 
 	@When("the admin clicks on the Plus button to add a new breed")
 	public void theAdminClicksOnThePlusButtonToAddANewBreed() throws InterruptedException {
-		ClickonElement(settings.getFABBreed());
-		
+		ClickonElement(settings.getFABBreed());	
 	}
 
 	@When("the admin enters Breed Name in the breed name field")
@@ -47,15 +46,12 @@ public class AdminCreateBreed extends Base {
 	
 	@Then("the admin is navigated to the Breed list page")
 	public void theAdminIsNavigatedToTheBreedListPage() throws InterruptedException {
-	    waitForElement(settings.getBreed());
-		
+	    waitForElement(settings.getBreed());		
 	}
 	
 	@Then("the new breed details should be successfully saved")
-	public void theNewBreedDetailsShouldBeSuccessfullySaved() throws InterruptedException {
-	    
+	public void theNewBreedDetailsShouldBeSuccessfullySaved() throws InterruptedException {    
 	    waitForElement(settings.getBreed());
-
 	}
 
 }

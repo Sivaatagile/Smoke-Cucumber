@@ -654,144 +654,144 @@ public class Api extends Base {
 			}
 		}
             
-    public static List<String> filterDates(List<String> dateList, LocalDate fromDate, LocalDate toDate) {
-       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Adjust format if needed
-       return dateList.stream()
-               .map(date -> LocalDate.parse(date, formatter)) // Convert String to LocalDate
-               .filter(date -> date.isBefore(fromDate) || date.isAfter(toDate)) // Filter dates
-               .map(date -> date.format(formatter)) // Convert LocalDate back to String
-               .collect(Collectors.toList());
-   }
-        
-    public static List<LocalDate> getRemainingDates(List<String> dateList, LocalDate fromDate, LocalDate toDate) {
-     List<LocalDate> bookedDates = dateList.stream()
-             .map(LocalDate::parse) // Convert String to LocalDate
-             .collect(Collectors.toList());
-     List<LocalDate> fullDateRange = Stream.iterate(fromDate, date -> date.plusDays(1))
-             .limit(toDate.toEpochDay() - fromDate.toEpochDay() + 1)
-             .collect(Collectors.toList());
-     // Remove booked dates from the full range
-     fullDateRange.removeAll(bookedDates);
-     return fullDateRange;
- }
-	
-	private static Integer getSlotIdByName(JSONArray slotsArray, String slotName) {
-       for (int i = 0; i < slotsArray.length(); i++) {
-           JSONObject service = slotsArray.getJSONObject(i);
-           if (slotName.equals(service.getString("name"))) {
-               return service.getInt("id");
-           }
-       }
-       return null; // Return null if service name is not found
-   }
-	
-	private static Integer getServiceIdByName(JSONArray servicesArray, String serviceName) {
-	     for (int i = 0; i < servicesArray.length(); i++) {
-	         JSONObject service = servicesArray.getJSONObject(i);
-	         if (serviceName.equals(service.getString("name"))) {
-	             return service.getInt("id");
-	         }
-	     }
-	     return null; // Return null if service name is not found
-	 }
+		public static List<String> filterDates(List<String> dateList, LocalDate fromDate, LocalDate toDate) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Adjust format if needed
+			return dateList.stream().map(date -> LocalDate.parse(date, formatter)) // Convert String to LocalDate
+					.filter(date -> date.isBefore(fromDate) || date.isAfter(toDate)) // Filter dates
+					.map(date -> date.format(formatter)) // Convert LocalDate back to String
+					.collect(Collectors.toList());
+		}
 
-	private static Integer getCustomerIdByemail(JSONArray customerArray, String CustomerEmail) {
-       for (int i = 0; i < customerArray.length(); i++) {
-           JSONObject service = customerArray.getJSONObject(i);
-           if (CustomerEmail.equals(service.getString("email"))) {
-               return service.getInt("id");
-           }
-       }
-       return null; // Return null if service name is not found
-     }
-	    
-	public static void UnselectTags(Map<String, List<String>> categoryTagsMap) throws Exception {
-	    for (String category : categoryTagsMap.keySet()) {
-	        System.out.println("🔍 Checking Category: " + category);
-	        WebElement categoryElement = findCategory(category);
-	        if (categoryElement != null) {
-	            System.out.println("✅ Category found: " + category);
-	            // 🔥 Ensure category is visible before proceeding
-	            ensureCategoryIsVisible(categoryElement);
-	            // Click each tag under this category
-	            for (String tag : categoryTagsMap.get(category)) {
-	                System.out.println("🔍 Checking Tag: " + tag);
-	                boolean isTagFound = findTagAfterCategoryWithScroll(categoryElement, tag);
-	                if (!isTagFound) {
-	                    System.out.println("❌ Tag not found after category, trying extra scroll...");
-	                    scrollUntilTagAppears(tag);
-	                }
-	            }
-	        } else {
-	            System.out.println("❌ Category not found: " + category);
-	        }
-	        System.out.println("------------------------------------------------");
-	    }
-	    System.out.println("completed");// Close browser
-	}
+		public static List<LocalDate> getRemainingDates(List<String> dateList, LocalDate fromDate, LocalDate toDate) {
+			List<LocalDate> bookedDates = dateList.stream().map(LocalDate::parse) // Convert String to LocalDate
+					.collect(Collectors.toList());
+			List<LocalDate> fullDateRange = Stream.iterate(fromDate, date -> date.plusDays(1))
+					.limit(toDate.toEpochDay() - fromDate.toEpochDay() + 1).collect(Collectors.toList());
+			// Remove booked dates from the full range
+			fullDateRange.removeAll(bookedDates);
+			return fullDateRange;
+		}
 	
-	public static void scrollUntilTagAppears(String tagName) throws Exception {
-		WE_Admin_WorkFlow flow = new WE_Admin_WorkFlow(driver);
-		int maxScrollAttempts = 5; // Limit scrolling to avoid infinite loop
-	    int attempts = 0;
-	    while (attempts < maxScrollAttempts) {
-	        List<WebElement> tags = driver.findElements(By.xpath("//android.view.View[@content-desc='" + tagName + "']"));
-	        if (!tags.isEmpty()) {
-	            System.out.println("✅ Tag found after extra scrolling: " + tagName);
-	            tags.get(0).click();
-	            return;
-	        }
-	        System.out.println("🔄 Still not found, scrolling down...");
-	        slowScroll(flow.getscrollview()); 
-	        attempts++;
-	    }
-	    System.out.println("❌ Tag not found even after extra scrolling: " + tagName);
-	}
+		private static Integer getSlotIdByName(JSONArray slotsArray, String slotName) {
+			for (int i = 0; i < slotsArray.length(); i++) {
+				JSONObject service = slotsArray.getJSONObject(i);
+				if (slotName.equals(service.getString("name"))) {
+					return service.getInt("id");
+				}
+			}
+			return null; // Return null if service name is not found
+		}
 	
-	public static boolean findTagAfterCategoryWithScroll(WebElement categoryElement, String tagName) throws Exception {
-		WE_Admin_WorkFlow flow = new WE_Admin_WorkFlow(driver);
-		int maxScrollAttempts = 5; // Limit scrolling to 5 times to avoid infinite loops
-	    int attempts = 0;
-	    while (attempts < maxScrollAttempts) {
-	        List<WebElement> tags = driver.findElements(By.xpath("//android.view.View[@content-desc='" + tagName + "']"));
-	        for (WebElement tag : tags) {
-	            if (tag.getLocation().getY() > categoryElement.getLocation().getY()) {
-	                tag.click(); // ✅ Click the tag
-	                return true; // ✅ Found and clicked
-	            }
-	        }
-	        System.out.println("🔄 Tag not found, scrolling...");
-	        slowScroll(flow.getscrollview()); 
-	        attempts++;
-	    }
-	    return false; // ❌ Tag not found even after scrolling
-	}
-	
-	public static void ensureCategoryIsVisible(WebElement categoryElement) throws Exception {
-		 WE_Admin_WorkFlow flow = new WE_Admin_WorkFlow(driver);
-	    int categoryY = categoryElement.getLocation().getY();
-	    int screenHeight = driver.manage().window().getSize().getHeight();
-	    // 🔥 If category is above screen, scroll down until visible
-	    while (categoryY < 0 || categoryY < screenHeight / 5) {  
-	    	 slowScroll(flow.getscrollview()); 
-	        categoryY = categoryElement.getLocation().getY(); // Update Y position
-	    }
-	}
+		private static Integer getServiceIdByName(JSONArray servicesArray, String serviceName) {
+			for (int i = 0; i < servicesArray.length(); i++) {
+				JSONObject service = servicesArray.getJSONObject(i);
+				if (serviceName.equals(service.getString("name"))) {
+					return service.getInt("id");
+				}
+			}
+			return null; // Return null if service name is not found
+		}
 
-	public static WebElement findCategory(String categoryName) throws Exception {
-		 WE_Admin_WorkFlow flow = new WE_Admin_WorkFlow(driver);
-	    String categoryXpath = "//android.view.View[@content-desc='" + categoryName + "']";
-	    int scrollAttempts = 0;
-	    while (scrollAttempts < 5) { // Scroll up to 5 times
-	        List<WebElement> elements = driver.findElements(By.xpath(categoryXpath));
-	        if (!elements.isEmpty()) {
-	            return elements.get(0); // ✅ Return first matching category
-	        }
-	        slowScroll(flow.getscrollview()); // 🔥 Calls slow scroll method from base class
-	        scrollAttempts++;
-	    }
-	    return null; // ❌ Category not found after scrolling
-	}
+		private static Integer getCustomerIdByemail(JSONArray customerArray, String CustomerEmail) {
+			for (int i = 0; i < customerArray.length(); i++) {
+				JSONObject service = customerArray.getJSONObject(i);
+				if (CustomerEmail.equals(service.getString("email"))) {
+					return service.getInt("id");
+				}
+			}
+			return null; // Return null if service name is not found
+		}
+
+		public static void UnselectTags(Map<String, List<String>> categoryTagsMap) throws Exception {
+			for (String category : categoryTagsMap.keySet()) {
+				System.out.println("🔍 Checking Category: " + category);
+				WebElement categoryElement = findCategory(category);
+				if (categoryElement != null) {
+					System.out.println("✅ Category found: " + category);
+					// 🔥 Ensure category is visible before proceeding
+					ensureCategoryIsVisible(categoryElement);
+					// Click each tag under this category
+					for (String tag : categoryTagsMap.get(category)) {
+						System.out.println("🔍 Checking Tag: " + tag);
+						boolean isTagFound = findTagAfterCategoryWithScroll(categoryElement, tag);
+						if (!isTagFound) {
+							System.out.println("❌ Tag not found after category, trying extra scroll...");
+							scrollUntilTagAppears(tag);
+						}
+					}
+				} else {
+					System.out.println("❌ Category not found: " + category);
+				}
+				System.out.println("------------------------------------------------");
+			}
+			System.out.println("completed");// Close browser
+		}
+
+		public static void scrollUntilTagAppears(String tagName) throws Exception {
+			WE_Admin_WorkFlow flow = new WE_Admin_WorkFlow(driver);
+			int maxScrollAttempts = 5; // Limit scrolling to avoid infinite loop
+			int attempts = 0;
+			while (attempts < maxScrollAttempts) {
+				List<WebElement> tags = driver
+						.findElements(By.xpath("//android.view.View[@content-desc='" + tagName + "']"));
+				if (!tags.isEmpty()) {
+					System.out.println("✅ Tag found after extra scrolling: " + tagName);
+					tags.get(0).click();
+					return;
+				}
+				System.out.println("🔄 Still not found, scrolling down...");
+				slowScroll(flow.getscrollview());
+				attempts++;
+			}
+			System.out.println("❌ Tag not found even after extra scrolling: " + tagName);
+		}
+
+		public static boolean findTagAfterCategoryWithScroll(WebElement categoryElement, String tagName)
+				throws Exception {
+			WE_Admin_WorkFlow flow = new WE_Admin_WorkFlow(driver);
+			int maxScrollAttempts = 5; // Limit scrolling to 5 times to avoid infinite loops
+			int attempts = 0;
+			while (attempts < maxScrollAttempts) {
+				List<WebElement> tags = driver
+						.findElements(By.xpath("//android.view.View[@content-desc='" + tagName + "']"));
+				for (WebElement tag : tags) {
+					if (tag.getLocation().getY() > categoryElement.getLocation().getY()) {
+						tag.click(); // ✅ Click the tag
+						return true; // ✅ Found and clicked
+					}
+				}
+				System.out.println("🔄 Tag not found, scrolling...");
+				slowScroll(flow.getscrollview());
+				attempts++;
+			}
+			return false; // ❌ Tag not found even after scrolling
+		}
+
+		public static void ensureCategoryIsVisible(WebElement categoryElement) throws Exception {
+			WE_Admin_WorkFlow flow = new WE_Admin_WorkFlow(driver);
+			int categoryY = categoryElement.getLocation().getY();
+			int screenHeight = driver.manage().window().getSize().getHeight();
+			// 🔥 If category is above screen, scroll down until visible
+			while (categoryY < 0 || categoryY < screenHeight / 5) {
+				slowScroll(flow.getscrollview());
+				categoryY = categoryElement.getLocation().getY(); // Update Y position
+			}
+		}
+
+		public static WebElement findCategory(String categoryName) throws Exception {
+			WE_Admin_WorkFlow flow = new WE_Admin_WorkFlow(driver);
+			String categoryXpath = "//android.view.View[@content-desc='" + categoryName + "']";
+			int scrollAttempts = 0;
+			while (scrollAttempts < 5) { // Scroll up to 5 times
+				List<WebElement> elements = driver.findElements(By.xpath(categoryXpath));
+				if (!elements.isEmpty()) {
+					return elements.get(0); // ✅ Return first matching category
+				}
+				slowScroll(flow.getscrollview()); // 🔥 Calls slow scroll method from base class
+				scrollAttempts++;
+			}
+			return null; // ❌ Category not found after scrolling
+		}
 	
 	public static void main(String[] args) throws InterruptedException, IOException {
 		PropertyFile("Data");

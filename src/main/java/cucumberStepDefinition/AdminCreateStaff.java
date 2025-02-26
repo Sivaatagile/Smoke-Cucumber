@@ -33,7 +33,6 @@ public class AdminCreateStaff extends Base {
 
 	@When("the admin clicks on the Skills dropdown and selects the staff's skill")
 	public void theAdminClicksOnTheSkillsDropdownAndSelectsTheStaffSSkill() throws InterruptedException, Exception {
-
 		Thread.sleep(500);
 		ClickonElement(user.getSkillsset());
 		if (isElementAvailable(user.ServiceSkill)) {
