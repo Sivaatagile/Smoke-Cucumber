@@ -10,8 +10,6 @@ import com.api.Api;
 import com.baseClass.Base;
 import com.baseClass.Base.API_BASE_URL;
 
-import io.qameta.allure.Allure;
-
 public class Admin_User extends Base {
 
 	public static void Create_Admin() throws InterruptedException {
@@ -356,7 +354,6 @@ public class Admin_User extends Base {
 				if (isScrollViewAvailable()) {
 					Thread.sleep(3000);
 					scrolling();
-					Allure.step("Scroll the Customer Info");
 					Thread.sleep(2000);
 					ClickonElementwithoutWAIT(user.getAccept());
 					isElementFound = true;

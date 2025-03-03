@@ -3,25 +3,17 @@ package com.api;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,23 +21,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
-
 import com.WE.WE_Admin_WorkFlow;
 import com.baseClass.Base;
 
-import io.appium.java_client.PerformsTouchActions;
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.PointOption;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import net.bytebuddy.build.Plugin.Factory.UsingReflection.Priority;
 
 public class Api extends Base {
 
@@ -73,6 +57,10 @@ public class Api extends Base {
 	
 	public static int TotalSlotCount;
 	public static List<String> slotNames;
+
+	
+	public static List<String> StaffFirstNames;
+	public static String FirstNameStaff ;
 
 //	PRICINGRULE DETAILS 
 	
@@ -426,6 +414,28 @@ public class Api extends Base {
 	        }
 	        // Print the list
 	        System.out.println("Tag Names List: " + BreedNames);
+	}
+	
+	public static  void StaffFirstNameList() {
+	       Response response = RestAssured.given()
+	                .header("X-API-Version", "100")
+	                .header("User-Agent", "PostmanRuntime")
+	                .header("Content-Type", "application/json")
+	                .header("Authorization", "Bearer " + VerifiedRefreshToken)
+	                .get(BASE_URL + "calendar/list/staff");
+	        System.out.println("Response Status Code: " + response.getStatusCode());
+	        String responseBody = response.getBody().asString();
+	        JSONObject jsonResponse = new JSONObject(responseBody);
+	        int TotalTagCount = jsonResponse.getInt("recordsTotal");
+	        System.out.println("Records Total: " + TotalTagCount);
+	        JSONArray dataArray = jsonResponse.getJSONArray("data");
+	        StaffFirstNames = new ArrayList<>();
+	        for (int i = 0; i < dataArray.length(); i++) {
+	            JSONObject tag = dataArray.getJSONObject(i);
+	            StaffFirstNames.add(tag.getString("first_name")); // tagName add panniruken
+	        }
+	        // Print the list
+	        System.out.println("Tag Names List: " + StaffFirstNames);
 	}
 	
 	public static  void ServiceList() {

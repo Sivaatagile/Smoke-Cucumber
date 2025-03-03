@@ -23,60 +23,62 @@ public class Prerequisites extends Base {
 		com.api.Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
 		com.api.Api.refreshAdminToken(com.api.Api.VerifiedRefreshToken);
 		
-//		com.api.Api.ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
-//		com.api.Api.OverallSlotList();
-//		com.api.Api.BreedList();
-//		com.api.Api.Compare("BREED_Name",com.api.Api.UniqueBreed, com.api.Api.BreedNames, getProperty("BREED"));
-//		com.api.Api.ServiceList();
-//		com.api.Api.Compare("SERVICE_NAME", com.api.Api.UniqueService, com.api.Api.ServiceNames, getProperty("SERVICE"));
-//		com.api.Api.Compare("ADDON_SERVICE_NAME", com.api.Api.UniqueService, com.api.Api.ServiceNames, getProperty("SERVICE"));
-//		com.api.Api.SlotList();
-//		com.api.Api.Compare("SLOT_NAME", com.api.Api.UniqueSlot, com.api.Api.SlotNames, getProperty("SLOTS"));
-//		com.api.Api.AddonList();
-//		com.api.Api.Compare("ADDON_PRIVILAGE", com.api.Api.UniqueAddons, com.api.Api.AddonsNames, getProperty("ADDON"));
-//		com.api.Api.Compare("ADDON_ASSIGNABLE", com.api.Api.UniqueAddons, com.api.Api.AddonsNames, getProperty("ADDON"));
-//		com.api.Api.TagList();
-//		com.api.Api.Compare("ADMIN_TAG_CATEGORY_NAME", com.api.Api.UniqueTag, com.api.Api.TagNames, getProperty("TAGS"));
-//		com.api.Api.PricingRuleList();
-//		com.api.Api.Compare("Pricingrulename_Onetime_premium", com.api.Api.Uniquepricingrulename, com.api.Api.PricingRuleNames, getProperty("PREMIUM_PRICINGRULE_NAME"));
-//		com.api.Api.Compare("Pricingrulename_Onetime_discount", com.api.Api.Uniquepricingrulename, com.api.Api.PricingRuleNames, getProperty("DISCOUNT_PRICINGRULE_NAME"));
-//		com.api.Api.Compare("Pricingrulename_Onetime_notavailable", com.api.Api.Uniquepricingrulename, com.api.Api.PricingRuleNames, getProperty("NOTAVAILABLE_PRICINGRULE_NAME"));
-//		com.api.Api.PoolingList();
-//		com.api.Api.Compare("POOL_NAME", com.api.Api.Uniquepoolingname, com.api.Api.PoolingNames, getProperty("POOL"));
-//		
-//		UpdateEmailProperty("SIGNUP_EMAIL");	
-//		UpdateNameProperty("SIGNUP_FIRSTNAME",getProperty("NAME"));
-//		UpdateNameProperty("SIGNUP_LASTNAME",getProperty("NAME"));
-//		UpdateNameProperty("SIGNUP_CITYTOWN", getProperty("CITY"));
-//		UpdateNameProperty("SIGNUP_POSTCODE", getProperty("POSTCODE"));
-//		
-//		UpdateNameProperty("PET_NAME", getProperty("PET_NAME_List"));
-//		
-//		UpdateEmailProperty("ADMIN_ADMIN_EMAIL");
-//        UpdateNameProperty("ADMIN_ADMIN_FIRST_NAME", getProperty("NAME"));
-//		UpdateNameProperty("ADMIN_ADMIN_LAST_NAME",getProperty("NAME"));
-//        UpdateNameProperty("ADMIN_ADMIN_CITY", getProperty("CITY"));
-//		UpdateNameProperty("ADMIN_ADMIN_POSTCODE", getProperty("POSTCODE"));
-//		
-//		UpdateEmailProperty("ADMIN_CUSTOMER_EMAIL");
-//		UpdateNameProperty("ADMIN_CUSTOMER_FIRSTNAME",getProperty("NAME"));
-//		UpdateNameProperty("ADMIN_CUSTOMER_LASTNAME",getProperty("NAME"));
-//		UpdateNameProperty("ADMIN_CUSTOMER_CITYTOWN", getProperty("CITY"));
-//		UpdateNameProperty("ADMIN_CUSTOMER_POSTCODE", getProperty("POSTCODE"));
-//		
-//		UpdateEmailProperty("ADMIN_STAFF_EMAIL");
-//        UpdateNameProperty("ADMIN_STAFF_FIRST_NAME", getProperty("NAME"));
-//        UpdateNameProperty("ADMIN_STAFF_LAST_NAME", getProperty("NAME"));
-//    	UpdateNameProperty("ADMIN_STAFF_CITY", getProperty("CITY"));
-//		UpdateNameProperty("ADMIN_STAFF_POSTCODE", getProperty("POSTCODE"));
-//		
-//		UpdateEmailProperty("ADMIN_STAFF_2_EMAIL");
-//        UpdateNameProperty("ADMIN_STAFF_2_FIRST_NAME", getProperty("NAME"));
-//        UpdateNameProperty("ADMIN_STAFF_2_LAST_NAME", getProperty("NAME"));
-//    	UpdateNameProperty("ADMIN_STAFF_2_CITY", getProperty("CITY"));
-//		UpdateNameProperty("ADMIN_STAFF_2_POSTCODE", getProperty("POSTCODE"));
-//		
-//		UpdateNameProperty("SECOND_PET_NAME", getProperty("PET_NAME_List"));		
+		com.api.Api.ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
+		com.api.Api.OverallSlotList();
+		com.api.Api.BreedList();
+		com.api.Api.Compare("BREED_Name",com.api.Api.UniqueBreed, com.api.Api.BreedNames, getProperty("BREED"));
+		com.api.Api.ServiceList();
+		com.api.Api.Compare("SERVICE_NAME", com.api.Api.UniqueService, com.api.Api.ServiceNames, getProperty("SERVICE"));
+		com.api.Api.Compare("ADDON_SERVICE_NAME", com.api.Api.UniqueService, com.api.Api.ServiceNames, getProperty("SERVICE"));
+		com.api.Api.SlotList();
+		com.api.Api.Compare("SLOT_NAME", com.api.Api.UniqueSlot, com.api.Api.SlotNames, getProperty("SLOTS"));
+		com.api.Api.AddonList();
+		com.api.Api.Compare("ADDON_PRIVILAGE", com.api.Api.UniqueAddons, com.api.Api.AddonsNames, getProperty("ADDON"));
+		com.api.Api.Compare("ADDON_ASSIGNABLE", com.api.Api.UniqueAddons, com.api.Api.AddonsNames, getProperty("ADDON"));
+		com.api.Api.TagList();
+		com.api.Api.Compare("ADMIN_TAG_CATEGORY_NAME", com.api.Api.UniqueTag, com.api.Api.TagNames, getProperty("TAGS"));
+		com.api.Api.PricingRuleList();
+		com.api.Api.Compare("Pricingrulename_Onetime_premium", com.api.Api.Uniquepricingrulename, com.api.Api.PricingRuleNames, getProperty("PREMIUM_PRICINGRULE_NAME"));
+		com.api.Api.Compare("Pricingrulename_Onetime_discount", com.api.Api.Uniquepricingrulename, com.api.Api.PricingRuleNames, getProperty("DISCOUNT_PRICINGRULE_NAME"));
+		com.api.Api.Compare("Pricingrulename_Onetime_notavailable", com.api.Api.Uniquepricingrulename, com.api.Api.PricingRuleNames, getProperty("NOTAVAILABLE_PRICINGRULE_NAME"));
+		com.api.Api.PoolingList();
+		com.api.Api.Compare("POOL_NAME", com.api.Api.Uniquepoolingname, com.api.Api.PoolingNames, getProperty("POOL"));
+		com.api.Api.StaffFirstNameList();
+		com.api.Api.Compare("ADMIN_STAFF_FIRST_NAME", com.api.Api.FirstNameStaff, com.api.Api.StaffFirstNames, getProperty("NAME"));
+
+				
+		UpdateEmailProperty("SIGNUP_EMAIL");	
+		UpdateNameProperty("SIGNUP_FIRSTNAME",getProperty("NAME"));
+		UpdateNameProperty("SIGNUP_LASTNAME",getProperty("NAME"));
+		UpdateNameProperty("SIGNUP_CITYTOWN", getProperty("CITY"));
+		UpdateNameProperty("SIGNUP_POSTCODE", getProperty("POSTCODE"));
+		
+		UpdateNameProperty("PET_NAME", getProperty("PET_NAME_List"));
+		
+		UpdateEmailProperty("ADMIN_ADMIN_EMAIL");
+        UpdateNameProperty("ADMIN_ADMIN_FIRST_NAME", getProperty("NAME"));
+		UpdateNameProperty("ADMIN_ADMIN_LAST_NAME",getProperty("NAME"));
+        UpdateNameProperty("ADMIN_ADMIN_CITY", getProperty("CITY"));
+		UpdateNameProperty("ADMIN_ADMIN_POSTCODE", getProperty("POSTCODE"));
+		
+		UpdateEmailProperty("ADMIN_CUSTOMER_EMAIL");
+		UpdateNameProperty("ADMIN_CUSTOMER_FIRSTNAME",getProperty("NAME"));
+		UpdateNameProperty("ADMIN_CUSTOMER_LASTNAME",getProperty("NAME"));
+		UpdateNameProperty("ADMIN_CUSTOMER_CITYTOWN", getProperty("CITY"));
+		UpdateNameProperty("ADMIN_CUSTOMER_POSTCODE", getProperty("POSTCODE"));
+		
+		UpdateEmailProperty("ADMIN_STAFF_EMAIL");
+        UpdateNameProperty("ADMIN_STAFF_LAST_NAME", getProperty("NAME"));
+    	UpdateNameProperty("ADMIN_STAFF_CITY", getProperty("CITY"));
+		UpdateNameProperty("ADMIN_STAFF_POSTCODE", getProperty("POSTCODE"));
+		
+		UpdateEmailProperty("ADMIN_STAFF_2_EMAIL");
+        UpdateNameProperty("ADMIN_STAFF_2_FIRST_NAME", getProperty("NAME"));
+        UpdateNameProperty("ADMIN_STAFF_2_LAST_NAME", getProperty("NAME"));
+    	UpdateNameProperty("ADMIN_STAFF_2_CITY", getProperty("CITY"));
+		UpdateNameProperty("ADMIN_STAFF_2_POSTCODE", getProperty("POSTCODE"));
+		
+		UpdateNameProperty("SECOND_PET_NAME", getProperty("PET_NAME_List"));		
 
 		PropertyFile("Data");
 	}

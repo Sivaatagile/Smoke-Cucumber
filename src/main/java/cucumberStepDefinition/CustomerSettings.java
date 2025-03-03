@@ -31,7 +31,13 @@ public class CustomerSettings extends Base {
 		System.out.println("yyy  :   "+sales);
 		By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+book.TotalAmountWithSymbol+"']");
 		System.out.println("jjj  :   "+payment);
-		
+		System.out.println(book.Stripe);
+		System.out.println(book.Crezco);
+
+		System.out.println(book.ACCOUNTBALANCE);
+
+		System.out.println(book.PAYLATER);
+
 		if (book.Stripe) {
 			By sales1 = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc='"+"- "+""+book.TotalAmountWithSymbol+"']");
 			System.out.println("jjj  :   "+sales);
@@ -45,16 +51,36 @@ public class CustomerSettings extends Base {
 				System.out.println("hhhhhhhhhh");
 			}
 				
-		}else {
+		}else if (book.Crezco) {
+			By sales1 = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc='"+"- "+""+book.TotalAmountWithSymbol+"']");
+			System.out.println("jjj  :   "+sales);
+			By payment1 = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+book.TotalAmountWithSymbol+"']");
+			System.out.println("hhhhh  :   "+payment1);
+			
+			if (isElementAvailable(payment)&&isElementAvailable(sales)) {
+				System.out.println("Completed sales and payment  ");
+				
+			}else {
+				System.out.println("hhhhhhhhhh");
+			}
+		} 
+		else if (book.ACCOUNTBALANCE){
 			
 			By sales12 = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc='"+"- "+""+book.TotalAmountWithSymbol+"']");
 			System.out.println(sales12);
 			if (isElementAvailable(sales12)) {
 				System.out.println("sales done");
 			}
-			
 		}
-	}
+			else if (book.PAYLATER){
+				
+				By sales123 = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc='"+"- "+""+book.TotalAmountWithSymbol+"']");
+				System.out.println(sales123);
+				if (isElementAvailable(sales123)) {
+					System.out.println("sales done");
+				}}
+		}
+	
 	
 }
 	

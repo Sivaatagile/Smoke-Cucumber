@@ -18,11 +18,11 @@ public class ReportProcess {
 		 LocalDate currentDate = LocalDate.now();
 	        System.out.println("Current Date: " + currentDate);																						// your report
 																										// path
-		Base.sendEmailWithReport("developer@agilecyber.com", "Cucumber Test Report for Automation Environment",
+		Base.sendEmailWithReport("developer@agilecyber.com", "Cucumber Test Report for Staging Environment",
 				
-				"Please find the attached test report : \r\n" + "Date of Report Generation : " + currentDate +"\r\n"+ "Total Number of scenarios : 52\r\n" + "Passed : 50\r\n"
-						+ "Failed : 02\r\n" + "Details : Listed 50 scenarios are working fine\r\n"
-						+"02 failed scenarios are due to script issue . I have checked it in maually . Those scenarios are working fine "
+				"Please find the attached test report : \r\n" + "Date of Report Generation : " + currentDate +"\r\n"+ "Total Number of scenarios : 44\r\n" + "Passed : 50\r\n"
+						+ "Failed : 03\r\n" + "Details : Listed 47 scenarios are working fine\r\n"
+						+"03 failed scenarios has created a ticket and mentioned in uat sheet."
 				,
 				reportPath);
 	}

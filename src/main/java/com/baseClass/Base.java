@@ -64,7 +64,6 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import io.qameta.allure.Allure;
 
 public class Base {
 	
@@ -1084,7 +1083,6 @@ public class Base {
 			                        Element pElement = pElements.first(); // Get the first <p> element
 			                        OTPText = pElement.text(); // Extract the text inside the <p> element
 			                        System.out.println("Text inside <p>: " + OTPText); // Print the OTP text
-			                        Allure.step("Extracted the OTP from email"); // Log the step in Allure
 			                        return OTPText; // Return the OTP text
 			                    } else {
 			                        System.out.println("OTP Element not found."); // Print message if the element is not found
@@ -1120,11 +1118,9 @@ public class Base {
 			Store store = emailSession.getStore("imaps"); // Connect to email store
 			store.connect(host, username, password); // Connect to the email server
 			System.out.println("Connected to email store.");
-			Allure.step("Successfully connected to the Email");
 			Thread.sleep(5000);
 			Folder emailFolder = store.getFolder("INBOX"); // Open the INBOX folder
 			emailFolder.open(Folder.READ_ONLY); // Open the folder in read-only mode
-			Allure.step("Read all the messages in 'INBOX' folder");
 			Message[] messages = emailFolder.getMessages(); // Get all messages in the folder
 			System.out.println(messages); // Print the messages array
 			Thread.sleep(2000);
@@ -1147,7 +1143,6 @@ public class Base {
 						Element pElement = pElements.first(); // Get the first <p> element
 						OTPText = pElement.text(); // Extract the text inside the <p> element
 						System.out.println("Text inside <p>gmzdmm</p>: " + OTPText); // Print the OTP text
-						Allure.step("Grap the OTP from email"); // Log the step in Allure
 						return OTPText; // Return the OTP text
 					} else {
 						System.out.println("Element not found."); // Print message if the element is not found

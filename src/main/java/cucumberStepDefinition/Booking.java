@@ -48,6 +48,9 @@ public class Booking extends Base {
 	public static Boolean Stripe;
 	public static Boolean Crezco;
 	
+	public static Boolean ACCOUNTBALANCE;
+	public static Boolean PAYLATER;
+	
 	public static String daydatemonth;
 	public static double totalAmount;
 	public static double accountBalance;
@@ -315,9 +318,11 @@ public class Booking extends Base {
 			System.out.println(accountBalance);
 			Thread.sleep(2000);
 			if (totalAmount < accountBalance) {
+				ACCOUNTBALANCE=true;
 				System.out.println("\033[1;93maccount balance > Total amount\033[0m");
 				ClickonElement(booking.getConfirmANDPay());
 			} else if (totalAmount > accountBalance) {
+				
 				System.out.println("\033[1;93maccount balance < Total amount\033[0m");
 				if (isElementAvailable(booking.getpaylater())) {
 					System.out.println("\033[1;93mVerify the remaining credit is their\033[0m");
@@ -346,6 +351,7 @@ public class Booking extends Base {
 						if (isCardPayment) {
 							System.out.println("\033[1;93mStart the card payment method\033[0m");
 							if (isElementAvailable(booking.getcard())) {
+								Stripe = true;
 								System.out.println("\033[1;93mStart the stripe card payment \033[0m");
 								ClickonElement(booking.getcard());
 								System.setProperty("webdriver.chrome.driver",
@@ -389,6 +395,8 @@ public class Booking extends Base {
 							}
 						}
 						if (isAccountPayment) {
+							Crezco = true;
+
 							System.out.println("\033[1;93mStart the crezco payment method\033[0m");
 							if (isElementAvailable(booking.getBankTransfer())) {
 								ClickonElement(booking.getBankTransfer());
@@ -409,6 +417,7 @@ public class Booking extends Base {
 						}
 					}
 				} else if (!isElementAvailable(booking.getpaylater())) {
+					Stripe = true;
 					System.out.println("\033[1;93mRemaining credit is not their\033[0m");
 					boolean isCardPayment = Boolean.parseBoolean(getProperty("card"));
 					System.out.println("card : " + isCardPayment);
@@ -419,6 +428,8 @@ public class Booking extends Base {
 						if (isElementAvailable(booking.getcard())) {
 							System.out.println("\033[1;93mStart the stripe card payment \033[0m");
 							ClickonElement(booking.getcard());
+							Stripe = true;
+
 							System.setProperty("webdriver.chrome.driver",
 									"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
 							ClickonElement(booking.getproceedtopayment());
@@ -461,6 +472,8 @@ public class Booking extends Base {
 					}
 					if (isAccountPayment) {
 						System.out.println("\033[1;93mStart the crezco payment method\033[0m");
+						Crezco = true;
+
 						if (isElementAvailable(booking.getBankTransfer())) {
 							ClickonElement(booking.getBankTransfer());
 							System.setProperty("webdriver.chrome.driver",
@@ -494,6 +507,8 @@ public class Booking extends Base {
 					System.out.println("Available Credit: £" + paylater);
 					
 					if (paylater > totalAmount) {
+						
+						PAYLATER=true;
 						System.out.println(
 								"\033[1;93mverfifying with remaining credit >  Totalamount\033[0m");
 

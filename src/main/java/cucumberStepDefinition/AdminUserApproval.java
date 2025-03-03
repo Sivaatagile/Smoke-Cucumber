@@ -7,7 +7,6 @@ import com.WE.WE_Snackbar;
 import com.baseClass.Base;
 
 import io.cucumber.java.en.*;
-import io.qameta.allure.Allure;
 
 public class AdminUserApproval extends Base {
 	WE_Admin_User user = new WE_Admin_User(driver);
@@ -105,7 +104,6 @@ public class AdminUserApproval extends Base {
 					if (isScrollViewAvailable()) {
 						Thread.sleep(3000);
 						scrolling();
-						Allure.step("Scroll the Customer Info");
 						Thread.sleep(2000);
 						ClickonElementwithoutWAIT(user.getAccept());
 						isElementFound = true;

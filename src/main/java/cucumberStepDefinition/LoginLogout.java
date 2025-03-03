@@ -30,6 +30,7 @@ public class LoginLogout extends Base {
 		Thread.sleep(5000);
 		ClickonElement(login.getContinueWithEmail());
 		passInput(login.getContinueWithEmail(), getProperty(customerEmail));
+		Thread.sleep(1000);
 		driver.hideKeyboard();
 
 	}
@@ -39,6 +40,7 @@ public class LoginLogout extends Base {
 		Thread.sleep(5000);
 		String otp_Received = getOtpFromSource();
 		System.out.println("The OTP is  : " + otp_Received);
+		ClickonElement(login.getOTP());
 		Thread.sleep(2000);
 		passInputUsingActions(login.getOTP(), otp_Received);
 

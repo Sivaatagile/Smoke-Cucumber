@@ -7,7 +7,6 @@ import com.baseClass.Base;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.qameta.allure.Allure;
 
 public class AdminPetApproval extends Base{
 	WE_Admin_User user = new WE_Admin_User(driver);
