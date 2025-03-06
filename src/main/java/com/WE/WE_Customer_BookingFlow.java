@@ -280,6 +280,8 @@ public class WE_Customer_BookingFlow extends Base{
 	public WebElement getAddons() {
 	    return Addons;
 	}
+
+	
 	public static By PrivilegeAddon = By.xpath(String.format("//android.view.View[contains(@content-desc,\"%s\")]", getProperty("ADDON_PRIVILAGE")));
 
 	public static By AssignableAddon = By.xpath(String.format("//android.view.View[contains(@content-desc,\"%s\")]", getProperty("ADDON_ASSIGNABLE")));

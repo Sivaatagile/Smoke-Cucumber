@@ -158,6 +158,9 @@ public class WE_Admin_User extends  Base{
 		return    TagCategoriesShowall ;
 	}
 	
+	public static By  searchingCategoryName= By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_TAG_CATEGORY_NAME")));
+
+	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Tag Categories\"]")
 	private WebElement   TagCategories ;
 	public WebElement getTagCategories() {
@@ -206,6 +209,18 @@ public class WE_Admin_User extends  Base{
 	private WebElement    Showall_AllStaff;
 	public WebElement getShowall_AllStaff() {
 		return   Showall_AllStaff  ;
+	}
+	
+	public static By StaffNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_STAFF_FIRST_NAME")));
+	public static By CustomerNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_CUSTOMER_FIRSTNAME")));
+	public static By AdminNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_ADMIN_FIRST_NAME")));
+
+	//android.view.View[contains(@content-desc,"Edit")]
+	
+	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"Edit\")]")
+	private WebElement   Edit ;
+	public WebElement getEdit() {
+		return   Edit  ;
 	}
 	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Contact Number')]/following-sibling::android.widget.EditText[1]")

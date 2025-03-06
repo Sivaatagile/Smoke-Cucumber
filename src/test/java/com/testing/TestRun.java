@@ -24,6 +24,7 @@ import com.frontend.Admin_Workflow;
 import com.frontend.Customer_Bookingflow;
 import com.frontend.Customer_Home;
 import com.frontend.Customer_Settings;
+import com.frontend.Edit;
 import com.frontend.Info;
 import com.frontend.Login_Details;
 import com.frontend.sample;
@@ -36,19 +37,19 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 		WE_Info info = new WE_Info(driver);
 		Api Api= new Api(driver);
 
-		ChooseApi(API_BASE_URL.Automation);
+		ChooseApi(API_BASE_URL.Staging);
 		PropertyFile("Data");
-		Latest_StagingAPK_download(getProperty("AUTOMATION"));
-		Application();	
-//		OpenApplicationWithoutReset();
+//		Latest_StagingAPK_download(getProperty("AUTOMATION"));
+//		Application();	
+		OpenApplicationWithoutReset();
 //		
 		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
 		Api.refreshAdminToken(Api.VerifiedRefreshToken);
-		Api.ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
-		Api.OverallSlotList();
-		Api.OverallTagList();
-		Api.BreedList();
+//		Api.ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
+//		Api.OverallSlotList();
+//		Api.OverallTagList();
+//		Api.BreedList();
 //		
 //		Api.Compare("BREED_Name",Api.UniqueBreed, Api.BreedNames, getProperty("BREED"));
 //		Api.ServiceList();
@@ -168,7 +169,11 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 //		Customer_Bookingflow.BookingFlow("PREMIUM", getProperty("SERVICE_NAME"), MergePricingruleDate(getProperty("TO_Month_Premium_PricingRule"),getProperty("TO_Date_Premium_PricingRule"),getProperty("TO_Year_Premium_PricingRule")), SelectOneRandomlyFromList(Api.slotNames));	
 //		Customer_Bookingflow.BookingFlow("NOT AVAILABLE", getProperty("SERVICE_NAME"), MergePricingruleDate(getProperty("TO_Month_PricingRule_NotAvailable"),getProperty("TO_Date_PricingRule_NotAvailable"),getProperty("TO_Year_PricingRule_NotAvailable")), SelectOneRandomlyFromList(Api.slotNames));	
 //		Login_Details.Logout_Customer();
-
+//		
+//		Edit.EditStaff();
+//		Edit.EditCustomer();
+//		Edit.EditAdmin();
+Edit.EditTag();
 	
 		
 		

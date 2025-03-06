@@ -29,6 +29,7 @@ import com.baseClass.Base;
 import io.appium.java_client.android.AndroidDriver;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 public class Api extends Base {
@@ -103,6 +104,10 @@ public class Api extends Base {
 	
 	public static List<String> PoolingNames;
 	public static String Uniquepoolingname;
+	
+//	ORGANISATIONAL SETTINGS
+	
+	public static  double universalCreditLimit;
 
 //	CUSTOMER DEAILS
 
@@ -460,6 +465,21 @@ public class Api extends Base {
 	        System.out.println("Tag Names List: " + ServiceNames);
 	}
 
+	
+	public  static  void universal_creditlimit() {
+
+		Response response = RestAssured.given()
+                .header("X-API-Version", "100")
+                .header("User-Agent", "PostmanRuntime")
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + VerifiedRefreshToken)
+                .get(BASE_URL + "user/list/organization_settings");
+		
+	        JsonPath jsonPath = response.jsonPath();
+	         universalCreditLimit = jsonPath.getDouble("data[0].universal_credit_limit");
+
+	        System.out.println("Universal Credit Limit: " + universalCreditLimit);
+	}
 	public static  void getserviceID(String serviceName) {
 		Response response = RestAssured.given().header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
 				.header("Content-Type", "application/json") // Add any necessary headers here
@@ -807,7 +827,8 @@ public class Api extends Base {
 		PropertyFile("Data");
 		signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 		String Token = verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
-//		refreshAdminToken(Token);
+		refreshAdminToken(Token);
+		universal_creditlimit();
 //		ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
 //		OverallSlotList();
 //		Priority();

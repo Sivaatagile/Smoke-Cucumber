@@ -89,7 +89,11 @@ public class AdminCreateService extends Base {
 	public void theAdminSetsTheForToPets(String string, Integer int1, Integer int2) throws Exception {
 		slowscrolluntilelementfound(Service.getFirstElement());
 		ClickonElement(Service.getFirstElement());
-		passInput(Service.getFirstElement(), getProperty("BASE_PRICE_AMOUNT"));
+		double universalCreditLimit = api.universalCreditLimit;
+	    double	Baseprice=universalCreditLimit-1;
+	    int converted = (int) Baseprice;
+	    String str = String.valueOf(converted);
+		passInput(Service.getFirstElement(), str);
 		driver.hideKeyboard();
 		Thread.sleep(1000);
 		slowscrolluntilelementfound(Service.getFourthElement());

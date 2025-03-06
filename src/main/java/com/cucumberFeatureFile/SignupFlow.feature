@@ -56,3 +56,9 @@ Scenario: Launch application in emulator
 
   Scenario: User navigates to landing screen
     Given the user navigates to the landing page
+    
+   Scenario: Clearing the application cache and opening the application
+    Given the admin clears the application cache
+    When the admin opens the application
+    Then the application launches successfully
+    And the admin is navigated to the login page (or home page if already logged in)

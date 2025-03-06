@@ -47,12 +47,15 @@ public class Booking extends Base {
 	public static String currentMonth;
 	public static Boolean Stripe;
 	public static Boolean Crezco;
-	
+	public static String mybookingamountwithoutsymbol;
 	public static Boolean ACCOUNTBALANCE;
 	public static Boolean PAYLATER;
-	
+	public static Boolean PartialPayment;
+	public static Boolean sale;
+	public static String Mybookingamount;
 	public static String daydatemonth;
 	public static double totalAmount;
+	public static String partialAmount;
 	public static double accountBalance;
 	public static double paylater;
 	public static double TallyAmount;
@@ -65,6 +68,11 @@ public class Booking extends Base {
 
 	Api api = new Api(driver);
 	Random random = new Random();
+	static boolean isCardPayment = Boolean.parseBoolean(getProperty("card"));
+	static boolean AccountBalance = Boolean.parseBoolean(getProperty("AccountBalance"));
+	static boolean isAccountPayment = Boolean.parseBoolean(getProperty("account"));
+
+
 
 	
 	  public static List<LocalDate> getFilteredDates(List<LocalDate> inputDates, String monthYear) {
@@ -277,12 +285,9 @@ public class Booking extends Base {
 
 	@Then("the user reviews the total amount and remaining credit amount")
 	public void theUserReviewsTheTotalAmountAndRemainingCreditAmount() throws InterruptedException, Error {
-		Thread.sleep(2000);
-		
-		
-		int maxScrolls = 5; // Set a limit to prevent infinite loops
+		Thread.sleep(1000);
+		int maxScrolls = 5; 
 	    int scrollCount = 0;
-
 	    while (scrollCount < maxScrolls) {
 	        if (isElementAvailable(booking.getConfirmANDPay()) || isElementAvailable(booking.getproceedtopayment())) {
 	            System.out.println("or");
@@ -292,21 +297,25 @@ public class Booking extends Base {
 	        scrollCount++;
 	    }
 	    System.out.println("nu");
-		
-
-		String totalAmountText = booking.getTotal_Amount().getAttribute("content-desc");
+	    String totalAmountText = booking.getTotal_Amount().getAttribute("content-desc");
 		TotalAmountWithSymbol=totalAmountText;
 		System.out.println("kkk    :--------------------------------         "+TotalAmountWithSymbol);
+		 Mybookingamount = formatAmount(TotalAmountWithSymbol);
+		System.out.println("gtcefetcv   "+Mybookingamount);
+		mybookingamountwithoutsymbol = Mybookingamount.replace("£", "").trim();
+		System.out.println(mybookingamountwithoutsymbol);
 		ClickonElement(booking.getCheckBox());
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		System.out.println("Total Amount is: " + totalAmountText);
-		 totalAmount = Double.parseDouble(totalAmountText.replace("£", "").trim());
-
+		totalAmount = Double.parseDouble(totalAmountText.replace("£", "").trim());
+		System.out.println("ooooooooo  = "+totalAmount);
+		
 		if (isElementAvailable(booking.getNopayment())) {
          throw  new Error("Cannot able to booking ");		
          }else {
 			System.out.println("proceed the booking");
          }
+		
 		if (isElementAvailable(booking.getUseAccountBalance())) {
 			System.out.println("\033[1;93maccount balance \033[0m");
 			String attribute = booking.getUseAccountAvailableBalance().getAttribute("content-desc");
@@ -316,13 +325,19 @@ public class Booking extends Base {
 			System.out.println(amountText);
 			accountBalance = Double.parseDouble(amountText);
 			System.out.println(accountBalance);
-			Thread.sleep(2000);
 			if (totalAmount < accountBalance) {
 				ACCOUNTBALANCE=true;
+				PAYLATER=false;
+				Stripe=false;
+				Crezco=false;
+				System.out.println("ACCOUNT BALANCE = "+ACCOUNTBALANCE);
 				System.out.println("\033[1;93maccount balance > Total amount\033[0m");
-				ClickonElement(booking.getConfirmANDPay());
-			} else if (totalAmount > accountBalance) {
-				
+				ClickonElement(booking.getConfirmANDPay());                                        //   completed
+			} 
+			else if (totalAmount > accountBalance) {
+				ACCOUNTBALANCE=false;
+				System.out.println("ACCOUNT BALANCE = "+ACCOUNTBALANCE);
+				System.out.println("Checking the paylater availability");
 				System.out.println("\033[1;93maccount balance < Total amount\033[0m");
 				if (isElementAvailable(booking.getpaylater())) {
 					System.out.println("\033[1;93mVerify the remaining credit is their\033[0m");
@@ -336,22 +351,31 @@ public class Booking extends Base {
 					TallyAmount = accountBalance + paylater;
 					System.out.println("tally : " + TallyAmount);
 					if (TallyAmount > totalAmount) {
+						PAYLATER=true;
+						ACCOUNTBALANCE=true;
+						Stripe=false;
+						Crezco=false;
 						System.out.println(
 								"\033[1;93mverfifying with remaining credit and account balance >  Totalamount\033[0m");
 						ClickonElement(booking.getCheckBox2());
 						ClickonElement(booking.getpaylater());
-						ClickonElement(booking.getproceedtopayment());
-					} else if (TallyAmount < totalAmount) {
-						System.out.println(
-								"\033[1;93mverfifying with remaining credit and account balance <  Totalamount\033[0m");
-						boolean isCardPayment = Boolean.parseBoolean(getProperty("card"));
-						System.out.println("card : " + isCardPayment);
-						boolean isAccountPayment = Boolean.parseBoolean(getProperty("account"));
-						System.out.println("account : " + isAccountPayment);
+						ClickonElement(booking.getproceedtopayment());                              // completed
+					}
+					else if (isCardPayment||AccountBalance) {
+						PartialPayment=true;
+						Stripe=false;
+						ACCOUNTBALANCE=false;
+						Crezco=false;
+						PAYLATER=false;
+						ClickonElement(booking.getCheckBox2());
+						System.out.println("Account balance = "+accountBalance);
+						double partialAmount1=totalAmount-accountBalance;
+						partialAmount = String.format("%.2f", partialAmount1);
+						System.out.println(partialAmount);
+						System.out.println("partial amount = "+partialAmount);
 						if (isCardPayment) {
 							System.out.println("\033[1;93mStart the card payment method\033[0m");
 							if (isElementAvailable(booking.getcard())) {
-								Stripe = true;
 								System.out.println("\033[1;93mStart the stripe card payment \033[0m");
 								ClickonElement(booking.getcard());
 								System.setProperty("webdriver.chrome.driver",
@@ -362,7 +386,6 @@ public class Booking extends Base {
 								Thread.sleep(10000);
 								if (isElementAvailable(booking.getStripeBack())) {
 									if (totalAmount == 0.00) {
-										Stripe = true;
 										waitForElement(booking.getStripeBack());
 										Set<String> hand = driver.getContextHandles(); // Get context handles
 										System.out.println("Get Handles  : " + hand); // Print context handles
@@ -375,9 +398,8 @@ public class Booking extends Base {
 										String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
 										System.out.println("native  : " + nativecontext);
 										driver.context(nativecontext);
-
-									} else {
-										Stripe = true;
+									} 
+									else {
 										waitForElement(booking.getStripeBack());
 										Set<String> hand = driver.getContextHandles(); // Get context handles
 										System.out.println("Get Handles  : " + hand); // Print context handles
@@ -389,47 +411,188 @@ public class Booking extends Base {
 										Stripe_Payment();
 										String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
 										System.out.println("native  : " + nativecontext);
-										driver.context(nativecontext);
+										driver.context(nativecontext);                                                // Completed
 									}
 								}
 							}
 						}
+					}
+					else if (isAccountPayment||AccountBalance) {
+						ClickonElement(booking.getCheckBox2());
 						if (isAccountPayment) {
-							Crezco = true;
-
+							PartialPayment=true;
+							Stripe=false;
+							ACCOUNTBALANCE=false;
+							Crezco=false;
+							PAYLATER=false;						
 							System.out.println("\033[1;93mStart the crezco payment method\033[0m");
+							Thread.sleep(10000);
 							if (isElementAvailable(booking.getBankTransfer())) {
 								ClickonElement(booking.getBankTransfer());
 								System.setProperty("webdriver.chrome.driver",
 										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
 								ClickonElement(booking.getproceedtopayment());
-								Crezco = true;
+								Thread.sleep(10000);
+								waitForElement(booking.getCrezcoContinue());
 								System.out.println("Crezco payment ");
-								Set<String> hand = driver.getContextHandles(); // Get context handles
-								System.out.println("Get Handles  : " + hand); // Print context handles
-								String webcontext = new ArrayList<String>(hand).get(1); // Get web context
-								System.out.println("WebView  : " + webcontext);
-								Thread.sleep(2000);
-								driver.context(webcontext);
 								Thread.sleep(6000);
-								Crezco_Payment();
+								Crezco_Payment();                                       //   COMPLETED
 							}
 						}
 					}
-				} else if (!isElementAvailable(booking.getpaylater())) {
-					Stripe = true;
-					System.out.println("\033[1;93mRemaining credit is not their\033[0m");
-					boolean isCardPayment = Boolean.parseBoolean(getProperty("card"));
-					System.out.println("card : " + isCardPayment);
-					boolean isAccountPayment = Boolean.parseBoolean(getProperty("account"));
-					System.out.println("account : " + isAccountPayment);
+					else if (TallyAmount < totalAmount) {
+						System.out.println("\033[1;93mverfifying with remaining credit and account balance <  Totalamount\033[0m");
+						if (isCardPayment) {
+							Stripe=true;
+							ACCOUNTBALANCE=false;
+							Crezco=false;
+							PAYLATER=false;
+							System.out.println("\033[1;93mStart the card payment method\033[0m");
+							if (isElementAvailable(booking.getcard())) {
+								System.out.println("\033[1;93mStart the stripe card payment \033[0m");
+								ClickonElement(booking.getcard());
+								System.setProperty("webdriver.chrome.driver",
+										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+								ClickonElement(booking.getproceedtopayment());
+								System.out.println(
+										"Total amount is greater than remaining credit. Navigating to payment page...");
+								Thread.sleep(10000);
+								if (isElementAvailable(booking.getStripeBack())) {
+									if (totalAmount == 0.00) {
+										waitForElement(booking.getStripeBack());
+										Set<String> hand = driver.getContextHandles(); // Get context handles
+										System.out.println("Get Handles  : " + hand); // Print context handles
+										String webcontext = new ArrayList<String>(hand).get(1); // Get web context
+										System.out.println("WebView  : " + webcontext);
+										Thread.sleep(2000);
+										driver.context(webcontext);
+										Thread.sleep(10000);
+										Stripe_Payment1();
+										String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
+										System.out.println("native  : " + nativecontext);
+										driver.context(nativecontext);
+									} 
+									else {
+										waitForElement(booking.getStripeBack());
+										Set<String> hand = driver.getContextHandles(); // Get context handles
+										System.out.println("Get Handles  : " + hand); // Print context handles
+										String webcontext = new ArrayList<String>(hand).get(1); // Get web context
+										System.out.println("WebView  : " + webcontext);
+										Thread.sleep(2000);
+										driver.context(webcontext);
+										Thread.sleep(10000);
+										Stripe_Payment();
+										String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
+										System.out.println("native  : " + nativecontext);
+										driver.context(nativecontext);                                                // Completed
+									}
+								}
+							}
+						}
+						if (isAccountPayment) {
+							Stripe=false;
+							ACCOUNTBALANCE=false;
+							Crezco=true;
+							PAYLATER=false;
+							System.out.println("\033[1;93mStart the crezco payment method\033[0m");
+							Thread.sleep(10000);
+							if (isElementAvailable(booking.getBankTransfer())) {
+								ClickonElement(booking.getBankTransfer());
+								System.setProperty("webdriver.chrome.driver",
+										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+								ClickonElement(booking.getproceedtopayment());
+								Thread.sleep(10000);
+								waitForElement(booking.getCrezcoContinue());
+								System.out.println("Crezco payment ");
+								Thread.sleep(6000);
+								Crezco_Payment();                                       //   COMPLETED
+							}
+						}
+					}
+				} 
+				else if (!isElementAvailable(booking.getpaylater())) {
+					 if (isCardPayment||AccountBalance) {
+						 PartialPayment=true;
+							Stripe=false;
+							ACCOUNTBALANCE=false;
+							Crezco=false;
+							PAYLATER=false;
+						ClickonElement(booking.getCheckBox2());
+						if (isCardPayment) {
+							System.out.println("\033[1;93mStart the card payment method\033[0m");
+							if (isElementAvailable(booking.getcard())) {
+								System.out.println("\033[1;93mStart the stripe card payment \033[0m");
+								ClickonElement(booking.getcard());
+								System.setProperty("webdriver.chrome.driver",
+										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+								ClickonElement(booking.getproceedtopayment());
+								System.out.println(
+										"Total amount is greater than remaining credit. Navigating to payment page...");
+								Thread.sleep(10000);
+								if (isElementAvailable(booking.getStripeBack())) {
+									if (totalAmount == 0.00) {
+										waitForElement(booking.getStripeBack());
+										Set<String> hand = driver.getContextHandles(); // Get context handles
+										System.out.println("Get Handles  : " + hand); // Print context handles
+										String webcontext = new ArrayList<String>(hand).get(1); // Get web context
+										System.out.println("WebView  : " + webcontext);
+										Thread.sleep(2000);
+										driver.context(webcontext);
+										Thread.sleep(10000);
+										Stripe_Payment1();
+										String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
+										System.out.println("native  : " + nativecontext);
+										driver.context(nativecontext);
+									} else {
+										waitForElement(booking.getStripeBack());
+										Set<String> hand = driver.getContextHandles(); // Get context handles
+										System.out.println("Get Handles  : " + hand); // Print context handles
+										String webcontext = new ArrayList<String>(hand).get(1); // Get web context
+										System.out.println("WebView  : " + webcontext);
+										Thread.sleep(2000);
+										driver.context(webcontext);
+										Thread.sleep(10000);
+										Stripe_Payment();
+										String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
+										System.out.println("native  : " + nativecontext);
+										driver.context(nativecontext);                                                // Completed
+									}
+								}
+							}
+						}
+					}
+					else if (isAccountPayment||AccountBalance) {
+						PartialPayment=true;
+						Stripe=false;
+						ACCOUNTBALANCE=false;
+						Crezco=false;
+						PAYLATER=false;
+						ClickonElement(booking.getCheckBox2());
+						if (isAccountPayment) {
+							System.out.println("\033[1;93mStart the crezco payment method\033[0m");
+							Thread.sleep(10000);
+							if (isElementAvailable(booking.getBankTransfer())) {
+								ClickonElement(booking.getBankTransfer());
+								System.setProperty("webdriver.chrome.driver",
+										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+								ClickonElement(booking.getproceedtopayment());
+								Thread.sleep(10000);
+								waitForElement(booking.getCrezcoContinue());
+								System.out.println("Crezco payment ");
+								Thread.sleep(6000);
+								Crezco_Payment();                                       //   COMPLETED
+							}
+						}
+					}
 					if (isCardPayment) {
+						Stripe = true;
+							ACCOUNTBALANCE=false;
+							Crezco=false;
+							PAYLATER=false;
 						System.out.println("\033[1;93mStart the card payment method\033[0m");
 						if (isElementAvailable(booking.getcard())) {
 							System.out.println("\033[1;93mStart the stripe card payment \033[0m");
 							ClickonElement(booking.getcard());
-							Stripe = true;
-
 							System.setProperty("webdriver.chrome.driver",
 									"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
 							ClickonElement(booking.getproceedtopayment());
@@ -438,7 +601,6 @@ public class Booking extends Base {
 							Thread.sleep(10000);
 							if (isElementAvailable(booking.getStripeBack())) {
 								if (totalAmount == 0.00) {
-									Stripe = true;
 									waitForElement(booking.getStripeBack());
 									Set<String> hand = driver.getContextHandles(); // Get context handles
 									System.out.println("Get Handles  : " + hand); // Print context handles
@@ -450,10 +612,9 @@ public class Booking extends Base {
 									Stripe_Payment1();
 									String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
 									System.out.println("native  : " + nativecontext);
-									driver.context(nativecontext);
-
-								} else {
-									Stripe = true;
+									driver.context(nativecontext);                                                                                               //  COMPLETED
+								} 
+								else {
 									waitForElement(booking.getStripeBack());
 									Set<String> hand = driver.getContextHandles(); // Get context handles
 									System.out.println("Get Handles  : " + hand); // Print context handles
@@ -466,69 +627,63 @@ public class Booking extends Base {
 									String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
 									System.out.println("native  : " + nativecontext);
 									driver.context(nativecontext);
-								}
+								}                                                                                              // COMPLETED
 							}
 						}
 					}
 					if (isAccountPayment) {
+						Stripe = false;
+						ACCOUNTBALANCE=false;
+						Crezco=true;
+						PAYLATER=false;
 						System.out.println("\033[1;93mStart the crezco payment method\033[0m");
-						Crezco = true;
-
+						Thread.sleep(10000);
 						if (isElementAvailable(booking.getBankTransfer())) {
 							ClickonElement(booking.getBankTransfer());
 							System.setProperty("webdriver.chrome.driver",
 									"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
 							ClickonElement(booking.getproceedtopayment());
-							Crezco = true;
+							Thread.sleep(10000);
+							waitForElement(booking.getCrezcoContinue());
 							System.out.println("Crezco payment ");
-							Set<String> hand = driver.getContextHandles(); // Get context handles
-							System.out.println("Get Handles  : " + hand); // Print context handles
-							String webcontext = new ArrayList<String>(hand).get(1); // Get web context
-							System.out.println("WebView  : " + webcontext);
-							Thread.sleep(2000);
-							driver.context(webcontext);
 							Thread.sleep(6000);
-				        	Crezco_Payment();
+							Crezco_Payment();               
 						}
-					}
+					}                                                                                              // COMPLETED
 				}
 			}
-		} else if (!isElementAvailable(booking.getUseAccountBalance())) {
+		} 
+		else if (!isElementAvailable(booking.getUseAccountBalance())) {
+			ACCOUNTBALANCE=false;
 			System.out.println("\033[1;93maccount balance is not available \033[0m");
 				if (isElementAvailable(booking.getpaylater())) {
-
+					PAYLATER=true;
 					System.out.println("\033[1;93mVerify the remaining credit is their\033[0m");	
 					String fullText = booking.getpaylater().getAttribute("content-desc");
 					String cleanedText1 = fullText.replace("\n", " ").trim();
 					String amountText1 = cleanedText1.replaceAll(".*£\\s*", "").trim();
 					System.out.println(amountText1);
 					paylater = Double.parseDouble(amountText1);
-					System.out.println(paylater);
+					System.out.println("  kkkkkkkkkkkk  00000 :   "+paylater);
 					System.out.println("Available Credit: £" + paylater);
-					
 					if (paylater > totalAmount) {
-						
 						PAYLATER=true;
+						Stripe=false;
+						Crezco=false;
 						System.out.println(
 								"\033[1;93mverfifying with remaining credit >  Totalamount\033[0m");
-
 						ClickonElement(booking.getpaylater());
 						ClickonElement(booking.getproceedtopayment());
 					} else if (paylater < totalAmount) {
 						System.out.println(
 								"\033[1;93mverfifying with remaining credit  <  Totalamount\033[0m");
-
-						boolean isCardPayment = Boolean.parseBoolean(getProperty("card"));
-						System.out.println("card : " + isCardPayment);
-						boolean isAccountPayment = Boolean.parseBoolean(getProperty("account"));
-						System.out.println("account : " + isAccountPayment);
 						if (isCardPayment) {
-
+							PAYLATER=false;
+							Stripe=true;
+							Crezco=false;
 							System.out.println("\033[1;93mStart the card payment method\033[0m");
-
 							if (isElementAvailable(booking.getcard())) {
 								System.out.println("\033[1;93mStart the stripe card payment \033[0m");
-
 								ClickonElement(booking.getcard());
 								System.setProperty("webdriver.chrome.driver",
 										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
@@ -538,7 +693,6 @@ public class Booking extends Base {
 								Thread.sleep(10000);
 								if (isElementAvailable(booking.getStripeBack())) {
 									if (totalAmount == 0.00) {
-										Stripe = true;
 										waitForElement(booking.getStripeBack());
 										Set<String> hand = driver.getContextHandles(); // Get context handles
 										System.out.println("Get Handles  : " + hand); // Print context handles
@@ -551,9 +705,7 @@ public class Booking extends Base {
 										String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
 										System.out.println("native  : " + nativecontext);
 										driver.context(nativecontext);
-
 									} else {
-										Stripe = true;
 										waitForElement(booking.getStripeBack());
 										Set<String> hand = driver.getContextHandles(); // Get context handles
 										System.out.println("Get Handles  : " + hand); // Print context handles
@@ -571,41 +723,33 @@ public class Booking extends Base {
 							}
 						}
 						if (isAccountPayment) {
-
+							PAYLATER=false;
+							Stripe=false;
+							Crezco = true;
 							System.out.println("\033[1;93mStart the crezco payment method\033[0m");
-
+							Thread.sleep(10000);
 							if (isElementAvailable(booking.getBankTransfer())) {
 								ClickonElement(booking.getBankTransfer());
 								System.setProperty("webdriver.chrome.driver",
 										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
 								ClickonElement(booking.getproceedtopayment());
-								Crezco = true;
+								Thread.sleep(10000);
+								waitForElement(booking.getCrezcoContinue());
 								System.out.println("Crezco payment ");
-								Set<String> hand = driver.getContextHandles(); // Get context handles
-								System.out.println("Get Handles  : " + hand); // Print context handles
-								String webcontext = new ArrayList<String>(hand).get(1); // Get web context
-								System.out.println("WebView  : " + webcontext);
-								Thread.sleep(2000);
-								driver.context(webcontext);
 								Thread.sleep(6000);
-								Crezco_Payment();
+								Crezco_Payment();        
+							Crezco_Payment();             
 							}
-
 						}
 					}
-				} else if (!isElementAvailable(booking.getpaylater())) {
+				} 
+				else if (!isElementAvailable(booking.getpaylater())) {
+					PAYLATER=false;
 					if (isElementAvailable(booking.getcard()) || isElementAvailable(booking.getBankTransfer())) {
-						
-					
-					
 					System.out.println("\033[1;93mRemaining credit is not their\033[0m");
-					boolean isCardPayment = Boolean.parseBoolean(getProperty("card"));
-					System.out.println("card : " + isCardPayment);
-					boolean isAccountPayment = Boolean.parseBoolean(getProperty("account"));
-					System.out.println("account : " + isAccountPayment);
-					
-					
 					if (isCardPayment) {
+						Stripe=true;
+						Crezco =false;
 						System.out.println("\033[1;93mStart the card payment method\033[0m");
 						if (isElementAvailable(booking.getcard())) {
 							System.out.println("\033[1;93mStart the stripe card payment \033[0m");
@@ -631,8 +775,8 @@ public class Booking extends Base {
 									String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
 									System.out.println("native  : " + nativecontext);
 									driver.context(nativecontext);
-									
-								} else {
+								} 
+								else {
 									Stripe = true;
 									waitForElement(booking.getStripeBack());
 									Set<String> hand = driver.getContextHandles(); // Get context handles
@@ -652,28 +796,26 @@ public class Booking extends Base {
 						}
 					}
 					if (isAccountPayment) {
+						Stripe=false;
+						Crezco = true;						
 						System.out.println("\033[1;93mStart the crezco payment method\033[0m");
+						Thread.sleep(10000);
 						if (isElementAvailable(booking.getBankTransfer())) {
 							ClickonElement(booking.getBankTransfer());
 							System.setProperty("webdriver.chrome.driver",
 									"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
 							ClickonElement(booking.getproceedtopayment());
-							Crezco = true;
+							Thread.sleep(10000);
+							waitForElement(booking.getCrezcoContinue());
 							System.out.println("Crezco payment ");
-							Set<String> hand = driver.getContextHandles(); // Get context handles
-							System.out.println("Get Handles  : " + hand); // Print context handles
-							String webcontext = new ArrayList<String>(hand).get(1); // Get web context
-							System.out.println("WebView  : " + webcontext);
-							Thread.sleep(2000);
-							driver.context(webcontext);
 							Thread.sleep(6000);
-							Crezco_Payment();
+							Crezco_Payment();           
 						}
 					}
 				}else if (totalAmount == 0.00) {
+					sale=true;
 					ClickonElement(booking.getConfirmANDPay());	
 				}
-					
 				}
 			}
 		}
@@ -732,7 +874,7 @@ public class Booking extends Base {
 		System.out.println(BookedSLOT);
 		By BookedSERVICE = By.xpath("//android.view.View[@content-desc='" + Booking.Booked_service + "']");
 		System.out.println(BookedSERVICE);
-		By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='" + Booking.BookingPaidAmount + "']");
+		By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='" + Booking.Mybookingamount + "']");
 		System.out.println(BookedPAYMENT);
 		System.out.println(Booking.Selected_Slot);
 		if (isElementAvailable(BookedDATE) && isElementAvailable(BookedSLOT) && isElementAvailable(BookedSERVICE)
@@ -872,7 +1014,7 @@ public class Booking extends Base {
 		System.out.println(BookedSERVICE);
 //	        By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmount + "']");
 		By BookedPAYMENT1 = By
-				.xpath("//android.view.View[@content-desc='" + Booking.BookingPaidAmountwithdecimal + "']");
+				.xpath("//android.view.View[@content-desc='" + Booking.mybookingamountwithoutsymbol + "']");
 		System.out.println(BookedPAYMENT1);
 
 //	        BookingPaidAmountwithdecimal

@@ -1652,6 +1652,17 @@ public class Base {
 	    }
 	}
 	
+	
+	   public static String formatAmount(String amount) {
+	        // Remove the currency symbol and trim spaces
+	        String numericPart = amount.replace("£", "").trim();
+	        
+	        // Convert to double
+	        double value = Double.parseDouble(numericPart);
+	        
+	        // Return formatted string
+	        return "£ " + value;
+	    }
 	public static void processFlow(String type) {
        
     }

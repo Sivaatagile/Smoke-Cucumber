@@ -60,7 +60,8 @@ public class LoginLogout extends Base {
 	}
 	
 	@When("the customer clicks on the Continue button")
-	public void theCustomerClicksOnTheContinueButton() {
+	public void theCustomerClicksOnTheContinueButton() throws InterruptedException {
+		Thread.sleep(2000);
 		ClickonElement(login.getContinueButton());
 	}
 
