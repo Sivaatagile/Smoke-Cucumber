@@ -26,9 +26,11 @@ public class LoginLogout extends Base {
 	}
 
 	@Given("the customer enters their {string} address")
-	public void theCustomerEntersTheirAddress(String customerEmail) {
+	public void theCustomerEntersTheirAddress(String customerEmail) throws InterruptedException {
+		Thread.sleep(5000);
 		ClickonElement(login.getContinueWithEmail());
 		passInput(login.getContinueWithEmail(), getProperty(customerEmail));
+		Thread.sleep(1000);
 		driver.hideKeyboard();
 
 	}
@@ -38,23 +40,28 @@ public class LoginLogout extends Base {
 		Thread.sleep(5000);
 		String otp_Received = getOtpFromSource();
 		System.out.println("The OTP is  : " + otp_Received);
+		ClickonElement(login.getOTP());
 		Thread.sleep(2000);
 		passInputUsingActions(login.getOTP(), otp_Received);
 
 	}
 
 	@Given("the customer navigates to the Settings tab")
-	public void theCustomerNavigatesToTheSettingsTab() {
+	public void theCustomerNavigatesToTheSettingsTab() throws InterruptedException {
+		Thread.sleep(3500);
+
 		ClickonElement(login.getSettings());
 	}
 
 	@Given("the customer clicks on the logout button")
 	public void theCustomerClicksOnTheLogoutButton() {
+		
 		ClickonElement(login.getLogout());
 	}
 	
 	@When("the customer clicks on the Continue button")
-	public void theCustomerClicksOnTheContinueButton() {
+	public void theCustomerClicksOnTheContinueButton() throws InterruptedException {
+		Thread.sleep(2000);
 		ClickonElement(login.getContinueButton());
 	}
 

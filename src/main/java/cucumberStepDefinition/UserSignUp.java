@@ -11,7 +11,6 @@ public class UserSignUp extends Base {
 
 	@Given("the user clicks on the Sign Up button")
 	public void theUserClicksOnTheSignUpButton() throws InterruptedException {
-		Thread.sleep(9000);
 		ClickonElement(signup.getSignUp());
 	}
 
@@ -20,7 +19,6 @@ public class UserSignUp extends Base {
 		ClickonElement(signup.getContinueWithEmail());
 		passInput(signup.getContinueWithEmail(), getProperty(Email));
 		driver.hideKeyboard();
-		Thread.sleep(3000);
 		if (isElementAvailable(signup.getwelcome())) {
 			ClickonElement(signup.getcheckbox());
 		}
@@ -33,14 +31,12 @@ public class UserSignUp extends Base {
 
 	@Then("the user receives an OTP in their email")
 	public void theUserReceivesAnOTPInTheirEmail() throws InterruptedException {
-		Thread.sleep(4000);
-		otp_Received = getOtpFromSource();
+		otp_Received = getOtpFromSource1();
 		System.out.println("The OTP is  : " + otp_Received);
 	}
 
 	@When("the user enters the OTP received in the email")
 	public void theUserEntersTheOTPReceivedInTheEmail() throws InterruptedException {
-		Thread.sleep(2000);
 		passInputUsingActions(signup.getOTP(), otp_Received);
 	}
 

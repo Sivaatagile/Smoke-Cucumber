@@ -10,12 +10,10 @@ import io.appium.java_client.android.AndroidDriver;
 
 public class WE_Login_Details extends Base{
 	
-	
 	public WE_Login_Details(AndroidDriver driver1) {
 		Base.driver = driver1;
 		PageFactory.initElements(driver1, this);
 	}
-	
 	
 	@FindBy(xpath = "//android.view.View[@content-desc=\"Sign up\"]")
 	private WebElement SignUp;
@@ -35,9 +33,6 @@ public class WE_Login_Details extends Base{
 		return checkbox;
 	}
 	
-	
-	
-	//android.view.View[@content-desc="Welcome "]
 	@FindBy(xpath = "//android.widget.EditText[@hint='Continue with email']") 
 	private WebElement ContinueWithEmail;
 	public WebElement getContinueWithEmail() {
@@ -104,6 +99,10 @@ public class WE_Login_Details extends Base{
 		return    MyScedule ;
 	}
 	
-	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Sign in to your account\"]")
+	private WebElement   Signin ;
+	public WebElement getSignin() {
+		return    Signin ;
+	}
 	
 }

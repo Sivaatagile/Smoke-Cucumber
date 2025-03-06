@@ -12,7 +12,6 @@ public class WE_Snackbar extends Base{
 	
 	public WE_Snackbar(AndroidDriver driver1) {
 	    this.driver = driver1;
-	    // Initialize all elements with the given driver instance
 	    PageFactory.initElements(driver1, this);
 	}
 	

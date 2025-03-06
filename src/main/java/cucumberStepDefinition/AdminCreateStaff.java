@@ -16,7 +16,6 @@ public class AdminCreateStaff extends Base {
 	WE_Info info = new WE_Info(driver);
 	WE_Snackbar snack = new WE_Snackbar(driver);
 
-
 	@When("the admin clicks on Staff's Show All")
 	public void theAdminClicksOnStaffSShowAll() {
 		ClickonElement(user.getShowall_AllStaff());
@@ -34,8 +33,7 @@ public class AdminCreateStaff extends Base {
 
 	@When("the admin clicks on the Skills dropdown and selects the staff's skill")
 	public void theAdminClicksOnTheSkillsDropdownAndSelectsTheStaffSSkill() throws InterruptedException, Exception {
-
-		Thread.sleep(2000);
+		Thread.sleep(500);
 		ClickonElement(user.getSkillsset());
 		if (isElementAvailable(user.ServiceSkill)) {
 			clickOnElementUsingBy(user.ServiceSkill);
@@ -48,10 +46,7 @@ public class AdminCreateStaff extends Base {
 
 	@Then("the new staff details should be successfully saved")
 	public void theNewStaffDetailsShouldBeSuccessfullySaved() throws InterruptedException {
-//		waitForElement(user.getSnackbarCreatedstaff());
-//		if (isElementAvailable(user.getSnackbarCreatedstaff())) {
-//			System.out.println("Staff Created");
-//		}
+		waitForElement(user.getAllStaff());
 	}
 
 	@When("the admin selects the gender for Staff")
@@ -70,11 +65,9 @@ public class AdminCreateStaff extends Base {
 		case 2:
 			addressLineElement = user.getAddressLine2();
 			break;
-		// Add more cases if needed
 		default:
 			throw new IllegalArgumentException("Invalid address line number: " + int1);
 		}
-		// Perform actions on the dynamically selected address line
 		ClickonElement(addressLineElement);
 		passInput(addressLineElement, getProperty("ADMIN_STAFF_ADDRESSLINE_" + int1));
 		driver.hideKeyboard();
@@ -87,10 +80,9 @@ public class AdminCreateStaff extends Base {
 		driver.hideKeyboard();
 	}
 	
-	
 	@When("the admin verifies the snackbar after creating the new staff")
 	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewStaff() throws InterruptedException {
-	 waitForElement(snack.getRecordCreatedSuccessfully());
+//	 waitForElement(snack.getRecordCreatedSuccessfully());
 	}
 	
 

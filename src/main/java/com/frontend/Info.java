@@ -5,7 +5,6 @@ import java.util.Random;
 import com.WE.WE_Info;
 import com.baseClass.Base;
 
-import io.qameta.allure.Allure;
 
 public class Info extends Base {
 	static Random random = new Random();

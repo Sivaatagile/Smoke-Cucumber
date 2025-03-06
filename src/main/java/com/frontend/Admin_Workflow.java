@@ -11,19 +11,21 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import com.WE.WE_ADMIN_BOOKING;
+import com.WE.WE_Admin_Settings;
 import com.WE.WE_Admin_WorkFlow;
 import com.WE.WE_Customer_BookingFlow;
 import com.api.Api;
 import com.baseClass.Base;
-
-import io.qameta.allure.Allure;
 
 public class Admin_Workflow extends Base {
 
 
 
 	public static void Assigned() throws Exception {
+		WE_Admin_Settings settings = new WE_Admin_Settings(driver);
+
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object
+		ClickonElement(settings.gethometab());
 		ClickonElement(workflow.getService()); // Click on service filter
 		boolean isElementFound = false; // Initialize flag for element found
 		while (!isElementFound) { // Loop until element is found
@@ -91,7 +93,25 @@ public class Admin_Workflow extends Base {
 		elements.click();
 		Thread.sleep(1500);
 		ClickonElement(workflow.getAssign_Selected()); // Click on Assign Selected button
+        Thread.sleep(5000);
+	}
+	
+	public static  void Assigned_TO_Reassigned() throws Exception {
 
+		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object
+		ClickonElement(workflow.getAssigned_Tab()); // Click on Unassigned tab
+		Assigned(); 
+		if (isElementAvailable(workflow.StaffLocator)&& isElementAvailable(workflow.ServiceLocator)) {
+			ClickonElement(workflow.getCheckBoxAssigned());
+			ClickonElement(workflow.getReassignSelected());
+			if (isElementAvailable(workflow.SecondStaffLocator)) {
+				clickOnElementUsingBy(workflow.SecondStaffLocator);
+			}else {
+                slowscrolluntilelementfound(workflow.SecondStaffLocator);
+				clickOnElementUsingBy(workflow.SecondStaffLocator);
+			}
+		}
+		
 	}
 
 	public static void Booking_For_Customer_As_Admin() throws Exception {
@@ -133,7 +153,6 @@ public class Admin_Workflow extends Base {
 		Thread.sleep(2500);
 		Selected_Slot_as_ADMIN = booking.getseekbar().getAttribute("content-desc");
 		System.out.println(Selected_Slot_as_ADMIN);
-
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		LocalDate startDate = LocalDate.parse(api.available_date_from, formatter);
 		LocalDate endDate = LocalDate.parse(api.available_date_to, formatter);

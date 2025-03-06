@@ -10,8 +10,6 @@ import com.api.Api;
 import com.baseClass.Base;
 import com.baseClass.Base.API_BASE_URL;
 
-import io.qameta.allure.Allure;
-
 public class Admin_User extends Base {
 
 	public static void Create_Admin() throws InterruptedException {
@@ -26,47 +24,35 @@ public class Admin_User extends Base {
 		ClickonElement(user.getFirstName());
 		passInput(user.getFirstName(), getProperty("ADMIN_ADMIN_FIRST_NAME"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getLastName());
 		passInput(user.getLastName(), getProperty("ADMIN_ADMIN_LAST_NAME"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getEmail());
 		passInput(user.getEmail(), getProperty("ADMIN_ADMIN_EMAIL"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getFemale());
 		ClickonElement(user.getMale());
-
 		ClickonElement(user.getPhoneNumber());
 		passInput(user.getPhoneNumber(), getProperty("ADMIN_ADMIN_CONTACTNUMBER"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getAdditionalContactNumber());
 		passInput(user.getAdditionalContactNumber(), getProperty("ADMIN_ADMIN_ADDITIONAL_CONTACT_NUMBER"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getAddressLine1());
 		passInput(user.getAddressLine1(), getProperty("ADMIN_ADMIN_ADDRESSLINE_1"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getAddressLine2());
 		passInput(user.getAddressLine2(), getProperty("ADMIN_ADMIN_ADDRESSLINE_2"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getCity());
 		passInput(user.getCity(), getProperty("ADMIN_ADMIN_CITY"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getCountry());
 		ClickonElement(user.getCountryName());
-
 		ClickonElement(user.getPostCode());
 		passInput(user.getPostCode(), getProperty("ADMIN_ADMIN_POSTCODE"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getSave());
-
 		ClickonElement(info.getBackButton());
 
 	}
@@ -122,26 +108,21 @@ public class Admin_User extends Base {
 		WE_Info info = new WE_Info(driver);
 
 		ClickonElement(workflow.getUsers_navigation_Bar());
-
 		waitForElement(user.getShowall_AllCustomers());
 		Thread.sleep(2000);
 		halfscrollUntilElementFound12(user.getTagscrollview(), user.getTagCategoriesShowall());
 		ClickonElement(user.getTagCategoriesShowall());
 		ClickonElement(user.getFAB());
-
 		ClickonElement(user.getCategoryName());
 		passInput(user.getCategoryName(), getProperty("ADMIN_TAG_CATEGORY_NAME"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getMaximumEntityLevel());
 		passInput(user.getMaximumEntityLevel(), getProperty("ADMIN_TAG_MAXIMUM_ENTITY_LEVEL"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getDecsription());
 		passInput(user.getDecsription(), getProperty("ADMIN_TAG_CATEGORY_DESCRIPTION"));
 		driver.hideKeyboard();
 		Thread.sleep(2000);
-
 		ClickonElement(user.getTagName());
 		passInput(user.getTagName(), getProperty("ADMIN_TAG_TAGS_NAME1"));
 		driver.hideKeyboard();
@@ -150,7 +131,6 @@ public class Admin_User extends Base {
 		passInput(user.getTagDescription(), getProperty("ADMIN_TAG_TAGS_DESCRIPTION1"));
 		driver.hideKeyboard();
 		Thread.sleep(2000);
-
 		ClickonElement(user.getTickButton());
 		ClickonElement(user.getSave());
 		ClickonElement(info.getBackButton());
@@ -166,45 +146,34 @@ public class Admin_User extends Base {
 		ClickonElement(workflow.getUsers_navigation_Bar());
 		ClickonElement(user.getShowall_AllStaff());
 		ClickonElement(user.getFAB());
-
 		ClickonElement(user.getFirstName());
 		passInput(user.getFirstName(), getProperty("ADMIN_STAFF_FIRST_NAME"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getLastName());
 		passInput(user.getLastName(), getProperty("ADMIN_STAFF_LAST_NAME"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getEmail());
 		passInput(user.getEmail(), getProperty("ADMIN_STAFF_EMAIL"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getFemale());
 		ClickonElement(user.getMale());
-
 		ClickonElement(user.getContactNumber());
 		passInput(user.getContactNumber(), getProperty("ADMIN_STAFF_CONTACTNUMBER"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getAdditionalContactNumber());
 		passInput(user.getAdditionalContactNumber(), getProperty("ADMIN_STAFF_ADDITIONAL_CONTACT_NUMBER"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getAddressLine1());
 		passInput(user.getAddressLine1(), getProperty("ADMIN_STAFF_ADDRESSLINE_1"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getAddressLine2());
 		passInput(user.getAddressLine2(), getProperty("ADMIN_STAFF_ADDRESSLINE_2"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getCity());
 		passInput(user.getCity(), getProperty("ADMIN_STAFF_CITY"));
 		driver.hideKeyboard();
-
 		ClickonElement(user.getCountry());
 		ClickonElement(user.getCountryName());
-
 		ClickonElement(user.getPostCode());
 		passInput(user.getPostCode(), getProperty("ADMIN_STAFF_POSTCODE"));
 		driver.hideKeyboard();
@@ -218,20 +187,80 @@ public class Admin_User extends Base {
 		}
 		ClickonElement(user.getselect());
 		ClickonElement(user.getSave());
+		ClickonElement(info.getBackButton());
+	}
+	
+	public static void Create_Second_Staff() throws Exception {
+
+		WE_Admin_User user = new WE_Admin_User(driver);
+		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+		WE_Info info = new WE_Info(driver);
+
+		ClickonElement(workflow.getUsers_navigation_Bar());
+		ClickonElement(user.getShowall_AllStaff());
+		ClickonElement(user.getFAB());
+
+		ClickonElement(user.getFirstName());
+		passInput(user.getFirstName(), getProperty("ADMIN_STAFF_2_FIRST_NAME"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getLastName());
+		passInput(user.getLastName(), getProperty("ADMIN_STAFF_2_LAST_NAME"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getEmail());
+		passInput(user.getEmail(), getProperty("ADMIN_STAFF_2_EMAIL"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getFemale());
+		ClickonElement(user.getMale());
+
+		ClickonElement(user.getContactNumber());
+		passInput(user.getContactNumber(), getProperty("ADMIN_STAFF_2_CONTACTNUMBER"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getAdditionalContactNumber());
+		passInput(user.getAdditionalContactNumber(), getProperty("ADMIN_STAFF_2_ADDITIONAL_CONTACT_NUMBER"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getAddressLine1());
+		passInput(user.getAddressLine1(), getProperty("ADMIN_STAFF_ADDRESSLINE_1"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getAddressLine2());
+		passInput(user.getAddressLine2(), getProperty("ADMIN_STAFF_ADDRESSLINE_2"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getCity());
+		passInput(user.getCity(), getProperty("ADMIN_STAFF_2_CITY"));
+		driver.hideKeyboard();
+
+		ClickonElement(user.getCountry());
+		ClickonElement(user.getCountryName());
+
+		ClickonElement(user.getPostCode());
+		passInput(user.getPostCode(), getProperty("ADMIN_STAFF_2_POSTCODE"));
+		driver.hideKeyboard();
+		Thread.sleep(2000);
+		ClickonElement(user.getSkillsset());
+		if (isElementAvailable(user.ServiceSkill)) {
+			clickOnElementUsingBy(user.ServiceSkill);
+		} else {
+			halfscrollUntilElementFound12(user.getscroll(), user.ServiceSkill);
+			clickOnElementUsingBy(user.ServiceSkill);
+		}
+		ClickonElement(user.getselect());
+		ClickonElement(user.getSave());
 
 		ClickonElement(info.getBackButton());
-
 	}
-
 	
 	public static  void second_pet() throws Exception {
 		WE_Admin_User user = new WE_Admin_User(driver);
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
 		WE_Info info = new WE_Info(driver);
 
-		
 		ClickonElement(workflow.getUsers_navigation_Bar());
-
 		waitForElement(user.getShowall_AllCustomers());
 		Thread.sleep(2000);
 		ClickonElement(user.getShowall_AllCustomers());
@@ -246,20 +275,14 @@ public class Admin_User extends Base {
 			ClickonElement(user.getuser());
 			ClickonElement(user.getview());
 			ClickonElement(user.getMyPet());
-			
 			ClickonElement(user.getFAB());
 			Info.Pet_Data();
-			
+		    ClickonElement(info.getBackButton());
 			ClickonElement(info.getBackButton());
-			ClickonElement(info.getBackButton());
-
-			
-			
 		} else if (isElementAvailable(user.trySearchingagain)) {
 			System.out.println("User not found");
 			throw new Error("User not found");
 		}
-		
 	}
 
 	public static void approveUserUsingSearch() throws Exception {
@@ -307,6 +330,7 @@ public class Admin_User extends Base {
 	public static void approvePetUsingSearch() throws InterruptedException, Error {
 		WE_Admin_User user = new WE_Admin_User(driver);
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+		WE_Info info = new WE_Info(driver);
 
 		ClickonElement(workflow.getUsers_navigation_Bar());
 		ClickonElement(user.getShowall_PendingRequest());
@@ -330,7 +354,6 @@ public class Admin_User extends Base {
 				if (isScrollViewAvailable()) {
 					Thread.sleep(3000);
 					scrolling();
-					Allure.step("Scroll the Customer Info");
 					Thread.sleep(2000);
 					ClickonElementwithoutWAIT(user.getAccept());
 					isElementFound = true;
@@ -340,7 +363,7 @@ public class Admin_User extends Base {
 			}
 		}
 		ClickonElement(user.getConfirm());
-
+        ClickonElement(info.getBackButton());
 	}
 	
 	
@@ -360,6 +383,4 @@ public class Admin_User extends Base {
 		
 	}
 	
-	
-//	ect1a 1bb
 }

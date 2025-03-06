@@ -46,7 +46,6 @@ public class UserData extends Base {
 	@When("the user enters their first name {string}")
 	public void theUserEntersTheirFirstName(String FirstName) throws InterruptedException {
 		ClickonElement(UserInfo.getFirstName());
-		Thread.sleep(2000);
 		passInput(UserInfo.getFirstName(), getProperty(FirstName));
 		driver.hideKeyboard();
 	}
@@ -125,7 +124,6 @@ public class UserData extends Base {
 		
 		if (isElementAvailable(snackbar.getRecordUpdatedSuccessfully())) {
 			System.out.println("Snack bar verified successfully");
-			Thread.sleep(2500);
 			WE_Info PetInfo = new WE_Info(driver);
 			waitForElement(PetInfo.getAddPetInfoPageElement());
 			boolean isLocator1Present = !driver.findElements(PetInfo.AddPetSignup).isEmpty();

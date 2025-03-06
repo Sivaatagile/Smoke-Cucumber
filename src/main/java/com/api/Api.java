@@ -3,16 +3,16 @@ package com.api;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,19 +20,21 @@ import java.util.stream.Stream;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-
+import com.WE.WE_Admin_WorkFlow;
 import com.baseClass.Base;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import net.bytebuddy.build.Plugin.Factory.UsingReflection.Priority;
 
 public class Api extends Base {
 
-//	private static final String BASE_URL = "https://staging.petcaretechnologies.com/api/";
+//	private static final String BASE_URL = "https://paw-845-staging-automation-testing.petcaretechnologies.com/api/";
 
 //  LOGIN   DETAILS 
 	
@@ -57,6 +59,10 @@ public class Api extends Base {
 	public static int TotalSlotCount;
 	public static List<String> slotNames;
 
+	
+	public static List<String> StaffFirstNames;
+	public static String FirstNameStaff ;
+
 //	PRICINGRULE DETAILS 
 	
 	public static int priorityNumber;
@@ -70,6 +76,7 @@ public class Api extends Base {
 	public static int TotalTagCount;
 	public static List<String> TagNames;   // -------> change this to category name 
 	public static String UniqueTag;
+	public static List<String> OnlyTags;
 
 //	BREED DETAILS
 	
@@ -97,13 +104,17 @@ public class Api extends Base {
 	
 	public static List<String> PoolingNames;
 	public static String Uniquepoolingname;
+	
+//	ORGANISATIONAL SETTINGS
+	
+	public static  double universalCreditLimit;
 
 //	CUSTOMER DEAILS
 
 	public static Integer CustomerId;
 	
 	public static List<String> notAvailableDates;
-
+	public static  Map<String, List<String>> categoryMap;
 
 	public Api(AndroidDriver driver1) {
 		this.driver = driver1;
@@ -157,20 +168,18 @@ public class Api extends Base {
 		return verifiedAccessToken;
 	}
 
-	public static void ServiceSlotTimeCount() throws InterruptedException {
-		Thread.sleep(15000);
+	public static void ServiceSlotTimeCount(String ServiceName) {
 		Response response = RestAssured.given().header("Content-Type", "application/json")
 				.header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
 				.header("Authorization", "Bearer " + VerifiedRefreshToken).get(BASE_URL + "service/list/service"); 
 		if (response.statusCode() == 200) {
 			JSONObject responseObject = new JSONObject(response.asString());
 			JSONArray servicesArray = responseObject.getJSONArray("data");
-			String targetServiceName = getProperty("SERVICE_NAME"); 
 			boolean serviceFound = false;
 			for (int i = 0; i < servicesArray.length(); i++) {
 				JSONObject service = servicesArray.getJSONObject(i);
 				String serviceName = service.getString("name");
-				if (serviceName.equals(targetServiceName)) {
+				if (serviceName.equals(ServiceName)) {
 					timeSlotsCount = service.getInt("time_slots_id_count");
 					Max_allowed_date_for_booking = service.getString("maximum_allowed_date_for_booking");
 					available_date_from = service.getString("available_date_from");
@@ -206,7 +215,7 @@ public class Api extends Base {
 				}
 			}
 			if (!serviceFound) {
-				System.out.println("Service with name '" + targetServiceName + "' not found.");
+				System.out.println("Service with name '" + ServiceName + "' not found.");
 			}
 		} else {
 			System.out.println("Failed to get the response. Status code: " + response.statusCode());
@@ -294,37 +303,44 @@ public class Api extends Base {
 	        // Print the list
 	        System.out.println("Tag Names List: " + PricingRuleNames);
 	}
-
-	public static void OverallTagList() {
+	
+	public static Map<String, List<String>> OverallTagList() {
 		Response response = RestAssured.given().header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
-				.header("Content-Type", "application/json") // Add any necessary headers here
-				.header("Authorization", "Bearer " + VerifiedRefreshToken) // Replace with your actual token variable
-				.get(BASE_URL + "user/list/add_tag_category"); // Replace with your actual API endpoint
+				.header("Content-Type", "application/json").header("Authorization", "Bearer " + VerifiedRefreshToken)
+				.get(BASE_URL + "user/list/add_tag_category");
 		System.out.println("Response Status Code: " + response.getStatusCode());
 		String responseBody = response.getBody().asString();
 		JSONObject jsonResponse = new JSONObject(responseBody);
 		TotalTagCount = jsonResponse.getInt("recordsTotal");
 		System.out.println("Records Total: " + TotalTagCount);
 		JSONArray dataArray = jsonResponse.getJSONArray("data");
-		OverallTAG = new ArrayList<>();
+		// Original LinkedHashMap
+		Map<String, List<String>> categoryMap = new LinkedHashMap<>();
 		for (int i = 0; i < dataArray.length(); i++) {
 			JSONObject tag = dataArray.getJSONObject(i);
 			String tagName = tag.getString("category_name");
+			List<String> subDataList = categoryMap.getOrDefault(tagName, new ArrayList<>());
 			if (tag.has("subdata") && tag.getJSONArray("subdata").length() > 0) {
 				JSONArray subdataArray = tag.getJSONArray("subdata");
 				for (int j = 0; j < subdataArray.length(); j++) {
 					JSONObject subdataItem = subdataArray.getJSONObject(j);
-					String subName = subdataItem.getString("name"); // Extract the sub-name
-					OverallTAG.add(tagName + " , " + subName);
+					String subName = subdataItem.getString("name");
+					subDataList.add(subName);
 				}
+				Collections.reverse(subDataList); // Ensuring descending order
 			} else {
-				OverallTAG.add(tagName + " , No subdata available");
+				subDataList.add("Gold"); // Default value for no subdata
 			}
+			categoryMap.put(tagName, subDataList);
 		}
-		for (String line : OverallTAG) {
-			System.out.println(line);
+		List<Map.Entry<String, List<String>>> entryList = new ArrayList<>(categoryMap.entrySet());
+		Collections.reverse(entryList);
+		Map<String, List<String>> reversedCategoryMap = new LinkedHashMap<>();
+		for (Map.Entry<String, List<String>> entry : entryList) {
+			reversedCategoryMap.put(entry.getKey(), entry.getValue());
 		}
-		System.out.println(OverallTAG);
+		System.out.println("gdfrd     " + reversedCategoryMap);
+		return reversedCategoryMap;
 	}
 	
 	public static  void TagList() {
@@ -349,6 +365,40 @@ public class Api extends Base {
 	        System.out.println("Tag Names List: " + TagNames);
 	}
 	
+	public static void OnlyTag() {
+	    Response response = RestAssured.given()
+	            .header("X-API-Version", "100")
+	            .header("User-Agent", "PostmanRuntime")
+	            .header("Content-Type", "application/json")
+	            .header("Authorization", "Bearer " + VerifiedRefreshToken)
+	            .get(BASE_URL + "/user/list/add_tag_category");
+
+	    System.out.println("Response Status Code: " + response.getStatusCode());
+	    String responseBody = response.getBody().asString();
+	    JSONObject jsonResponse = new JSONObject(responseBody);
+	    int TotalTagCount = jsonResponse.getInt("recordsTotal");
+	    System.out.println("Records Total: " + TotalTagCount);
+	    
+	    JSONArray dataArray = jsonResponse.getJSONArray("data");
+	    OnlyTags = new ArrayList<>(); // Subdata names list
+	    
+	    for (int i = 0; i < dataArray.length(); i++) {
+	        JSONObject tag = dataArray.getJSONObject(i);
+	        
+	        // Check if "subdata" exists
+	        if (tag.has("subdata")) {
+	            JSONArray subdataArray = tag.getJSONArray("subdata");
+	            for (int j = 0; j < subdataArray.length(); j++) {
+	                JSONObject subTag = subdataArray.getJSONObject(j);
+	                OnlyTags.add(subTag.getString("name")); // Subdata names
+	            }
+	        }
+	    }
+	    Collections.reverse(OnlyTags);
+	    // Print the subdata names list
+	    System.out.println("Subdata Names List: " + OnlyTags);
+	}
+	
 	public static  void BreedList() {
 	       Response response = RestAssured.given()
 	                .header("X-API-Version", "100")
@@ -369,6 +419,28 @@ public class Api extends Base {
 	        }
 	        // Print the list
 	        System.out.println("Tag Names List: " + BreedNames);
+	}
+	
+	public static  void StaffFirstNameList() {
+	       Response response = RestAssured.given()
+	                .header("X-API-Version", "100")
+	                .header("User-Agent", "PostmanRuntime")
+	                .header("Content-Type", "application/json")
+	                .header("Authorization", "Bearer " + VerifiedRefreshToken)
+	                .get(BASE_URL + "calendar/list/staff");
+	        System.out.println("Response Status Code: " + response.getStatusCode());
+	        String responseBody = response.getBody().asString();
+	        JSONObject jsonResponse = new JSONObject(responseBody);
+	        int TotalTagCount = jsonResponse.getInt("recordsTotal");
+	        System.out.println("Records Total: " + TotalTagCount);
+	        JSONArray dataArray = jsonResponse.getJSONArray("data");
+	        StaffFirstNames = new ArrayList<>();
+	        for (int i = 0; i < dataArray.length(); i++) {
+	            JSONObject tag = dataArray.getJSONObject(i);
+	            StaffFirstNames.add(tag.getString("first_name")); // tagName add panniruken
+	        }
+	        // Print the list
+	        System.out.println("Tag Names List: " + StaffFirstNames);
 	}
 	
 	public static  void ServiceList() {
@@ -393,6 +465,21 @@ public class Api extends Base {
 	        System.out.println("Tag Names List: " + ServiceNames);
 	}
 
+	
+	public  static  void universal_creditlimit() {
+
+		Response response = RestAssured.given()
+                .header("X-API-Version", "100")
+                .header("User-Agent", "PostmanRuntime")
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + VerifiedRefreshToken)
+                .get(BASE_URL + "user/list/organization_settings");
+		
+	        JsonPath jsonPath = response.jsonPath();
+	         universalCreditLimit = jsonPath.getDouble("data[0].universal_credit_limit");
+
+	        System.out.println("Universal Credit Limit: " + universalCreditLimit);
+	}
 	public static  void getserviceID(String serviceName) {
 		Response response = RestAssured.given().header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
 				.header("Content-Type", "application/json") // Add any necessary headers here
@@ -597,86 +684,182 @@ public class Api extends Base {
 			}
 		}
             
-    public static List<String> filterDates(List<String> dateList, LocalDate fromDate, LocalDate toDate) {
-       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Adjust format if needed
-       return dateList.stream()
-               .map(date -> LocalDate.parse(date, formatter)) // Convert String to LocalDate
-               .filter(date -> date.isBefore(fromDate) || date.isAfter(toDate)) // Filter dates
-               .map(date -> date.format(formatter)) // Convert LocalDate back to String
-               .collect(Collectors.toList());
-   }
-        
-    public static List<LocalDate> getRemainingDates(List<String> dateList, LocalDate fromDate, LocalDate toDate) {
- 	   // Convert dateList from String to LocalDate
-     List<LocalDate> bookedDates = dateList.stream()
-             .map(LocalDate::parse) // Convert String to LocalDate
-             .collect(Collectors.toList());
-     // Generate full range of dates from fromDate to toDate
-     List<LocalDate> fullDateRange = Stream.iterate(fromDate, date -> date.plusDays(1))
-             .limit(toDate.toEpochDay() - fromDate.toEpochDay() + 1)
-             .collect(Collectors.toList());
-     // Remove booked dates from the full range
-     fullDateRange.removeAll(bookedDates);
-     return fullDateRange;
- }
-	
-	private static Integer getSlotIdByName(JSONArray slotsArray, String slotName) {
-       for (int i = 0; i < slotsArray.length(); i++) {
-           JSONObject service = slotsArray.getJSONObject(i);
-           if (slotName.equals(service.getString("name"))) {
-               return service.getInt("id");
-           }
-       }
-       return null; // Return null if service name is not found
-   }
-	
-	private static Integer getServiceIdByName(JSONArray servicesArray, String serviceName) {
-	     for (int i = 0; i < servicesArray.length(); i++) {
-	         JSONObject service = servicesArray.getJSONObject(i);
-	         if (serviceName.equals(service.getString("name"))) {
-	             return service.getInt("id");
-	         }
-	     }
-	     return null; // Return null if service name is not found
-	 }
+		public static List<String> filterDates(List<String> dateList, LocalDate fromDate, LocalDate toDate) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Adjust format if needed
+			return dateList.stream().map(date -> LocalDate.parse(date, formatter)) // Convert String to LocalDate
+					.filter(date -> date.isBefore(fromDate) || date.isAfter(toDate)) // Filter dates
+					.map(date -> date.format(formatter)) // Convert LocalDate back to String
+					.collect(Collectors.toList());
+		}
 
-	private static Integer getCustomerIdByemail(JSONArray customerArray, String CustomerEmail) {
-       for (int i = 0; i < customerArray.length(); i++) {
-           JSONObject service = customerArray.getJSONObject(i);
-           if (CustomerEmail.equals(service.getString("email"))) {
-               return service.getInt("id");
-           }
-       }
-       return null; // Return null if service name is not found
-     }
+		public static List<LocalDate> getRemainingDates(List<String> dateList, LocalDate fromDate, LocalDate toDate) {
+			List<LocalDate> bookedDates = dateList.stream().map(LocalDate::parse) // Convert String to LocalDate
+					.collect(Collectors.toList());
+			List<LocalDate> fullDateRange = Stream.iterate(fromDate, date -> date.plusDays(1))
+					.limit(toDate.toEpochDay() - fromDate.toEpochDay() + 1).collect(Collectors.toList());
+			// Remove booked dates from the full range
+			fullDateRange.removeAll(bookedDates);
+			return fullDateRange;
+		}
 	
+		private static Integer getSlotIdByName(JSONArray slotsArray, String slotName) {
+			for (int i = 0; i < slotsArray.length(); i++) {
+				JSONObject service = slotsArray.getJSONObject(i);
+				if (slotName.equals(service.getString("name"))) {
+					return service.getInt("id");
+				}
+			}
+			return null; // Return null if service name is not found
+		}
 	
-	
+		private static Integer getServiceIdByName(JSONArray servicesArray, String serviceName) {
+			for (int i = 0; i < servicesArray.length(); i++) {
+				JSONObject service = servicesArray.getJSONObject(i);
+				if (serviceName.equals(service.getString("name"))) {
+					return service.getInt("id");
+				}
+			}
+			return null; // Return null if service name is not found
+		}
+
+		private static Integer getCustomerIdByemail(JSONArray customerArray, String CustomerEmail) {
+			for (int i = 0; i < customerArray.length(); i++) {
+				JSONObject service = customerArray.getJSONObject(i);
+				if (CustomerEmail.equals(service.getString("email"))) {
+					return service.getInt("id");
+				}
+			}
+			return null; // Return null if service name is not found
+		}
+
+		public static void UnselectTags(Map<String, List<String>> categoryTagsMap) throws Exception {
+			for (String category : categoryTagsMap.keySet()) {
+				System.out.println("🔍 Checking Category: " + category);
+				WebElement categoryElement = findCategory(category);
+				if (categoryElement != null) {
+					System.out.println("✅ Category found: " + category);
+					// 🔥 Ensure category is visible before proceeding
+					ensureCategoryIsVisible(categoryElement);
+					// Click each tag under this category
+					for (String tag : categoryTagsMap.get(category)) {
+						System.out.println("🔍 Checking Tag: " + tag);
+						boolean isTagFound = findTagAfterCategoryWithScroll(categoryElement, tag);
+						if (!isTagFound) {
+							System.out.println("❌ Tag not found after category, trying extra scroll...");
+							scrollUntilTagAppears(tag);
+						}
+					}
+				} else {
+					System.out.println("❌ Category not found: " + category);
+				}
+				System.out.println("------------------------------------------------");
+			}
+			System.out.println("completed");// Close browser
+		}
+
+		public static void scrollUntilTagAppears(String tagName) throws Exception {
+			WE_Admin_WorkFlow flow = new WE_Admin_WorkFlow(driver);
+			int maxScrollAttempts = 5; // Limit scrolling to avoid infinite loop
+			int attempts = 0;
+			while (attempts < maxScrollAttempts) {
+				List<WebElement> tags = driver
+						.findElements(By.xpath("//android.view.View[@content-desc='" + tagName + "']"));
+				if (!tags.isEmpty()) {
+					System.out.println("✅ Tag found after extra scrolling: " + tagName);
+					tags.get(0).click();
+					return;
+				}
+				System.out.println("🔄 Still not found, scrolling down...");
+				slowScroll(flow.getscrollview());
+				attempts++;
+			}
+			System.out.println("❌ Tag not found even after extra scrolling: " + tagName);
+		}
+
+		public static boolean findTagAfterCategoryWithScroll(WebElement categoryElement, String tagName)
+				throws Exception {
+			WE_Admin_WorkFlow flow = new WE_Admin_WorkFlow(driver);
+			int maxScrollAttempts = 5; // Limit scrolling to 5 times to avoid infinite loops
+			int attempts = 0;
+			while (attempts < maxScrollAttempts) {
+				List<WebElement> tags = driver
+						.findElements(By.xpath("//android.view.View[@content-desc='" + tagName + "']"));
+				for (WebElement tag : tags) {
+					if (tag.getLocation().getY() > categoryElement.getLocation().getY()) {
+						tag.click(); // ✅ Click the tag
+						return true; // ✅ Found and clicked
+					}
+				}
+				System.out.println("🔄 Tag not found, scrolling...");
+				slowScroll(flow.getscrollview());
+				attempts++;
+			}
+			return false; // ❌ Tag not found even after scrolling
+		}
+
+		public static void ensureCategoryIsVisible(WebElement categoryElement) throws Exception {
+			WE_Admin_WorkFlow flow = new WE_Admin_WorkFlow(driver);
+			int categoryY = categoryElement.getLocation().getY();
+			int screenHeight = driver.manage().window().getSize().getHeight();
+			// 🔥 If category is above screen, scroll down until visible
+			while (categoryY < 0 || categoryY < screenHeight / 5) {
+				slowScroll(flow.getscrollview());
+				categoryY = categoryElement.getLocation().getY(); // Update Y position
+			}
+		}
+
+		public static WebElement findCategory(String categoryName) throws Exception {
+			WE_Admin_WorkFlow flow = new WE_Admin_WorkFlow(driver);
+			String categoryXpath = "//android.view.View[@content-desc='" + categoryName + "']";
+			int scrollAttempts = 0;
+			while (scrollAttempts < 5) { // Scroll up to 5 times
+				List<WebElement> elements = driver.findElements(By.xpath(categoryXpath));
+				if (!elements.isEmpty()) {
+					return elements.get(0); // ✅ Return first matching category
+				}
+				slowScroll(flow.getscrollview()); // 🔥 Calls slow scroll method from base class
+				scrollAttempts++;
+			}
+			return null; // ❌ Category not found after scrolling
+		}
 	
 	public static void main(String[] args) throws InterruptedException, IOException {
-		PropertyFile("First");
+		PropertyFile("Data");
 		signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
-		verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
-		TagList();
-		OverallTagList();
-//		BreedList();
-//		Compare("BREED_Name",UniqueBreed, BreedNames, getProperty("BREED"));
-//		ServiceList();
-//		Compare("SERVICE_NAME", UniqueService, ServiceNames, getProperty("SERVICE"));
-//		SlotList();
-//		Compare("SLOT_NAME", UniqueSlot, SlotNames, getProperty("SLOTS"));
-//		AddonList();
-//		Compare("ADDON_PRIVILAGE", UniqueAddons, AddonsNames, getProperty("ADDON"));
-//		Compare("ADDON_ASSIGNABLE", UniqueAddons, AddonsNames, getProperty("ADDON"));
-//		TagList();
-//		Compare("ADMIN_TAG_CATEGORY_NAME", UniqueTag, TagNames, getProperty("TAGS"));
+		String Token = verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
+		refreshAdminToken(Token);
+		universal_creditlimit();
+//		ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
+//		OverallSlotList();
+//		Priority();
+//		eliminatefrom100();
 //		PricingRuleList();
-//		Compare("Pricingrulename_Onetime_premium", Uniquepricingrulename, PricingRuleNames, getProperty("PREMIUM_PRICINGRULE_NAME"));
-//		Compare("Pricingrulename_Onetime_discount", Uniquepricingrulename, PricingRuleNames, getProperty("DISCOUNT_PRICINGRULE_NAME"));
-//		Compare("Pricingrulename_Onetime_notavailable", Uniquepricingrulename, PricingRuleNames, getProperty("NOTAVAILABLE_PRICINGRULE_NAME"));
-//      PoolingList();
-//      Compare("POOL_NAME", Uniquepoolingname, PoolingNames, getProperty("POOL"));
+//		OverallTagList();
+//		TagList();
+//		OnlyTag();
+//		BreedList();
+//		ServiceList();
+//		getserviceID(getProperty("SERVICE_NAME"));
+//		SlotList();
+//		getslotID(getProperty("SLOT_NAME"));
+//		AddonList();
+//		PoolingList();
+//		getcustomerID(getProperty("ADMIN_CUSTOMER_EMAIL"));
+//		
+//		
+//		
+//		NotAvailableDates(DAYminAdvanceBooking, TotalSlotCount, DAYmaxAdvanceBooking, Token, Token);
+//		Compare(Token, Token, AddonsNames, Token);	
+////		-------->  EXAMPLE :          		Compare("BREED_Name",UniqueBreed, BreedNames, getProperty("BREED"));
+//		filterDates(AddonsNames, prdate, BookingDate);
+//		getRemainingDates(AddonsNames, prdate, BookingDate);
+//		getSlotIdByName(null, Token);
+//		getServiceIdByName(null, Token);
+//		getCustomerIdByemail(null, Token);
+		
 	
 	}
+
+
 
 }

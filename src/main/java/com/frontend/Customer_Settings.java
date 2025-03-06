@@ -18,10 +18,10 @@ public class Customer_Settings extends Base {
 
 	public static void MyBookings() throws InterruptedException {
 		WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
+		
 		ClickonElement(mybookings.getSettingsTab());
 		ClickonElement(mybookings.getMyBookings());
 		Thread.sleep(3000);
-
 		By BookedDATE = By.xpath("//android.view.View[@content-desc='" + Customer_Bookingflow.Booked_Date + "']");
 		System.out.println(BookedDATE);
 		By BookedSLOT = By.xpath("//android.view.View[@content-desc='" + Customer_Bookingflow.Selected_Slot + "']");
@@ -43,8 +43,8 @@ public class Customer_Settings extends Base {
 	}
 
 	public static void Invoices() throws InterruptedException {
-
 		WE_Customer_Settings invoices = new WE_Customer_Settings(driver);
+		
 		ClickonElement(invoices.getSettingsTab());
 		ClickonElement(invoices.getMyInvoices());
 		Thread.sleep(8000);
@@ -73,6 +73,7 @@ public class Customer_Settings extends Base {
 
 	public static void statement() throws Exception {
 		WE_Customer_Settings statement = new WE_Customer_Settings(driver);
+		
 		ClickonElement(statement.getSettingsTab());
 		ClickonElement(statement.getMyStatements());
 		LocalDate currentDate = LocalDate.now();
@@ -98,52 +99,40 @@ public class Customer_Settings extends Base {
 		} else {
 			System.out.println("Not listed");
 		}
+		ClickonElement(statement.getBackButton());
+		Thread.sleep(1000);
+		ClickonElement(statement.getBackButton());
 	}
 	
 	public static  void Accounts() throws InterruptedException {
-
 		WE_Customer_Settings statement = new WE_Customer_Settings(driver);
+		
 		ClickonElement(statement.getSettingsTab());
 		ClickonElement(statement.getAccounts());
 		Thread.sleep(10000);
-		if (Booking.Stripe) {
-			//android.view.View[@content-desc="Payment"]/following-sibling::android.view.View[@content-desc="£ 999.99"]
-//			By sales = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
-//			System.out.println(sales);
-//			By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+Booking.TotalAmountWithSymbol+"']");
-//			System.out.println(payment);
-			
-			
-			By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc=\"- £ 999.99\"]");
-			System.out.println(sales);
-			By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc=\"£ 999.99\"]");
-			System.out.println(payment);
-			
-			
-			
-			
+		By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc='"+"- "+""+TotalAmountWithSymbol+"']");
+		System.out.println("yyy  :   "+sales);
+		By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+TotalAmountWithSymbol+"']");
+		System.out.println("jjj  :   "+payment);
+		if (Stripe) {
+			By sales1 = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc='"+"- "+""+TotalAmountWithSymbol+"']");
+			System.out.println("jjj  :   "+sales);
+			By payment1 = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+TotalAmountWithSymbol+"']");
+			System.out.println("hhhhh  :   "+payment1);
 			if (isElementAvailable(payment)&&isElementAvailable(sales)) {
 				System.out.println("Completed sales and payment  ");
-				
 			}else {
 				System.out.println("hhhhhhhhhh");
 			}
-				
-			
-			
 		}else {
-			
-			By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc=\"- £ 999.99\"]");
-			System.out.println(sales);
-			
-			if (isElementAvailable(sales)) {
+			By sales12 = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc='"+"- "+""+TotalAmountWithSymbol+"']");
+			System.out.println(sales12);
+			if (isElementAvailable(sales12)) {
 				System.out.println("sales done");
-				
 			}
-			
 		}
-		
-		
+		ClickonElement(statement.getBackButton());
+		ClickonElement(statement.getHomeTab());
 	}
 	
 }

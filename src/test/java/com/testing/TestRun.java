@@ -22,7 +22,9 @@ import com.frontend.Admin_Settings;
 import com.frontend.Admin_User;
 import com.frontend.Admin_Workflow;
 import com.frontend.Customer_Bookingflow;
+import com.frontend.Customer_Home;
 import com.frontend.Customer_Settings;
+import com.frontend.Edit;
 import com.frontend.Info;
 import com.frontend.Login_Details;
 import com.frontend.sample;
@@ -35,19 +37,20 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 		WE_Info info = new WE_Info(driver);
 		Api Api= new Api(driver);
 
-		ChooseApi(API_BASE_URL.Automation);
-		PropertyFile("First");
+		ChooseApi(API_BASE_URL.Staging);
+		PropertyFile("Data");
 //		Latest_StagingAPK_download(getProperty("AUTOMATION"));
 //		Application();	
 		OpenApplicationWithoutReset();
-		
+//		
 		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
 		Api.refreshAdminToken(Api.VerifiedRefreshToken);
-		Api.ServiceSlotTimeCount();
-		Api.OverallSlotList();
-		Api.BreedList();
-		
+//		Api.ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
+//		Api.OverallSlotList();
+//		Api.OverallTagList();
+//		Api.BreedList();
+//		
 //		Api.Compare("BREED_Name",Api.UniqueBreed, Api.BreedNames, getProperty("BREED"));
 //		Api.ServiceList();
 //		Api.Compare("SERVICE_NAME", Api.UniqueService, Api.ServiceNames, getProperty("SERVICE"));
@@ -87,103 +90,100 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 //        UpdateNameProperty("ADMIN_STAFF_LAST_NAME", getProperty("NAME"));
 //    	UpdateNameProperty("ADMIN_STAFF_CITY", getProperty("CITY"));
 //		UpdateNameProperty("ADMIN_STAFF_POSTCODE", getProperty("POSTCODE"));
-//	    UpdateNameProperty("SECOND_PET_NAME", getProperty("PET_NAME_List"));
-//
-//		PropertyFile("First");
+//		UpdateEmailProperty("ADMIN_STAFF_2_EMAIL");
+//        UpdateNameProperty("ADMIN_STAFF_2_FIRST_NAME", getProperty("NAME"));
+//        UpdateNameProperty("ADMIN_STAFF_2_LAST_NAME", getProperty("NAME"));
+//    	UpdateNameProperty("ADMIN_STAFF_2_CITY", getProperty("CITY"));
+//		UpdateNameProperty("ADMIN_STAFF_2_POSTCODE", getProperty("POSTCODE"));
+//		UpdateNameProperty("SECOND_PET_NAME", getProperty("PET_NAME_List"));
 //	
-//		PropertyFile("First");
+//		PropertyFile("Data");
 //		
 //		Login_Details.signupCustomer();
 //		Info.User_Data();
 //		Info.Pet_Data();
 //		Thread.sleep(9000);
 //		ClickonElement(WE_Info.getcloseApp());
-//
 //		if (PreprodEnvironment) {
 //			clearAppCache(getProperty("PREPROD_APP_PACKAGE"));
 //			AfterClearCacheOpenApplication();
 //		}else {
 //			clearAppCache(getProperty("APP_PACKAGE"));
 //		}		AfterClearCacheOpenApplication();
+//		
+//		
 //		Login_Details.login_Admin();
 //		Admin_User.approveUserUsingSearch();
-//
 //		Admin_User.Create_Admin();
 //		Admin_User.Create_Customer();
 //		Admin_User.CreateTag();
-//		
 //		Admin_Services.slot_creation();
-//		Admin_Services.ServiceCreation();
-//		
+//		Admin_Services.ServiceCreation();	
 //		Admin_User.Create_Staff();
-//		
+//		Admin_User.Create_Second_Staff();
 //		Admin_Settings.CreateBreed();
 //		Admin_Settings.CreatePool();
 //		Admin_Settings.CreatePricingRulePremium();  
 //		Admin_Settings.CreatePricingRuleDiscount();  
 //		Admin_Settings.CreatePricingRuleNotAvailable();
-//		
 //		Login_Details.Logout_Admin();
 //		
 //		
-		Login_Details.login_Customer();
-//		/////************************************  Pricing rule date booking 
-//		Customer_Bookingflow.BookingFlow(getProperty("SERVICE_NAME"), MergePricingruleDate(getProperty("TO_Month_Premium_PricingRule"),getProperty("TO_Date_Premium_PricingRule"),getProperty("TO_Year_Premium_PricingRule")), SelectOneRandomlyFromList(Api.slotNames));
+//		Login_Details.login_Customer();
+//		Customer_Bookingflow.booking();
+//		Customer_Bookingflow.BookingSuccessfullPage();
+//		Customer_Settings.MyBookings();
+//		Customer_Settings.Invoices();
+//		Customer_Settings.statement();
+//		Customer_Settings.Accounts();
+//		Login_Details.Logout_Customer();
 //		
-		Customer_Bookingflow.booking();
-		Customer_Bookingflow.BookingSuccessfullPage();
-		Customer_Settings.MyBookings();
-		Customer_Settings.Invoices();
-		Customer_Settings.statement();
-		Customer_Settings.Accounts();
-		Login_Details.Logout_Customer();
 //		
 //		Login_Details.login_Admin();
-////		  admin invoices 
-////		  admin statement 
-////		  admin accounts 
+//		Admin_Settings.UpdateCreditLimit();
+//		Admin_Settings.Adhoc();
+//		Admin_Settings.Admin_Invoices();
+//		Admin_Settings.Admin_Statement();
 //		Admin_Workflow.Pending_to_UnAssigned();
 //		Admin_Workflow.UnAssigned_to_Assigned();
-//		
+//		Thread.sleep(3000);
 //		Admin_User.second_pet();
-////		
-//////		
-////	
-		OpenApplicationWithoutReset();
-		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object
-
-		ClickonElement(workflow.getDate_Slot()); // Click on date filter
-//		scrollUntilElementFound1234567890(workflow.getDate(), workflow.getBookeddate()); // S
-		
-		scrollWhileHolding(workflow.getDate(), workflow.getBookeddate());
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+//		Login_Details.Logout_Admin();	
+//				
+//		Login_Details.login_Customer();
+//		Customer_Bookingflow.TwoPetBooking();
+//		Customer_Bookingflow.BookingSuccessfullPage();
+//		Customer_Settings.MyBookings();
+//		Customer_Settings.Accounts();	
+//		Customer_Home.Customer_Add_pet();
+//		Login_Details.Logout_Customer();
+//				
+//		Login_Details.login_Admin();
+//		Admin_User.approvePetUsingSearch();
+//		Login_Details.Logout_Admin();	
+//			
+////////***********************************************************     Pricing rule date booking 
+//
+//		Login_Details.login_Customer();
+//		Customer_Bookingflow.BookingFlow("DISCOUNT", getProperty("SERVICE_NAME"), MergePricingruleDate(getProperty("TO_Month_Discount_PricingRule"),getProperty("TO_Date_Discount_PricingRule"),getProperty("TO_Year_Discount_PricingRule")), SelectOneRandomlyFromList(Api.slotNames));	
+//		Customer_Bookingflow.BookingFlow("PREMIUM", getProperty("SERVICE_NAME"), MergePricingruleDate(getProperty("TO_Month_Premium_PricingRule"),getProperty("TO_Date_Premium_PricingRule"),getProperty("TO_Year_Premium_PricingRule")), SelectOneRandomlyFromList(Api.slotNames));	
+//		Customer_Bookingflow.BookingFlow("NOT AVAILABLE", getProperty("SERVICE_NAME"), MergePricingruleDate(getProperty("TO_Month_PricingRule_NotAvailable"),getProperty("TO_Date_PricingRule_NotAvailable"),getProperty("TO_Year_PricingRule_NotAvailable")), SelectOneRandomlyFromList(Api.slotNames));	
+//		Login_Details.Logout_Customer();
+//		
+//		Edit.EditStaff();
+//		Edit.EditCustomer();
+//		Edit.EditAdmin();
+Edit.EditTag();
+	
 		
 		
 		
 		
 		
 		
-		
-		
-		
+//		Login_Details.login_Customer();
+		Customer_Bookingflow.BookingforAddonservice();
+//		Admin_Workflow.Assigned_TO_Reassigned();
 		
 		
 		
@@ -194,27 +194,21 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 		
 		
 		
-		
+	
 		
 //		String generateRandomString = generateRandomString(7);
-////		deleteAllEmails();
+//		deleteAllEmails();
 //		System.out.println(generateRandomString);
-		
-		PropertyFile("First");
-		
 //		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 //		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
 //		Api.ServiceSlotTimeCount();
 //		Api.OverallSlotList();					
-		OpenApplicationWithoutReset();
-		Admin_Services.AddonCreation(AddOnType.ASSIGNABLE, getProperty("ADDON_ASSIGNABLE"));
+//		OpenApplicationWithoutReset();
+//		Admin_Services.AddonCreation(AddOnType.ASSIGNABLE, getProperty("ADDON_ASSIGNABLE"));
 //		Customer_Settings.Accounts();
 //		Customer_Bookingflow.TwoPetBooking();
 //		Admin_User.second_pet();
 //		Login_Details.stafflogout();	
-		
-		
-		
 //		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 //		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
 //		Api.ServiceSlotTimeCount();
@@ -222,21 +216,19 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 //		OpenApplicationWithoutReset();
 //		Login_Details.login_Admin();
 //		Admin_User.Create_Customer();
-////		Admin_Workflow.Booking_For_Customer_As_Admin();
+//		Admin_Workflow.Booking_For_Customer_As_Admin();
 //		Admin_Settings.CreatePricingRule();
 //		Login_Details.Logout_Admin();
-////
-//////		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
-//////		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
-//////		Api.refreshAdminToken(Api.VerifiedRefreshToken);
-//////		Api.ServiceSlotTimeCount();
-//////		Api.OverallSlotList();
-//////		
-//////		Latest_StagingAPK_download(getProperty("STAGING"));
-//////		Application();
+//		Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
+//		Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
+//		Api.refreshAdminToken(Api.VerifiedRefreshToken);
+//		Api.ServiceSlotTimeCount();
+//		Api.OverallSlotList();
+//		Latest_StagingAPK_download(getProperty("STAGING"));
+//		Application();
 //		Login_Details.Predefined_login_Customer();
-////		Api.ServiceSlotTimeCount();
-////		Customer_Bookingflow.booking();
+//		Api.ServiceSlotTimeCount();
+//		Customer_Bookingflow.booking();
 //		Customer_Bookingflow.SingleDateBooking(Admin_Settings.prdate);
 //		Customer_Bookingflow.BookingSuccessfullPage();
 //		Customer_Settings.MyBookings();
@@ -247,47 +239,8 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 //		Admin_Workflow.Pending_to_UnAssigned();
 //		Admin_Workflow.UnAssigned_to_Assigned();
 //
-//		// Construct the path to the HTML file
-////		 Thread.sleep(10000);
-////		 
-//	        String reportPath = System.getProperty("user.dir")+"/target/cucumber-reports123/index.html"; // Update with your report path
-//	        Base.sendEmailWithReport(
-//	                "developer@agilecyber.com",
-//	                "Cucumber Test Report",
-//	                "Please find the attached test report"
-//	                + "Total Number of Tests= 18"
-//	                		+ "total number of tests passed =17"
-//	                + "Failed = 1",
-//	                
-//	                reportPath
-//	        );
-		
-		
-		
-		
-		
-		
-//		Response Status Code: 200
-//		Names: [not available pricing, Not available, not, No, Pricing, Onetime, Onetimew, OnetimeRH, OnetimeRHWU, OnetimeRHWUQUL]
-//		Priorities: [0, 0, 0, 0, 1, 2, 3, 4, 5, 6]
-//		gggg  :  [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
-//		Smallest number in range: 7
-//		Converted String: 7
-//		Find out
-//		Month  : January
-//		Date  : 5
-//		Year  : 2025
-//		Target element not found, scrolling...
-//		Target element found
-//		Month  : February
-//		Target element found
-//		Date  : 5
-//		Target element found
-//		Year  : 2025
-//		Month  : February
-//		Date  : 5
-//		Year  : 2025
-//		yyyy  :  February52025
+
+			
 	}
 
 }

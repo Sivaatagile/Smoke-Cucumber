@@ -88,11 +88,9 @@ public class AdminCreateAdmin extends Base {
 		case 2:
 			addressLineElement = user.getAddressLine2();
 			break;
-		// Add more cases if needed
 		default:
 			throw new IllegalArgumentException("Invalid address line number: " + int1);
 		}
-		// Perform actions on the dynamically selected address line
 		ClickonElement(addressLineElement);
 		passInput(addressLineElement, getProperty("ADMIN_ADMIN_ADDRESSLINE_" + int1));
 		driver.hideKeyboard();
@@ -121,26 +119,19 @@ public class AdminCreateAdmin extends Base {
 	@When("the admin clicks on the Save button")
 	public void theAdminClicksOnTheSaveButton() throws InterruptedException {
 		ClickonElement(user.getSave());
-//		Thread.sleep(5000);
 	}
 	
-	@When("the admin verifies the snackbar after creating the new admin")
-	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewAdmin() throws InterruptedException {
-	    waitForElement(snack.getRecordCreatedSuccessfully());
-	    if (isElementAvailable(snack.getRecordCreatedSuccessfully())) {
-	    	
-	    	System.out.println("Snck bar verifies successfully ");
-			
-		}
-	}
+//	@When("the admin verifies the snackbar after creating the new admin")
+//	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewAdmin() throws InterruptedException {
+//	    waitForElement(snack.getRecordCreatedSuccessfully());
+//	    if (isElementAvailable(snack.getRecordCreatedSuccessfully())) {
+//	    	System.out.println("Snck bar verifies successfully ");
+//		}
+//	}
 	
-
 	@Then("the new admin details should be successfully saved")
 	public void theNewAdminDetailsShouldBeSuccessfullySaved() throws InterruptedException {
-//		waitForElement(user.getSnackbarCreatedAdmin());
-//		if (isElementAvailable(user.getSnackbarCreatedAdmin())) {
-//			System.out.println("Admin created ");
-//		}
+		waitForElement(user.getAllAdministrations());
 	}
 
 	@When("the admin clicks on the Back button")

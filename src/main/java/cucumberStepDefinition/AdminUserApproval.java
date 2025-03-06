@@ -7,7 +7,6 @@ import com.WE.WE_Snackbar;
 import com.baseClass.Base;
 
 import io.cucumber.java.en.*;
-import io.qameta.allure.Allure;
 
 public class AdminUserApproval extends Base {
 	WE_Admin_User user = new WE_Admin_User(driver);
@@ -27,16 +26,13 @@ public class AdminUserApproval extends Base {
 
 	@When("searches for the signup customer name")
 	public void searchesForTheSignupCustomerName() throws InterruptedException {
-		Thread.sleep(4000);
 		ClickonElement(user.getSearchBox());
-		Thread.sleep(3000);
 		passInput(user.getSearchBox(), getProperty("SIGNUP_FIRSTNAME"));
 		driver.hideKeyboard();
 	}
 
 	@Then("the matching customer list is displayed")
 	public void theMatchingCustomerListIsDisplayed() throws InterruptedException {
-		Thread.sleep(4000);
 		if (isElementAvailable(user.UserLocator1)) {
 			System.out.println("user found");
 		} else {
@@ -47,21 +43,16 @@ public class AdminUserApproval extends Base {
 
 	@When("the admin clicks on the customer name")
 	public void theAdminClicksOnTheCustomerName() throws InterruptedException {
-		Thread.sleep(2000);
 		clickOnElementUsingBy(user.EyeIcon1);
 	}
 
 	@When("scrolls down to find the Accept button and clicks it")
 	public void scrollsDownToFindTheAcceptButtonAndClicksIt() throws InterruptedException {
 		boolean isElementFound = false;
-		Thread.sleep(1000);
 		while (!isElementFound) {
 			try {
-				Thread.sleep(1000);
 				if (isScrollViewAvailable()) {
-					Thread.sleep(3000);
 					scroll(user.getscroll());
-					Thread.sleep(2000);
 					ClickonElementwithoutWAIT(user.getAccept());
 					isElementFound = true;
 				}
@@ -80,7 +71,6 @@ public class AdminUserApproval extends Base {
 	@Then("the customer request is successfully approved")
 	public void theCustomerRequestIsSuccessfullyApproved() throws InterruptedException {
 		System.out.println("Check the snack bar");
-		Thread.sleep(5000);
 		ClickonElement(info.getBackButton());
 	}
 
@@ -88,8 +78,7 @@ public class AdminUserApproval extends Base {
 	public void theAdminIsNavigatedBackToTheHomePage() {
 		ClickonElement(user.getHome());
 	}
-	
-	
+		
 	@Given("approve pet")
 	public void approvePet() throws InterruptedException {
 
@@ -115,7 +104,6 @@ public class AdminUserApproval extends Base {
 					if (isScrollViewAvailable()) {
 						Thread.sleep(3000);
 						scrolling();
-						Allure.step("Scroll the Customer Info");
 						Thread.sleep(2000);
 						ClickonElementwithoutWAIT(user.getAccept());
 						isElementFound = true;

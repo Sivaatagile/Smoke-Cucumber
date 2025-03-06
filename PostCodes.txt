@@ -1,7 +1,7 @@
 E1 4NP
 e1 4np
 W1A 1HQ
-w1a thq
+w1a 1hq
 B33 8TH
 b33 8th
 DN1 4XX
