@@ -54,6 +54,7 @@ public class Booking extends Base {
 	public static Boolean sale;
 	public static String Mybookingamount;
 	public static String daydatemonth;
+	public static String InvoiceAmountbelongstototalamount;
 	public static double totalAmount;
 	public static String partialAmount;
 	public static double accountBalance;
@@ -300,7 +301,9 @@ public class Booking extends Base {
 	    String totalAmountText = booking.getTotal_Amount().getAttribute("content-desc");
 		TotalAmountWithSymbol=totalAmountText;
 		System.out.println("kkk    :--------------------------------         "+TotalAmountWithSymbol);
-		 Mybookingamount = formatAmount(TotalAmountWithSymbol);
+		InvoiceAmountbelongstototalamount = TotalAmountWithSymbol.replace("£", "").trim();
+		System.out.println("lllllllllllllllll  : "+InvoiceAmountbelongstototalamount);
+		Mybookingamount = formatAmount(TotalAmountWithSymbol);
 		System.out.println("gtcefetcv   "+Mybookingamount);
 		mybookingamountwithoutsymbol = Mybookingamount.replace("£", "").trim();
 		System.out.println(mybookingamountwithoutsymbol);
@@ -323,6 +326,7 @@ public class Booking extends Base {
 			String cleanedText = attribute.replace("\n", " ").trim();
 			String amountText = cleanedText.replaceAll(".*£\\s*", "").trim();
 			System.out.println(amountText);
+			PartialPayment=false;
 			accountBalance = Double.parseDouble(amountText);
 			System.out.println(accountBalance);
 			if (totalAmount < accountBalance) {
@@ -655,6 +659,7 @@ public class Booking extends Base {
 		} 
 		else if (!isElementAvailable(booking.getUseAccountBalance())) {
 			ACCOUNTBALANCE=false;
+			PartialPayment=false;
 			System.out.println("\033[1;93maccount balance is not available \033[0m");
 				if (isElementAvailable(booking.getpaylater())) {
 					PAYLATER=true;
@@ -1014,7 +1019,7 @@ public class Booking extends Base {
 		System.out.println(BookedSERVICE);
 //	        By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmount + "']");
 		By BookedPAYMENT1 = By
-				.xpath("//android.view.View[@content-desc='" + Booking.mybookingamountwithoutsymbol + "']");
+				.xpath("//android.view.View[@content-desc='" + Booking.InvoiceAmountbelongstototalamount + "']");
 		System.out.println(BookedPAYMENT1);
 
 //	        BookingPaidAmountwithdecimal

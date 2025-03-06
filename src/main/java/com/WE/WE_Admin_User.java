@@ -223,6 +223,18 @@ public class WE_Admin_User extends  Base{
 		return   Edit  ;
 	}
 	
+	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"Delete\")]")
+	private WebElement   Delete ;
+	public WebElement getDelete() {
+		return   Delete  ;
+	}
+	@FindBy (xpath ="//android.widget.Button[contains(@content-desc,\"Confirm\")]")
+	private WebElement   Confirm1;
+	public WebElement getConfirm1() {
+		return   Confirm1  ;
+	}
+	
+	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Contact Number')]/following-sibling::android.widget.EditText[1]")
 	private WebElement   ContactNumber ;
 	public WebElement getContactNumber() {
