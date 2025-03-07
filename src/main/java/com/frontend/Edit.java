@@ -282,6 +282,13 @@ public class Edit extends Base {
 		ClickonElement(workflow.getServices_navigation_Bar());
 		ClickonElement(slot.getSlot_Showall());
 		   waitForElement(slot.getSlot());
+		   ClickonElement(Service.getSearchBox());
+			
+			passInput(Service.getSearchBox(), getProperty("SLOT_NAME"));
+			
+			clickOnElementUsingBy(Service.slotNameAfterSearch);
+		   
+			ClickonElement(Service.getSlotEditICON());
 
 		   ClickonElement(slot.getSlotName());
 		   ClearonElement(slot.getSlotName());
