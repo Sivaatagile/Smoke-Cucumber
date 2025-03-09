@@ -10,41 +10,7 @@ public class ReportProcess {
 
 	public static void sendReport() throws InterruptedException, AWTException, IOException {
 
-//		 try {
-//			 
-//			 String folderPath = System.getProperty("user.dir");
-//			 System.out.println(folderPath);
-//	            Runtime.getRuntime().exec("explorer.exe " + folderPath);
-//	            Robot robot = new Robot();
-//
-//	            Thread.sleep(2000);
-//
-//	            robot.keyPress(KeyEvent.VK_F5);
-//	            robot.keyRelease(KeyEvent.VK_F5);
-//System.out.println("good ");
-//	        } catch (InterruptedException e) {
-//	            e.printStackTrace();
-//	        }
-//		 
-//		 
-//		 
-//		 
-//		  String projectPath = System.getProperty("user.dir") + "/target/cucumber-reports123/index.html";
-//	        System.out.println("HTML file path: " + projectPath);
-//
-//	        // Open the HTML file
-//	        try {
-//	            File htmlFile = new File(projectPath);
-//	            if (htmlFile.exists() && htmlFile.isFile()) {
-//	                // Open the HTML file using the default application
-//	                Desktop.getDesktop().open(htmlFile);
-//	                System.out.println("HTML file opened successfully.");
-//	            } else {
-//	                System.out.println("HTML file does not exist: " + projectPath);
-//	            }
-//	        } catch (IOException e) {
-//	            System.out.println("An error occurred while opening the HTML file: " + e.getMessage());
-//	        }
+
 
 		Thread.sleep(10000);
 
@@ -52,17 +18,12 @@ public class ReportProcess {
 		 LocalDate currentDate = LocalDate.now();
 	        System.out.println("Current Date: " + currentDate);																						// your report
 																										// path
-		Base.sendEmailWithReport("siva@agilecyber.com", "Cucumber Test Report for Preproduction Environment",
+		Base.sendEmailWithReport("siva@agilecyber.com", "Cucumber Test Report for Staging Environment",
 				
-				"Please find the attached test report : \r\n" + "Date of Report Generation : " + currentDate +"\r\n"+ "Total Number of scenarios : 47\r\n" + "Passed : 25\r\n"
-						+ "Failed : 47\r\n" + "Details : Listed 45 scenarios are working fine\r\n"
-						+"02 failed scenarios are due to script issue . I have cheked it in maually . Those scenarios are working fine "
-//	                + "When creating a service, an issue occurs with the base price field. Specifically, the No.of.Pets field is labeled as No.of.<Pets>, causing the element to not be identified correctly, which triggers an error.\r\n"
-//	                + "\r\n"
-//	                + "Error 2 and 3:\r\n"
-//	                + "Semantic labels that were already declared are not being displayed, leading to further errors."
+				"Please find the attached test report : \r\n" + "Date of Report Generation : " + currentDate +"\r\n"+ "Total Number of scenarios : 44\r\n" + "Passed : 50\r\n"
+						+ "Failed : 03\r\n" + "Details : Listed 47 scenarios are working fine\r\n"
+						+"03 failed scenarios has created a ticket and mentioned in uat sheet."
 				,
-
 				reportPath);
 	}
 

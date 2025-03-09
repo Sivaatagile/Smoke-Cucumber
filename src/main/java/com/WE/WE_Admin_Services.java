@@ -24,6 +24,18 @@ public class WE_Admin_Services extends Base{
 		return     service_Tab;
 	}
 	
+	@FindBy (xpath ="//*[starts-with(@hint,'Search')]")
+	private WebElement   SearchBox ;
+	public WebElement getSearchBox() {
+		return   SearchBox  ;
+	}
+	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Slots\"]")
+	private WebElement  slot  ;
+	public WebElement getSlot() {
+		return    slot ;
+	}
+	
 	@FindBy (xpath ="(//*[starts-with(@content-desc,'Show all')])[2]")
 	private WebElement   Slot_Showall ;
 	public WebElement getSlot_Showall() {
@@ -41,6 +53,18 @@ public class WE_Admin_Services extends Base{
 	public WebElement getSlotName() {
 		return    SlotName ;
 	}
+	
+	@FindBy (xpath ="(//android.widget.ImageView)[1]")
+	private WebElement   SlotEditICON ;
+	public WebElement getSlotEditICON() {
+		return    SlotEditICON ;
+	}
+	
+	public static By slotNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("SLOT_NAME")));
+
+	
+	public static By ExpectedSlot = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("SLOT_NAME")));
+
 	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Description')]/following-sibling::android.widget.EditText")
 	private WebElement   DescriptionTextBox ;
@@ -78,6 +102,11 @@ public class WE_Admin_Services extends Base{
 	
 	public static By SessionExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("SESSION")));
 	
+	public static By EditedHoursExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("EDIT_HOUR")));
+
+	public static By EditedMinutesExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("EDIT_MINUTE")));
+
+	public static By EditedSessionExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("EDIT_SESSION")));
 
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Select\"]")
 	private WebElement    Select;
@@ -121,13 +150,17 @@ public class WE_Admin_Services extends Base{
 	public WebElement getFab_Service() {
 		return    Fab_Service ;
 	}
-	
+	public static By serviceNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("SERVICE_NAME")));
+
+	public static By addonNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE")));
+
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Service\"]")
 	private WebElement   Service ;
 	public WebElement getService() {
 		return    Service ;
 	}
 	
+
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Add-on\"]")
 	private WebElement   Addon ;
 	public WebElement getAddon() {
@@ -151,22 +184,19 @@ public class WE_Admin_Services extends Base{
 	public WebElement getIndividual_slotName() {
 		return   Individual_slotName  ;
 	}
+	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Time Slot')]/following-sibling::*[starts-with(@content-desc,'multiselect')]/android.view.View")
 	private List<WebElement> Slot_list   ;
 	public List<WebElement> getSlot_list() {
 		return   Slot_list  ;
 	}
 
-	
-	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'pets')]/parent::android.view.View/following-sibling::android.widget.EditText[1]")
 	private List<WebElement>  Baseprice  ;
 	public List<WebElement> getBaseprice() {
 		return   Baseprice  ;
 	}
-	
-	
-	
+		
 	@FindBy (xpath ="(//*[starts-with(@content-desc,'Maximum capacity')]/following-sibling::android.widget.EditText)[1]")
 	private WebElement  Maximum_capacity  ;
 	public WebElement getMaximum_capacity() {
@@ -227,7 +257,6 @@ public class WE_Admin_Services extends Base{
 		return    capacityType ;
 	}
 	
-	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Availability')]/following-sibling::android.widget.Switch/following-sibling::android.view.View[1]")
 	private WebElement  From_DateDetails  ;
 	public WebElement getFrom_DateDetails() {
@@ -245,7 +274,6 @@ public class WE_Admin_Services extends Base{
 	public WebElement getTo_DateDetails() {
 		return  To_DateDetails   ;
 	}
-	
 	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Save\"]")
 	private WebElement  Service_Save  ;
@@ -269,6 +297,18 @@ public class WE_Admin_Services extends Base{
 	private WebElement  FirstElement  ;
 	public WebElement getFirstElement() {
 		return  FirstElement   ;
+	}
+	
+	@FindBy (xpath ="//android.widget.Button[contains(@content-desc,\"Confirm\")]")
+	private WebElement   Confirm1;
+	public WebElement getConfirm1() {
+		return   Confirm1  ;
+	}
+	
+	@FindBy (xpath ="//android.widget.Button[2]")
+	private WebElement   Delete;
+	public WebElement getDelete() {
+		return   Delete  ;
 	}
 	
 	public static By ToMonthExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Month")));
@@ -300,7 +340,6 @@ public class WE_Admin_Services extends Base{
 	 public static void toggleAddOn(AddOnType addOnType) {
 	        switch (addOnType) {
 	            case ASSIGNABLE:
-	               
 	                break;
 	            case PRIVILEGE:
 	            	ClickonElement(getAddon_Toggle());
@@ -310,7 +349,7 @@ public class WE_Admin_Services extends Base{
 	        } 
 	 }
 	 
-	 @FindBy (xpath ="//*[starts-with(@hint,'Name')]")
+	@FindBy (xpath ="//*[starts-with(@hint,'Name')]")
 	private WebElement  Addon_name  ;
 	public WebElement getAddon_name() {
 		return   Addon_name  ;
@@ -321,7 +360,6 @@ public class WE_Admin_Services extends Base{
 	public WebElement getAddon_Description_textbox() {
 		return   Addon_Description_textbox  ;
 	}
-	
 	
 	@FindBy (xpath ="(//*[starts-with(@content-desc,'Maximum capacity')]/following-sibling::android.widget.EditText)[1]")
 	private WebElement  Addon_Maximum_capacity  ;
@@ -341,66 +379,44 @@ public class WE_Admin_Services extends Base{
 		return  Addon_Max_Advance_Booking_Limit   ;
 	}
 	
-public static By ToMonthAssignableAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE_TO_Month")));
+	public static By ToMonthAssignableAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE_TO_Month")));
 	
 	public static By ToDateAssignableAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE_TO_Date")));
 	
 	public static By ToYearAssignableAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE_TO_Year")));
 	
-	
-public static By ToMonthPrivilegeAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE_TO_Month")));
+	public static By ToMonthPrivilegeAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE_TO_Month")));
 	
 	public static By ToDatePrivilegeAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE_TO_Date")));
 	
 	public static By ToYearPrivilegeAddonExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE_TO_Year")));
 	
-//	@FindBy(xpath = "//android.widget.SeekBar[@content-desc=\"ADDON_ASSIGNABLE_TO_Month\"]")
-//	private WebElement seekBar;
-//	public WebElement getSeekBar() {
-//	    return seekBar;
-//	}
-
 	public static By getprivilege = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE")));
 
 	public static By getAssignableAddon = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE")));
 
-//	public WebElement getPrivilegeAddon() {
-//	    String xpath = String.format();
-//	    return driver.findElement(By.xpath(xpath));
-//	}
-//	
-//	public WebElement getAssignableAddon() {
-//	    String xpath = String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADDON_ASSIGNABLE"));
-//	    return driver.findElement(By.xpath(xpath));
-//	}
+	public static By getslotcreatedsnackbar = By.xpath("//*[starts-with(@content-desc,'"+getProperty("SLOT_NAME")+" slot created successfully')]");
+
+
+	@FindBy (xpath ="//android.view.View[@content-desc=\"All Services\"]")
+	private WebElement  AllServices  ;
+	public WebElement getAllServices() {
+		return   AllServices  ;
+	}
 	
-//	@FindBy (xpath="//android.widget.ScrollView")
-//	private WebElement  scrollview ;
-//	public WebElement getscrollview() {
-//		return scrollview;
-//	}
+
 	
+	@FindBy (xpath ="//*[starts-with(@hint,'From')]")
+	private WebElement  from  ;
+	public WebElement getfrom() {
+		return  from   ;
+	}
 	
-//	@FindBy (xpath =)
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
+	@FindBy (xpath ="//*[starts-with(@hint,'To')]")
+	private WebElement  to  ;
+	public WebElement getto() {
+		return   to  ;
+	}
 //	@FindBy (xpath ="")
 //	private WebElement    ;
 //	public WebElement get() {

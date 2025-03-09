@@ -24,7 +24,6 @@ public class WE_Admin_User extends  Base{
 		return   Showall_AllAdmin  ;
 	}
 	
-	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Phone Number')]/following-sibling::android.widget.EditText[1]")
 	private WebElement   PhoneNumber ;
 	public WebElement getPhoneNumber() {
@@ -55,14 +54,12 @@ public class WE_Admin_User extends  Base{
 		return AllCustomers;
 	}
 
-	
 	@FindBy (xpath ="(//android.widget.Button)[2]")
 	private WebElement  FAB  ;
 	public WebElement getFAB() {
 		return   FAB  ;
 	}
 	
-
 	@FindBy (xpath ="//*[starts-with(@hint,'First Name')]")
 	private WebElement  FirstName  ;
 	public WebElement getFirstName() {
@@ -80,6 +77,7 @@ public class WE_Admin_User extends  Base{
 	public WebElement getLastName() {
 		return    LastName ;
 	}
+	
 	@FindBy (xpath ="//*[starts-with(@hint,'Last name')]")
 	private WebElement  Lastname  ;
 	public WebElement getLastname() {
@@ -103,6 +101,7 @@ public class WE_Admin_User extends  Base{
 	public WebElement getMale() {
 		return    Male ;
 	}
+	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Additional Contact Number')]/following-sibling::android.widget.EditText[1]")
 	private WebElement   AdditionalContactNumber ;
 	public WebElement getAdditionalContactNumber() {
@@ -139,20 +138,14 @@ public class WE_Admin_User extends  Base{
 		return     PostCode;
 	}
 	
-	
-	
-	
-	
 //	---------------------------------->       Tag
 	
-
 	@FindBy (xpath ="//android.view.View[@content-desc=\"All Customers\"]/following-sibling::android.widget.Button")
 	private WebElement  Showall_AllCustomers  ;
 	public WebElement getShowall_AllCustomers() {
 		return  Showall_AllCustomers   ;
 	}
 	
-
 	@FindBy (xpath ="//android.widget.ScrollView")
 	private WebElement   Tagscrollview ;
 	public WebElement getTagscrollview() {
@@ -163,6 +156,15 @@ public class WE_Admin_User extends  Base{
 	private WebElement   TagCategoriesShowall ;
 	public WebElement getTagCategoriesShowall() {
 		return    TagCategoriesShowall ;
+	}
+	
+	public static By  searchingCategoryName= By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_TAG_CATEGORY_NAME")));
+
+	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Tag Categories\"]")
+	private WebElement   TagCategories ;
+	public WebElement getTagCategories() {
+		return    TagCategories ;
 	}
 	
 	@FindBy (xpath ="//*[starts-with(@hint,'Category Name')]")
@@ -176,6 +178,7 @@ public class WE_Admin_User extends  Base{
 	public WebElement getMaximumEntityLevel() {
 		return   MaximumEntityLevel  ;
 	}
+	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Description')]/following-sibling::android.widget.EditText[1]")
 	private WebElement   Decsription ;
 	public WebElement getDecsription() {
@@ -200,8 +203,6 @@ public class WE_Admin_User extends  Base{
 		return   TickButton  ;
 	}
 	
-	
-	
 //	------------------------------------------------->  STAFF
 	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"All Staff\"]/following-sibling::android.widget.Button[1]")
@@ -209,6 +210,30 @@ public class WE_Admin_User extends  Base{
 	public WebElement getShowall_AllStaff() {
 		return   Showall_AllStaff  ;
 	}
+	
+	public static By StaffNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_STAFF_FIRST_NAME")));
+	public static By CustomerNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_CUSTOMER_FIRSTNAME")));
+	public static By AdminNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_ADMIN_FIRST_NAME")));
+
+	//android.view.View[contains(@content-desc,"Edit")]
+	
+	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"Edit\")]")
+	private WebElement   Edit ;
+	public WebElement getEdit() {
+		return   Edit  ;
+	}
+	
+	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"Delete\")]")
+	private WebElement   Delete ;
+	public WebElement getDelete() {
+		return   Delete  ;
+	}
+	@FindBy (xpath ="//android.widget.Button[contains(@content-desc,\"Confirm\")]")
+	private WebElement   Confirm1;
+	public WebElement getConfirm1() {
+		return   Confirm1  ;
+	}
+	
 	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Contact Number')]/following-sibling::android.widget.EditText[1]")
 	private WebElement   ContactNumber ;
@@ -227,6 +252,7 @@ public class WE_Admin_User extends  Base{
 	public WebElement getSkillsset() {
 		return Skillsset;
 	}
+	
 	public static By ServiceSkill = By.xpath(String.format("//android.widget.CheckBox[contains(@content-desc, '"+getProperty("SERVICE_NAME")+"')]"));
 
 	
@@ -254,7 +280,6 @@ public class WE_Admin_User extends  Base{
 	
 	public static By EyeIcon1 = By.xpath("//*[starts-with(@content-desc,'pending')]/android.view.View[@content-desc='"+ getProperty("SIGNUP_FIRSTNAME") + "']/following-sibling::android.widget.ImageView[1]");
 
-	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'pending')]")
 	private List<WebElement>  UserPending    ;
 	public  List<WebElement> getUserPending() {
@@ -284,6 +309,7 @@ public class WE_Admin_User extends  Base{
 	public WebElement getHome() {
 		return Home;
 	}
+	
 	@FindBy(xpath = "//android.view.View[@content-desc=\"All Administrators\"]")
 	private WebElement AllAdministrations;
 	public WebElement getAllAdministrations() {
@@ -295,7 +321,6 @@ public class WE_Admin_User extends  Base{
 	public WebElement getAllStaff() {
 		return AllStaff;
 	}
-	
 	
 //	---------------------------------------------------------------------------------->  PET Approval
 	
@@ -320,11 +345,13 @@ public class WE_Admin_User extends  Base{
 	public WebElement getSnackbarCreatedstaff() {
 		return SnackbarCreatedstaff;
 	}
+	
 	@FindBy(xpath = "//android.view.View[@content-desc=\"Record Created Successfully\"]")
 	private WebElement SnackbarCreatedAdmin;
 	public WebElement getSnackbarCreatedAdmin() {
 		return SnackbarCreatedAdmin;
 	}
+	
 	@FindBy(xpath = "//android.view.View[@content-desc=\"Record Created Successfully\"]")
 	private WebElement SnackbarCreatedTag;
 	public WebElement getSnackbarCreatedTag() {
@@ -348,11 +375,7 @@ public class WE_Admin_User extends  Base{
 	public WebElement getMyPet() {
 		return MyPet;
 	}
-	//android.view.View[@content-desc="My Pet(s)"]
-	
-	//android.view.View[@content-desc="View Customer"]
 	
 	public static By trySearchingagain = By.xpath("//android.view.View[@content-desc=\"Try searching again using a different spelling or keyword.\"]");
 	
-
 }

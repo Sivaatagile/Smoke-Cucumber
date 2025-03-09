@@ -4,6 +4,7 @@ import java.text.BreakIterator;
 import java.util.Random;
 
 import com.WE.WE_Info;
+import com.WE.WE_Snackbar;
 import com.baseClass.Base;
 
 import io.cucumber.java.en.*;
@@ -11,8 +12,11 @@ import io.cucumber.java.en.*;
 public class PetData extends Base {
 	static Random random = new Random();
 	WE_Info PetInfo = new WE_Info(driver);
+	
+	WE_Snackbar snackbar = new WE_Snackbar(driver);
 
-	@Given("the user navigates to the pet info page")
+
+	@Given("User navigates to the pet info page")
 	public void theUserNavigatesToThePetInfoPage() throws InterruptedException {
 		waitForElement(PetInfo.getAddPetInfoPageElement());
 		boolean isLocator1Present = !driver.findElements(PetInfo.AddPetSignup).isEmpty();
@@ -24,36 +28,34 @@ public class PetData extends Base {
 		}
 	}
 
-	@When("the user should see fields for pet name, gender, size, breed, dietary issues, allergies, vet name, vet address, vet phone number, microchip details, contact person name, contact person's phone number, special instructions, feeding schedules, additional contacts, and behavioral information")
+	@When("User should see fields for pet name, gender, size, breed, dietary issues, allergies, vet name, vet address, vet phone number, microchip details, contact person name, contact person's phone number, special instructions, feeding schedules, additional contacts, and behavioral information")
 	public void theUserShouldSeeFieldsForPetNameGenderSizeBreedDietaryIssuesAllergiesVetNameVetAddressVetPhoneNumberMicrochipDetailsContactPersonNameContactPersonSPhoneNumberSpecialInstructionsFeedingSchedulesAdditionalContactsAndBehavioralInformation() {
 		System.out.println("Navigated to the Add pet");
 	}
 
-	@When("the user enters the pet's name {string}")
+	@When("User enters the pet's name {string}")
 	public void theUserEntersThePetSName(String PetName) {
 		ClickonElement(PetInfo.getPet_Name());
 		passInput(PetInfo.getPet_Name(), getProperty(PetName));
 	}
 
-	@When("the user selects the pet's gender")
+	@When("User selects the pet's gender")
 	public void theUserSelectsThePetSGender() {
 		ClickonElement(PetInfo.getPetMale());
 		ClickonElement(PetInfo.getPetFemale());
 	}
 
-	@When("the user needs to select the birth of dog")
+	@When("User needs to select the birth of dog")
 	public void theUserNeedsToSelectTheBirthOfDog() throws Exception {
 		ClickonElement(PetInfo.getDate_Of_Birth());
-		Thread.sleep(2000);
+		Thread.sleep(2500);
 		scrollupRandomly(PetInfo.getDate_Format().get(2));
-		Thread.sleep(2000);
 		scrolldownRandomly(PetInfo.getDate_Format().get(0));
-		Thread.sleep(2000);
 		scrolldownRandomly(PetInfo.getDate_Format().get(1));
 		ClickonElement(PetInfo.getSelect());
 	}
 
-	@When("the user selects the pet's size")
+	@When("User selects the pet's size")
 	public void theUserSelectsThePetSSize() throws InterruptedException {
 		ClickonElement(PetInfo.getSize());
 		waitForElement(PetInfo.getBottomSheetSize());
@@ -69,7 +71,7 @@ public class PetData extends Base {
 		}
 	}
 
-	@When("the user selects the pet's breed")
+	@When("User selects the pet's breed")
 	public void theUserSelectsThePetSBreed() throws InterruptedException {
 		ClickonElement(PetInfo.getBreed());
 		waitForElement(PetInfo.getBottomresetbutton());
@@ -89,111 +91,119 @@ public class PetData extends Base {
 		}
 	}
 
-	@When("the user enters any dietary issues {string}")
+	@When("User enters any dietary issues {string}")
 	public void theUserEntersAnyDietaryIssues(String DietaryIssues) {
 		ClickonElement(PetInfo.getDietary());
 		passInput(PetInfo.getDietary(), getProperty(DietaryIssues));
 		driver.hideKeyboard();
 	}
 
-	@When("the user enters any allergies {string}")
+	@When("User enters any allergies {string}")
 	public void theUserEntersAnyAllergies(String Allergies) {
 		ClickonElement(PetInfo.getAllergies());
 		passInput(PetInfo.getAllergies(), getProperty(Allergies));
 		driver.hideKeyboard();
 	}
 
-	@When("the user enters the vet's name {string}")
+	@When("User enters the vet's name {string}")
 	public void theUserEntersTheVetSName(String VetName) {
 		ClickonElement(PetInfo.getVet_Name());
 		passInput(PetInfo.getVet_Name(), getProperty(VetName));
 		driver.hideKeyboard();
 	}
 
-	@When("the user enters the vet's address {string}")
+	@When("User enters the vet's address {string}")
 	public void theUserEntersTheVetSAddress(String VetAddress) {
 		ClickonElement(PetInfo.getVet_Address());
 		passInput(PetInfo.getVet_Address(), getProperty(VetAddress));
 		driver.hideKeyboard();
 	}
 
-	@When("the user enters the vet's phone number {string}")
+	@When("User enters the vet's phone number {string}")
 	public void theUserEntersTheVetSPhoneNumber(String VetPhoneNumber) {
 		ClickonElement(PetInfo.getVet_PhoneNumber());
 		passInput(PetInfo.getVet_PhoneNumber(), getProperty(VetPhoneNumber));
 		driver.hideKeyboard();
 	}
 
-	@When("the user enters the microchip number {string}")
+	@When("User enters the microchip number {string}")
 	public void theUserEntersTheMicrochipNumber(String Microchip) {
 		ClickonElement(PetInfo.getMicrochip());
 		passInput(PetInfo.getMicrochip(), getProperty(Microchip));
 		driver.hideKeyboard();
 	}
 
-	@When("the user enters the contact person's name {string}")
+	@When("User enters the contact person's name {string}")
 	public void theUserEntersTheContactPersonSName(String ContactPersonName) {
 		ClickonElement(PetInfo.getPerson_Name());
 		passInput(PetInfo.getPerson_Name(), getProperty(ContactPersonName));
 		driver.hideKeyboard();
 	}
 
-	@When("the user enters the contact person's phone number {string}")
+	@When("User enters the contact person's phone number {string}")
 	public void theUserEntersTheContactPersonSPhoneNumber(String ContactPersonNumber) {
 		ClickonElement(PetInfo.getPerson_Number());
 		passInput(PetInfo.getPerson_Number(), getProperty(ContactPersonNumber));
 		driver.hideKeyboard();
 	}
 
-	@When("the user enters any special instructions {string}")
+	@When("User enters any special instructions {string}")
 	public void theUserEntersAnySpecialInstructions(String SpecialInstructions) {
 		ClickonElement(PetInfo.getSpecial_Instruction());
 		passInput(PetInfo.getSpecial_Instruction(), getProperty(SpecialInstructions));
 		driver.hideKeyboard();
 	}
 
-	@When("the user enters the feeding schedule {string}")
+	@When("User enters the feeding schedule {string}")
 	public void theUserEntersTheFeedingSchedule(String FeedingDetails) {
 		ClickonElement(PetInfo.getFeeding_Schedules());
 		passInput(PetInfo.getFeeding_Schedules(), getProperty(FeedingDetails));
 		driver.hideKeyboard();
 	}
 
-	@When("the user enters any additional contacts {string}")
+	@When("User enters any additional contacts {string}")
 	public void theUserEntersAnyAdditionalContacts(String AdditionalContact) {
 		ClickonElement(PetInfo.getAdditional_Contacts());
 		passInput(PetInfo.getAdditional_Contacts(), getProperty(AdditionalContact));
 		driver.hideKeyboard();
 	}
 
-	@When("the user provides behavioral information")
+	@When("User provides behavioral information")
 	public void theUserProvidesBehavioralInformation() {
 		ClickonElement(PetInfo.getBehavioral_Information1());
 		ClickonElement(PetInfo.getBehavioral_Information2());
 		ClickonElement(PetInfo.getBehavioral_Information3());
 	}
 
-	@When("the user clicks on the Save button")
+	@When("User clicks on the Save button")
 	public void theUserClicksOnTheSaveButton() throws InterruptedException {
 		ClickonElement(PetInfo.getSave());
-		Thread.sleep(2000);
+	}
+	
+	@When("User verifies the snackbar after entering the pet data")
+	public void theUserVerifiesTheSnackbarAfterEnteringThePetData() throws InterruptedException {
+		waitForElement(snackbar.getRecordCreatedSuccessfully());
+
+		
 	}
 
-	@Then("the pet information should be saved successfully")
+	@When("The pet information should be saved successfully")
 	public void thePetInformationShouldBeSavedSuccessfully() throws InterruptedException {
-		waitForElement(PetInfo.getSnackbarAfterPetinfo());
-		if (isElementAvailable(PetInfo.getSnackbarAfterPetinfo())) {
-			System.out.println("snackbar displays");
+		if (isElementAvailable(snackbar.getRecordCreatedSuccessfully())) {
+			System.out.println("Snack bar verified successfully");
+//			Thread.sleep(2500);
 			if (isElementAvailable(PetInfo.getProfileWord())) {
 				System.out.println("admin created a pet for a customer completed successfully");
 			} else if (isElementAvailable(PetInfo.getcloseApp())) {
 				System.out.println("Customer signed up successfully");
 			}
+		}else {
+			System.out.println("waste");
 		}
 
 	}
 
-	@Given("the user navigates to the landing page")
+	@Given("User navigates to the landing page")
 	public void theUserNavigatesToTheLandingPage() throws InterruptedException {
 		waitForElement(PetInfo.getcloseApp());
 		if (isElementAvailable(PetInfo.getcloseApp())) {

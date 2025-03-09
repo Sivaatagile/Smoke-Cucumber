@@ -1,6 +1,11 @@
 package cucumberStepDefinition;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import com.WE.WE_Admin_Settings;
@@ -18,6 +23,7 @@ public class AdminWorkflow extends Base {
 	public static void Assigned() throws Exception {
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object
 		ClickonElement(settings.gethometab());
+		Thread.sleep(8000);
 		ClickonElement(workflow.getService()); // Click on service filter
 		boolean isElementFound = false; // Initialize flag for element found
 		while (!isElementFound) { // Loop until element is found
@@ -31,22 +37,125 @@ public class AdminWorkflow extends Base {
 				slowScroll(); // Scroll down if element not found
 			}
 		}
-		dateFormatForWorkflow(Booking.Booked_Date);
-		ClickonElement(workflow.getDate_Slot()); // Click on date filter
-//		scrollToExactValue(workflow.getDate(),"Wed Jun 25");
-		By by = workflow.getBookedDateLocator();
-		System.out.println("yvcyswc   " + by);
-
-		scrollUntil(workflow.getDate(), workflow.getBookedDateLocator()); // Scroll to find booked date
-		By by1 = workflow.getBookedSlotLocator();
-		System.out.println("yvcyswc   " + by1);
+//		dateFormatForWorkflow(Booking.Booked_Date);
+		ClickonElement(workflow.getAllslots()); // Click on date filter
+////		scrollToExactValue(workflow.getDate(),"Wed Jun 25");
+////		By by = workflow.getBookedDateLocator();
+////		System.out.println("yvcyswc   " + by);
+////
+////		scrollUntil(workflow.getDate(), workflow.getBookedDateLocator()); // Scroll to find booked date
+////		By by1 = workflow.getBookedSlotLocator();
+////		System.out.println("yvcyswc   " + by1);
 		Thread.sleep(8000);
+		System.out.println(workflow.getBookedSlotLocator());
 		scrollUntilElementFound(workflow.getSlot(), workflow.getBookedSlotLocator()); // Scroll to find booked slot
 
 		Thread.sleep(5000);
 		ClickonElement(workflow.getSelect()); // Click on select button
 
+		ClickonElement(workflow.getdatefilter());
+        SimpleDateFormat inputFormat = new SimpleDateFormat("MMM dd, yyyy");
+
+		   SimpleDateFormat outputFormat = new SimpleDateFormat("MMM yyyy");
+		   Thread.sleep(5000);
+	        // Convert the date
+	        Date date = inputFormat.parse(Booking.Booked_Date);
+	        String formattedDate = outputFormat.format(date);
+
+	        // Print the result
+	        System.out.println("Converted Date: " + formattedDate);
+//	        
+	        Thread.sleep(5000);
+//	        String targetMonthYear = "Jul 2025"; // The required month and year
+	        By monthYearLocator = By.xpath("//android.view.View[@content-desc='" + formattedDate + "']");
+	       
+	        System.out.println(monthYearLocator);
+	        By nextButtonLocator = By.xpath("(//android.widget.Button)[2]"); // Locator for the button to click
+	        System.out.println(nextButtonLocator);
+	        List<WebElement> elements = driver.findElements(By.xpath("//android.widget.Button"));
+int size = elements.size();
+
+System.out.println(size);
+Thread.sleep(5000);
+
+while (true) {
+	try {
+        Thread.sleep(5000);
+
+		// Check if the required month-year is visible
+		WebElement monthElement = driver.findElement(monthYearLocator);
+		if (monthElement.isDisplayed()) {
+			System.out.println("1");
+//	                    System.out.println(targetMonthYear + " found!");
+			break; // Exit the loop once the target is found
+		}
+		
 	}
+
+	catch (NoSuchElementException e) {
+		
+		
+		  if (size == 3) {
+				ClickonElement(elements.get(0));
+				System.out.println("144g");
+
+				while (true) {
+					try {
+						WebElement monthElement1 = driver.findElement(monthYearLocator);
+						if (monthElement1.isDisplayed()) {
+							System.out.println("144gdvdvdv");
+
+//							                    System.out.println(targetMonthYear + " found!");
+							break; // Exit the loop once the target is found
+						}
+					} catch (NoSuchElementException e1) {
+						 List<WebElement> elements11 = driver.findElements(By.xpath("//android.widget.Button"));
+						 int size1 = elements11.size();
+						ClickonElement(elements11.get(1));
+						System.out.println("144gdvdvhfhfhfhdv");
+
+					}
+				}
+			break;}
+		  else if (size==4) {
+				while (true) {
+					try {
+						WebElement monthElement2 = driver.findElement(monthYearLocator);
+						if (monthElement2.isDisplayed()) {
+							System.out.println("144gdvdvhfhfhfhdvhhhhhhhhhhhhhh");
+
+//							                    System.out.println(targetMonthYear + " found!");
+							break; // Exit the loop once the target is found
+						}
+					} catch (NoSuchElementException e2) {
+						System.out.println("144gdvdvhfhfhfhdvhhhhhhhhhhhhhhfffffffffffff");
+
+						ClickonElement(elements.get(1));
+					}
+			}
+			
+				break;}
+		
+		
+		
+	}
+}
+
+	        
+	        Thread.sleep(5000);
+			WebElement findElement = driver
+					.findElement(By.xpath("//android.view.View[@content-desc='" + Booking.daydatemonth + "']"));
+			findElement.click();
+			
+			ClickonElement(workflow.getDoneButton());
+			
+			
+	    }
+	        
+	        
+	        
+	        
+	
 
 	public static void Staff_for_assigned() throws Exception {
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object
@@ -67,7 +176,6 @@ public class AdminWorkflow extends Base {
 	@Given("the admin navigates to Home tab")
 	public void theAdminNavigatesToHomeTab() {
 		ClickonElement(settings.gethometab());
-
 	}
 	
 	@When("the admin navigates to the Pending tab")
@@ -80,7 +188,6 @@ public class AdminWorkflow extends Base {
 	@When("the admin selects the booking's service from the Service dropdown, opens the Date & Slot dropdown, and selects the booked date and slot")
 	public void theAdminSelectsTheBookingSServiceFromTheServiceDropdownOpensTheDateSlotDropdownAndSelectsTheBookedDateAndSlot() throws Exception {
 		System.out.println("ppppp");
-
 		Assigned();
 	}
 
@@ -125,8 +232,6 @@ public class AdminWorkflow extends Base {
 		WebElement elements = driver.findElement(By.xpath(
 				"//android.view.View[contains(@content-desc, 'unassigned_customer_name')]/android.widget.ImageView[3]"));
 		elements.click();
-		// List oda size-a eduthutu iterate pannaum
-
 //		ClickAllListElements(workflow.getImageviewCheckbox());
 //		ClickonElement(workflow.getPartially_Assigned_Toggle());
 		Thread.sleep(1500);

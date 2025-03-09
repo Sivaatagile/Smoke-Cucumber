@@ -3,38 +3,38 @@ package cucumberStepDefinition;
 import com.WE.WE_Admin_User;
 import com.WE.WE_Admin_WorkFlow;
 import com.WE.WE_Info;
+import com.WE.WE_Snackbar;
 import com.baseClass.Base;
 
 import io.cucumber.java.en.*;
-import io.qameta.allure.Allure;
 
 public class AdminUserApproval extends Base {
 	WE_Admin_User user = new WE_Admin_User(driver);
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
-	WE_Info info = new WE_Info(driver);
+	WE_Info info = new WE_Info(driver); 
+	WE_Snackbar snack = new WE_Snackbar(driver);
 
-	@Given("the admin clicks on the Users tab")
+////********************************************************** USER APPROVAL 
+
+	@Given("Admin clicks on the Users tab")
 	public void theAdminClicksOnTheUsersTab() {
 		ClickonElement(workflow.getUsers_navigation_Bar());
 	}
 
-	@When("the admin clicks on the Pending Requests showall option")
+	@When("Admin clicks on the Pending Requests showall option")
 	public void theAdminClicksOnThePendingRequestsShowallOption() {
 		ClickonElement(user.getShowall_PendingRequest());
 	}
 
 	@When("searches for the signup customer name")
 	public void searchesForTheSignupCustomerName() throws InterruptedException {
-		Thread.sleep(4000);
 		ClickonElement(user.getSearchBox());
-		Thread.sleep(3000);
 		passInput(user.getSearchBox(), getProperty("SIGNUP_FIRSTNAME"));
 		driver.hideKeyboard();
 	}
 
 	@Then("the matching customer list is displayed")
 	public void theMatchingCustomerListIsDisplayed() throws InterruptedException {
-		Thread.sleep(4000);
 		if (isElementAvailable(user.UserLocator1)) {
 			System.out.println("user found");
 		} else {
@@ -43,23 +43,18 @@ public class AdminUserApproval extends Base {
 		}
 	}
 
-	@When("the admin clicks on the customer name")
+	@When("Admin clicks on the customer name")
 	public void theAdminClicksOnTheCustomerName() throws InterruptedException {
-		Thread.sleep(2000);
 		clickOnElementUsingBy(user.EyeIcon1);
 	}
 
 	@When("scrolls down to find the Accept button and clicks it")
 	public void scrollsDownToFindTheAcceptButtonAndClicksIt() throws InterruptedException {
 		boolean isElementFound = false;
-		Thread.sleep(1000);
 		while (!isElementFound) {
 			try {
-				Thread.sleep(1000);
 				if (isScrollViewAvailable()) {
-					Thread.sleep(3000);
 					scroll(user.getscroll());
-					Thread.sleep(2000);
 					ClickonElementwithoutWAIT(user.getAccept());
 					isElementFound = true;
 				}
@@ -69,22 +64,24 @@ public class AdminUserApproval extends Base {
 		}
 	}
 
-	@Then("a confirmation popup is displayed then the admin clicks on the Confirm button in the popup")
-	public void aConfirmationPopupIsDisplayedThenTheAdminClicksOnTheConfirmButtonInThePopup() {
+	@Then("a confirmation popup is displayed then Admin clicks on the Confirm button in the popup")
+	public void aConfirmationPopupIsDisplayedThenTheAdminClicksOnTheConfirmButtonInThePopup() throws InterruptedException {
 		ClickonElement(user.getConfirm());
+		waitForElement(snack.getAccountApprovedSuccessfully());
 	}
 
-	@Then("the customer request is successfully approved")
+	@Then("User request is successfully approved")
 	public void theCustomerRequestIsSuccessfullyApproved() throws InterruptedException {
 		System.out.println("Check the snack bar");
-		Thread.sleep(5000);
 		ClickonElement(info.getBackButton());
 	}
 
-	@Then("the admin is navigated back to the home page")
+	@Then("Admin is navigated back to the home page")
 	public void theAdminIsNavigatedBackToTheHomePage() {
 		ClickonElement(user.getHome());
 	}
+		
+////************************************************************** PET APPROVAL	
 	
 	
 	@Given("approve pet")
@@ -112,7 +109,6 @@ public class AdminUserApproval extends Base {
 					if (isScrollViewAvailable()) {
 						Thread.sleep(3000);
 						scrolling();
-						Allure.step("Scroll the Customer Info");
 						Thread.sleep(2000);
 						ClickonElementwithoutWAIT(user.getAccept());
 						isElementFound = true;

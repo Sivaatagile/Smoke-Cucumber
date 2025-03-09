@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -63,7 +64,6 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import io.qameta.allure.Allure;
 
 public class Base {
 	
@@ -88,6 +88,44 @@ public class Base {
 	public static boolean range;
 
 
+	
+	
+	
+	
+	
+	public static LocalDate prdate ;
+	 public static   String formattedDatesss;
+	 
+		public static String Selected_Slot_as_ADMIN;
+		public static LocalDate BookingDate_as_ADMIN;
+		public static String Booked_Date_as_ADMIN;
+		
+		
+		
+		public static boolean Sold;
+		public static boolean Collected;
+
+		public static String TotalAmountWithSymbol;
+
+		public static String BookingPaidAmount;
+		public static String BookingPaymentTime;
+		public static String Selected_Slot;
+		public static String Booked_Date;
+		public static String Booked_service;
+		public static String BookingPaidAmountwithdecimal;
+		public static LocalDate startDate;
+		public static LocalDate endDate;
+		public static LocalDate minAdvanceBookingDate;
+		public static LocalDate maxBookingDate;
+		public static LocalDate BookingDate;
+		public static Boolean 	premium;
+		public static Boolean 	discount;
+		public static Boolean 	notavailable;
+		public static Boolean Stripe;
+		public static Boolean Crezco;
+		public static int BookingYear;
+		public static String BookingMonthProperCase;
+		public static String PricingruleNotAvailableDate;
 	
 //	**********     API DETAILS 
 	
@@ -213,10 +251,8 @@ public class Base {
 
 	public static void PropertyFile(String fileName) throws IOException {
 		properties = new Properties();
-		// Load the properties from the file passed as argument
 		 fis = new FileInputStream("src/test/java/" + fileName + ".properties");
 		properties.load(fis);
-	//		properties.list(System.out);
 		System.out.println("property file loded");
 	}
     //-----------------------------------------------------	
@@ -302,7 +338,7 @@ public class Base {
     //-----------------------------------------------------	
 
 	public static void Latest_StagingAPK_download(String URL) throws InterruptedException {
-		Thread.sleep(10000); // Sleep for 10 seconds
+		Thread.sleep(500); // Sleep for 10 seconds
 		String apkUrl = URL + "/app-armeabi-v7a-release.apk"; // Default
 		String getEmulatorArch = getEmulatorArch("Pixel_6_Pro_API_31"); // Get emulator architecture
 		switch (getEmulatorArch) {
@@ -513,6 +549,43 @@ public class Base {
 			}
 		}
 	}
+	
+	public static void scrollDatePicker1(WebElement element) throws Exception {
+		try {
+			Dimension elementSize = element.getSize();
+			Point elementLocation = element.getLocation();
+			int centerX = elementLocation.x + (elementSize.width / 2);
+			int startPoint = elementLocation.y + (int) (elementSize.height * 0.56); // Start point at 80% of the element's height
+			int endPoint = elementLocation.y + (int) (elementSize.height * 0.44); // End point at 20% of the element's height
+			PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+			Sequence sequence = new Sequence(finger, 1);
+			sequence.addAction(finger.createPointerMove(Duration.ofMillis(200), PointerInput.Origin.viewport(), centerX,
+					startPoint));
+			sequence.addAction(finger.createPointerDown(0));
+			sequence.addAction(finger.createPointerMove(Duration.ofMillis(300), PointerInput.Origin.viewport(), centerX,
+					endPoint));
+			sequence.addAction(finger.createPointerUp(0));
+			driver.perform(Arrays.asList(sequence));
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public static void scrollUntilElementFound_DatePicker_Time1(WebElement scrollElement, By targetBy) throws Exception {
+		boolean targetFound = false;
+		while (!targetFound) {
+			try {
+				WebElement targetElement = driver.findElement(targetBy);
+				if (targetElement.isDisplayed()) {
+					targetFound = true;
+					System.out.println("Target element found");
+				}
+			} catch (NoSuchElementException e) {
+				System.out.println("Target element not found, scrolling...");
+				scrollDatePicker1(scrollElement); // Scroll if target not found
+			}
+		}
+	}
 
 	public static void swipeWithinElementUntilTargetVisible(WebElement scrollableElement, By targetElementLocator) {
 		boolean isTargetElementFound = false;
@@ -644,6 +717,18 @@ public class Base {
 		}
 	}
 	
+	 public static WebElement findElementWithScroll(String xpath) throws Exception {
+	        int scrollAttempts = 0;
+	        while (scrollAttempts < 5) { // Max 5 scrolls
+	            List<WebElement> elements = driver.findElements(By.xpath(xpath));
+	            if (!elements.isEmpty()) {
+	                return elements.get(0); // Return first matching element
+	            }
+	            slowScroll();
+	            scrollAttempts++;
+	        }
+			return null;}
+	
 	public static void slowScroll() throws Exception {
 		try {
 			// Get the screen dimensions
@@ -665,6 +750,53 @@ public class Base {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+	
+	public static void slowScroll1(WebElement element) throws Exception {
+	    try {
+	        // Get element location and size
+	        Point elementLocation = element.getLocation();
+	        Dimension elementSize = element.getSize();
+	        
+	        int centerX = elementLocation.getX() + (elementSize.width / 2); // Horizontal center of element
+	        int startPoint = elementLocation.getY() + (int) (elementSize.height * 0.85); // Start at 90% of element height
+	        int endPoint = elementLocation.getY() + (int) (elementSize.height * 0.3); // End at 10% of element height
+
+	        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+	        Sequence sequence = new Sequence(finger, 1);
+	        
+	        sequence.addAction(finger.createPointerMove(Duration.ofMillis(300), PointerInput.Origin.viewport(), centerX, startPoint));
+	        sequence.addAction(finger.createPointerDown(0)); // Hold finger down
+	        sequence.addAction(finger.createPointerMove(Duration.ofMillis(1500), PointerInput.Origin.viewport(), centerX, endPoint)); // Slow scroll
+	        sequence.addAction(finger.createPointerUp(0)); // Release finger
+
+	        driver.perform(Arrays.asList(sequence));
+	    } catch (Exception e) {
+	        throw e;
+	    }
+	}
+		
+	public static void slowScroll(WebElement element) throws Exception {
+	    try {
+	        // Get element location and size
+	        Point elementLocation = element.getLocation();
+	        Dimension elementSize = element.getSize();
+	        
+	        int centerX = elementLocation.getX() + (elementSize.width / 2); // Horizontal center of element
+	        int startPoint = elementLocation.getY() + (int) (elementSize.height * 0.8); // Start at 80% of element height
+	        int endPoint = elementLocation.getY() + (int) (elementSize.height * 0.2); // End at 20% of element height
+
+	        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+	        Sequence sequence = new Sequence(finger, 1);
+	        sequence.addAction(finger.createPointerMove(Duration.ofMillis(200), PointerInput.Origin.viewport(), centerX, startPoint));
+	        sequence.addAction(finger.createPointerDown(0));
+	        sequence.addAction(finger.createPointerMove(Duration.ofMillis(1000), PointerInput.Origin.viewport(), centerX, endPoint)); // Slow scroll with 1-second duration
+	        sequence.addAction(finger.createPointerUp(0));
+
+	        driver.perform(Arrays.asList(sequence));
+	    } catch (Exception e) {
+	        throw e;
+	    }
 	}
 	
 	public static void halfscrollUntilElementFound12(WebElement scrollElement, WebElement targetElement)
@@ -699,6 +831,21 @@ public class Base {
 				slowScroll(); // Call the scroll() method to scroll the screen
 			}
 		}
+	}
+	
+	public static void slowscrolluntilelementfound(By targetLocator) throws Exception {
+	    while (true) {
+	        try {
+	            WebElement targetElement = driver.findElement(targetLocator);
+	            if (targetElement.isDisplayed()) {
+	                System.out.println("Target element found");
+	                break; // Exit the loop if the target element is found and displayed
+	            }
+	        } catch (NoSuchElementException e) {
+	            System.out.println("Target element not found, scrolling...");
+	            slowScroll(); // Call the scroll() method to scroll the screen
+	        }
+	    }
 	}
 	
 	public static void halfscrollUntilElementFound12(WebElement scrollElement, By targetBy) throws Exception {
@@ -908,14 +1055,11 @@ public class Base {
 			Store store = emailSession.getStore("imaps"); // Connect to email store
 			store.connect(host, username, password); // Connect to the email server
 			System.out.println("Connected to email store.");
-			Allure.step("Successfully connected to the Email");
-			Thread.sleep(5000);
+			Thread.sleep(10000);
 			Folder emailFolder = store.getFolder("INBOX"); // Open the INBOX folder
 			emailFolder.open(Folder.READ_ONLY); // Open the folder in read-only mode
-			Allure.step("Read all the messages in 'INBOX' folder");
 			Message[] messages = emailFolder.getMessages(); // Get all messages in the folder
 			System.out.println(messages); // Print the messages array
-			Thread.sleep(2000);
 			Arrays.sort(messages, (m1, m2) -> {
 				try {
 					return m2.getReceivedDate().compareTo(m1.getReceivedDate());
@@ -941,7 +1085,6 @@ public class Base {
 			                        Element pElement = pElements.first(); // Get the first <p> element
 			                        OTPText = pElement.text(); // Extract the text inside the <p> element
 			                        System.out.println("Text inside <p>: " + OTPText); // Print the OTP text
-			                        Allure.step("Extracted the OTP from email"); // Log the step in Allure
 			                        return OTPText; // Return the OTP text
 			                    } else {
 			                        System.out.println("OTP Element not found."); // Print message if the element is not found
@@ -977,11 +1120,9 @@ public class Base {
 			Store store = emailSession.getStore("imaps"); // Connect to email store
 			store.connect(host, username, password); // Connect to the email server
 			System.out.println("Connected to email store.");
-			Allure.step("Successfully connected to the Email");
 			Thread.sleep(5000);
 			Folder emailFolder = store.getFolder("INBOX"); // Open the INBOX folder
 			emailFolder.open(Folder.READ_ONLY); // Open the folder in read-only mode
-			Allure.step("Read all the messages in 'INBOX' folder");
 			Message[] messages = emailFolder.getMessages(); // Get all messages in the folder
 			System.out.println(messages); // Print the messages array
 			Thread.sleep(2000);
@@ -1004,7 +1145,6 @@ public class Base {
 						Element pElement = pElements.first(); // Get the first <p> element
 						OTPText = pElement.text(); // Extract the text inside the <p> element
 						System.out.println("Text inside <p>gmzdmm</p>: " + OTPText); // Print the OTP text
-						Allure.step("Grap the OTP from email"); // Log the step in Allure
 						return OTPText; // Return the OTP text
 					} else {
 						System.out.println("Element not found."); // Print message if the element is not found
@@ -1093,7 +1233,7 @@ public class Base {
 					String baseEmail = line.substring(line.indexOf('=') + 1);
 					String prefix = baseEmail.substring(0, baseEmail.indexOf('+') + 1);
 					String domain = baseEmail.substring(baseEmail.indexOf('@'));
-					int randomNumber = (int) (Math.random() * 10000);
+					int randomNumber = 10000 + (int) (Math.random() * 90000);
 					updatedValue = prefix + randomNumber + domain;
 					line = KeyValue + "=" + updatedValue;
 				}
@@ -1327,6 +1467,37 @@ public class Base {
 	        }
 	}
 	
+	public static  String MergePricingruleDate(String Month , String Date , String Year) {
+	      String SingleDatePremiumPricingRule =Month+ Date +","+ Year;
+			System.out.println(SingleDatePremiumPricingRule);
+			System.out.println("yyyy  :  "+SingleDatePremiumPricingRule);
+			 DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMMMd,yyyy");
+			 LocalDate  prdate = LocalDate.parse(SingleDatePremiumPricingRule, inputFormatter);
+		        // Format to new string
+			 String PricingruleNotAvailableDate = prdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+		        // Print results
+		        System.out.println("Formatted Date: " + PricingruleNotAvailableDate);
+		        System.out.println("LocalDate: " + prdate);
+		        return PricingruleNotAvailableDate;
+		}
+		
+	public static  String SelectOneRandomlyFromList(List<String>  List) {
+
+			
+			   Random random = new Random();
+
+		        // Generate a random index
+		        int randomIndex = random.nextInt(List.size()); // This will give a number between 0 and size-1
+
+		        // Select a random option
+		        String selectedOption = List.get(randomIndex);
+
+		        // Output the selected option
+		        System.out.println("Randomly selected: " + selectedOption);
+		        return selectedOption;
+		}
+	
 	public static void deleteAllEmails() {
 	        String host = "imap.gmail.com"; // Email server host
 	        String username = "testmobileacs@gmail.com"; // Email username
@@ -1428,20 +1599,6 @@ public class Base {
 		        return randomString.toString();
 		    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public static void scroll123(WebElement element) throws Exception {
 	    try {
 	        Dimension elementSize = element.getSize();
@@ -1496,6 +1653,28 @@ public class Base {
 	                .perform();
 	    }
 	}
+	
+	
+	   public static String formatAmount(String amount) {
+	        // Remove the currency symbol and trim spaces
+	        String numericPart = amount.replace("£", "").trim();
+	        
+	        // Convert to double
+	        double value = Double.parseDouble(numericPart);
+	        
+	        // Return formatted string
+	        return "£ " + value;
+	    }
+	   public static  String for_adhocPayment(String amount) {
+	        
+	        double value = Double.parseDouble(amount);  // Convert to double
+	        String formattedAmount = String.format("%.2f", value);
+	return formattedAmount;
+	   }
+	   
+	public static void processFlow(String type) {
+       
+    }
 	
 
 }

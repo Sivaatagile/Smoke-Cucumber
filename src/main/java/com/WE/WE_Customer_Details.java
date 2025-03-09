@@ -10,7 +10,6 @@ import io.appium.java_client.android.AndroidDriver;
 
 public class WE_Customer_Details extends Base{
 	
-
 	public WE_Customer_Details(AndroidDriver driver1) {
 		this.driver = driver1;
 		PageFactory.initElements(driver1, this);
@@ -96,6 +95,6 @@ public class WE_Customer_Details extends Base{
 //	private WebElement    ;
 //	public WebElement get() {
 //		return     ;
-//	}}
+//	}
 
 }

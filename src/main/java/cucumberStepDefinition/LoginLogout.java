@@ -9,7 +9,44 @@ public class LoginLogout extends Base {
 	WE_Login_Details login = new WE_Login_Details(driver);
 	public static String otp_Received;
 
-	@Given("the admin navigates to the Settings tab")
+////**************************************** ADMIN PREDEFINED ACCOUNT 
+	
+	@Given("Admin enters their predefined {string} address")
+	public void adminEntersTheirPredefinedAddress(String string) throws InterruptedException {
+		Thread.sleep(5000);
+		ClickonElement(login.getContinueWithEmail());
+		passInput(login.getContinueWithEmail(), getProperty(string));
+		Thread.sleep(1000);
+		driver.hideKeyboard();
+	}
+	
+	@When("Admin clicks on the Continue button")
+	public void adminClicksOnTheContinueButton() {
+		ClickonElement(login.getContinueButton());
+
+	}
+	@When("Admin enters the Predefined Otp {string}")
+	public void adminEntersThePredefinedOtp(String OTP) throws InterruptedException {
+		WE_Login_Details login = new WE_Login_Details(driver);
+		waitForElement(login.getEnterORPaste());
+		passInputUsingActions(login.getOTP(), getProperty(OTP));
+		driver.hideKeyboard();
+	}
+	@Then("Admin should be logged in successfully")
+	public void adminShouldBeLoggedInSuccessfully() throws InterruptedException {
+		 Thread.sleep(10000);
+		   System.out.println("good");
+	}
+	
+	@When("the user clicks on the Continue button")
+	public void theUserClicksOnTheContinueButton() {
+		ClickonElement(login.getContinueButton());
+
+	}
+	
+	
+	
+	@Given("Admin navigates to the Settings tab")
 	public void theAdminNavigatesToTheSettingsTab() throws InterruptedException {
 		Thread.sleep(3500);
 		ClickonElement(login.getAdmin_Settings());
@@ -26,9 +63,11 @@ public class LoginLogout extends Base {
 	}
 
 	@Given("the customer enters their {string} address")
-	public void theCustomerEntersTheirAddress(String customerEmail) {
+	public void theCustomerEntersTheirAddress(String customerEmail) throws InterruptedException {
+		Thread.sleep(5000);
 		ClickonElement(login.getContinueWithEmail());
 		passInput(login.getContinueWithEmail(), getProperty(customerEmail));
+		Thread.sleep(1000);
 		driver.hideKeyboard();
 
 	}
@@ -38,23 +77,28 @@ public class LoginLogout extends Base {
 		Thread.sleep(5000);
 		String otp_Received = getOtpFromSource();
 		System.out.println("The OTP is  : " + otp_Received);
+		ClickonElement(login.getOTP());
 		Thread.sleep(2000);
 		passInputUsingActions(login.getOTP(), otp_Received);
 
 	}
 
 	@Given("the customer navigates to the Settings tab")
-	public void theCustomerNavigatesToTheSettingsTab() {
+	public void theCustomerNavigatesToTheSettingsTab() throws InterruptedException {
+		Thread.sleep(3500);
+
 		ClickonElement(login.getSettings());
 	}
 
 	@Given("the customer clicks on the logout button")
 	public void theCustomerClicksOnTheLogoutButton() {
+		
 		ClickonElement(login.getLogout());
 	}
 	
 	@When("the customer clicks on the Continue button")
-	public void theCustomerClicksOnTheContinueButton() {
+	public void theCustomerClicksOnTheContinueButton() throws InterruptedException {
+		Thread.sleep(2000);
 		ClickonElement(login.getContinueButton());
 	}
 
@@ -90,5 +134,8 @@ public class LoginLogout extends Base {
 	   Thread.sleep(10000);
 	   System.out.println("good");
 	}
+	
+	
+
 
 }
