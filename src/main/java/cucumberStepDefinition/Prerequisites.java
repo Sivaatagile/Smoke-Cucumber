@@ -108,6 +108,14 @@ public class Prerequisites extends Base {
 		com.api.Api.TagList();
 		com.api.Api.Compare("EDIT_ADMIN_TAG_CATEGORY_NAME", com.api.Api.UniqueTag, com.api.Api.TagNames, getProperty("TAGS"));
 		
+		com.api.Api.ServiceList();
+		com.api.Api.Compare("EDIT_SERVICE_NAME", com.api.Api.UniqueService, com.api.Api.ServiceNames, getProperty("SERVICE"));
+		com.api.Api.SlotList();
+		com.api.Api.Compare("EDIT_SLOT_NAME", com.api.Api.UniqueSlot, com.api.Api.SlotNames, getProperty("SLOTS"));
+		com.api.Api.AddonList();
+		com.api.Api.Compare("EDIT_ADDON_PRIVILAGE", com.api.Api.UniqueAddons, com.api.Api.AddonsNames, getProperty("ADDON"));
+		
+		
 		PropertyFile("Data");
 		
 	}
@@ -140,7 +148,7 @@ public class Prerequisites extends Base {
 		System.out.println("\033[1mSuccessfully opened the application\033[0m");
 	}
 	
-	@Given("the admin clears the application cache")
+	@Given("Admin clears the application cache")
 	public void theAdminClearsTheApplicationCache() throws IOException, InterruptedException {
 		if (PreprodEnvironment) {
 			clearAppCache(getProperty("PREPROD_APP_PACKAGE"));
@@ -149,7 +157,9 @@ public class Prerequisites extends Base {
 		}	
 	}
 
-	@When("the admin opens the application")
+////********************************************* CLEAR CACHE
+	
+	@When("Admin opens the application")
 	public void theAdminOpensTheApplication() throws MalformedURLException, InterruptedException {
 		AfterClearCacheOpenApplication();
 	}
@@ -159,7 +169,7 @@ public class Prerequisites extends Base {
 		System.out.println("\033[1mCheck if the application is open\033[0m");
 	}
 
-	@Then("the admin is navigated to the login page \\(or home page if already logged in)")
+	@Then("Admin is navigated to the login page \\(or home page if already logged in)")
 	public void theAdminIsNavigatedToTheLoginPageOrHomePageIfAlreadyLoggedIn() throws InterruptedException {
 //       Thread.sleep(7000);
 //		waitForElement(login.getSignin());

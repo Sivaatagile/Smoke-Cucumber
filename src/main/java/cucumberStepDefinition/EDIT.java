@@ -244,11 +244,15 @@ public class EDIT extends Base{
 	
 	@Then("the admin pick the category name from the list")
 	public void theAdminPickTheCategoryNameFromTheList() throws Exception {
-		if (!isElementAvailable(user.searchingCategoryName)) {
-			slowscrolluntilelementfound(user.searchingCategoryName);
-			clickOnElementUsingBy(user.searchingCategoryName);
+		Thread.sleep(5000);
+		By  searchingCategoryName= By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_TAG_CATEGORY_NAME")));
+
+		
+		if (!isElementAvailable(searchingCategoryName)) {
+			slowscrolluntilelementfound(searchingCategoryName);
+			clickOnElementUsingBy(searchingCategoryName);
 		}else {
-			clickOnElementUsingBy(user.searchingCategoryName);
+			clickOnElementUsingBy(searchingCategoryName);
 		}
 	}
 	
@@ -467,7 +471,10 @@ public class EDIT extends Base{
 
 	@Then("Admin searches for the slot name in the search box as {string} and tap the slot")
 	public void adminSearchesForTheSlotNameInTheSearchBoxAsAndTapTheSlot(String string) throws InterruptedException {
-	   
+		Thread.sleep(1500);
+
+		ClickonElement(Service.getSearchBox());
+
 		passInput(Service.getSearchBox(), getProperty(string));
 		
 		clickOnElementUsingBy(Service.slotNameAfterSearch);

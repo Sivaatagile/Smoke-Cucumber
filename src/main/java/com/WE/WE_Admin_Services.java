@@ -160,6 +160,7 @@ public class WE_Admin_Services extends Base{
 		return    Service ;
 	}
 	
+
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Add-on\"]")
 	private WebElement   Addon ;
 	public WebElement getAddon() {
@@ -296,6 +297,18 @@ public class WE_Admin_Services extends Base{
 	private WebElement  FirstElement  ;
 	public WebElement getFirstElement() {
 		return  FirstElement   ;
+	}
+	
+	@FindBy (xpath ="//android.widget.Button[contains(@content-desc,\"Confirm\")]")
+	private WebElement   Confirm1;
+	public WebElement getConfirm1() {
+		return   Confirm1  ;
+	}
+	
+	@FindBy (xpath ="//android.widget.Button[2]")
+	private WebElement   Delete;
+	public WebElement getDelete() {
+		return   Delete  ;
 	}
 	
 	public static By ToMonthExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Month")));

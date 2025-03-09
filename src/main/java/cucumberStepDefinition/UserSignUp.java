@@ -9,12 +9,12 @@ public class UserSignUp extends Base {
 	public static String otp_Received;
 	WE_Login_Details signup = new WE_Login_Details(driver);
 
-	@Given("the user clicks on the Sign Up button")
+	@Given("User clicks on the Sign Up button")
 	public void theUserClicksOnTheSignUpButton() throws InterruptedException {
 		ClickonElement(signup.getSignUp());
 	}
 
-	@When("the user enters their {string} address")
+	@When("User enters their {string} address")
 	public void theUserEntersTheirAddress(String Email) throws InterruptedException {
 		ClickonElement(signup.getContinueWithEmail());
 		passInput(signup.getContinueWithEmail(), getProperty(Email));
@@ -24,23 +24,23 @@ public class UserSignUp extends Base {
 		}
 	}
 
-	@When("the user clicks on the Continue button")
+	@When("User clicks on the Continue button")
 	public void theUserClicksOnTheContinueButton() {
 		ClickonElement(signup.getContinueButton());
 	}
 
-	@Then("the user receives an OTP in their email")
+	@Then("User receives an OTP in their email")
 	public void theUserReceivesAnOTPInTheirEmail() throws InterruptedException {
 		otp_Received = getOtpFromSource1();
 		System.out.println("The OTP is  : " + otp_Received);
 	}
 
-	@When("the user enters the OTP received in the email")
+	@When("User enters the OTP received in the email")
 	public void theUserEntersTheOTPReceivedInTheEmail() throws InterruptedException {
 		passInputUsingActions(signup.getOTP(), otp_Received);
 	}
 
-	@Then("the user should be signed up successfully")
+	@Then("User should be signed up successfully")
 	public void theUserShouldBeSignedUpSuccessfully() throws InterruptedException {
 		waitForElement(signup.getAddInfoPage());
 		if (isElementAvailable(signup.getAddInfoPage())) {
@@ -49,4 +49,6 @@ public class UserSignUp extends Base {
 			System.out.println("doesn't navigated");
 		}
 	}
+	
+
 }

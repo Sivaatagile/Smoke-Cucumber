@@ -14,12 +14,14 @@ public class AdminUserApproval extends Base {
 	WE_Info info = new WE_Info(driver); 
 	WE_Snackbar snack = new WE_Snackbar(driver);
 
-	@Given("the admin clicks on the Users tab")
+////********************************************************** USER APPROVAL 
+
+	@Given("Admin clicks on the Users tab")
 	public void theAdminClicksOnTheUsersTab() {
 		ClickonElement(workflow.getUsers_navigation_Bar());
 	}
 
-	@When("the admin clicks on the Pending Requests showall option")
+	@When("Admin clicks on the Pending Requests showall option")
 	public void theAdminClicksOnThePendingRequestsShowallOption() {
 		ClickonElement(user.getShowall_PendingRequest());
 	}
@@ -41,7 +43,7 @@ public class AdminUserApproval extends Base {
 		}
 	}
 
-	@When("the admin clicks on the customer name")
+	@When("Admin clicks on the customer name")
 	public void theAdminClicksOnTheCustomerName() throws InterruptedException {
 		clickOnElementUsingBy(user.EyeIcon1);
 	}
@@ -62,23 +64,26 @@ public class AdminUserApproval extends Base {
 		}
 	}
 
-	@Then("a confirmation popup is displayed then the admin clicks on the Confirm button in the popup")
+	@Then("a confirmation popup is displayed then Admin clicks on the Confirm button in the popup")
 	public void aConfirmationPopupIsDisplayedThenTheAdminClicksOnTheConfirmButtonInThePopup() throws InterruptedException {
 		ClickonElement(user.getConfirm());
 		waitForElement(snack.getAccountApprovedSuccessfully());
 	}
 
-	@Then("the customer request is successfully approved")
+	@Then("User request is successfully approved")
 	public void theCustomerRequestIsSuccessfullyApproved() throws InterruptedException {
 		System.out.println("Check the snack bar");
 		ClickonElement(info.getBackButton());
 	}
 
-	@Then("the admin is navigated back to the home page")
+	@Then("Admin is navigated back to the home page")
 	public void theAdminIsNavigatedBackToTheHomePage() {
 		ClickonElement(user.getHome());
 	}
 		
+////************************************************************** PET APPROVAL	
+	
+	
 	@Given("approve pet")
 	public void approvePet() throws InterruptedException {
 

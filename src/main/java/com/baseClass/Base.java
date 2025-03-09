@@ -102,7 +102,9 @@ public class Base {
 		
 		
 		
-		
+		public static boolean Sold;
+		public static boolean Collected;
+
 		public static String TotalAmountWithSymbol;
 
 		public static String BookingPaidAmount;
@@ -1231,7 +1233,7 @@ public class Base {
 					String baseEmail = line.substring(line.indexOf('=') + 1);
 					String prefix = baseEmail.substring(0, baseEmail.indexOf('+') + 1);
 					String domain = baseEmail.substring(baseEmail.indexOf('@'));
-					int randomNumber = (int) (Math.random() * 10000);
+					int randomNumber = 10000 + (int) (Math.random() * 90000);
 					updatedValue = prefix + randomNumber + domain;
 					line = KeyValue + "=" + updatedValue;
 				}
@@ -1663,6 +1665,13 @@ public class Base {
 	        // Return formatted string
 	        return "£ " + value;
 	    }
+	   public static  String for_adhocPayment(String amount) {
+	        
+	        double value = Double.parseDouble(amount);  // Convert to double
+	        String formattedAmount = String.format("%.2f", value);
+	return formattedAmount;
+	   }
+	   
 	public static void processFlow(String type) {
        
     }

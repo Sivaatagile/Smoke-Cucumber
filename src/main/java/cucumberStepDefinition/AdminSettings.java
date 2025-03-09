@@ -14,6 +14,7 @@ import io.cucumber.java.en.When;
 public class AdminSettings extends Base {
 	WE_Admin_Settings settings = new WE_Admin_Settings(driver);
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+	Booking book = new Booking();
 
 //	-------------------------------------------------------->   Manage Credit Limit
 
@@ -78,17 +79,29 @@ public class AdminSettings extends Base {
 	@When("the admin finds the customer and select it")
 	public void theAdminFindsTheCustomerAndSelectIt() throws InterruptedException {
 		Thread.sleep(2000);
-		clickOnElementUsingBy(settings.CustomerNameInAccountsSearch);
-	}
+		 By CustomerNameInAccountsSearch  = By.xpath(String.format("//android.view.View[contains(@content-desc,\"%s\")]", getProperty("SIGNUP_FIRSTNAME")+" "+getProperty("SIGNUP_LASTNAME")));
 
+		clickOnElementUsingBy(CustomerNameInAccountsSearch);
+	}
+	@When("the admin select the type as sold")
+	public void theAdminSelectTheTypeAsSold() {
+		Sold=true;
+	}
+	
+	@When("the admin select the type as collected")
+	public void theAdminSelectTheTypeAsCollected() {
+		Collected=true;
+		ClickonElement(settings.getcollected());
+	}
+	
 	@When("the admin taps on the Adhoc amount")
 	public void theAdminTapsOnTheAdhocAmount() {
 		ClickonElement(settings.getAdhocAmount());
 	}
-
-	@When("the admin enters the amount in Adhoc amount")
-	public void theAdminEntersTheAmountInAdhocAmount() {
-		passInput(settings.getAdhocAmount(), "10000");
+	@When("the admin enters the amount in Adhoc {string}")
+	public void theAdminEntersTheAmountInAdhoc(String string) {
+	   
+		passInput(settings.getAdhocAmount(), getProperty(string));
 	}
 
 	@When("the admin taps on the remarks field in Adhoc")
@@ -193,6 +206,25 @@ public class AdminSettings extends Base {
 		} else if (isElementAvailable(settings.getNoRecordFound())) {
 			System.out.println("Invoice is not generated");
 		}
+	}
+	
+//	------------------------------------------------------>     Admi accounts 
+	
+	@When("the admin taps on Accounts")
+	public void theAdminTapsOnAccounts() throws InterruptedException {
+		Thread.sleep(2000);
+		ClickonElement(settings.getAccounts());
+		
+	}
+	@When("the admin filter the customer in that dropdown as {string} and {string}")
+	public void theAdminFilterTheCustomerInThatDropdownAsAnd(String string, String string2) throws Exception {
+	    
+		ClickonElement(settings.getCustomerFilter());
+		Thread.sleep(4000);
+		 By CustomerName= By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty(string)+" "+getProperty(string2)));
+		slowscrolluntilelementfound(CustomerName);
+		clickOnElementUsingBy(CustomerName);
+		
 	}
 	
 

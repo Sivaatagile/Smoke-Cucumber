@@ -174,11 +174,13 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 //		Edit.EditCustomer();
 //		Edit.EditAdmin();
 //Edit.EditTag();
-		Edit.EditService();
-	
-		Edit.EditAddon();
-		Edit.EditSlot();
+//		Edit.EditService();
+//	
+//		Edit.EditAddon();
+//		Edit.EditSlot();
 		
+		
+		sample.Servicewd();
 		
 		
 		
