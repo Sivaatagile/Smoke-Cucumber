@@ -16,22 +16,22 @@ public class AdminCreateStaff extends Base {
 	WE_Info info = new WE_Info(driver);
 	WE_Snackbar snack = new WE_Snackbar(driver);
 
-	@When("the admin clicks on Staff's Show All")
+	@When("Admin clicks on Staff's Show All")
 	public void theAdminClicksOnStaffSShowAll() {
 		ClickonElement(user.getShowall_AllStaff());
 	}
 
-	@Then("the admin is navigated to the staff list page")
+	@Then("Admin is navigated to the staff list page")
 	public void theAdminIsNavigatedToTheStaffListPage() throws InterruptedException {
 		waitForElement(user.getAllStaff());
 	}
 
-	@When("the admin clicks on the + button to add a new staff")
+	@When("Admin clicks on the + button to add a new staff")
 	public void theAdminClicksOnTheButtonToAddANewStaff() {
 		ClickonElement(user.getFAB());
 	}
 
-	@When("the admin clicks on the Skills dropdown and selects the staff's skill")
+	@When("Admin clicks on the Skills dropdown and selects the staff's skill")
 	public void theAdminClicksOnTheSkillsDropdownAndSelectsTheStaffSSkill() throws InterruptedException, Exception {
 		Thread.sleep(500);
 		ClickonElement(user.getSkillsset());
@@ -49,13 +49,13 @@ public class AdminCreateStaff extends Base {
 		waitForElement(user.getAllStaff());
 	}
 
-	@When("the admin selects the gender for Staff")
+	@When("Admin selects the gender for Staff")
 	public void theAdminSelectsTheGenderForStaff() {
 		ClickonElement(user.getFemale());
 		ClickonElement(user.getMale());
 	}
 
-	@When("the admin enters the address line for staff {int}")
+	@When("Admin enters the address line for staff {int}")
 	public void theAdminEntersTheAddressLineForStaff(Integer int1) {
 		WebElement addressLineElement;
 		switch (int1) {
@@ -73,14 +73,14 @@ public class AdminCreateStaff extends Base {
 		driver.hideKeyboard();
 	}
 
-	@When("the admin enters the Contact number {string}")
+	@When("Admin enters the Contact number {string}")
 	public void theAdminEntersTheContactNumber(String Contact) {
 		ClickonElement(user.getContactNumber());
 		passInput(user.getContactNumber(), getProperty(Contact));
 		driver.hideKeyboard();
 	}
 	
-	@When("the admin verifies the snackbar after creating the new staff")
+	@When("Admin verifies the snackbar after creating the new staff")
 	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewStaff() throws InterruptedException {
 //	 waitForElement(snack.getRecordCreatedSuccessfully());
 	}

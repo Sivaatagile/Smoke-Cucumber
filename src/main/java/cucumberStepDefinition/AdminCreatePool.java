@@ -13,48 +13,48 @@ public class AdminCreatePool extends Base {
 	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
 	WE_Snackbar snack = new WE_Snackbar(driver);
 
-	@When("the admin navigates to Manage Service Pools")
+	@When("Admin navigates to Manage Service Pools")
 	public void theAdminNavigatesToManageServicePools() {
 		ClickonElement(settings.getServicePool());
 	}
 
-	@When("the admin clicks on the Plus button to add a new pool")
+	@When("Admin clicks on the Plus button to add a new pool")
 	public void theAdminClicksOnThePlusButtonToAddANewPool() {
 		ClickonElement(settings.getFAB());
 	}
 
-	@When("the admin enters Pool Name")
+	@When("Admin enters Pool Name")
 	public void theAdminEntersPoolName() {
 		ClickonElement(settings.getPoolName());
 		passInput(settings.getPoolName(), getProperty("POOL_NAME"));
 		driver.hideKeyboard();
 	}
 
-	@When("the admin enters Pool Remarks")
+	@When("Admin enters Pool Remarks")
 	public void theAdminEntersPoolRemarks() {
 		ClickonElement(settings.getPoolRemarks());
 		passInput(settings.getPoolRemarks(), getProperty("POOL_REMARKS"));
 		driver.hideKeyboard();
 	}
 
-	@When("the admin enters Pool Capacity")
+	@When("Admin enters Pool Capacity")
 	public void theAdminEntersPoolCapacity() {
 		ClickonElement(settings.getPoolCapacity());
 		passInput(settings.getPoolCapacity(), getProperty("POOL_CAPACITY"));
 		driver.hideKeyboard();
 	}
 
-	@Then("the admin should see a confirmation message of Pool creation")
+	@Then("Admin should see a confirmation message of Pool creation")
 	public void theAdminShouldSeeAConfirmationMessageOfPoolCreation() {
 //		System.out.println("sanck bar");
 	}
 	
-	@When("the admin verifies the snackbar after creating the new service pool")
+	@When("Admin verifies the snackbar after creating the new service pool")
 	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewServicePool() throws InterruptedException {
 //		waitForElement(snack.getDataInsertedSuccessfully());
 	}
 	
-	@Then("the admin is navigated to the service pools list page")
+	@Then("Admin is navigated to the service pools list page")
 	public void theAdminIsNavigatedToTheServicePoolsListPage() throws InterruptedException {
 		waitForElement(settings.getServicePool());
 	}

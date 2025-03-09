@@ -9,34 +9,34 @@ public class AdminCreateSlot extends Base {
 	WE_Admin_Services slot = new WE_Admin_Services(driver);
 	WE_Info info = new WE_Info(driver);
 
-	@Given("the admin navigates to the Service tab")
+	@Given("Admin navigates to the Service tab")
 	public void theAdminNavigatesToTheServiceTab() {
 		ClickonElement(slot.getservice_Tab());
 	}
 
-	@Given("the admin clicks on Show All under slots")
+	@Given("Admin clicks on Show All under slots")
 	public void theAdminClicksOnShowAllUnderSlots() throws InterruptedException {
 		ClickonElement(slot.getSlot_Showall());
 	}
 
-	@Then("the admin is navigated to the slot's list page")
+	@Then("Admin is navigated to the slot's list page")
 	public void theAdminIsNavigatedToTheSlotSListPage() throws InterruptedException {
 	   waitForElement(slot.getSlot());
 	}
 	
-	@Given("the admin taps the plus button to create a new slot")
+	@Given("Admin taps the plus button to create a new slot")
 	public void theAdminTapsThePlusButtonToCreateANewSlot() throws InterruptedException {
 		ClickonElement(slot.getfab());
 	}
 
-	@When("the admin enters {string} in the slot name input field")
+	@When("Admin enters {string} in the slot name input field")
 	public void theAdminEntersInTheSlotNameInputField(String SlotName) throws InterruptedException {
 		ClickonElement(slot.getSlotName());
 		passInput(slot.getSlotName(), getProperty(SlotName));
 		driver.hideKeyboard();
 	}
 
-	@When("the admin provides {string} in the slot description field")
+	@When("Admin provides {string} in the slot description field")
 	public void theAdminProvidesInTheSlotDescriptionField(String SlotDescription) throws InterruptedException {
 		ClickonElement(slot.getDescriptionTextBox());
 		passInput(slot.getDescriptionTextBox(), getProperty(SlotDescription));
@@ -57,7 +57,7 @@ public class AdminCreateSlot extends Base {
 		ClickonElement(slot.getSelect());
 	}
 
-	@When("the admin clicks on the save button")
+	@When("Admin clicks on the save button")
 	public void theAdminClicksOnTheSaveButton() throws InterruptedException {
 		ClickonElement(slot.getSave());
 		Thread.sleep(2000);
@@ -67,14 +67,7 @@ public class AdminCreateSlot extends Base {
 		}
 	}
 	
-	
-	@When("the admin verifies the snackbar after creating the new slot {string}")
-	public void theAdminVerifiesTheSnackbarAfterCreatingTheNewSlot(String string) throws InterruptedException {
-	   System.out.println("dddddd     :    "+slot.getslotcreatedsnackbar);
-		waitForElementViewable(slot.getslotcreatedsnackbar);
-	}
-
-	@Then("the slot should be created successfully")
+	@Then("The slot should be created successfully")
 	public void theSlotShouldBeCreatedSuccessfully() throws InterruptedException {
 		 waitForElement(slot.getSlot());
 	}

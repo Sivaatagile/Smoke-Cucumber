@@ -1,5 +1,6 @@
 package cucumberStepDefinition;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
@@ -7,6 +8,7 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -42,7 +44,8 @@ public class Booking extends Base {
 	public static String StatementCreatedDate;
 	
 	public static String TotalAmountWithSymbol;
-
+	public static String AssortedDate;
+	
 	public static String InvoiceNumber;
 	public static String currentMonth;
 	public static Boolean Stripe;
@@ -54,6 +57,7 @@ public class Booking extends Base {
 	public static Boolean sale;
 	public static String Mybookingamount;
 	public static String daydatemonth;
+	public static String InvoiceAmountbelongstototalamount;
 	public static double totalAmount;
 	public static String partialAmount;
 	public static double accountBalance;
@@ -140,6 +144,8 @@ public class Booking extends Base {
 		Selected_Slot = booking.getseekbar().getAttribute("content-desc");
 		System.out.println(Selected_Slot);
 	}
+	
+
 
 	@When("the user determines the From Date and To Date for the service based on constraints")
 	public void theUserDeterminesTheFromDateAndToDateForTheServiceBasedOnConstraints() {
@@ -176,7 +182,7 @@ public class Booking extends Base {
         List<LocalDate> remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
         Collections.shuffle(remainingDates);
         BookingDate = remainingDates.get(0);
-        
+        System.out.println("jjjjjjjjj  : : "+BookingDate);
 //		BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
 //		System.out.println(
 //				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
@@ -186,6 +192,32 @@ public class Booking extends Base {
 		BookingYear = BookingDate.getYear();
 		BookingMonthProperCase = BookingMonth.substring(0, 1) + BookingMonth.substring(1).toLowerCase();
 		Thread.sleep(3000);
+		 DateTimeFormatter formatter123 = DateTimeFormatter.ofPattern("E MMM d");
+
+		 
+		 DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("E");
+	        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMM");
+	        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d");
+
+	        // Extract parts
+	        String day = BookingDate.format(dayFormatter);
+	        String month = BookingDate.format(monthFormatter);
+	        String date = BookingDate.format(dateFormatter);
+
+	        // Add space before single-digit date
+	        if (date.length() == 1) {
+	            date = date+" " ;
+	        }
+
+	        // Combine formatted parts
+	        AssortedDate  = day + " " + month + " " + date;
+
+	        // Format the LocalDate
+//	       AssortedDate = BookingDate.format(formatter123);
+
+	        // Print the formatted date
+	        System.out.println("date  : - "+AssortedDate);
+		
 	}
 
 	@When("the user navigates to the random date's month using the right arrow")
@@ -300,7 +332,9 @@ public class Booking extends Base {
 	    String totalAmountText = booking.getTotal_Amount().getAttribute("content-desc");
 		TotalAmountWithSymbol=totalAmountText;
 		System.out.println("kkk    :--------------------------------         "+TotalAmountWithSymbol);
-		 Mybookingamount = formatAmount(TotalAmountWithSymbol);
+		InvoiceAmountbelongstototalamount = TotalAmountWithSymbol.replace("£", "").trim();
+		System.out.println("lllllllllllllllll  : "+InvoiceAmountbelongstototalamount);
+		Mybookingamount = formatAmount(TotalAmountWithSymbol);
 		System.out.println("gtcefetcv   "+Mybookingamount);
 		mybookingamountwithoutsymbol = Mybookingamount.replace("£", "").trim();
 		System.out.println(mybookingamountwithoutsymbol);
@@ -323,6 +357,7 @@ public class Booking extends Base {
 			String cleanedText = attribute.replace("\n", " ").trim();
 			String amountText = cleanedText.replaceAll(".*£\\s*", "").trim();
 			System.out.println(amountText);
+			PartialPayment=false;
 			accountBalance = Double.parseDouble(amountText);
 			System.out.println(accountBalance);
 			if (totalAmount < accountBalance) {
@@ -655,6 +690,7 @@ public class Booking extends Base {
 		} 
 		else if (!isElementAvailable(booking.getUseAccountBalance())) {
 			ACCOUNTBALANCE=false;
+			PartialPayment=false;
 			System.out.println("\033[1;93maccount balance is not available \033[0m");
 				if (isElementAvailable(booking.getpaylater())) {
 					PAYLATER=true;
@@ -1014,7 +1050,7 @@ public class Booking extends Base {
 		System.out.println(BookedSERVICE);
 //	        By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmount + "']");
 		By BookedPAYMENT1 = By
-				.xpath("//android.view.View[@content-desc='" + Booking.mybookingamountwithoutsymbol + "']");
+				.xpath("//android.view.View[@content-desc='" + Booking.InvoiceAmountbelongstototalamount + "']");
 		System.out.println(BookedPAYMENT1);
 
 //	        BookingPaidAmountwithdecimal
@@ -1262,8 +1298,44 @@ public class Booking extends Base {
 	}
 	
 	
+// ---------------------------------> assorted 
 	
+	@When("the user taps the assorted tab")
+	public void theUserTapsTheAssortedTab() {
+	    
+		ClickonElement(booking.getassorted());
+	}
+	@When("the user selects a random slot from the slot list, scrolling the slot picker in assorted tab if necessary")
+	public void theUserSelectsARandomSlotFromTheSlotListScrollingTheSlotPickerInAssortedTabIfNecessary() throws Exception {
+		Thread.sleep(4000);
+		for (int i = 1; i < randomValue; i++) {
+			scroll(booking.getSlotPicker());
+			System.out.println(i);
+			Thread.sleep(1000); // waits for 500ms
+		}
+		Thread.sleep(2500);
+		Selected_Slot = booking.getSlotPicker().getAttribute("content-desc");
+		System.out.println(Selected_Slot);
+		
+	}
 	
+	@When("the user scroll the date picker and selects the date")
+	public void theUserScrollTheDatePickerAndSelectsTheDate() throws Exception {
+		   By datelocator = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", AssortedDate));
+System.out.println(datelocator);
+		   Thread.sleep(2000);
+		scrollUntil(booking.getDatePicker(), datelocator);
+		
+		Thread.sleep(2000);
+		ClickonElement(booking.getRequestBooking());
+		
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+
+	        // Format the date to string
+	        Booked_Date = BookingDate.format(formatter);
+
+	        System.out.println(Booked_Date); 
+	}
 	
 	
 //	--------------------------------------------------->   TWO PETS

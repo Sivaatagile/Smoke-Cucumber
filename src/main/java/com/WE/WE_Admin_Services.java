@@ -60,6 +60,9 @@ public class WE_Admin_Services extends Base{
 		return    SlotEditICON ;
 	}
 	
+	public static By slotNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("SLOT_NAME")));
+
+	
 	public static By ExpectedSlot = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("SLOT_NAME")));
 
 	
@@ -99,6 +102,11 @@ public class WE_Admin_Services extends Base{
 	
 	public static By SessionExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("SESSION")));
 	
+	public static By EditedHoursExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("EDIT_HOUR")));
+
+	public static By EditedMinutesExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("EDIT_MINUTE")));
+
+	public static By EditedSessionExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("EDIT_SESSION")));
 
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Select\"]")
 	private WebElement    Select;
@@ -142,13 +150,17 @@ public class WE_Admin_Services extends Base{
 	public WebElement getFab_Service() {
 		return    Fab_Service ;
 	}
-	
+	public static By serviceNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("SERVICE_NAME")));
+
+	public static By addonNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADDON_PRIVILAGE")));
+
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Service\"]")
 	private WebElement   Service ;
 	public WebElement getService() {
 		return    Service ;
 	}
 	
+
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Add-on\"]")
 	private WebElement   Addon ;
 	public WebElement getAddon() {
@@ -287,6 +299,18 @@ public class WE_Admin_Services extends Base{
 		return  FirstElement   ;
 	}
 	
+	@FindBy (xpath ="//android.widget.Button[contains(@content-desc,\"Confirm\")]")
+	private WebElement   Confirm1;
+	public WebElement getConfirm1() {
+		return   Confirm1  ;
+	}
+	
+	@FindBy (xpath ="//android.widget.Button[2]")
+	private WebElement   Delete;
+	public WebElement getDelete() {
+		return   Delete  ;
+	}
+	
 	public static By ToMonthExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Month")));
 	
 	public static By ToDateExpected = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", getProperty("TO_Date")));
@@ -380,6 +404,7 @@ public class WE_Admin_Services extends Base{
 		return   AllServices  ;
 	}
 	
+
 	
 	@FindBy (xpath ="//*[starts-with(@hint,'From')]")
 	private WebElement  from  ;

@@ -96,8 +96,38 @@ public class CustomerSettings extends Base {
 		} 
 	}
 	
+	@When("the admin check the adhoc type")
+	public void theAdminCheckTheAdhocType() throws InterruptedException {
+		String for_adhocPayment = for_adhocPayment(getProperty("Adhoc_amount"));
+		
+		if (Sold) {
+	    	By sales1 = By.xpath(
+					"//android.view.View[@content-desc=\"Ad-hoc\"]/following-sibling::android.view.View[@content-desc='" + "- " + "£ " + for_adhocPayment + "']");	
+		System.out.println(sales1);
+		Thread.sleep(2000);
+		if (isElementAvailable(sales1)) {
+			System.out.println("SOLD DONE");
+		}
+		else if (Collected) {
+		    	By sales12 = By.xpath(
+						"//android.view.View[@content-desc=\"Ad-hoc\"]/following-sibling::android.view.View[@content-desc='" + "£ " + for_adhocPayment + "']");	
+			System.out.println(sales12);
+			Thread.sleep(2000);
+			if (isElementAvailable(sales12)) {
+				System.out.println("collected DONE");
+			}
+		
+		
+	    }else {
+			System.out.println("hhhhh");
+		}
+		
 	
-}
+	
+	
+	    }}}
+	
+
 	
 	
 	

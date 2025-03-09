@@ -296,7 +296,18 @@ public class WE_Admin_Settings extends Base{
 	public WebElement getAdhocCustomer() {
 		return AdhocCustomer    ;
 	}
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Customers\"]")
+	private WebElement   CustomerFilter ;
+	public WebElement getCustomerFilter() {
+		return CustomerFilter    ;
+	}
 	
+	
+	@FindBy (xpath ="//android.view.View[@content-desc=\"Antony Smerton\"]")
+	private WebElement   CustomerName ;
+	public WebElement getCustomerName() {
+		return CustomerName    ;
+	}
 	@FindBy (xpath ="(//android.view.View[contains(@content-desc, 'filter_name')])[1]")
 	private WebElement  SelectCustomerAdhoc  ;
 	public WebElement getSelectCustomerAdhoc() {
@@ -484,6 +495,12 @@ public class WE_Admin_Settings extends Base{
 	private WebElement SearchCustomer_Accounts;
 	public WebElement getSearchCustomer_Accounts() {
 		return SearchCustomer_Accounts;
+	}
+	
+	@FindBy (xpath="//android.view.View[contains(@content-desc,\"Collected\")]")
+	private WebElement collected;
+	public WebElement getcollected() {
+		return collected;
 	}
 	
 	public static By CustomerNameInAccountsSearch  = By.xpath(String.format("//android.view.View[contains(@content-desc,\"%s\")]", getProperty("SIGNUP_FIRSTNAME")+" "+getProperty("SIGNUP_LASTNAME")));

@@ -61,6 +61,20 @@ public class WE_Customer_BookingFlow extends Base{
 	public   WebElement getseekbar() {
 		return    seekbar ;
 	}
+	
+	@FindBy (xpath ="//android.widget.SeekBar[1]")
+	private WebElement   DatePicker ;
+	public   WebElement getDatePicker() {
+		return    DatePicker ;
+	}
+	
+	@FindBy (xpath ="//android.widget.SeekBar[2]")
+	private WebElement   SlotPicker ;
+	public   WebElement getSlotPicker() {
+		return    SlotPicker ;
+	}
+	
+	
 
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Request Booking\"]")
 	private WebElement  RequestBooking  ;
