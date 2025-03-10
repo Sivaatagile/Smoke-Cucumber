@@ -59,6 +59,7 @@ public class Api extends Base {
 	public static int TotalSlotCount;
 	public static List<String> slotNames;
 
+//	STAFF DETAILS
 	
 	public static List<String> StaffFirstNames;
 	public static String FirstNameStaff ;
@@ -113,11 +114,11 @@ public class Api extends Base {
 
 	public static Integer CustomerId;
 	
-	public static List<String> notAvailableDates;
-	public static  Map<String, List<String>> categoryMap;
+//	SUPPORT DETAILS
+	public static List<String> notAvailableDates;      //  --> Booking related 
 
 	public Api(AndroidDriver driver1) {
-		this.driver = driver1;
+		Base.driver = driver1;
 		PageFactory.initElements(driver1, this);
 	}
 
@@ -301,7 +302,7 @@ public class Api extends Base {
 	            PricingRuleNames.add(tag.getString("name")); // tagName add panniruken
 	        }
 	        // Print the list
-	        System.out.println("Tag Names List: " + PricingRuleNames);
+	        System.out.println("Pricing rule List: " + PricingRuleNames);
 	}
 	
 	public static Map<String, List<String>> OverallTagList() {
@@ -356,7 +357,7 @@ public class Api extends Base {
 	        int TotalTagCount = jsonResponse.getInt("recordsTotal");
 	        System.out.println("Records Total: " + TotalTagCount);
 	        JSONArray dataArray = jsonResponse.getJSONArray("data");
-	        TagNames = new ArrayList<>();                        //   -------------------------------------------------------------------------------------------------------------------->    Category Names 
+	        TagNames = new ArrayList<>();                        //   ----------------------------------->    Category Names 
 	        for (int i = 0; i < dataArray.length(); i++) {
 	            JSONObject tag = dataArray.getJSONObject(i);
 	            TagNames.add(tag.getString("category_name")); // tagName add panniruken
@@ -395,7 +396,6 @@ public class Api extends Base {
 	        }
 	    }
 	    Collections.reverse(OnlyTags);
-	    // Print the subdata names list
 	    System.out.println("Subdata Names List: " + OnlyTags);
 	}
 	
@@ -418,7 +418,7 @@ public class Api extends Base {
 	            BreedNames.add(tag.getString("name")); // tagName add panniruken
 	        }
 	        // Print the list
-	        System.out.println("Tag Names List: " + BreedNames);
+	        System.out.println("BREED List: " + BreedNames);
 	}
 	
 	public static  void StaffFirstNameList() {
@@ -440,7 +440,7 @@ public class Api extends Base {
 	            StaffFirstNames.add(tag.getString("first_name")); // tagName add panniruken
 	        }
 	        // Print the list
-	        System.out.println("Tag Names List: " + StaffFirstNames);
+	        System.out.println("Staff first names List: " + StaffFirstNames);
 	}
 	
 	public static  void ServiceList() {
@@ -462,22 +462,19 @@ public class Api extends Base {
 	            ServiceNames.add(tag.getString("name")); // tagName add panniruken
 	        }
 	        // Print the list
-	        System.out.println("Tag Names List: " + ServiceNames);
+	        System.out.println("Service List: " + ServiceNames);
 	}
 
 	
 	public  static  void universal_creditlimit() {
-
 		Response response = RestAssured.given()
                 .header("X-API-Version", "100")
                 .header("User-Agent", "PostmanRuntime")
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + VerifiedRefreshToken)
                 .get(BASE_URL + "user/list/organization_settings");
-		
 	        JsonPath jsonPath = response.jsonPath();
 	         universalCreditLimit = jsonPath.getDouble("data[0].universal_credit_limit");
-
 	        System.out.println("Universal Credit Limit: " + universalCreditLimit);
 	}
 	public static  void getserviceID(String serviceName) {
@@ -635,7 +632,6 @@ public class Api extends Base {
 			String textFilePath = workspacePath + "/" + TextDocumentPath;
 			File file = new File(filePath);
 			List<String> fileLines = new ArrayList<>();
-			String updatedValue = null;
 			List<String> list2 = new ArrayList<>();
 			try (BufferedReader br = new BufferedReader(new FileReader(textFilePath))) {
 				String line;
@@ -749,7 +745,8 @@ public class Api extends Base {
 							scrollUntilTagAppears(tag);
 						}
 					}
-				} else {
+				} 
+				else {
 					System.out.println("❌ Category not found: " + category);
 				}
 				System.out.println("------------------------------------------------");
@@ -828,36 +825,7 @@ public class Api extends Base {
 		signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 		String Token = verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
 		refreshAdminToken(Token);
-		universal_creditlimit();
-//		ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
-//		OverallSlotList();
-//		Priority();
-//		eliminatefrom100();
-//		PricingRuleList();
-//		OverallTagList();
-//		TagList();
-//		OnlyTag();
-//		BreedList();
-//		ServiceList();
-//		getserviceID(getProperty("SERVICE_NAME"));
-//		SlotList();
-//		getslotID(getProperty("SLOT_NAME"));
-//		AddonList();
-//		PoolingList();
-//		getcustomerID(getProperty("ADMIN_CUSTOMER_EMAIL"));
-//		
-//		
-//		
-//		NotAvailableDates(DAYminAdvanceBooking, TotalSlotCount, DAYmaxAdvanceBooking, Token, Token);
-//		Compare(Token, Token, AddonsNames, Token);	
-////		-------->  EXAMPLE :          		Compare("BREED_Name",UniqueBreed, BreedNames, getProperty("BREED"));
-//		filterDates(AddonsNames, prdate, BookingDate);
-//		getRemainingDates(AddonsNames, prdate, BookingDate);
-//		getSlotIdByName(null, Token);
-//		getServiceIdByName(null, Token);
-//		getCustomerIdByemail(null, Token);
-		
-	
+		universal_creditlimit();	
 	}
 
 

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import org.openqa.selenium.By;
@@ -24,6 +25,7 @@ public class CustomerBookingFlowPricingRule extends Base {
 	WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 	Api api = new Api(driver);
 	WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
+	Random random = new Random();
 
 	public static List<String> TotalSlots;
 	public static String SelectedSlot;
@@ -128,14 +130,32 @@ public class CustomerBookingFlowPricingRule extends Base {
 
 	@When("the user fetches available time slots from the API for discount")
 	public void theUserFetchesAvailableTimeSlotsFromTheAPIForDiscount() {
-		TotalSlots = api.slotNames;
-		SelectedSlot = SelectOneRandomlyFromList(TotalSlots);
+		
+		
+//		api.OverallSlotList();
+//		TotalSlots = api.slotNames;
+//		SelectedSlot = SelectOneRandomlyFromList(TotalSlots);
 	}
 
 	@When("the user chooses an available Time Slot")
 	public void theUserChoosesAnAvailableTimeSlot() throws Exception {
-		By xpath = By.xpath(String.format("//android.widget.SeekBar[contains(@content-desc,\"%s\")]", SelectedSlot));
-		scrollUntilElementFound(booking.getseekbar(), xpath);
+		Api.ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
+		int SlotCount = api.timeSlotsCount;
+		System.out.println("slot  :  " + SlotCount);
+		randomValue = random.nextInt(SlotCount);
+		System.out.println("Random value: " + randomValue);
+		Thread.sleep(4000);
+		for (int i = 1; i < randomValue; i++) {
+			scroll(booking.getseekbar());
+			System.out.println(i);
+			Thread.sleep(500); // waits for 500ms
+		}
+		Thread.sleep(2500);
+		Selected_Slot = booking.getseekbar().getAttribute("content-desc");
+		System.out.println(Selected_Slot);
+		
+//		By xpath = By.xpath(String.format("//android.widget.SeekBar[contains(@content-desc,\"%s\")]", SelectedSlot));
+//		scrollUntilElementFound(booking.getseekbar(), xpath);
 	}
 
 	@When("the user gathering the pricingrule discount date from propertyfile")
@@ -365,9 +385,22 @@ public class CustomerBookingFlowPricingRule extends Base {
 ////*************************     PREMIUM PRICINGRULE DATE
 
 	@When("the user fetches available time slots from the API for premium")
-	public void theUserFetchesAvailableTimeSlotsFromTheAPIForPremium() {
-		TotalSlots = api.slotNames;
-		SelectedSlot = SelectOneRandomlyFromList(TotalSlots);
+	public void theUserFetchesAvailableTimeSlotsFromTheAPIForPremium() throws Exception {
+		
+			Api.ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
+			int SlotCount = api.timeSlotsCount;
+			System.out.println("slot  :  " + SlotCount);
+			randomValue = random.nextInt(SlotCount);
+			System.out.println("Random value: " + randomValue);
+			Thread.sleep(4000);
+			for (int i = 1; i < randomValue; i++) {
+				scroll(booking.getseekbar());
+				System.out.println(i);
+				Thread.sleep(500); // waits for 500ms
+			}
+			Thread.sleep(2500);
+			Selected_Slot = booking.getseekbar().getAttribute("content-desc");
+			System.out.println(Selected_Slot);
 	}
 	
 	@When("the user gathering the pricingrule premium date from propertyfile")
@@ -378,9 +411,22 @@ public class CustomerBookingFlowPricingRule extends Base {
 
 	
 	@When("the user fetches available time slots from the API for Not Available")
-	public void theUserFetchesAvailableTimeSlotsFromTheAPIForNotAvailable() {
-		TotalSlots = api.slotNames;
-		SelectedSlot = SelectOneRandomlyFromList(TotalSlots);
+	public void theUserFetchesAvailableTimeSlotsFromTheAPIForNotAvailable() throws Exception {
+		
+			Api.ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
+			int SlotCount = api.timeSlotsCount;
+			System.out.println("slot  :  " + SlotCount);
+			randomValue = random.nextInt(SlotCount);
+			System.out.println("Random value: " + randomValue);
+			Thread.sleep(4000);
+			for (int i = 1; i < randomValue; i++) {
+				scroll(booking.getseekbar());
+				System.out.println(i);
+				Thread.sleep(500); // waits for 500ms
+			}
+			Thread.sleep(2500);
+			Selected_Slot = booking.getseekbar().getAttribute("content-desc");
+			System.out.println(Selected_Slot);
 	}
 	
 	@When("the user gathering the pricingrule Not available date from propertyfile")

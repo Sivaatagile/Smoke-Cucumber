@@ -79,26 +79,39 @@ public class Base {
 	public static Properties properties;
 	public static FileInputStream fis;
 
+//	For Scroll
 	public static Boolean target;
+	
+//	For OTP related
 	public static String OTPText;
-	public static String outputAssignedDate;
+	
+//	For Statement
 	public static String InvoiceNumber;
 	public static String currentMonth;
 	public static String StatementCreatedDate;
-	public static boolean range;
-
-
 	
-	
-	
-	
-	
-	public static LocalDate prdate ;
+//	public static LocalDate prdate ;
 	 public static   String formattedDatesss;
 	 
 		public static String Selected_Slot_as_ADMIN;
 		public static LocalDate BookingDate_as_ADMIN;
 		public static String Booked_Date_as_ADMIN;
+	
+	
+	
+	
+	
+	
+	
+	public static boolean range;                 // ------------> Random single date booking in java scripts
+
+
+	
+	
+	
+	
+	
+	
 		
 		
 		
@@ -127,6 +140,41 @@ public class Base {
 		public static String BookingMonthProperCase;
 		public static String PricingruleNotAvailableDate;
 	
+		
+//		public static String BookingPaidAmount;
+//		public static String BookingPaymentTime;
+//		public static String Booked_Date;
+//		public static String Booked_service;
+//		public static String BookingPaidAmountwithdecimal;
+//		public static LocalDate BookingDate;
+		public static int randomValue;
+//		public static LocalDate startDate;
+//		public static LocalDate endDate;
+//		public static LocalDate minAdvanceBookingDate;
+//		public static LocalDate maxBookingDate;
+//		public static int BookingYear;
+//		public static String StatementCreatedDate;
+		
+//		public static String TotalAmountWithSymbol;
+		public static String AssortedDate;
+		
+//		public static Boolean Stripe;
+//		public static Boolean Crezco;
+		public static String mybookingamountwithoutsymbol;
+		public static Boolean ACCOUNTBALANCE;
+		public static Boolean PAYLATER;
+		public static Boolean PartialPayment;
+		public static Boolean sale;
+		public static String Mybookingamount;
+		public static String daydatemonth;
+		public static String InvoiceAmountbelongstototalamount;
+		public static double totalAmount;
+		public static String partialAmount;
+		public static double accountBalance;
+		public static double paylater;
+		public static double TallyAmount;
+		public static List<String> OverallFilteredDates;
+		
 //	**********     API DETAILS 
 	
 	public static enum API_BASE_URL {
@@ -1427,17 +1475,7 @@ public class Base {
 		}
 	}
 
-	public static void dateFormatForWorkflow(String inputDate) throws ParseException {
 
-		SimpleDateFormat inputFormat = new SimpleDateFormat("MMM dd, yyyy");
-		Date date = inputFormat.parse(inputDate);
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		SimpleDateFormat outputFormat = new SimpleDateFormat("EEE MMM d");
-		outputAssignedDate = outputFormat.format(calendar.getTime());
-		System.out.println("Converted Date: " + outputAssignedDate);
-
-	}
 
 	public static String getContentDesc(String Content) {
 		try {

@@ -29,41 +29,7 @@ import com.frontend.Customer_Bookingflow;
 import io.cucumber.java.en.*;
 
 public class Booking extends Base {
-	public static String BookingPaidAmount;
-	public static String BookingPaymentTime;
-	public static String Booked_Date;
-	public static String Booked_service;
-	public static String BookingPaidAmountwithdecimal;
-	public static LocalDate BookingDate;
-	public static int randomValue;
-	public static LocalDate startDate;
-	public static LocalDate endDate;
-	public static LocalDate minAdvanceBookingDate;
-	public static LocalDate maxBookingDate;
-	public static int BookingYear;
-	public static String StatementCreatedDate;
-	
-	public static String TotalAmountWithSymbol;
-	public static String AssortedDate;
-	
-	public static String InvoiceNumber;
-	public static String currentMonth;
-	public static Boolean Stripe;
-	public static Boolean Crezco;
-	public static String mybookingamountwithoutsymbol;
-	public static Boolean ACCOUNTBALANCE;
-	public static Boolean PAYLATER;
-	public static Boolean PartialPayment;
-	public static Boolean sale;
-	public static String Mybookingamount;
-	public static String daydatemonth;
-	public static String InvoiceAmountbelongstototalamount;
-	public static double totalAmount;
-	public static String partialAmount;
-	public static double accountBalance;
-	public static double paylater;
-	public static double TallyAmount;
-	public static List<String> OverallFilteredDates;
+
 
 	WE_Customer_BookingFlow booking = new WE_Customer_BookingFlow(driver);
 	WE_Customer_Settings mybookings = new WE_Customer_Settings(driver);
