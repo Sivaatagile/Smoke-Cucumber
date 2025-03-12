@@ -285,47 +285,47 @@ public class Admin_User extends Base {
 		}
 	}
 
-	public static void approveUserUsingSearch() throws Exception {
-		WE_Admin_User user = new WE_Admin_User(driver);
-		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
-		WE_Info info = new WE_Info(driver);
-
-		ClickonElement(workflow.getUsers_navigation_Bar());
-		ClickonElement(user.getShowall_PendingRequest());
-		Thread.sleep(4000);
-		ClickonElement(user.getSearchBox());
-		Thread.sleep(3000);
-		passInput(user.getSearchBox(), getProperty("SIGNUP_FIRSTNAME"));
-		driver.hideKeyboard();
-		Thread.sleep(4000);
-		if (isElementAvailable(user.UserLocator1)) {
-			System.out.println("user found");
-		} else {
-			System.out.println("user not found");
-			throw new Error("User not found");
-		}
-		Thread.sleep(2000);
-		clickOnElementUsingBy(user.EyeIcon1);
-		Thread.sleep(2000);
-		boolean isElementFound = false;
-		Thread.sleep(1000);
-		while (!isElementFound) {
-			try {
-				Thread.sleep(1000);
-				if (isScrollViewAvailable()) {
-					Thread.sleep(3000);
-					scroll(user.getscroll());
-					Thread.sleep(2000);
-					ClickonElementwithoutWAIT(user.getAccept());
-					isElementFound = true;
-				}
-			} catch (Exception e) {
-				System.out.println("Accept element not found, scrolling again...");
-			}
-		}
-		ClickonElement(user.getConfirm());
-		ClickonElement(info.getBackButton());
-	}
+//	public static void approveUserUsingSearch() throws Exception {
+//		WE_Admin_User user = new WE_Admin_User(driver);
+//		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
+//		WE_Info info = new WE_Info(driver);
+//
+//		ClickonElement(workflow.getUsers_navigation_Bar());
+//		ClickonElement(user.getShowall_PendingRequest());
+//		Thread.sleep(4000);
+//		ClickonElement(user.getSearchBox());
+//		Thread.sleep(3000);
+//		passInput(user.getSearchBox(), getProperty("SIGNUP_FIRSTNAME"));
+//		driver.hideKeyboard();
+//		Thread.sleep(4000);
+//		if (isElementAvailable(user.UserLocator1)) {
+//			System.out.println("user found");
+//		} else {
+//			System.out.println("user not found");
+//			throw new Error("User not found");
+//		}
+//		Thread.sleep(2000);
+//		clickOnElementUsingBy(user.EyeIcon1);
+//		Thread.sleep(2000);
+//		boolean isElementFound = false;
+//		Thread.sleep(1000);
+//		while (!isElementFound) {
+//			try {
+//				Thread.sleep(1000);
+//				if (isScrollViewAvailable()) {
+//					Thread.sleep(3000);
+//					scroll(user.getscroll());
+//					Thread.sleep(2000);
+//					ClickonElementwithoutWAIT(user.getAccept());
+//					isElementFound = true;
+//				}
+//			} catch (Exception e) {
+//				System.out.println("Accept element not found, scrolling again...");
+//			}
+//		}
+//		ClickonElement(user.getConfirm());
+//		ClickonElement(info.getBackButton());
+//	}
 
 	public static void approvePetUsingSearch() throws InterruptedException, Error {
 		WE_Admin_User user = new WE_Admin_User(driver);

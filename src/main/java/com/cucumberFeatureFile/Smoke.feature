@@ -76,9 +76,9 @@ Feature: Booking Application Sanity Flow
   Scenario: Approving a signed-up customer request in Admin portal
     Given Admin clicks on the Users tab
     When Admin clicks on the Pending Requests showall option
-    And searches for the signup customer name as "hh"
-    Then the matching customer list is displayed
-    When Admin clicks on the customer name 
+    And searches for the signup customer name as "SIGNUP_FIRSTNAME"
+    Then the matching customer list is displayed as "SIGNUP_FIRSTNAME"
+    When Admin clicks on the customer name as "SIGNUP_FIRSTNAME"
     And scrolls down to find the Accept button and clicks it
     Then a confirmation popup is displayed then Admin clicks on the Confirm button in the popup
     Then User request is successfully approved
@@ -162,13 +162,12 @@ Feature: Booking Application Sanity Flow
     And Admin taps the plus button to create a new service
     And Admin select the service while creating a service  
     When Admin enters "SERVICE_NAME" in the service name input field  
-    And Admin provides "Description" in the service description field  
+    And Admin provides "SERVICE_DESCRIPTION" in the service description field  
     And Admin fetches the overall slot list using the API  
-    And Admin sets the "Base Price" for 1 to 4 pets 
-    And Admin selects "Capacity Type" from the tab  
-    And Admin sets the "Maximum Capacity" for the service  
-    And Admin sets the "Maximum Capacity per Staff"  
-    And Admin sets the "Maximum Advance Booking Limit"  
+    And Admin sets the "BASE_PRICE_AMOUNT" for 1 to 4 pets 
+    And Admin selects "MAX_CAPACITY_SLOT" from the tab  
+    And Admin sets the "MAX_CAPACITY_STAFF" for the service  
+    And Admin sets the "MAX_ADVANCE_BOOKING_LIMIT"  
     And Admin provides "Service Validity From" and "Service Validity To" dates  
     And Admin taps the save button 
     Then The service should be created successfully  
@@ -224,12 +223,12 @@ Feature: Booking Application Sanity Flow
     When Admin enters "ADDON_SERVICE_NAME" in the service name input field  
     And Admin provides "ADDON_SERVICE_DESCRIPTION" in the service description field  
     And Admin fetches the overall slot list using the API  
-    And Admin sets the "Base Price" for 1 to 4 pets 
+    And Admin sets the "BASE_PRICE_AMOUNT" for 1 to 4 pets 
     And Admin select the addon for this service
-    And Admin selects "Capacity Type" from the tab  
-    And Admin sets the "Maximum Capacity" for the service  
-    And Admin sets the "Maximum Capacity per Staff"  
-    And Admin sets the "Maximum Advance Booking Limit"  
+    And Admin selects "MAX_CAPACITY_SLOT" from the tab  
+    And Admin sets the "MAX_CAPACITY_SLOT" for the service  
+    And Admin sets the "MAX_CAPACITY_STAFF"  
+    And Admin sets the "MAX_ADVANCE_BOOKING_LIMIT"  
     And Admin provides "Service Validity From" and "Service Validity To" dates  
     And Admin taps the save button 
     And Admin verifies the snackbar after creating the new service with addon  
@@ -286,7 +285,7 @@ Feature: Booking Application Sanity Flow
     And Admin opens the Manage Breed section
     Then Admin is navigated to the Breed list page
     When Admin clicks on the Plus button to add a new breed
-    And Admin enters Breed Name in the breed name field
+    And Admin enters "BREED_Name" in the breed name field
     And Admin taps the save button
     Then the new breed details should be successfully saved
     When Admin clicks on the Back button
@@ -297,7 +296,7 @@ Feature: Booking Application Sanity Flow
     When Admin navigates to Manage Service Pools
     Then Admin is navigated to the service pools list page
     And Admin clicks on the Plus button to add a new pool
-    And Admin enters Pool Name 
+    And Admin enters Pool Name as "POOL_NAME"
     And Admin enters Pool Remarks 
     And Admin enters Pool Capacity 
     And Admin clicks on the Save button
@@ -305,7 +304,7 @@ Feature: Booking Application Sanity Flow
     When Admin clicks on the Back button
     And Admin taps the Home icon
     Then Admin is navigated back to the home page
-  
+  #
   #Scenario: Define a pricing rule for premium based on a single date.
     #Given Admin navigates to the Settings tab 
     #When the admin navigates to Pricing Rule 
@@ -677,7 +676,7 @@ Feature: Booking Application Sanity Flow
     And the user taps the My Bookings button
     Then the user navigates to the My Bookings page
     And the user verifies that the booking is listed on the My Bookings page
-
+#
 #Scenario: Booking a Service with a Discount Pricing Rule
 #Given the user is on the Customer Home Page
 #When the user sees the Pricing Rule Type as "DISCOUNT"
@@ -771,12 +770,12 @@ Feature: Booking Application Sanity Flow
     Then the user navigates to the My Bookings page
     And the user verifies that the booking is listed on the My Bookings page
     
-
-
+#
+#
  Scenario: Successfully logout customer
     Given the customer navigates to the Settings tab  
     And the customer clicks on the logout button
-    
+    #
   #Scenario: Staff login using email (already created by admin)
     #Given the staff enters their "ADMIN_STAFF_EMAIL" address
     #When the staff clicks on the Continue button
@@ -974,8 +973,8 @@ Feature: Booking Application Sanity Flow
     Then Admin is navigated to the slot's list page 
     When Admin clicks on the Back button
     Then the admin is navigated back to the home page
-        
-        
-        
-        
+        #
+        #
+        #
+        #
     

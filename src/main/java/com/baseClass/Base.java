@@ -1103,7 +1103,7 @@ public class Base {
 			Store store = emailSession.getStore("imaps"); // Connect to email store
 			store.connect(host, username, password); // Connect to the email server
 			System.out.println("Connected to email store.");
-			Thread.sleep(10000);
+			Thread.sleep(5000);
 			Folder emailFolder = store.getFolder("INBOX"); // Open the INBOX folder
 			emailFolder.open(Folder.READ_ONLY); // Open the folder in read-only mode
 			Message[] messages = emailFolder.getMessages(); // Get all messages in the folder

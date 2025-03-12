@@ -1,5 +1,7 @@
 package cucumberStepDefinition;
 
+import org.openqa.selenium.By;
+
 import com.WE.WE_Admin_User;
 import com.WE.WE_Admin_WorkFlow;
 import com.WE.WE_Info;
@@ -25,17 +27,18 @@ public class AdminUserApproval extends Base {
 	public void theAdminClicksOnThePendingRequestsShowallOption() {
 		ClickonElement(user.getShowall_PendingRequest());
 	}
-
-	@When("searches for the signup customer name")
-	public void searchesForTheSignupCustomerName() throws InterruptedException {
+	@When("searches for the signup customer name as {string}")
+	public void searchesForTheSignupCustomerNameAs(String string) {
 		ClickonElement(user.getSearchBox());
-		passInput(user.getSearchBox(), getProperty("SIGNUP_FIRSTNAME"));
+		passInput(user.getSearchBox(), getProperty(string));
 		driver.hideKeyboard();
 	}
 
-	@Then("the matching customer list is displayed")
-	public void theMatchingCustomerListIsDisplayed() throws InterruptedException {
-		if (isElementAvailable(user.UserLocator1)) {
+	@Then("the matching customer list is displayed as {string}")
+	public void theMatchingCustomerListIsDisplayedAs(String string) throws InterruptedException, Error {
+		 By EyeIcon1 = By.xpath("//*[starts-with(@content-desc,'pending')]/android.view.View[@content-desc='"+ getProperty(string) + "']/following-sibling::android.widget.ImageView[1]");
+
+		if (isElementAvailable(EyeIcon1)) {
 			System.out.println("user found");
 		} else {
 			System.out.println("user not found");
@@ -43,9 +46,10 @@ public class AdminUserApproval extends Base {
 		}
 	}
 
-	@When("Admin clicks on the customer name")
-	public void theAdminClicksOnTheCustomerName() throws InterruptedException {
-		clickOnElementUsingBy(user.EyeIcon1);
+	@When("Admin clicks on the customer name as {string}")
+	public void adminClicksOnTheCustomerNameAs(String string) throws InterruptedException {
+		 By EyeIcon1 = By.xpath("//*[starts-with(@content-desc,'pending')]/android.view.View[@content-desc='"+ getProperty(string) + "']/following-sibling::android.widget.ImageView[1]");
+		clickOnElementUsingBy(EyeIcon1);
 	}
 
 	@When("scrolls down to find the Accept button and clicks it")
