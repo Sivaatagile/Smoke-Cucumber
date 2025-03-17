@@ -28,7 +28,8 @@ public class AdminUserApproval extends Base {
 		ClickonElement(user.getShowall_PendingRequest());
 	}
 	@When("searches for the signup customer name as {string}")
-	public void searchesForTheSignupCustomerNameAs(String string) {
+	public void searchesForTheSignupCustomerNameAs(String string) throws InterruptedException {
+		Thread.sleep(2000);
 		ClickonElement(user.getSearchBox());
 		passInput(user.getSearchBox(), getProperty(string));
 		driver.hideKeyboard();

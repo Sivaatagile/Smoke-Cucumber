@@ -304,58 +304,58 @@ Feature: Booking Application Sanity Flow
     When Admin clicks on the Back button
     And Admin taps the Home icon
     Then Admin is navigated back to the home page
-  #
-  #Scenario: Define a pricing rule for premium based on a single date.
-    #Given Admin navigates to the Settings tab 
-    #When the admin navigates to Pricing Rule 
-    #Then the admin is navigated to the pricing rule list page 
-    #And the admin clicks on the FAB button to add a new pricing rule  
-    #And the admin enters Pricing Rule Name as Single Date Premium  
-    #And the admin enters Pricing Rule Description as Rule for premium pricing on a single date  
-    #And the admin enters Pricing Rule Priority 
-    #And the admin choose the single date for premium rule
-    #And the admin unselect all the tags in pricingrule
-    #And the admin enters Pricing Rule type as premium
-    #And the admin enters the pricing offset value
-    #And the admin clicks on the Save button  
-    #Then the new pricing rule details should be successfully saved
-    #When Admin clicks on the Back button
-    #And Admin taps the Home icon
-    #Then the admin is navigated back to the home page
-    #
-  #Scenario: Define a pricing rule for discount based on a single date.
-    #Given Admin navigates to the Settings tab 
-    #When the admin navigates to Pricing Rule  
-    #Then the admin is navigated to the pricing rule list page
-    #And the admin clicks on the FAB button to add a new pricing rule  
-    #And the admin enters Pricing Rule Name as Single Date discount  
-    #And the admin enters Pricing Rule Description as Rule for discount pricing on a single date  
-    #And the admin enters Pricing Rule Priority 
-    #And the admin choose the single date for discount rule
-    #And the admin unselect all the tags in pricingrule 
-    #And the admin enters Pricing Rule type as discount
-    #And the admin enters the pricing offset value
-    #And the admin clicks on the Save button
-    #Then the new pricing rule details should be successfully saved
-    #When Admin clicks on the Back button
-    #And Admin taps the Home icon
-    #Then the admin is navigated back to the home page
-    #
-  #Scenario: Define a pricing rule for Not Available  based on a single date.
-    #Given Admin navigates to the Settings tab 
-    #When the admin navigates to Pricing Rule  
-    #Then the admin is navigated to the pricing rule list page
-    #And the admin clicks on the FAB button to add a new pricing rule  
-    #And the admin enters Pricing Rule Name as Single Date not available  
-    #And the admin enters Pricing Rule Description as Rule for not available pricing on a single date  
-    #And the admin choose the single date for not available rule
-    #And the admin unselect all the tags in pricingrule
-    #And the admin enters Pricing Rule type as Not available
-    #And the admin clicks on the Save button
-#		Then the new pricing rule details should be successfully saved
-    #When Admin clicks on the Back button
-    #And Admin taps the Home icon
-    #Then the admin is navigated back to the home page
+  
+  Scenario: Define a pricing rule for premium based on a single date.
+    Given Admin navigates to the Settings tab 
+    When the admin navigates to Pricing Rule 
+    Then the admin is navigated to the pricing rule list page 
+    And the admin clicks on the FAB button to add a new pricing rule  
+    And the admin enters Pricing Rule Name as Single Date Premium  
+    And the admin enters Pricing Rule Description as Rule for premium pricing on a single date  
+    And the admin enters Pricing Rule Priority 
+    And the admin choose the single date for premium rule
+    And the admin unselect all the tags in pricingrule
+    And the admin enters Pricing Rule type as premium
+    And the admin enters the pricing offset value
+    And the admin clicks on the Save button  
+    Then the new pricing rule details should be successfully saved
+    When Admin clicks on the Back button
+    And Admin taps the Home icon
+    Then the admin is navigated back to the home page
+    
+  Scenario: Define a pricing rule for discount based on a single date.
+    Given Admin navigates to the Settings tab 
+    When the admin navigates to Pricing Rule  
+    Then the admin is navigated to the pricing rule list page
+    And the admin clicks on the FAB button to add a new pricing rule  
+    And the admin enters Pricing Rule Name as Single Date discount  
+    And the admin enters Pricing Rule Description as Rule for discount pricing on a single date  
+    And the admin enters Pricing Rule Priority 
+    And the admin choose the single date for discount rule
+    And the admin unselect all the tags in pricingrule 
+    And the admin enters Pricing Rule type as discount
+    And the admin enters the pricing offset value
+    And the admin clicks on the Save button
+    Then the new pricing rule details should be successfully saved
+    When Admin clicks on the Back button
+    And Admin taps the Home icon
+    Then the admin is navigated back to the home page
+    
+  Scenario: Define a pricing rule for Not Available  based on a single date.
+    Given Admin navigates to the Settings tab 
+    When the admin navigates to Pricing Rule  
+    Then the admin is navigated to the pricing rule list page
+    And the admin clicks on the FAB button to add a new pricing rule  
+    And the admin enters Pricing Rule Name as Single Date not available  
+    And the admin enters Pricing Rule Description as Rule for not available pricing on a single date  
+    And the admin choose the single date for not available rule
+    And the admin unselect all the tags in pricingrule
+    And the admin enters Pricing Rule type as Not available
+    And the admin clicks on the Save button
+		Then the new pricing rule details should be successfully saved
+    When Admin clicks on the Back button
+    And Admin taps the Home icon
+    Then the admin is navigated back to the home page
   
   Scenario: Successfully logout Admin 
     Given Admin navigates to the Settings tab  
