@@ -75,7 +75,7 @@ public class AdminCreateService extends Base {
 	@When("Admin provides {string} in the service description field")
 	public void theAdminProvidesInTheServiceDescriptionField(String string) {
 		ClickonElement(Service.getDescription_textbox());
-		passInput(Service.getDescription_textbox(), getProperty("SERVICE_DESCRIPTION"));
+		passInput(Service.getDescription_textbox(), getProperty(string));
 		driver.hideKeyboard();
 	}
 
@@ -104,7 +104,7 @@ public class AdminCreateService extends Base {
 			Thread.sleep(500);
 			Service.getBaseprice().get(i).click();
 			Thread.sleep(500);
-			passInput(Service.getBaseprice().get(i), getProperty("BASE_PRICE_AMOUNT"));
+			passInput(Service.getBaseprice().get(i), getProperty(string));
 			driver.hideKeyboard();
 			Thread.sleep(500);
 		}
@@ -114,12 +114,12 @@ public class AdminCreateService extends Base {
 	public void theAdminSelectsFromTheTab(String string) throws Exception {
 		if (isElementAvailable(Service.getMaximum_capacity())) {
 			ClickonElement(Service.getMaximum_capacity());
-			passInput(Service.getMaximum_capacity(), getProperty("MAX_CAPACITY_SLOT"));
+			passInput(Service.getMaximum_capacity(), getProperty(string));
 			driver.hideKeyboard();
 		}else {
 			slowScroll();
 			ClickonElement(Service.getMaximum_capacity());
-			passInput(Service.getMaximum_capacity(), getProperty("MAX_CAPACITY_SLOT"));
+			passInput(Service.getMaximum_capacity(), getProperty(string));
 			driver.hideKeyboard();	
 		}	
 	}
@@ -127,7 +127,7 @@ public class AdminCreateService extends Base {
 	@When("Admin sets the {string} for the service")
 	public void theAdminSetsTheForTheService(String string) {
 		ClickonElement(Service.getMaximum_capacity_Per_Staff());
-		passInput(Service.getMaximum_capacity_Per_Staff(), getProperty("MAX_CAPACITY_STAFF"));
+		passInput(Service.getMaximum_capacity_Per_Staff(), getProperty(string));
 		driver.hideKeyboard();
 	}
 

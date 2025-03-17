@@ -1,9 +1,10 @@
-Scenario: Launch application in emulator
-    Given PropertyFile Loaded
-    And  Configure driver
-    And  Api configuration
-    And  Open the application
-    Then Successfully navigated to the login screen
+  #Scenario: Launch application in emulator
+    #Given PropertyFile Loaded
+    #And  Set key values
+    #And Configure driver
+    #And Api configuration
+    #And Open the application
+    #Then Successfully navigated to the login screen
 
   Scenario: User signs up using email as customer
     Given the user clicks on the Sign Up button

@@ -278,7 +278,6 @@ public class WE_Admin_User extends  Base{
 	
 	public static By UserLocator1 = By.xpath("//*[starts-with(@content-desc,'pending')]/android.view.View[@content-desc='"+ getProperty("SIGNUP_FIRSTNAME") + "']");
 	
-	public static By EyeIcon1 = By.xpath("//*[starts-with(@content-desc,'pending')]/android.view.View[@content-desc='"+ getProperty("SIGNUP_FIRSTNAME") + "']/following-sibling::android.widget.ImageView[1]");
 
 	@FindBy (xpath ="//*[starts-with(@content-desc,'pending')]")
 	private List<WebElement>  UserPending    ;

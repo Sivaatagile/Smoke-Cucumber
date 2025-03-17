@@ -24,11 +24,10 @@ public class AdminCreateBreed extends Base {
 	public void theAdminClicksOnThePlusButtonToAddANewBreed() throws InterruptedException {
 		ClickonElement(settings.getFABBreed());	
 	}
-
-	@When("Admin enters Breed Name in the breed name field")
-	public void theAdminEntersBreedNameInTheBreedNameField() throws InterruptedException {
+	@When("Admin enters {string} in the breed name field")
+	public void adminEntersInTheBreedNameField(String string) throws InterruptedException {
 		ClickonElement(settings.getBreedName());
-		passInputUsingActions(settings.getBreedName(), getProperty("BREED_Name"));
+		passInputUsingActions(settings.getBreedName(), getProperty(string));
 	}
 
 	@Then("Admin should see a confirmation message of Breed creation")

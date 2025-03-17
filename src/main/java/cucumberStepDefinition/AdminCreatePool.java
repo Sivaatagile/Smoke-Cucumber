@@ -23,10 +23,10 @@ public class AdminCreatePool extends Base {
 		ClickonElement(settings.getFAB());
 	}
 
-	@When("Admin enters Pool Name")
-	public void theAdminEntersPoolName() {
+	@Then("Admin enters Pool Name as {string}")
+	public void adminEntersPoolNameAs(String string) {
 		ClickonElement(settings.getPoolName());
-		passInput(settings.getPoolName(), getProperty("POOL_NAME"));
+		passInput(settings.getPoolName(), getProperty(string));
 		driver.hideKeyboard();
 	}
 

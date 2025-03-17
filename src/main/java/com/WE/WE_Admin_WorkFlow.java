@@ -208,6 +208,12 @@ public class WE_Admin_WorkFlow extends Base{
 		return    TickButton ;
 	}
 	
+	@FindBy (xpath ="(//android.view.View[contains(@content-desc,'customer_name')]/android.widget.ImageView[@clickable='true'])[1]")
+	private WebElement   RejectButton ;
+	public WebElement getRejectButton() {
+		return    RejectButton ;
+	}
+	
 	public By getBookeddate() {
 		System.out.println(Booking.Selected_Slot);
 		return By.xpath("//android.widget.SeekBar[@content-desc=\"Thu May 22\"]");
@@ -341,9 +347,9 @@ public class WE_Admin_WorkFlow extends Base{
 	}
 	
 //	 Method to get the locator for a booked date using dynamic XPath
-	public By getBookedDateLocator() {
-		return By.xpath("//android.widget.SeekBar[contains(@content-desc,'"+outputAssignedDate+"')]");
-	}
+//	public By getBookedDateLocator() {
+//		return By.xpath("//android.widget.SeekBar[contains(@content-desc,'"+outputAssignedDate+"')]");
+//	}
 	
 	@FindBy(xpath = "//android.widget.SeekBar[@content-desc=\"Wed Jun 25\"]")
 	private WebElement pic;

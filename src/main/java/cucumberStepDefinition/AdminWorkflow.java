@@ -23,7 +23,7 @@ public class AdminWorkflow extends Base {
 	public static void Assigned() throws Exception {
 		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object
 		ClickonElement(settings.gethometab());
-		Thread.sleep(8000);
+		Thread.sleep(10000);
 		ClickonElement(workflow.getService()); // Click on service filter
 		boolean isElementFound = false; // Initialize flag for element found
 		while (!isElementFound) { // Loop until element is found
@@ -31,6 +31,7 @@ public class AdminWorkflow extends Base {
 				workflow.getBookedServiceLocator(); // Attempt to get booked service locator
 				if (workflow.getBookedServiceLocator() != null) { // Check if booked service locator is found
 					ClickonElement(workflow.getBookedServiceLocator()); // Click on booked service
+					Thread.sleep(2000);
 					isElementFound = true; // Set flag to true
 				}
 			} catch (Exception e) {
@@ -39,13 +40,13 @@ public class AdminWorkflow extends Base {
 		}
 //		dateFormatForWorkflow(Booking.Booked_Date);
 		ClickonElement(workflow.getAllslots()); // Click on date filter
-////		scrollToExactValue(workflow.getDate(),"Wed Jun 25");
-////		By by = workflow.getBookedDateLocator();
-////		System.out.println("yvcyswc   " + by);
-////
-////		scrollUntil(workflow.getDate(), workflow.getBookedDateLocator()); // Scroll to find booked date
-////		By by1 = workflow.getBookedSlotLocator();
-////		System.out.println("yvcyswc   " + by1);
+//		scrollToExactValue(workflow.getDate(),"Wed Jun 25");
+//		By by = workflow.getBookedDateLocator();
+//		System.out.println("yvcyswc   " + by);
+//
+//		scrollUntil(workflow.getDate(), workflow.getBookedDateLocator()); // Scroll to find booked date
+//		By by1 = workflow.getBookedSlotLocator();
+//		System.out.println("yvcyswc   " + by1);
 		Thread.sleep(8000);
 		System.out.println(workflow.getBookedSlotLocator());
 		scrollUntilElementFound(workflow.getSlot(), workflow.getBookedSlotLocator()); // Scroll to find booked slot
@@ -210,6 +211,17 @@ while (true) {
 			ClickonElement(workflow.getTickButton());
 		}
 
+	}
+	
+	@Then("the booking should move to the Rejected tab")
+	public void theBookingShouldMoveToTheRejectedTab() throws InterruptedException {
+
+		Thread.sleep(5000);
+		if (isElementAvailable(workflow.NoBookingYet)) {
+			System.out.println("No booking is listed on pending. Navigate to unassigned tab and check");
+		} else {
+			ClickonElement(workflow.getRejectButton());
+		}
 	}
 
 	@Given("the admin navigates to the Unassigned tab")

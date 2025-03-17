@@ -79,26 +79,39 @@ public class Base {
 	public static Properties properties;
 	public static FileInputStream fis;
 
+//	For Scroll
 	public static Boolean target;
+	
+//	For OTP related
 	public static String OTPText;
-	public static String outputAssignedDate;
+	
+//	For Statement
 	public static String InvoiceNumber;
 	public static String currentMonth;
 	public static String StatementCreatedDate;
-	public static boolean range;
-
-
 	
-	
-	
-	
-	
-	public static LocalDate prdate ;
+//	public static LocalDate prdate ;
 	 public static   String formattedDatesss;
 	 
 		public static String Selected_Slot_as_ADMIN;
 		public static LocalDate BookingDate_as_ADMIN;
 		public static String Booked_Date_as_ADMIN;
+	
+	
+	
+	
+	
+	
+	
+	public static boolean range;                 // ------------> Random single date booking in java scripts
+
+
+	
+	
+	
+	
+	
+	
 		
 		
 		
@@ -127,6 +140,41 @@ public class Base {
 		public static String BookingMonthProperCase;
 		public static String PricingruleNotAvailableDate;
 	
+		
+//		public static String BookingPaidAmount;
+//		public static String BookingPaymentTime;
+//		public static String Booked_Date;
+//		public static String Booked_service;
+//		public static String BookingPaidAmountwithdecimal;
+//		public static LocalDate BookingDate;
+		public static int randomValue;
+//		public static LocalDate startDate;
+//		public static LocalDate endDate;
+//		public static LocalDate minAdvanceBookingDate;
+//		public static LocalDate maxBookingDate;
+//		public static int BookingYear;
+//		public static String StatementCreatedDate;
+		
+//		public static String TotalAmountWithSymbol;
+		public static String AssortedDate;
+		
+//		public static Boolean Stripe;
+//		public static Boolean Crezco;
+		public static String mybookingamountwithoutsymbol;
+		public static Boolean ACCOUNTBALANCE;
+		public static Boolean PAYLATER;
+		public static Boolean PartialPayment;
+		public static Boolean sale;
+		public static String Mybookingamount;
+		public static String daydatemonth;
+		public static String InvoiceAmountbelongstototalamount;
+		public static double totalAmount;
+		public static String partialAmount;
+		public static double accountBalance;
+		public static double paylater;
+		public static double TallyAmount;
+		public static List<String> OverallFilteredDates;
+		
 //	**********     API DETAILS 
 	
 	public static enum API_BASE_URL {
@@ -1055,7 +1103,7 @@ public class Base {
 			Store store = emailSession.getStore("imaps"); // Connect to email store
 			store.connect(host, username, password); // Connect to the email server
 			System.out.println("Connected to email store.");
-			Thread.sleep(10000);
+			Thread.sleep(15000);
 			Folder emailFolder = store.getFolder("INBOX"); // Open the INBOX folder
 			emailFolder.open(Folder.READ_ONLY); // Open the folder in read-only mode
 			Message[] messages = emailFolder.getMessages(); // Get all messages in the folder
@@ -1098,6 +1146,234 @@ public class Base {
 		}
 		return null; // Return null if OTP is not found
 	}
+//	
+//    public static String getOtpFromSource1() {
+//        String host = "imap.gmail.com"; // Email server host
+//        String mailStoreType = "imap"; // Email protocol
+//        String username = "testmobileacs@gmail.com"; // Email username
+//        String password = "tdrckyprwbzwinlg"; // Email password
+//        String senderEmail = getProperty("SIGNUP_EMAIL"); // Expected sender's email
+//        int maxWaitTime = 60000; // Max wait time in milliseconds (1 minute)
+//        int checkInterval = 5000; // Interval between checks (5 seconds)
+//
+//        try {
+//            Properties properties = new Properties(); // Properties for email session
+//            properties.put("mail.store.protocol", "imaps");
+//            properties.put("mail.imaps.host", host);
+//            properties.put("mail.imaps.port", "993");
+//            properties.put("mail.imaps.ssl.enable", "true");
+//            properties.put("mail.imaps.auth", "true");
+//
+//            Session emailSession = Session.getInstance(properties, new javax.mail.Authenticator() {
+//                protected PasswordAuthentication getPasswordAuthentication() {
+//                    return new PasswordAuthentication(username, password);
+//                }
+//            });
+//
+//            System.out.println("Connecting to email store...");
+//            Store store = emailSession.getStore("imaps"); // Connect to email store
+//            store.connect(host, username, password); // Connect to the email server
+//            System.out.println("Connected to email store.");
+//
+//            Folder emailFolder = store.getFolder("INBOX"); // Open the INBOX folder
+//            emailFolder.open(Folder.READ_ONLY); // Open the folder in read-only mode
+//
+//            long startTime = System.currentTimeMillis();
+//            while (System.currentTimeMillis() - startTime < maxWaitTime) {
+//                System.out.println("Checking for new messages...");
+//
+//                Message[] messages = emailFolder.getMessages(); // Get all messages in the folder
+//                Arrays.sort(messages, (m1, m2) -> {
+//                    try {
+//                        return m2.getReceivedDate().compareTo(m1.getReceivedDate());
+//                    } catch (MessagingException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                });
+//
+//                for (Message message : messages) {
+//                    String subject = message.getSubject();
+//                    Address[] fromAddresses = message.getFrom();
+//
+//                    if (subject != null && subject.contains("OTP Verification")) {
+//                        for (Address address : fromAddresses) {
+//                            String sender = ((InternetAddress) address).getAddress();
+//                            if (sender.equalsIgnoreCase(senderEmail)) {
+//                                // Extract OTP from the email content
+//                                String htmlContent = getTextFromMessage(message);
+//                                Document doc = Jsoup.parse(htmlContent);
+//                                System.out.println(htmlContent);
+//                                Elements pElements = doc.select("body > table > tbody > tr > td > table > tbody > tr > td > p:nth-of-type(3)");
+//                                if (!pElements.isEmpty()) {
+//                                    Element pElement = pElements.first();
+//                                    String OTPText = pElement.text();
+//                                    System.out.println("OTP Found: " + OTPText);
+//                                    
+//                                    emailFolder.close(false);
+//                                    store.close();
+//                                    return OTPText;
+//                                } else {
+//                                    System.out.println("OTP Element not found.");
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                // Wait before checking again
+//                Thread.sleep(checkInterval);
+//            }
+//
+//            emailFolder.close(false); // Close the folder
+//            store.close(); // Close the store
+//
+//        } catch (Exception e) {
+//            e.printStackTrace(); // Print the stack trace if an exception occurs
+//        }
+//        return null; // Return null if OTP is not found
+//    }
+//	
+//	 public static String getOtpFromSource1() {
+//	        String host = "imap.gmail.com"; // Email server host
+//	        String username = "testmobileacs@gmail.com"; // Email username
+//	        String password = "tdrckyprwbzwinlg"; // Email password
+//	        String senderEmail = "developer@agilecyber.com"; // Fixed sender email
+//	        String receiverEmail = getProperty("SIGNUP_EMAIL"); // Expected receiver email from properties
+//	        int maxWaitTime = 60000; // Max wait time in milliseconds (1 minute)
+//	        int checkInterval = 5000; // Interval between checks (5 seconds)
+//
+//	        try {
+//	            Properties properties = new Properties();
+//	            properties.put("mail.store.protocol", "imaps");
+//	            properties.put("mail.imaps.host", host);
+//	            properties.put("mail.imaps.port", "993");
+//	            properties.put("mail.imaps.ssl.enable", "true");
+//	            properties.put("mail.imaps.auth", "true");
+//
+//	            Session emailSession = Session.getInstance(properties, new javax.mail.Authenticator() {
+//	                protected PasswordAuthentication getPasswordAuthentication() {
+//	                    return new PasswordAuthentication(username, password);
+//	                }
+//	            });
+//
+//	            System.out.println("Connecting to email store...");
+//	            Store store = emailSession.getStore("imaps");
+//	            store.connect(host, username, password);
+//	            System.out.println("Connected to email store.");
+//
+//	            Folder emailFolder = store.getFolder("INBOX");
+//	            emailFolder.open(Folder.READ_ONLY);
+//Thread.sleep(15000);
+//	            long startTime = System.currentTimeMillis();
+//	            while (System.currentTimeMillis() - startTime < maxWaitTime) {
+//	                System.out.println("Checking for new messages...");
+//
+//	                Message[] messages = emailFolder.getMessages();
+//	                Arrays.sort(messages, (m1, m2) -> {
+//	                    try {
+//	                        return m2.getReceivedDate().compareTo(m1.getReceivedDate());
+//	                    } catch (MessagingException e) {
+//	                        throw new RuntimeException(e);
+//	                    }
+//
+//	                });
+//
+//	                for (Message message : messages) {
+//	                    String subject = message.getSubject();
+//	                    Address[] fromAddresses = message.getFrom();
+//	                    Address[] toAddresses = message.getRecipients(Message.RecipientType.TO);
+//		                System.out.println("Checking for new messages...");
+//
+//	                    if (subject != null && subject.contains("OTP Verification")) {
+//	                        boolean senderMatches = false, receiverMatches = false;
+//	    	                System.out.println("Checking for new messages...");
+//
+//	                        // Check if sender email matches "developer@agilecyber.com"
+//	                        for (Address address : fromAddresses) {
+//	                            String sender = ((InternetAddress) address).getAddress();
+//	                            if (sender.equalsIgnoreCase(senderEmail)) {
+//	                                senderMatches = true;
+//	            	                System.out.println("Checking for new messages...");
+//
+//	                                break;
+//	                            }
+//	                        }
+//
+//	                        // Check if receiver email matches the expected email from properties
+//	                        if (toAddresses != null) {
+//	                            for (Address address : toAddresses) {
+//	                                String recipient = ((InternetAddress) address).getAddress();
+//	                                if (recipient.equalsIgnoreCase(receiverEmail)) {
+//	                	                System.out.println("Checking for new messages...");
+//
+//	                                	receiverMatches = true;
+//	                                    break;
+//	                                }
+//	                            }
+//	                        }
+//
+//	                        if (senderMatches && receiverMatches) {
+//	        	                System.out.println("Checking for new messages...");
+//
+//	                            // Extract OTP from the email content
+//	                            String htmlContent = getTextFromMessage(message);
+//	                            Document doc = Jsoup.parse(htmlContent);
+//	                            System.out.println(htmlContent);
+//	                            Elements pElements = doc.select("body > table > tbody > tr > td > table > tbody > tr > td > p:nth-of-type(3)");
+//	        	                System.out.println("Checking for new messages...");
+//
+//	                            if (!pElements.isEmpty()) {
+//	                                Element pElement = pElements.first();
+//	                                String OTPText = pElement.text();
+//	                                System.out.println("OTP Found: " + OTPText);
+//	            	                System.out.println("Checking for new messages...");
+//
+//	                                emailFolder.close(false);
+//	                                store.close();
+//	                                return OTPText;
+//	                            } else {
+//	                                System.out.println("OTP Element not found.");
+//	                            }
+//	                        }
+//	                    }
+//	                }
+//
+//	                // Wait before checking again
+//	                Thread.sleep(checkInterval);
+//	            }
+//
+//	            emailFolder.close(false);
+//	            store.close();
+//
+//	        } catch (Exception e) {
+//	            e.printStackTrace();
+//	        }
+//	        return null; // Return null if OTP is not found
+//	    }
+
+//    private static String getProperty(String key) {
+//        // Mock method to simulate getting property values
+//        if (key.equals("SIGNUP_EMAIL")) {
+//            return "expected_sender@example.com";
+//        }
+//        return "";
+//    }
+//
+//    private static String getTextFromMessage(Message message) throws Exception {
+//        if (message.isMimeType("text/plain")) {
+//            return message.getContent().toString();
+//        } else if (message.isMimeType("multipart/*")) {
+//            Multipart multipart = (Multipart) message.getContent();
+//            for (int i = 0; i < multipart.getCount(); i++) {
+//                BodyPart part = multipart.getBodyPart(i);
+//                if (part.isMimeType("text/html")) {
+//                    return (String) part.getContent();
+//                }
+//            }
+//        }
+//        return "";
+//    }
+//}
 	
 	public static String getOtpFromSource() {
 		String host = "imap.gmail.com"; // Email server host
@@ -1427,17 +1703,7 @@ public class Base {
 		}
 	}
 
-	public static void dateFormatForWorkflow(String inputDate) throws ParseException {
 
-		SimpleDateFormat inputFormat = new SimpleDateFormat("MMM dd, yyyy");
-		Date date = inputFormat.parse(inputDate);
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		SimpleDateFormat outputFormat = new SimpleDateFormat("EEE MMM d");
-		outputAssignedDate = outputFormat.format(calendar.getTime());
-		System.out.println("Converted Date: " + outputAssignedDate);
-
-	}
 
 	public static String getContentDesc(String Content) {
 		try {

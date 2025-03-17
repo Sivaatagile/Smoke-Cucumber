@@ -65,7 +65,7 @@ public class PetData extends Base {
 			int randomIndex = random.nextInt(PETsize - 1);
 			System.out.println(randomIndex);
 			ClickonElement(PetInfo.getPetSizeList().get(randomIndex));
-			System.out.println("ggggggg");
+			System.out.println("size found out");
 		} else {
 			System.out.println("Not enough elements to select a random one.");
 		}

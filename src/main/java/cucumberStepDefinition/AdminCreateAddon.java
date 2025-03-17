@@ -111,6 +111,7 @@ public class AdminCreateAddon extends Base{
 	@When("Admin sets the {string} for the addon maximum capacity per slot")
 	public void theAdminSetsTheForTheAddonMaximumCapacityPerSlot(String MaximumCapacitySlot) {
 		ClickonElement(addon.getAddon_Maximum_capacity());
+		ClearonElement(addon.getAddon_Maximum_capacity());
 		passInput(addon.getAddon_Maximum_capacity(), getProperty(MaximumCapacitySlot));
 		driver.hideKeyboard();
 	}
