@@ -41,15 +41,11 @@ public class Booking extends Base {
 	static boolean isCardPayment = Boolean.parseBoolean(getProperty("card"));
 	static boolean AccountBalance = Boolean.parseBoolean(getProperty("AccountBalance"));
 	static boolean isAccountPayment = Boolean.parseBoolean(getProperty("account"));
-
-
-
 	
-	  public static List<LocalDate> getFilteredDates(List<LocalDate> inputDates, String monthYear) {
-	        String[] parts = monthYear.split(" "); // Split into ["July", "2025"]
-	        int year = Integer.parseInt(parts[1]); // Convert "2025" to 2025
-	        int month = Month.valueOf(parts[0].toUpperCase()).getValue(); // Convert "July" to 7
-
+	public static List<LocalDate> getFilteredDates(List<LocalDate> inputDates, String monthYear) {
+	        String[] parts = monthYear.split(" "); 
+	        int year = Integer.parseInt(parts[1]); 
+	        int month = Month.valueOf(parts[0].toUpperCase()).getValue(); 
 	        List<LocalDate> filteredDates = new ArrayList<>();
 	        for (LocalDate date : inputDates) {
 	            if (date.getMonthValue() == month && date.getYear() == year) {
@@ -58,8 +54,6 @@ public class Booking extends Base {
 	        }
 	        return filteredDates;
 	    }
-	
-	
 	
 	@Given("the user selects a service")
 	public void theUserSelectsAService() throws InterruptedException {
@@ -104,15 +98,13 @@ public class Booking extends Base {
 		for (int i = 1; i < randomValue; i++) {
 			scroll(booking.getseekbar());
 			System.out.println(i);
-			Thread.sleep(500); // waits for 500ms
+			Thread.sleep(500); 
 		}
 		Thread.sleep(2500);
 		Selected_Slot = booking.getseekbar().getAttribute("content-desc");
 		System.out.println(Selected_Slot);
 	}
 	
-
-
 	@When("the user determines the From Date and To Date for the service based on constraints")
 	public void theUserDeterminesTheFromDateAndToDateForTheServiceBasedOnConstraints() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -136,54 +128,42 @@ public class Booking extends Base {
 		String maxMonthName = getMonthName(maxBookingDate);
 		System.out.println("Month of minimum advance booking date: " + minMonthName);
 		System.out.println("Month of maximum booking date: " + maxMonthName);
-		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	     String minimumDate = minAdvanceBookingDate.format(formatter);
-	     String maximumDate = maxBookingDate.format(formatter);
-
-		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    String minimumDate = minAdvanceBookingDate.format(formatter);
+	    String maximumDate = maxBookingDate.format(formatter);
         api.getserviceID(getProperty("SERVICE_NAME"));
         api.getslotID(Selected_Slot);
         api.getcustomerID(getProperty("SIGNUP_EMAIL"));
         api.NotAvailableDates(api.serviceId, api.slotId, api.CustomerId, minimumDate,maximumDate );
-        List<LocalDate> remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
-        Collections.shuffle(remainingDates);
-        BookingDate = remainingDates.get(0);
-        System.out.println("jjjjjjjjj  : : "+BookingDate);
-//		BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
-//		System.out.println(
-//				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
-//		long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
-//		System.out.println("Number of days between the two dates: " + daysBetween);
-		String BookingMonth = getMonthName(BookingDate);
+      
+        if (api.notAvailableDates==null) {
+        	BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
+    		System.out.println(
+    				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
+    		long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+    		System.out.println("Number of days between the two dates: " + daysBetween);
+		}else {
+			List<LocalDate> remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
+	        Collections.shuffle(remainingDates);
+	        BookingDate = remainingDates.get(0);
+	        System.out.println("BOOKING DATE STEP 1  : : "+BookingDate);
+		}
+  		String BookingMonth = getMonthName(BookingDate);
 		BookingYear = BookingDate.getYear();
 		BookingMonthProperCase = BookingMonth.substring(0, 1) + BookingMonth.substring(1).toLowerCase();
 		Thread.sleep(3000);
-		 DateTimeFormatter formatter123 = DateTimeFormatter.ofPattern("E MMM d");
-
-		 
-		 DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("E");
-	        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMM");
-	        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d");
-
-	        // Extract parts
-	        String day = BookingDate.format(dayFormatter);
-	        String month = BookingDate.format(monthFormatter);
-	        String date = BookingDate.format(dateFormatter);
-
-	        // Add space before single-digit date
-	        if (date.length() == 1) {
+		DateTimeFormatter formatter123 = DateTimeFormatter.ofPattern("E MMM d");
+		DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("E");
+	    DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMM");
+	    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d");
+	    String day = BookingDate.format(dayFormatter);
+	    String month = BookingDate.format(monthFormatter);
+	    String date = BookingDate.format(dateFormatter);
+	    if (date.length() == 1) {
 	            date = date+" " ;
-	        }
-
-	        // Combine formatted parts
-	        AssortedDate  = day + " " + month + " " + date;
-
-	        // Format the LocalDate
-//	       AssortedDate = BookingDate.format(formatter123);
-
-	        // Print the formatted date
-	        System.out.println("date  : - "+AssortedDate);
-		
+	     }
+	    AssortedDate  = day + " " + month + " " + date;
+	    System.out.println("date  : - "+AssortedDate);
 	}
 
 	@When("the user navigates to the random date's month using the right arrow")
@@ -206,7 +186,7 @@ public class Booking extends Base {
 				String fallbackLocator;
 				if (isFirstTime) {
 					fallbackLocator = fallbackLocatorFirstTime;
-					isFirstTime = false; // Mark first time as done
+					isFirstTime = false; 
 				} else {
 					fallbackLocator = fallbackLocatorSubsequentTimes;
 				}
@@ -762,6 +742,7 @@ public class Booking extends Base {
 							System.out.println(
 									"Total amount is greater than remaining credit. Navigating to payment page...");
 							Thread.sleep(10000);
+							waitForElement(booking.getStripeBack());
 							if (isElementAvailable(booking.getStripeBack())) {
 								if (totalAmount == 0.00) {
 									Stripe = true;
@@ -822,9 +803,6 @@ public class Booking extends Base {
 			}
 		}
 		
-		
-	
-
 	@Then("the user taps the checkbox and taps the Confirm and Pay button")
 	public void theUserTapsTheCheckboxAndTapsTheConfirmAndPayButton() {
 		System.out.println("gvecgevc");
@@ -935,12 +913,8 @@ public class Booking extends Base {
 		Thread.sleep(6000);
 		By BookedSERVICE = By.xpath("//android.view.View[@content-desc='" + Booking.Booked_service + "']");
 		System.out.println(BookedSERVICE);
-//        By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmount + "']");
-		By BookedPAYMENT1 = By
-				.xpath("//android.view.View[@content-desc='" + Booking.BookingPaidAmountwithdecimal + "']");
+		By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='" + Booking.BookingPaidAmountwithdecimal + "']");
 		System.out.println(BookedPAYMENT1);
-
-//        BookingPaidAmountwithdecimal
 		Thread.sleep(4000);
 		if (isElementAvailable(BookedSERVICE) && isElementAvailable(BookedPAYMENT1)) {
 			System.out.println("Booking successfully listed on My Invoices");
@@ -948,14 +922,12 @@ public class Booking extends Base {
 			System.out.println(attribute);
 			InvoiceNumber = attribute.replace(" #", ""); // Removes '#'
 			System.out.println(InvoiceNumber);
-
 		} else {
 			System.out.println("Not listed");
 		}
 		ClickonElement(invoices.getBackButton());
 		ClickonElement(invoices.getBackButton());
 		ClickonElement(invoices.getHomeTab());
-
 	}
 
 	@Then("User Statements")
@@ -1014,12 +986,9 @@ public class Booking extends Base {
 		Thread.sleep(6000);
 		By BookedSERVICE = By.xpath("//android.view.View[@content-desc='" + Booking.Booked_service + "']");
 		System.out.println(BookedSERVICE);
-//	        By BookedPAYMENT = By.xpath("//android.view.View[@content-desc='"+ Customer_Bookingflow.BookingPaidAmount + "']");
 		By BookedPAYMENT1 = By
 				.xpath("//android.view.View[@content-desc='" + Booking.InvoiceAmountbelongstototalamount + "']");
 		System.out.println(BookedPAYMENT1);
-
-//	        BookingPaidAmountwithdecimal
 		Thread.sleep(4000);
 		if (isElementAvailable(BookedSERVICE) && isElementAvailable(BookedPAYMENT1)) {
 			System.out.println("Booking successfully listed on My Invoices");
@@ -1027,11 +996,9 @@ public class Booking extends Base {
 			System.out.println(attribute);
 			InvoiceNumber = attribute.replace(" #", ""); // Removes '#'
 			System.out.println(InvoiceNumber);
-
 		} else {
 			System.out.println("Not listed");
 		}
-
 	}
 
 	@Then("the customer goes back to the home page")
@@ -1063,7 +1030,6 @@ public class Booking extends Base {
 	@Then("the customer checks if the saved invoice number is listed")
 	public void theCustomerChecksIfTheSavedInvoiceNumberIsListed() throws Exception {
 		Thread.sleep(3000);
-
 		Thread.sleep(5000);
 		System.out.println(InvoiceNumber);
 		By BookedPAYMENT1 = By.xpath("//android.view.View[@content-desc='" + InvoiceNumber + "']");
@@ -1094,10 +1060,6 @@ public class Booking extends Base {
 	
 //	  ------------------------------------------------->   MULTIPLE DATES
 	
-	
-		
-	
-
 	@When("the user determines the From Date and To Date for the service based on constraints and the user calculates the date range and picks Multiple dates")
 	public void theUserDeterminesTheFromDateAndToDateForTheServiceBasedOnConstraintsAndTheUserCalculatesTheDateRangeAndPicksMultipleDates() throws InterruptedException {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -1113,26 +1075,35 @@ public class Booking extends Base {
 		maxBookingDate = getMaxBookingDate(currentDate, endDate, api.DAYminAdvanceBooking, api.DAYmaxAdvanceBooking);
 		System.out.println("Minimum Advance Booking Date: " + minAdvanceBookingDate);
 		System.out.println("Booking can be made up to: " + maxBookingDate);
-		
-		
-		
 		String minMonthName = getMonthName(minAdvanceBookingDate);
 		String maxMonthName = getMonthName(maxBookingDate);
 		System.out.println("Month of minimum advance booking date: " + minMonthName);
 		System.out.println("Month of maximum booking date: " + maxMonthName);
-		 DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	     String minimumDate = minAdvanceBookingDate.format(formatter1);
-	     String maximumDate = maxBookingDate.format(formatter1);
-
-		
-        api.getserviceID(getProperty("SERVICE_NAME"));
+		DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    String minimumDate = minAdvanceBookingDate.format(formatter1);
+	    String maximumDate = maxBookingDate.format(formatter1);
+	    api.getserviceID(getProperty("SERVICE_NAME"));
         api.getslotID(Selected_Slot);
         api.getcustomerID(getProperty("SIGNUP_EMAIL"));
         api.NotAvailableDates(api.serviceId, api.slotId, api.CustomerId, minimumDate,maximumDate );
-        List<LocalDate> remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
-        Collections.shuffle(remainingDates);
-        BookingDate = remainingDates.get(0);
-        
+        if (api.notAvailableDates==null) {
+        	datelist = datelist(minAdvanceBookingDate, maxBookingDate);
+        	System.out.println("ffff :  "+datelist);
+        	BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
+    		System.out.println(
+    				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
+    		long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+    		System.out.println("Number of days between the two dates: " + daysBetween);
+		}
+        else {
+			 remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
+	        Collections.shuffle(remainingDates);
+	        BookingDate = remainingDates.get(0);
+	        System.out.println("jjjjjjjjj  : : "+BookingDate);
+		}
+//      List<LocalDate> remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
+//      Collections.shuffle(remainingDates);
+//      BookingDate = remainingDates.get(0);
 //		BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
 //		System.out.println(
 //				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
@@ -1142,12 +1113,9 @@ public class Booking extends Base {
 		BookingYear = BookingDate.getYear();
 		BookingMonthProperCase = BookingMonth.substring(0, 1) + BookingMonth.substring(1).toLowerCase();
 		Thread.sleep(3000);
-		
 		String monthyear = BookingMonthProperCase+" "+BookingYear;
 		System.out.println("eggdgd   : "+monthyear);
-		
-		String dynamicLocator = "//android.view.View[@content-desc='" + BookingMonthProperCase + " " + BookingYear
-				+ "']";
+		String dynamicLocator = "//android.view.View[@content-desc='" + BookingMonthProperCase + " " + BookingYear+ "']";
 		System.out.println("gfyft     " + dynamicLocator);
 		Thread.sleep(3000);
 		String fallbackLocatorFirstTime = "//android.view.View[@content-desc='booking_page_calenderWidget']/android.view.View[2]";
@@ -1178,73 +1146,57 @@ public class Booking extends Base {
 				}
 			}
 		}
-		
 		Thread.sleep(4000);
-		List<WebElement> calendarElements = driver.findElements(By.xpath(
-				"//android.view.View[@content-desc=\"booking_page_calenderWidget\"]/android.view.View/android.view.View/android.view.View/android.view.View"));
+		List<WebElement> calendarElements = driver.findElements(By.xpath("//android.view.View[@content-desc=\"booking_page_calenderWidget\"]/android.view.View/android.view.View/android.view.View/android.view.View"));
 		int size = calendarElements.size();
 		if (size > 7) {
 			DateTimeFormatter formatter11 = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
 			String formattedDateStr = BookingDate.format(formatter11);
 			System.out.println("fdrrdrdrdrdr    " + formattedDateStr);
-			// Check if the date portion starts with "0" and remove it if so
 			if (formattedDateStr.charAt(formattedDateStr.indexOf(",") + 6) == '0') {
 				formattedDateStr = formattedDateStr.replaceFirst(" 0", " ");
 			}
-			System.out.println("Formatted Date: " + formattedDateStr);
-//			remainingDates
-			List<LocalDate> filteredDates = getFilteredDates(remainingDates, monthyear);
-			
-			System.out.println("--------------------->    "+filteredDates);
-			
-			
-			 DateTimeFormatter formatter111 = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
-		        OverallFilteredDates = new ArrayList<>();
-
-		        for (LocalDate date : filteredDates) {
-		            String formattedDateStr111 = date.format(formatter111);
-
-		            // Check if the day portion starts with "0" and remove it
-		            if (formattedDateStr111.charAt(formattedDateStr111.indexOf(",") + 6) == '0') {
-		                formattedDateStr111 = formattedDateStr111.replaceFirst(" 0", " ");
-		            }
-
-		            OverallFilteredDates.add(formattedDateStr111);
-		        }
-
-		        // Print formatted date list
-		        System.out.println("--->   "+OverallFilteredDates);
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			System.out.println("Formatted Date: " + formattedDateStr);			
+			if (api.notAvailableDates==null) {
+				List<LocalDate> filteredDates = getFilteredDates(datelist, monthyear);
+				System.out.println("--------------------->    "+filteredDates);
+    				 DateTimeFormatter formatter111 = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
+			         OverallFilteredDates = new ArrayList<>();
+			        for (LocalDate date : filteredDates) {
+			            String formattedDateStr111 = date.format(formatter111);
+			            if (formattedDateStr111.charAt(formattedDateStr111.indexOf(",") + 6) == '0') {
+			                formattedDateStr111 = formattedDateStr111.replaceFirst(" 0", " ");
+			            }
+			            OverallFilteredDates.add(formattedDateStr111);
+			        }
+			        System.out.println("--->   "+OverallFilteredDates);
+			}
+			else {
+				List<LocalDate> filteredDates = getFilteredDates(remainingDates, monthyear);
+				System.out.println("--------------------->    "+filteredDates);
+				DateTimeFormatter formatter111 = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
+			    OverallFilteredDates = new ArrayList<>();
+			        for (LocalDate date : filteredDates) {
+			            String formattedDateStr111 = date.format(formatter111);
+			            if (formattedDateStr111.charAt(formattedDateStr111.indexOf(",") + 6) == '0') {
+			                formattedDateStr111 = formattedDateStr111.replaceFirst(" 0", " ");
+			            }
+			            OverallFilteredDates.add(formattedDateStr111);
+			        }
+			        System.out.println("--->   "+OverallFilteredDates);
+			}
 			Thread.sleep(5000);
 			for (String date : OverallFilteredDates) {
 			    String dateXpath = "//android.view.View[@content-desc='" + date.toString() + "']";
-			    System.out.println("ffffff   "+dateXpath);
+			    System.out.println("XPATH :-----   "+dateXpath);
 			    List<WebElement> dateElements = driver.findElements(By.xpath(dateXpath));
-			    
 			    if (!dateElements.isEmpty()) {  // Check if element exists
 			        dateElements.get(0).click(); // Click first matching element
 			    } else {
 			        System.out.println("Date not found: " + date);
 			    }
 			}
-			
-			
-			
-			
-			
-			WebElement findElement = driver
-					.findElement(By.xpath("//android.view.View[@content-desc='" + formattedDateStr + "']"));
+			WebElement findElement = driver.findElement(By.xpath("//android.view.View[@content-desc='" + formattedDateStr + "']"));
 			findElement.click();
 			Thread.sleep(1000);
 			String Booked_Date123 = findElement.getAttribute("content-desc");
@@ -1256,21 +1208,20 @@ public class Booking extends Base {
 			System.out.println(Booked_Date);
 			String day = Booked_Date.split(" ")[2].replace(",", "");
 			System.out.println("Day: " + day);
-		} else {
+		} 
+		else {
 			System.out.println("There are less than 8 elements, cannot proceed.");
 		}
 		ClickonElement(booking.getRequestBooking());
-		
 	}
-	
 	
 // ---------------------------------> assorted 
 	
 	@When("the user taps the assorted tab")
 	public void theUserTapsTheAssortedTab() {
-	    
 		ClickonElement(booking.getassorted());
 	}
+	
 	@When("the user selects a random slot from the slot list, scrolling the slot picker in assorted tab if necessary")
 	public void theUserSelectsARandomSlotFromTheSlotListScrollingTheSlotPickerInAssortedTabIfNecessary() throws Exception {
 		Thread.sleep(4000);
@@ -1282,44 +1233,35 @@ public class Booking extends Base {
 		Thread.sleep(2500);
 		Selected_Slot = booking.getSlotPicker().getAttribute("content-desc");
 		System.out.println(Selected_Slot);
-		
 	}
 	
 	@When("the user scroll the date picker and selects the date")
 	public void theUserScrollTheDatePickerAndSelectsTheDate() throws Exception {
-		   By datelocator = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", AssortedDate));
-System.out.println(datelocator);
-		   Thread.sleep(2000);
-		scrollUntil(booking.getDatePicker(), datelocator);
-		
+		By datelocator = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", AssortedDate));
+		System.out.println(datelocator);
+		Thread.sleep(2000);
+		scrolldate(booking.getDatePicker(), datelocator);
 		Thread.sleep(2000);
 		ClickonElement(booking.getRequestBooking());
-		
-		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
-
-	        // Format the date to string
-	        Booked_Date = BookingDate.format(formatter);
-
-	        System.out.println(Booked_Date); 
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+		Booked_Date = BookingDate.format(formatter);
+		System.out.println(Booked_Date);
 	}
-	
 	
 //	--------------------------------------------------->   TWO PETS
 	
-	
-	
 	@Given("the user selects the second pet")
 	public void theUserSelectsTheSecondPet() throws InterruptedException {
-	   
 		 waitForElement(booking.getassorted());
 		 Thread.sleep(1000);
 		if (booking.getpetcount().size() == 3) {
             System.out.println("Two pets");
             ClickonElement(booking.getpetcount().get(0));
-         
-        } else if (booking.getpetcount().size() == 1) {
+        }
+		else if (booking.getpetcount().size() == 1) {
           System.out.println("one pet");
-        } else {
+        } 
+		else {
             System.out.println("null.");
         }
 	}
@@ -1332,91 +1274,44 @@ System.out.println(datelocator);
             System.out.println("tree pets");
             ClickonElement(booking.getpetcount().get(0));
             ClickonElement(booking.getpetcount().get(0));
-
-         
-        }else if (booking.getpetcount().size() == 3) {
+        }
+		else if (booking.getpetcount().size() == 3) {
             System.out.println("Two pets");
             ClickonElement(booking.getpetcount().get(0));
-         
         } 
 		else if (booking.getpetcount().size() == 1) {
           System.out.println("one pet");
-        } else {
+        } 
+		else {
             System.out.println("null.");
         }
-		
 	}
+	
 	@Given("Accounts")
 	public void accounts() throws InterruptedException {
 		WE_Customer_Settings statement = new WE_Customer_Settings(driver);
 		ClickonElement(statement.getSettingsTab());
 		ClickonElement(statement.getAccounts());
 		Thread.sleep(10000);
-		if (Booking.Stripe) {
-			//android.view.View[@content-desc="Payment"]/following-sibling::android.view.View[@content-desc="£ 999.99"]
-//			By sales = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
-//			System.out.println(sales);
-//			By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+Booking.TotalAmountWithSymbol+"']");
-//			System.out.println(payment);
-			
-			
+		if (Booking.Stripe) {			
 			By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc=\"- £ 999.99\"]");
 			System.out.println(sales);
 			By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc=\"£ 999.99\"]");
 			System.out.println(payment);
-			
-			
-			
-			
 			if (isElementAvailable(payment)&&isElementAvailable(sales)) {
 				System.out.println("Completed sales and payment  ");
-				
-			}else {
-				System.out.println("hhhhhhhhhh");
 			}
-				
-			
-			
-		}else {
-			
+			else {
+				System.out.println("NO ENTRY");
+			}	
+		}
+		else {
 			By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc=\"- £ 999.99\"]");
 			System.out.println(sales);
-			
 			if (isElementAvailable(sales)) {
 				System.out.println("sales done");
-				
-			}
-			
-		}
-		
-		
+			}		
+		}	
 	}
-		
 
-//			WE_Customer_Settings statement = new WE_Customer_Settings(driver);
-//			ClickonElement(statement.getSettingsTab());
-//			ClickonElement(statement.getAccounts());
-//			Thread.sleep(10000);
-//			if (Booking.Stripe) {
-//				
-//				By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
-//				System.out.println(sales);
-//				By payment = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+Booking.TotalAmountWithSymbol+"']");
-//				System.out.println(payment);
-//				
-//				if (isElementAvailable(sales)&& isElementAvailable(payment)) {
-//					System.out.println("Card payment Bookings replicated customer accounts successfully"); 
-//				}else {
-//					System.out.println("null 1 ");
-//				}
-//			}else {
-//				By sales = By.xpath("//android.view.View[@content-desc=\"sales\"]/following-sibling::android.view.View[@content-desc="+"-"+"'"+Booking.TotalAmountWithSymbol+"']");
-//				System.out.println(sales);
-////				WebElement findElement = driver.findElement(statement.sales);
-//				if (isElementAvailable(sales)) {
-//					System.out.println("remaining credit payment replicated successfully");
-//				}
-//			}
-//	
-//	}
 }

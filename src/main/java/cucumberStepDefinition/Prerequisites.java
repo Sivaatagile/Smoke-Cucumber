@@ -16,16 +16,15 @@ public class Prerequisites extends Base {
 	
 	@Given("PropertyFile Loaded")
 	public void propertyfileLoaded() throws IOException, InterruptedException {
-		ChooseApi(API_BASE_URL.Staging);
+		ChooseApi(API_BASE_URL.Automation);
 		PropertyFile("Data");
-		
 		com.api.Api.signInAdmin(getProperty("PREDEFINED_ADMIN_EMAIL"));
 		com.api.Api.verifyOtp(getProperty("PREDEFINED_ADMIN_OTP"));
 		com.api.Api.refreshAdminToken(com.api.Api.VerifiedRefreshToken);
 		com.api.Api.universal_creditlimit();
-		
 		PropertyFile("Data");
 	}
+	
 	@Given("Set key values")
 	public void setKeyValues() throws IOException {
 		com.api.Api.ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
@@ -50,8 +49,7 @@ public class Prerequisites extends Base {
 		com.api.Api.Compare("POOL_NAME", com.api.Api.Uniquepoolingname, com.api.Api.PoolingNames, getProperty("POOL"));
 		com.api.Api.StaffFirstNameList();
 		com.api.Api.Compare("ADMIN_STAFF_FIRST_NAME", com.api.Api.FirstNameStaff, com.api.Api.StaffFirstNames, getProperty("NAME"));
-
-				
+		
 		UpdateEmailProperty("SIGNUP_EMAIL");	
 		UpdateNameProperty("SIGNUP_FIRSTNAME",getProperty("NAME"));
 		UpdateNameProperty("SIGNUP_LASTNAME",getProperty("NAME"));
@@ -88,10 +86,9 @@ public class Prerequisites extends Base {
 		com.api.Api.StaffFirstNameList();
 		com.api.Api.Compare("EDIT_ADMIN_STAFF_FIRST_NAME", com.api.Api.FirstNameStaff, com.api.Api.StaffFirstNames, getProperty("NAME"));
 		UpdateEmailProperty("EDIT_ADMIN_STAFF_EMAIL");
-      UpdateNameProperty("EDIT_ADMIN_STAFF_LAST_NAME", getProperty("NAME"));
-  	UpdateNameProperty("EDIT_ADMIN_STAFF_CITY", getProperty("CITY"));
+		UpdateNameProperty("EDIT_ADMIN_STAFF_LAST_NAME", getProperty("NAME"));
+		UpdateNameProperty("EDIT_ADMIN_STAFF_CITY", getProperty("CITY"));
 		UpdateNameProperty("EDIT_ADMIN_STAFF_POSTCODE", getProperty("POSTCODE"));
-		
 		
 		UpdateEmailProperty("EDIT_ADMIN_CUSTOMER_EMAIL");
 		UpdateNameProperty("EDIT_ADMIN_CUSTOMER_FIRSTNAME",getProperty("NAME"));
@@ -100,9 +97,9 @@ public class Prerequisites extends Base {
 		UpdateNameProperty("EDIT_ADMIN_CUSTOMER_POSTCODE", getProperty("POSTCODE"));
 		
 		UpdateEmailProperty("EDIT_ADMIN_ADMIN_EMAIL");
-      UpdateNameProperty("EDIT_ADMIN_ADMIN_FIRST_NAME", getProperty("NAME"));
+		UpdateNameProperty("EDIT_ADMIN_ADMIN_FIRST_NAME", getProperty("NAME"));
 		UpdateNameProperty("EDIT_ADMIN_ADMIN_LAST_NAME",getProperty("NAME"));
-      UpdateNameProperty("EDIT_ADMIN_ADMIN_CITY", getProperty("CITY"));
+		UpdateNameProperty("EDIT_ADMIN_ADMIN_CITY", getProperty("CITY"));
 		UpdateNameProperty("EDIT_ADMIN_ADMIN_POSTCODE", getProperty("POSTCODE"));
 		
 		com.api.Api.TagList();
@@ -115,9 +112,7 @@ public class Prerequisites extends Base {
 		com.api.Api.AddonList();
 		com.api.Api.Compare("EDIT_ADDON_PRIVILAGE", com.api.Api.UniqueAddons, com.api.Api.AddonsNames, getProperty("ADDON"));
 		
-		
 		PropertyFile("Data");
-		
 	}
 
 
@@ -136,9 +131,9 @@ public class Prerequisites extends Base {
 	
 	@Given("Open the application")
 	public void openTheApplication() throws MalformedURLException, InterruptedException {
-//		Latest_StagingAPK_download(getProperty("AUTOMATION"));
-//		Application();
-		OpenApplicationWithoutReset();
+		Latest_StagingAPK_download(getProperty("AUTOMATION"));
+		Application();
+//		OpenApplicationWithoutReset();
 //		ApplicationWithApk("Preprod_v1.7.1_7-2-25.apk");
 		System.out.println("\033[1mOpen the application\033[0m");
 	}
@@ -152,7 +147,8 @@ public class Prerequisites extends Base {
 	public void theAdminClearsTheApplicationCache() throws IOException, InterruptedException {
 		if (PreprodEnvironment) {
 			clearAppCache(getProperty("PREPROD_APP_PACKAGE"));
-		}else {
+		}
+		else {
 			clearAppCache(getProperty("APP_PACKAGE"));
 		}	
 	}
@@ -175,15 +171,6 @@ public class Prerequisites extends Base {
 //		waitForElement(login.getSignin());
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@When("the user enters the Predefined {string}")
 	public void theUserEntersThePredefined(String OTP) throws InterruptedException {
 		WE_Login_Details login = new WE_Login_Details(driver);
@@ -196,7 +183,5 @@ public class Prerequisites extends Base {
 	public void theUserShouldBeLoggedInSuccessfully() {
 
 	}
-
-	
 
 }

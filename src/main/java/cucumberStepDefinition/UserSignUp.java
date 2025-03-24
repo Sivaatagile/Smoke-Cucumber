@@ -45,10 +45,10 @@ public class UserSignUp extends Base {
 		waitForElement(signup.getAddInfoPage());
 		if (isElementAvailable(signup.getAddInfoPage())) {
 			System.out.println("Successfully navigated to add info page");
-		} else {
+		} 
+		else {
 			System.out.println("doesn't navigated");
 		}
 	}
 	
-
 }

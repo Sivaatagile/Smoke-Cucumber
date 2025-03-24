@@ -36,62 +36,39 @@ public class CustomerSettings extends Base {
 		System.out.println(book.ACCOUNTBALANCE);
 		System.out.println(book.PAYLATER);
 		System.out.println(book.sale);
-
-		
 		if (book.TotalAmountWithSymbol.equals("£ 0.00")) {
-			By sales1 = By.xpath(
-					"//android.view.View[@content-desc=\"Sales\"]/following-sibling::android.view.View[@content-desc='"
-							+ book.TotalAmountWithSymbol + "']");
+			By sales1 = By.xpath("//android.view.View[@content-desc=\"Sales\"]/following-sibling::android.view.View[@content-desc='"+ book.TotalAmountWithSymbol + "']");
 			if (isElementAvailable(sales1)) {
 				System.out.println("sales done11111111111111");
 			}
 		}
-		
 		else if (book.PartialPayment) {
-			By sales1 = By.xpath(
-					"//android.view.View[@content-desc=\"Sales\"]/following-sibling::android.view.View[@content-desc='"
-							+ "- " + "" + book.TotalAmountWithSymbol + "']");
-			System.out.println("jjj  :   " + sales1);
-			By payment1 = By.xpath(
-					"//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"
-							+ "£ " + book.partialAmount + "']");
-			System.out.println("hhhhh  :   " + payment1);
-
+			By sales1 = By.xpath("//android.view.View[@content-desc=\"Sales\"]/following-sibling::android.view.View[@content-desc='"+ "- " + "" + book.TotalAmountWithSymbol + "']");
+			System.out.println("SALES RECORD   :   " + sales1);
+			By payment1 = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+ "£ " + book.partialAmount + "']");
+			System.out.println("PAYMENT RECORD  :   " + payment1);
 			if (isElementAvailable(payment1) && isElementAvailable(sales1)) {
-				System.out.println("Completed sales and payment 222222222 ");
-
+				System.out.println("Completed sales and payment  ");
 			} else {
-				System.out.println("hhhhhhhhhh2222222222222");
+				System.out.println("Not completed both");
 			}
 		}
-		
 		else if (book.Stripe || book.Crezco) {
-			By sales1 = By.xpath(
-					"//android.view.View[@content-desc=\"Sales\"]/following-sibling::android.view.View[@content-desc='"
-							+ "- " + "" + book.TotalAmountWithSymbol + "']");
-			System.out.println("jjj  :   " + sales1);
-			By payment1 = By.xpath(
-					"//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"
-							+ book.TotalAmountWithSymbol + "']");
-			System.out.println("hhhhh  :   " + payment1);
-
+			By sales1 = By.xpath("//android.view.View[@content-desc=\"Sales\"]/following-sibling::android.view.View[@content-desc='"+ "- " + "" + book.TotalAmountWithSymbol + "']");
+			System.out.println("SALES RECORD  :   " + sales1);
+			By payment1 = By.xpath("//android.view.View[@content-desc=\"Payment\"]/following-sibling::android.view.View[@content-desc='"+ book.TotalAmountWithSymbol + "']");
+			System.out.println("PAYMENT RECORD  :   " + payment1);
 			if (isElementAvailable(payment1) && isElementAvailable(sales1)) {
 				System.out.println("Completed sales and payment ugfyegfyegfe ");
-
 			} else {
 				System.out.println("ehcgedfcecvtect");
 			}
-
 		}
-
-	   else if (book.ACCOUNTBALANCE || book.PAYLATER) {
-
-			By sales12 = By.xpath(
-					"//android.view.View[@content-desc=\"Sales\"]/following-sibling::android.view.View[@content-desc='"
-							+ "- " + "" + book.TotalAmountWithSymbol + "']");
+	    else if (book.ACCOUNTBALANCE || book.PAYLATER) {
+			By sales12 = By.xpath("//android.view.View[@content-desc=\"Sales\"]/following-sibling::android.view.View[@content-desc='"+ "- " + "" + book.TotalAmountWithSymbol + "']");
 			System.out.println(sales12);
 			if (isElementAvailable(sales12)) {
-				System.out.println("sales done33333333333333");
+				System.out.println("sales Completed");
 			}
 		} 
 	}
@@ -99,33 +76,28 @@ public class CustomerSettings extends Base {
 	@When("the admin check the adhoc type")
 	public void theAdminCheckTheAdhocType() throws InterruptedException {
 		String for_adhocPayment = for_adhocPayment(getProperty("Adhoc_amount"));
-		
 		if (Sold) {
-	    	By sales1 = By.xpath(
-					"//android.view.View[@content-desc=\"Ad-hoc\"]/following-sibling::android.view.View[@content-desc='" + "- " + "£ " + for_adhocPayment + "']");	
+	    By sales1 = By.xpath("//android.view.View[@content-desc=\"Ad-hoc\"]/following-sibling::android.view.View[@content-desc='" + "- " + "£ " + for_adhocPayment + "']");	
 		System.out.println(sales1);
 		Thread.sleep(2000);
 		if (isElementAvailable(sales1)) {
 			System.out.println("SOLD DONE");
 		}
 		else if (Collected) {
-		    	By sales12 = By.xpath(
-						"//android.view.View[@content-desc=\"Ad-hoc\"]/following-sibling::android.view.View[@content-desc='" + "£ " + for_adhocPayment + "']");	
+		    By sales12 = By.xpath("//android.view.View[@content-desc=\"Ad-hoc\"]/following-sibling::android.view.View[@content-desc='" + "£ " + for_adhocPayment + "']");	
 			System.out.println(sales12);
 			Thread.sleep(2000);
 			if (isElementAvailable(sales12)) {
 				System.out.println("collected DONE");
 			}
-		
-		
-	    }else {
-			System.out.println("hhhhh");
+	    }
+		else {
+			System.out.println("Not Completed");
 		}
-		
+	  }
+	}
 	
-	
-	
-	    }}}
+}
 	
 
 	

@@ -18,158 +18,114 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class AdminWorkflow extends Base {
-	WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object
+	static WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver);
 	static WE_Admin_Settings settings = new WE_Admin_Settings(driver);
+	
 	public static void Assigned() throws Exception {
-		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object
 		ClickonElement(settings.gethometab());
 		Thread.sleep(10000);
-		ClickonElement(workflow.getService()); // Click on service filter
-		boolean isElementFound = false; // Initialize flag for element found
-		while (!isElementFound) { // Loop until element is found
+		ClickonElement(workflow.getService());
+		boolean isElementFound = false;
+		while (!isElementFound) {
 			try {
-				workflow.getBookedServiceLocator(); // Attempt to get booked service locator
-				if (workflow.getBookedServiceLocator() != null) { // Check if booked service locator is found
-					ClickonElement(workflow.getBookedServiceLocator()); // Click on booked service
+				workflow.getBookedServiceLocator();
+				if (workflow.getBookedServiceLocator() != null) {
+					ClickonElement(workflow.getBookedServiceLocator());
 					Thread.sleep(2000);
-					isElementFound = true; // Set flag to true
+					isElementFound = true;
 				}
 			} catch (Exception e) {
-				slowScroll(); // Scroll down if element not found
+				slowScroll();
 			}
 		}
-//		dateFormatForWorkflow(Booking.Booked_Date);
-		ClickonElement(workflow.getAllslots()); // Click on date filter
-//		scrollToExactValue(workflow.getDate(),"Wed Jun 25");
-//		By by = workflow.getBookedDateLocator();
-//		System.out.println("yvcyswc   " + by);
-//
-//		scrollUntil(workflow.getDate(), workflow.getBookedDateLocator()); // Scroll to find booked date
-//		By by1 = workflow.getBookedSlotLocator();
-//		System.out.println("yvcyswc   " + by1);
+		ClickonElement(workflow.getAllslots());
 		Thread.sleep(8000);
 		System.out.println(workflow.getBookedSlotLocator());
-		scrollUntilElementFound(workflow.getSlot(), workflow.getBookedSlotLocator()); // Scroll to find booked slot
-
+		scrollUntilElementFound(workflow.getSlot(), workflow.getBookedSlotLocator());
 		Thread.sleep(5000);
-		ClickonElement(workflow.getSelect()); // Click on select button
-
+		ClickonElement(workflow.getSelect());
 		ClickonElement(workflow.getdatefilter());
-        SimpleDateFormat inputFormat = new SimpleDateFormat("MMM dd, yyyy");
-
-		   SimpleDateFormat outputFormat = new SimpleDateFormat("MMM yyyy");
-		   Thread.sleep(5000);
-	        // Convert the date
-	        Date date = inputFormat.parse(Booking.Booked_Date);
-	        String formattedDate = outputFormat.format(date);
-
-	        // Print the result
-	        System.out.println("Converted Date: " + formattedDate);
-//	        
-	        Thread.sleep(5000);
-//	        String targetMonthYear = "Jul 2025"; // The required month and year
-	        By monthYearLocator = By.xpath("//android.view.View[@content-desc='" + formattedDate + "']");
-	       
-	        System.out.println(monthYearLocator);
-	        By nextButtonLocator = By.xpath("(//android.widget.Button)[2]"); // Locator for the button to click
-	        System.out.println(nextButtonLocator);
-	        List<WebElement> elements = driver.findElements(By.xpath("//android.widget.Button"));
-int size = elements.size();
-
-System.out.println(size);
-Thread.sleep(5000);
-
-while (true) {
-	try {
-        Thread.sleep(5000);
-
-		// Check if the required month-year is visible
-		WebElement monthElement = driver.findElement(monthYearLocator);
-		if (monthElement.isDisplayed()) {
-			System.out.println("1");
-//	                    System.out.println(targetMonthYear + " found!");
-			break; // Exit the loop once the target is found
-		}
-		
-	}
-
-	catch (NoSuchElementException e) {
-		
-		
-		  if (size == 3) {
-				ClickonElement(elements.get(0));
-				System.out.println("144g");
-
-				while (true) {
-					try {
-						WebElement monthElement1 = driver.findElement(monthYearLocator);
-						if (monthElement1.isDisplayed()) {
-							System.out.println("144gdvdvdv");
-
-//							                    System.out.println(targetMonthYear + " found!");
-							break; // Exit the loop once the target is found
-						}
-					} catch (NoSuchElementException e1) {
-						 List<WebElement> elements11 = driver.findElements(By.xpath("//android.widget.Button"));
-						 int size1 = elements11.size();
-						ClickonElement(elements11.get(1));
-						System.out.println("144gdvdvhfhfhfhdv");
-
-					}
-				}
-			break;}
-		  else if (size==4) {
-				while (true) {
-					try {
-						WebElement monthElement2 = driver.findElement(monthYearLocator);
-						if (monthElement2.isDisplayed()) {
-							System.out.println("144gdvdvhfhfhfhdvhhhhhhhhhhhhhh");
-
-//							                    System.out.println(targetMonthYear + " found!");
-							break; // Exit the loop once the target is found
-						}
-					} catch (NoSuchElementException e2) {
-						System.out.println("144gdvdvhfhfhfhdvhhhhhhhhhhhhhhfffffffffffff");
-
-						ClickonElement(elements.get(1));
-					}
-			}
-			
-				break;}
-		
-		
-		
-	}
-}
-
-	        
-	        Thread.sleep(5000);
-			WebElement findElement = driver
-					.findElement(By.xpath("//android.view.View[@content-desc='" + Booking.daydatemonth + "']"));
-			findElement.click();
-			
-			ClickonElement(workflow.getDoneButton());
-			
-			
-	    }
-	        
-	        
-	        
-	        
-	
-
-	public static void Staff_for_assigned() throws Exception {
-		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); // Create Admin_approval object
-		boolean isElementFound = false; // Initialize flag for element found
-		while (!isElementFound) { // Loop until element is found
+		SimpleDateFormat inputFormat = new SimpleDateFormat("MMM dd, yyyy");
+		SimpleDateFormat outputFormat = new SimpleDateFormat("MMM yyyy");
+		Thread.sleep(5000);
+		Date date = inputFormat.parse(Booking.Booked_Date);
+		String formattedDate = outputFormat.format(date);
+		System.out.println("Converted Date: " + formattedDate);
+		Thread.sleep(5000);
+		By monthYearLocator = By.xpath("//android.view.View[@content-desc='" + formattedDate + "']");
+		System.out.println(monthYearLocator);
+		By nextButtonLocator = By.xpath("(//android.widget.Button)[2]"); // Locator for the button to click
+		System.out.println(nextButtonLocator);
+		List<WebElement> elements = driver.findElements(By.xpath("//android.widget.Button"));
+		int size = elements.size();
+		System.out.println(size);
+		Thread.sleep(5000);
+		while (true) {
 			try {
-				workflow.getstafflocator(); // Attempt to get staff locator
-				if (workflow.getstafflocator() != null) { // Check if staff locator is found
-					ClickonElement(workflow.getstafflocator()); // Click on staff locator
-					isElementFound = true; // Set flag to true
+				Thread.sleep(5000);
+				WebElement monthElement = driver.findElement(monthYearLocator);
+				if (monthElement.isDisplayed()) {
+					System.out.println("Step 1");
+					break;
 				}
-			} catch (Exception e) {
-				scrollEachElement(workflow.getscrollview()); // Scroll down if element not found
+			}
+			catch (NoSuchElementException e) {
+				if (size == 3) {
+					ClickonElement(elements.get(0));
+					System.out.println("Step 2");
+					while (true) {
+						try {
+							WebElement monthElement1 = driver.findElement(monthYearLocator);
+							if (monthElement1.isDisplayed()) {
+								System.out.println("Step 3");
+								break; 
+							}
+						} catch (NoSuchElementException e1) {
+							List<WebElement> elements11 = driver.findElements(By.xpath("//android.widget.Button"));
+							int size1 = elements11.size();
+							ClickonElement(elements11.get(1));
+							System.out.println("Step 4");
+						}
+					}
+					break;
+				} 
+				else if (size == 4) {
+					while (true) {
+						try {
+							WebElement monthElement2 = driver.findElement(monthYearLocator);
+							if (monthElement2.isDisplayed()) {
+								System.out.println("Step 5");
+								break; 
+							}
+						} catch (NoSuchElementException e2) {
+							System.out.println("Step 6");
+							ClickonElement(elements.get(1));
+						}
+					}
+					break;
+				}
+			}
+		}
+		Thread.sleep(5000);
+		WebElement findElement = driver
+				.findElement(By.xpath("//android.view.View[@content-desc='" + Booking.daydatemonth + "']"));
+		findElement.click();
+		ClickonElement(workflow.getDoneButton());
+	}
+	        
+	public static void Staff_for_assigned() throws Exception {
+		WE_Admin_WorkFlow workflow = new WE_Admin_WorkFlow(driver); 
+		boolean isElementFound = false; 
+		while (!isElementFound) { 
+			try {
+				workflow.getstafflocator(); 
+				if (workflow.getstafflocator() != null) { 
+					ClickonElement(workflow.getstafflocator()); 
+					isElementFound = true; 
+				}
+			} 
+			catch (Exception e) {
+				scrollEachElement(workflow.getscrollview()); 
 			}
 		}
 	}
@@ -182,13 +138,12 @@ while (true) {
 	@When("the admin navigates to the Pending tab")
 	public void theAdminNavigatesToThePendingTab() {
 		ClickonElement(workflow.getPending_Tab());
-		System.out.println("kkkk");
+		System.out.println("pending tab");
 	}
 
-	
 	@When("the admin selects the booking's service from the Service dropdown, opens the Date & Slot dropdown, and selects the booked date and slot")
 	public void theAdminSelectsTheBookingSServiceFromTheServiceDropdownOpensTheDateSlotDropdownAndSelectsTheBookedDateAndSlot() throws Exception {
-		System.out.println("ppppp");
+		System.out.println("wait for assigned");
 		Assigned();
 	}
 
@@ -203,59 +158,53 @@ while (true) {
 
 	@Then("the booking should move to the Unassigned tab")
 	public void theBookingShouldMoveToTheUnassignedTab() throws InterruptedException {
-
 		Thread.sleep(5000);
 		if (isElementAvailable(workflow.NoBookingYet)) {
 			System.out.println("No booking is listed on pending. Navigate to unassigned tab and check");
 		} else {
 			ClickonElement(workflow.getTickButton());
 		}
-
 	}
 	
 	@Then("the booking should move to the Rejected tab")
 	public void theBookingShouldMoveToTheRejectedTab() throws InterruptedException {
-
 		Thread.sleep(5000);
 		if (isElementAvailable(workflow.NoBookingYet)) {
 			System.out.println("No booking is listed on pending. Navigate to unassigned tab and check");
 		} else {
 			ClickonElement(workflow.getRejectButton());
+			Thread.sleep(2000);
+			ClickonElement(workflow.getReject());
+			Thread.sleep(7500);
 		}
 	}
 
 	@Given("the admin navigates to the Unassigned tab")
 	public void theAdminNavigatesToTheUnassignedTab() {
-		ClickonElement(workflow.getUnassigned_Tab()); // Click on Unassigned tab
+		ClickonElement(workflow.getUnassigned_Tab()); 
 	}
 
 	@When("the admin selects the specific booking")
 	public void theAdminSelectsTheSpecificBooking() throws Exception {
-		ClickonElement(workflow.getStaffDropDown()); // Click on Staff filter
+		ClickonElement(workflow.getStaffDropDown()); 
 		Thread.sleep(2000);
-//		waitForElement(workflow.getscrollview());
-		Staff_for_assigned(); // Call Staff_for_assigned method
-
+		Staff_for_assigned(); 
 	}
 
 	@When("the admin assigns the booking to a staff member")
 	public void theAdminAssignsTheBookingToAStaffMember() throws InterruptedException {
-		Thread.sleep(5000); // Wait for 2 seconds
+		Thread.sleep(5000); 
 		WebElement elements = driver.findElement(By.xpath(
 				"//android.view.View[contains(@content-desc, 'unassigned_customer_name')]/android.widget.ImageView[3]"));
 		elements.click();
-//		ClickAllListElements(workflow.getImageviewCheckbox());
-//		ClickonElement(workflow.getPartially_Assigned_Toggle());
 		Thread.sleep(1500);
 		ClickonElement(workflow.getAssign_Selected()); // Click on Assign Selected button
-
 	}
 
 	@Then("the booking should be assigned successfully")
 	public void theBookingShouldBeAssignedSuccessfully() throws InterruptedException {
 		Thread.sleep(6000);
 		System.out.println("completed successfully ");
-
 	}
 
 }

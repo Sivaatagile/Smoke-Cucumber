@@ -95,4 +95,9 @@ public class WE_Staff_Workflow extends Base{
 		return yes;
 	}
 	
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	}
 }

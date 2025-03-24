@@ -20,8 +20,6 @@ public class WE_Admin_WorkFlow extends Base{
 		this.driver = driver1;
 		PageFactory.initElements(driver1, this);
 	}
-	
-
 
 //---------------------------------------------------------------------->       WORKFLOW  TITLE
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Workflow\"]")
@@ -29,7 +27,6 @@ public class WE_Admin_WorkFlow extends Base{
 	public WebElement getTextWORKFLOW() {
 		return TextWORKFLOW;
 	}
-
 
 	@FindBy (xpath ="(//android.widget.ImageView)[1]")
 	private WebElement  Title_Plus_Icon  ;
@@ -42,7 +39,6 @@ public class WE_Admin_WorkFlow extends Base{
 	public WebElement getNotification_Icon() {
 		return   Notification_Icon  ;
 	}
-
 
 	@FindBy (xpath ="(//android.widget.Button)[1]")
 	private WebElement  Profile_Icon  ;
@@ -110,7 +106,6 @@ public class WE_Admin_WorkFlow extends Base{
 		return   Settings_navigation_Bar  ;
 	}
 	
-	
 //------------------------------------------------------------------------------------->    PENDING	TAB
 	
 
@@ -133,6 +128,7 @@ public class WE_Admin_WorkFlow extends Base{
 	}
 	
 	public static By DateExpected = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("DATE")));
+	
 	public static By SlotExpected = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("SLOT")));
 	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Date & Slot\"]")
@@ -208,18 +204,24 @@ public class WE_Admin_WorkFlow extends Base{
 		return    TickButton ;
 	}
 	
-	@FindBy (xpath ="(//android.view.View[contains(@content-desc,'customer_name')]/android.widget.ImageView[@clickable='true'])[1]")
+	@FindBy (xpath ="(//android.view.View[contains(@content-desc,'customer_name')]/android.widget.ImageView[@clickable='true'])[2]")
 	private WebElement   RejectButton ;
 	public WebElement getRejectButton() {
 		return    RejectButton ;
+	}
+	
+	@FindBy (xpath ="//android.widget.Button[2]")
+	private WebElement   Reject ;
+	public WebElement getReject() {
+		return    Reject ;
 	}
 	
 	public By getBookeddate() {
 		System.out.println(Booking.Selected_Slot);
 		return By.xpath("//android.widget.SeekBar[@content-desc=\"Thu May 22\"]");
 	}
-	public 
-	static By NoBookingYet = By.xpath(String.format("//android.view.View[contains(@content-desc, 'No bookings yet !!!')]"));
+	
+	public static By NoBookingYet = By.xpath(String.format("//android.view.View[contains(@content-desc, 'No bookings yet !!!')]"));
 
 	public static By date123 = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"Thu May 22\"]"));
 
@@ -251,7 +253,6 @@ public class WE_Admin_WorkFlow extends Base{
 	
 //---------------------------------------------------------------------->    ASSIGNED TAB
 	
-	
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Unassign\"]")
 	private WebElement    Unassign_Button;
 	public WebElement getUnassign_Button() {
@@ -277,13 +278,11 @@ public class WE_Admin_WorkFlow extends Base{
 	}
 	
 	public static By StaffLocator = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_STAFF_FIRST_NAME")));
+	
 	public static By ServiceLocator  = By.xpath(String.format("(//android.view.View[@content-desc=\"%s\"])[2]", getProperty("SERVICE_NAME")));
 
 	public static By SecondStaffLocator = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_STAFF_2_FIRST_NAME")));
 
-	//android.view.View[@content-desc="Keerthi"]
-	
-//	
 	@FindBy (xpath ="((//android.view.View[contains(@content-desc,\"staff_assigned\")])[1]/android.widget.ImageView)[last()]")
 	private WebElement  CheckBoxAssigned  ;
 	public WebElement getCheckBoxAssigned() {
@@ -295,200 +294,128 @@ public class WE_Admin_WorkFlow extends Base{
 	public WebElement getReassignSelected() {
 		return   ReassignSelected  ;
 	}
-//	
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
 	
 	@FindBy(xpath = "//android.view.View[@content-desc=\"All Services\"]")
 	private WebElement Service;
-	// Getter method to access the "Service" WebElement
 	public WebElement getService() {
 		return Service;
 	}
 
-//	 Method to find the WebElement for a booked service using dynamic XPath
 	public WebElement getBookedServiceLocator() {
 		return driver.findElement(By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("SERVICE_NAME"))));
 	}
 
-//	 WebElement for the "Date & Slot" view
 	@FindBy(xpath = "//android.view.View[@content-desc=\"Date & Slot\"]")
 	private WebElement Date_Slot;
-	// Getter method to access the "Date & Slot" WebElement
 	public WebElement getDate_Slot() {
 		return Date_Slot;
 	}
 
 	@FindBy(xpath = "//android.view.View[@content-desc=\"All Slots\"]")
 	private WebElement Allslots;
-	// Getter method to access the "Date & Slot" WebElement
 	public WebElement getAllslots() {
 		return Allslots;
 	}
-	
-//	 Method to get the locator for a booked date using dynamic XPath
-//	public By getBookedDateLocator() {
-//		return By.xpath("//android.widget.SeekBar[contains(@content-desc,'"+outputAssignedDate+"')]");
-//	}
-	
+		
 	@FindBy(xpath = "//android.widget.SeekBar[@content-desc=\"Wed Jun 25\"]")
 	private WebElement pic;
-	// Getter method to access the "Date & Slot" WebElement
 	public WebElement getpic() {
 		return pic;
 	}
 	
-//	public By getBookedDateLocator() {
-//		return By.xpath("");
-//	}
-	
-	
-
-//	 Method to get the locator for a booked slot using dynamic XPath
 	public By getBookedSlotLocator() {
 		System.out.println(Selected_Slot);
 		return By.xpath("//android.widget.SeekBar[@content-desc='"+ Selected_Slot +"']");
 	}
 
-
-//	 List of WebElements for image views
 	@FindBy(xpath  = "//android.widget.ImageView")
 	private static List<WebElement> ImageView;
-	// Static getter method to access the list of "ImageView" WebElements
 	public static List<WebElement> getImageView() {
 		return ImageView;
 	}
 
-//	 WebElement for the "Select staff" dropdown view
 	@FindBy(xpath = "//android.view.View[@content-desc=\"Select staff\"]")
 	private WebElement StaffDropDown;
-	// Getter method to access the "Select staff" dropdown WebElement
 	public WebElement getStaffDropDown() {
 		return StaffDropDown;
 	}
 
-//	 Method to locate and return a specific staff element using dynamic XPath
 	public WebElement getstafflocator() {
 		return driver.findElement(By.xpath("//android.view.View[@content-desc='"+getProperty("ADMIN_STAFF_FIRST_NAME")+"']"));
 	}
 	
-//	 Method to locate and return a specific staff element using dynamic XPath
 	public WebElement getstafflocator1() {
 		return driver.findElement(By.xpath("//android.widget.ImageView[@content-desc=\"Lily\"]"));
 	}
 
-//	 List of WebElements for unassigned image views
 	@FindBy(className = "android.widget.ImageView")
 	private static List<WebElement> ImageView_Unassigned;
-	// Static getter method to access the list of "ImageView_Unassigned" WebElements
 	public static List<WebElement> getImageView_Unassigned() {
 		return ImageView_Unassigned;
 	}
 
-//	 WebElement for the "Assign Selected" button
 	@FindBy(xpath = "//android.view.View[@content-desc=\"Assign Selected\"]")
 	private WebElement Assign_Selected;
-	// Getter method to access the "Assign Selected" WebElement
 	public WebElement getAssign_Selected() {
 		return Assign_Selected;
 	}
 
-
-//	 WebElement for the "User" tab, identified by the "Tab 3 of 6" content description
 	@FindBy(xpath = "//*[starts-with(@content-desc,'Tab 4 of 6')]")
 	private WebElement User;
-	// Getter method to access the "User" tab WebElement
 	public WebElement getUser() {
 		return User;
 	}
 
-//	 WebElement for the "Show all" button in the pending request section
 	@FindBy(xpath = "(//android.view.View[@content-desc=\"Show all\"])[1]")
 	private WebElement PendingRequestShowall;
-	// Getter method to access the "Show all" button WebElement
 	public WebElement getPendingRequestShowall() {
 		return PendingRequestShowall;
 	}
 
-	// WebElement for the first eye icon in the user request section
 	@FindBy(xpath = "(//*[starts-with(@content-desc,'pending_request')])[1]/android.widget.ImageView[1]")
 	private WebElement FirstEyeICON_UserRequest;
-
-//	 Getter method to access the first eye icon WebElement
 	public WebElement getFirstEyeICON_UserRequest() {
 		return FirstEyeICON_UserRequest;
 	}
 
-//	 WebElement for the "Phone number" field
 	@FindBy(xpath = "//android.view.View[@content-desc=\"Phone number \"]")
 	private WebElement Phone_Number;
-	// Getter method to access the "Phone number" WebElement
 	public WebElement getPhone_Number() {
 		return Phone_Number;
 	}
 
-//	 WebElement for the "Accept" button
 	@FindBy(xpath = "//android.widget.ImageView[@content-desc=\"user_requestsAccept\"]")
 	private WebElement Accept;
-	// Getter method to access the "Accept" WebElement
 	public WebElement getAccept() {
 		return Accept;
 	}
 
-//	 WebElement for the "Confirm" button
 	@FindBy(xpath = "(//android.widget.Button)[2]")
 	private WebElement Confirm;
-	// Getter method to access the "Confirm" WebElement
 	public WebElement getConfirm() {
 		return Confirm;
 	}
 
-//	 WebElement for the "Home" tab, identified by the "Tab 1 of 6" content description
 	@FindBy(xpath = "//*[starts-with(@content-desc,'Tab 1 of 6')]")
 	private WebElement home;
-	// Getter method to access the "Home" tab WebElement
 	public WebElement gethome() {
 		return home;
 	}
 
-//	WebElement for the "scroll" view
 	@FindBy(xpath = "//android.widget.ScrollView")
 	private WebElement scrollview;
-	// Getter method to access the "scroll" tab WebElement
 	public WebElement getscrollview() {
 		return scrollview;
 	}
 	
-// Imageview for wait on the page	
 	public static String Imageview = "//android.widget.ImageView";
-//	Edit text
+	
 	@FindBy(xpath = "//android.widget.EditText")
 	private WebElement EditText;
 	public WebElement getEditText() {
 		return EditText;
 	}
 	
-//	For pet approval icon?
 	@FindBy(xpath = "(//*[starts-with(@content-desc,'unapproved_beneficiaryemail')]/android.widget.ImageView)[3]")
 	private WebElement PetApprove;
 	public WebElement getPetApprove() {
@@ -500,5 +427,10 @@ public class WE_Admin_WorkFlow extends Base{
 	public List<WebElement> getImageviewCheckbox() {
 		return ImageviewCheckbox;
 	}
+	
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
 	
 }

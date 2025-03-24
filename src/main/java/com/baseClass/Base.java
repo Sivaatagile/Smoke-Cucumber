@@ -130,6 +130,8 @@ public class Base {
 		public static LocalDate endDate;
 		public static LocalDate minAdvanceBookingDate;
 		public static LocalDate maxBookingDate;
+		public static List<LocalDate> datelist;
+		public static List<LocalDate> remainingDates;
 		public static LocalDate BookingDate;
 		public static Boolean 	premium;
 		public static Boolean 	discount;
@@ -174,6 +176,15 @@ public class Base {
 		public static double paylater;
 		public static double TallyAmount;
 		public static List<String> OverallFilteredDates;
+		public static List<String> TotalSlots;
+		public static String SelectedSlot;
+		public static String DiscountDATE;
+		public static String PremiumDATE;
+		public static String NotaAvailableDATE;
+		public static LocalDate ModifiedDate;
+		
+		
+		
 		
 //	**********     API DETAILS 
 	
@@ -924,6 +935,27 @@ public class Base {
 		System.out.println("Random scroll attempts completed.");
 	}
 
+	public static void scroll1(WebElement element) throws Exception {
+		try {
+			Dimension elementSize = element.getSize();
+			Point elementLocation = element.getLocation();
+			int centerX = elementLocation.x + (elementSize.width / 2);
+			int startPoint = elementLocation.y + (int) (elementSize.height * 0.70); // Start point at 80% of the element's height
+			int endPoint = elementLocation.y + (int) (elementSize.height * 0.30); // End point at 20% of the element's height
+			PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+			Sequence sequence = new Sequence(finger, 1);
+			sequence.addAction(finger.createPointerMove(Duration.ofMillis(300), PointerInput.Origin.viewport(), centerX,
+					startPoint));
+			sequence.addAction(finger.createPointerDown(0));
+			sequence.addAction(finger.createPointerMove(Duration.ofMillis(300), PointerInput.Origin.viewport(), centerX,
+					endPoint));
+			sequence.addAction(finger.createPointerUp(0));
+			driver.perform(Arrays.asList(sequence)); // Perform the scroll gesture
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
 	public static void scrollUp(WebElement element) throws Exception {
 		try {
 			Dimension elementSize = element.getSize();
@@ -977,7 +1009,23 @@ public class Base {
 			throw e;
 		}
 	}
-
+	public static void scrolldate(WebElement scrollElement, By targetBy) throws Exception {
+		while (true) {
+			try {
+				WebElement targetElement = driver.findElement(targetBy); // Finds the target element.
+				if (targetElement.isDisplayed()) {
+					target = true;
+					System.out.println("Target element found");
+					break; // Exits the loop once target element is found.
+				}
+			} catch (NoSuchElementException e) {
+				target = false;
+				System.out.println("Target element not found, scrolling...");
+				Thread.sleep(1000); // Adds delay between scrolls.
+				scroll1(scrollElement); // Scrolls the element to search for target.
+			}
+		}
+	}
 	public static void scrollUntilElementFound(WebElement scrollElement, By targetBy) throws Exception {
 		while (true) {
 			try {
@@ -1036,17 +1084,17 @@ public class Base {
 		}
 	}
 
-	public static void scrollToExactValue(WebElement picker, String targetValue) {
-		while (true) {
-			String currentValue = picker.getText(); // Get the current value
-			if (currentValue.equals(targetValue)) { // Check if it's the target value
-				break;
-			}
-			((JavascriptExecutor) driver).executeScript("mobile: selectPickerWheelValue",
-					Map.of("element", ((RemoteWebElement) picker).getId(), "order", "next", "offset", 0.1 // Adjust scrolling speed
-					));
-		}
-	}
+//	public static void scrollToExactValue(WebElement picker, String targetValue) {
+//		while (true) {
+//			String currentValue = picker.getText(); // Get the current value
+//			if (currentValue.equals(targetValue)) { // Check if it's the target value
+//				break;
+//			}
+//			((JavascriptExecutor) driver).executeScript("mobile: selectPickerWheelValue",
+//					Map.of("element", ((RemoteWebElement) picker).getId(), "order", "next", "offset", 0.1 // Adjust scrolling speed
+//					));
+//		}
+//	}
 
 	public static void scrollEachElement(WebElement element) throws Exception {
 		try {
@@ -1489,6 +1537,21 @@ public class Base {
 		Month month = date.getMonth();
 		return date.getMonth().name(); // Returns the month name in uppercase (e.g., JANUARY)
 	}
+	
+	 public static List<LocalDate> datelist(LocalDate minimumDate, LocalDate maximumDate) {
+	        List<LocalDate> dateList = new ArrayList<>();
+	        LocalDate currentDate = minimumDate;
+
+	        while (!currentDate.isAfter(maximumDate)) {
+	            dateList.add(currentDate);
+	            currentDate = currentDate.plusDays(1); // Move to the next day
+	        }
+
+	        return dateList; // Return the list of dates
+	    }
+		
+		
+	
 
 	public static LocalDate getRandomDate(LocalDate startDate, LocalDate endDate) {
 		long startEpochDay = startDate.toEpochDay();

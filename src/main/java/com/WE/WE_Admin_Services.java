@@ -62,10 +62,8 @@ public class WE_Admin_Services extends Base{
 	
 	public static By slotNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("SLOT_NAME")));
 
-	
 	public static By ExpectedSlot = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("SLOT_NAME")));
 
-	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Description')]/following-sibling::android.widget.EditText")
 	private WebElement   DescriptionTextBox ;
 	public WebElement getDescriptionTextBox() {
@@ -160,7 +158,6 @@ public class WE_Admin_Services extends Base{
 		return    Service ;
 	}
 	
-
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Add-on\"]")
 	private WebElement   Addon ;
 	public WebElement getAddon() {
@@ -325,7 +322,6 @@ public class WE_Admin_Services extends Base{
 	
 //	---------------------------------------> ADDON
 	
-	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Assignable')]/following-sibling::android.view.View[1]")
 	private static WebElement   Addon_Toggle ;
 	public static  WebElement getAddon_Toggle() {
@@ -397,15 +393,12 @@ public class WE_Admin_Services extends Base{
 
 	public static By getslotcreatedsnackbar = By.xpath("//*[starts-with(@content-desc,'"+getProperty("SLOT_NAME")+" slot created successfully')]");
 
-
 	@FindBy (xpath ="//android.view.View[@content-desc=\"All Services\"]")
 	private WebElement  AllServices  ;
 	public WebElement getAllServices() {
 		return   AllServices  ;
 	}
-	
 
-	
 	@FindBy (xpath ="//*[starts-with(@hint,'From')]")
 	private WebElement  from  ;
 	public WebElement getfrom() {
@@ -417,11 +410,11 @@ public class WE_Admin_Services extends Base{
 	public WebElement getto() {
 		return   to  ;
 	}
+	
 //	@FindBy (xpath ="")
 //	private WebElement    ;
 //	public WebElement get() {
 //		return     ;
 //	}
-//	
 	
 }

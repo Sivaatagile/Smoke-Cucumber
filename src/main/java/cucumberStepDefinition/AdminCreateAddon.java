@@ -17,7 +17,7 @@ import com.baseClass.Base;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 
-public class AdminCreateAddon extends Base{
+public class AdminCreateAddon extends Base {
 
 	WE_Admin_Services addon = new WE_Admin_Services(driver);
 	WE_Info info = new WE_Info(driver);

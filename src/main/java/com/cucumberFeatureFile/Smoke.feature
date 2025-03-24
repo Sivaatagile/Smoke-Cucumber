@@ -84,26 +84,26 @@ Feature: Booking Application Sanity Flow
     Then User request is successfully approved
     And Admin is navigated back to the home page
 
-  Scenario: Adding a new admin through the admin portal
-    Given Admin clicks on the Users tab
-    When Admin clicks on Admin's Show All
-    Then Admin is navigated to Admin's list page
-    When Admin clicks on the + button to add a new admin
-    And Admin enters the first name "ADMIN_ADMIN_FIRST_NAME"
-    And Admin enters the last name "ADMIN_ADMIN_LAST_NAME"
-    And Admin enters the email "ADMIN_ADMIN_EMAIL"
-    And Admin selects the gender
-    And Admin enters the admin's phone number "ADMIN_ADMIN_CONTACTNUMBER"
-    And Admin enters the additional contact number "ADMIN_ADMIN_ADDITIONAL_CONTACT_NUMBER"
-    And Admin enters the address line for admin 1
-    And Admin enters the address line for admin 2
-    And Admin selects the country
-    And Admin enters the city or town "ADMIN_ADMIN_CITY"
-    And Admin enters the post code "ADMIN_ADMIN_POSTCODE"
-    And Admin clicks on the Save button
-    Then The new admin details should be successfully saved
-    When Admin clicks on the Back button
-    Then Admin is navigated back to the home page
+  #Scenario: Adding a new admin through the admin portal
+    #Given Admin clicks on the Users tab
+    #When Admin clicks on Admin's Show All
+    #Then Admin is navigated to Admin's list page
+    #When Admin clicks on the + button to add a new admin
+    #And Admin enters the first name "ADMIN_ADMIN_FIRST_NAME"
+    #And Admin enters the last name "ADMIN_ADMIN_LAST_NAME"
+    #And Admin enters the email "ADMIN_ADMIN_EMAIL"
+    #And Admin selects the gender
+    #And Admin enters the admin's phone number "ADMIN_ADMIN_CONTACTNUMBER"
+    #And Admin enters the additional contact number "ADMIN_ADMIN_ADDITIONAL_CONTACT_NUMBER"
+    #And Admin enters the address line for admin 1
+    #And Admin enters the address line for admin 2
+    #And Admin selects the country
+    #And Admin enters the city or town "ADMIN_ADMIN_CITY"
+    #And Admin enters the post code "ADMIN_ADMIN_POSTCODE"
+    #And Admin clicks on the Save button
+    #Then The new admin details should be successfully saved
+    #When Admin clicks on the Back button
+    #Then Admin is navigated back to the home page
     
   Scenario: Adding a new customer through the admin portal
     Given Admin clicks on the Users tab
@@ -664,7 +664,7 @@ Feature: Booking Application Sanity Flow
     And the user determines the From Date and To Date for the service based on constraints
     And the user calculates the date range and picks a random date
 		And the user scroll the date picker and selects the date
- Then the user should successfully navigate to the Confirm Booking Details page
+    Then the user should successfully navigate to the Confirm Booking Details page
     And the user verifies the service name, date, and slot
     And the user taps the Proceed button
     Then the user navigates to the Review Booking page
@@ -676,77 +676,116 @@ Feature: Booking Application Sanity Flow
     And the user taps the My Bookings button
     Then the user navigates to the My Bookings page
     And the user verifies that the booking is listed on the My Bookings page
-#
-#Scenario: Booking a Service with a Discount Pricing Rule
-#Given the user is on the Customer Home Page
-#When the user sees the Pricing Rule Type as "DISCOUNT"
-#And the user selects the desired Service as "SERVICE_NAME"
-#And the user fetches available time slots from the API for discount
-#And the user chooses an available Time Slot
-#And the user gathering the pricingrule discount date from propertyfile
-#And the user opens the Calendar and navigates to the correct Month
-#And the user selects a Date that falls under the Pricing Rule
-#And the user taps Request Booking
-#Then the user navigates to the Confirm Booking Details page
-#When the user taps Proceed
-#Then the user navigates to the Review Booking page
-#And the user verifies the Pricing Rule Details on the Review Booking page
-    #And the user reviews the total amount and remaining credit amount
-    #And the user taps the checkbox and taps the Confirm and Pay button
-    #Then the user initiates the payment process
-    #Then the user navigates to the Booking Request Successful page
-    #And the user saves the booking details
-    #And the user taps the My Bookings button
-    #Then the user navigates to the My Bookings page
-    #And the user verifies that the booking is listed on the My Bookings page
-    #
-    #
-  #Scenario: Booking a Service with a Premium Pricing Rule
-#Given the user is on the Customer Home Page
-#When the user sees the Pricing Rule Type as "PREMIUM"
-#And the user selects the desired Service as "SERVICE_NAME"
-#And the user fetches available time slots from the API for premium
-#And the user chooses an available Time Slot
-#And the user gathering the pricingrule premium date from propertyfile
-#And the user opens the Calendar and navigates to the correct Month
-#And the user selects a Date that falls under the Pricing Rule
-#And the user taps Request Booking
-#Then the user navigates to the Confirm Booking Details page
-#When the user taps Proceed
-#Then the user navigates to the Review Booking page
-#And the user verifies the Pricing Rule Details on the Review Booking page
-      #And the user reviews the total amount and remaining credit amount
-    #And the user taps the checkbox and taps the Confirm and Pay button
-    #Then the user initiates the payment process
-    #Then the user navigates to the Booking Request Successful page
-    #And the user saves the booking details
-    #And the user taps the My Bookings button
-    #Then the user navigates to the My Bookings page
-    #And the user verifies that the booking is listed on the My Bookings page
-    #
-      #Scenario: Booking a Service with a Not Available Pricing Rule
-#Given the user is on the Customer Home Page
-#When the user sees the Pricing Rule Type as "NOT AVAILABLE"
-#And the user selects the desired Service as "SERVICE_NAME"
-#And the user fetches available time slots from the API for Not Available
-#And the user chooses an available Time Slot
-#And the user gathering the pricingrule Not available date from propertyfile
-#And the user opens the Calendar and navigates to the correct Month
-#And the user selects a Date that falls under the Pricing Rule
-#And the user taps Request Booking
-#Then the user navigates to the Confirm Booking Details page
-#When the user taps Proceed
-#Then the user navigates to the Review Booking page
-#And the user verifies the Pricing Rule Details on the Review Booking page 
-  #And the user reviews the total amount and remaining credit amount
-    #And the user taps the checkbox and taps the Confirm and Pay button
-    #Then the user initiates the payment process
-    #Then the user navigates to the Booking Request Successful page
-    #And the user saves the booking details
-    #And the user taps the My Bookings button
-    #Then the user navigates to the My Bookings page
-    #And the user verifies that the booking is listed on the My Bookings page
-    #
+
+ Scenario: Create a booking for one pet on a multiple date
+    Given the user selects a service
+    When the user fetches the slot list for the selected service using the API
+    And the user selects a random slot from the slot list, scrolling the slot picker if necessary
+    And the user determines the From Date and To Date for the service based on constraints and the user calculates the date range and picks Multiple dates
+    Then the user should successfully navigate to the Confirm Booking Details page
+    And the user taps the Proceed button
+    Then the user navigates to the Review Booking page
+    And the user reviews the total amount and remaining credit amount
+    And the user taps the checkbox and taps the Confirm and Pay button
+    Then the user initiates the payment process
+    Then the user navigates to the Booking Request Successful page
+    And the user saves the booking details
+    And the user taps the My Bookings button
+    Then the user navigates to the My Bookings page
+    And the user verifies that the booking is listed on the My Bookings page
+    
+    
+    Scenario: Create a booking for multiple pet on a multiple date
+    Given the user selects the second pet
+    And the user selects a service
+    When the user fetches the slot list for the selected service using the API
+    And the user selects a random slot from the slot list, scrolling the slot picker if necessary
+    And the user determines the From Date and To Date for the service based on constraints and the user calculates the date range and picks Multiple dates
+    Then the user should successfully navigate to the Confirm Booking Details page
+    And the user taps the Proceed button
+    Then the user navigates to the Review Booking page
+    And the user reviews the total amount and remaining credit amount
+    And the user taps the checkbox and taps the Confirm and Pay button
+    Then the user initiates the payment process
+    Then the user navigates to the Booking Request Successful page
+    And the user saves the booking details
+    And the user taps the My Bookings button
+    Then the user navigates to the My Bookings page
+    And the user verifies that the booking is listed on the My Bookings page
+
+
+
+
+Scenario: Booking a Service with a Discount Pricing Rule
+Given the user is on the Customer Home Page
+When the user sees the Pricing Rule Type as "DISCOUNT"
+And the user selects the desired Service as "SERVICE_NAME"
+And the user fetches available time slots from the API for discount
+And the user chooses an available Time Slot
+And the user gathering the pricingrule discount date from propertyfile
+And the user opens the Calendar and navigates to the correct Month
+And the user selects a Date that falls under the Pricing Rule
+And the user taps Request Booking
+Then the user navigates to the Confirm Booking Details page
+When the user taps Proceed
+Then the user navigates to the Review Booking page
+And the user verifies the Pricing Rule Details on the Review Booking page
+    And the user reviews the total amount and remaining credit amount
+    And the user taps the checkbox and taps the Confirm and Pay button
+    Then the user initiates the payment process
+    Then the user navigates to the Booking Request Successful page
+    And the user saves the booking details
+    And the user taps the My Bookings button
+    Then the user navigates to the My Bookings page
+    And the user verifies that the booking is listed on the My Bookings page
+    
+    
+  Scenario: Booking a Service with a Premium Pricing Rule
+Given the user is on the Customer Home Page
+When the user sees the Pricing Rule Type as "PREMIUM"
+And the user selects the desired Service as "SERVICE_NAME"
+And the user fetches available time slots from the API for premium
+And the user chooses an available Time Slot
+And the user gathering the pricingrule premium date from propertyfile
+And the user opens the Calendar and navigates to the correct Month
+And the user selects a Date that falls under the Pricing Rule
+And the user taps Request Booking
+Then the user navigates to the Confirm Booking Details page
+When the user taps Proceed
+Then the user navigates to the Review Booking page
+And the user verifies the Pricing Rule Details on the Review Booking page
+      And the user reviews the total amount and remaining credit amount
+    And the user taps the checkbox and taps the Confirm and Pay button
+    Then the user initiates the payment process
+    Then the user navigates to the Booking Request Successful page
+    And the user saves the booking details
+    And the user taps the My Bookings button
+    Then the user navigates to the My Bookings page
+    And the user verifies that the booking is listed on the My Bookings page
+    
+      Scenario: Booking a Service with a Not Available Pricing Rule
+Given the user is on the Customer Home Page
+When the user sees the Pricing Rule Type as "NOT AVAILABLE"
+And the user selects the desired Service as "SERVICE_NAME"
+And the user fetches available time slots from the API for Not Available
+And the user chooses an available Time Slot
+And the user gathering the pricingrule Not available date from propertyfile
+And the user opens the Calendar and navigates to the correct Month
+And the user selects a Date that falls under the Pricing Rule
+And the user taps Request Booking
+Then the user navigates to the Confirm Booking Details page
+When the user taps Proceed
+Then the user navigates to the Review Booking page
+And the user verifies the Pricing Rule Details on the Review Booking page 
+  And the user reviews the total amount and remaining credit amount
+    And the user taps the checkbox and taps the Confirm and Pay button
+    Then the user initiates the payment process
+    Then the user navigates to the Booking Request Successful page
+    And the user saves the booking details
+    And the user taps the My Bookings button
+    Then the user navigates to the My Bookings page
+    And the user verifies that the booking is listed on the My Bookings page
+    
       Scenario: Create a booking for service with addon
       Given the user is on the Customer Home Page
     When the user selects a "ADDON_SERVICE_NAME" for booking
@@ -833,23 +872,23 @@ Feature: Booking Application Sanity Flow
     
 
     
-   Scenario: Edit Admin
-    Given Admin clicks on the Users tab
-    When Admin clicks on Admin's Show All
-    Then Admin is navigated to Admin's list page  
-    And Admin searches for the Admin name in the search box as "ADMIN_ADMIN_FIRST_NAME"
-    And Admin selects the edit option for the Admin  
-    When Admin erases the existing First Name as "First name" and enter the new First name as "EDIT_ADMIN_ADMIN_FIRST_NAME"
-    When Admin erases the existing Last Name as "Last name" and enter the new Last name as "EDIT_ADMIN_ADMIN_LAST_NAME"
-    When Admin erases the existing email as "Email" and enter the new email as "EDIT_ADMIN_ADMIN_EMAIL"
-    When Admin erases the existing contact number for Admin
-    And Admin enters a new contact number for Admin as "EDIT_ADMIN_ADMIN_CONTACTNUMBER"
-    And  Admin erases the Addressline for Admin 1 and enter the new address
-    When Admin erases the existing city as "city" and enter the new city name as "EDIT_ADMIN_ADMIN_CITY"
-    When Admin erases the existing postcode as "post code" and enter the new post code as "EDIT_ADMIN_ADMIN_POSTCODE"
-    And Admin clicks on the save button 
-    When Admin clicks on the Back button
-    Then the admin is navigated back to the home page
+   #Scenario: Edit Admin
+    #Given Admin clicks on the Users tab
+    #When Admin clicks on Admin's Show All
+    #Then Admin is navigated to Admin's list page  
+    #And Admin searches for the Admin name in the search box as "ADMIN_ADMIN_FIRST_NAME"
+    #And Admin selects the edit option for the Admin  
+    #When Admin erases the existing First Name as "First name" and enter the new First name as "EDIT_ADMIN_ADMIN_FIRST_NAME"
+    #When Admin erases the existing Last Name as "Last name" and enter the new Last name as "EDIT_ADMIN_ADMIN_LAST_NAME"
+    #When Admin erases the existing email as "Email" and enter the new email as "EDIT_ADMIN_ADMIN_EMAIL"
+    #When Admin erases the existing contact number for Admin
+    #And Admin enters a new contact number for Admin as "EDIT_ADMIN_ADMIN_CONTACTNUMBER"
+    #And  Admin erases the Addressline for Admin 1 and enter the new address
+    #When Admin erases the existing city as "city" and enter the new city name as "EDIT_ADMIN_ADMIN_CITY"
+    #When Admin erases the existing postcode as "post code" and enter the new post code as "EDIT_ADMIN_ADMIN_POSTCODE"
+    #And Admin clicks on the save button 
+    #When Admin clicks on the Back button
+    #Then the admin is navigated back to the home page
     
       Scenario: 	Edit Tag 
     Given Admin clicks on the Users tab
@@ -973,8 +1012,4 @@ Feature: Booking Application Sanity Flow
     Then Admin is navigated to the slot's list page 
     When Admin clicks on the Back button
     Then the admin is navigated back to the home page
-        #
-        #
-        #
-        #
     

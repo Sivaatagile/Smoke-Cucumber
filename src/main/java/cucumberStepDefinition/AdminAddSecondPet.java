@@ -8,7 +8,8 @@ import com.frontend.Info;
 
 import io.cucumber.java.en.Then;
 
-public class AdminAddSecondPet extends Base{	
+public class AdminAddSecondPet extends Base {
+	
 	WE_Admin_User user = new WE_Admin_User(driver);
 	WE_Info PetInfo = new WE_Info(driver);
 

@@ -100,7 +100,6 @@ public class AdminSettings extends Base {
 	}
 	@When("the admin enters the amount in Adhoc {string}")
 	public void theAdminEntersTheAmountInAdhoc(String string) {
-	   
 		passInput(settings.getAdhocAmount(), getProperty(string));
 	}
 
@@ -158,7 +157,6 @@ public class AdminSettings extends Base {
 			Thread.sleep(3000);
 			By statementcreateddatelocator = By
 					.xpath("//android.view.View[@content-desc='" + Booking.StatementCreatedDate + "']");
-			// android.view.View[@content-desc="Jan 01 2025"]
 			if (isElementAvailable(statementcreateddatelocator)) {
 				System.out.println("date showed");
 				System.out.println("Bookings is listed on admins statement page ");
@@ -216,15 +214,14 @@ public class AdminSettings extends Base {
 		ClickonElement(settings.getAccounts());
 		
 	}
+	
 	@When("the admin filter the customer in that dropdown as {string} and {string}")
-	public void theAdminFilterTheCustomerInThatDropdownAsAnd(String string, String string2) throws Exception {
-	    
+	public void theAdminFilterTheCustomerInThatDropdownAsAnd(String string, String string2) throws Exception {  
 		ClickonElement(settings.getCustomerFilter());
 		Thread.sleep(4000);
 		 By CustomerName= By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty(string)+" "+getProperty(string2)));
 		slowscrolluntilelementfound(CustomerName);
 		clickOnElementUsingBy(CustomerName);
-		
 	}
 	
 

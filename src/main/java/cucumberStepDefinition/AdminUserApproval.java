@@ -27,10 +27,12 @@ public class AdminUserApproval extends Base {
 	public void theAdminClicksOnThePendingRequestsShowallOption() {
 		ClickonElement(user.getShowall_PendingRequest());
 	}
+	
 	@When("searches for the signup customer name as {string}")
 	public void searchesForTheSignupCustomerNameAs(String string) throws InterruptedException {
-		Thread.sleep(2000);
+		Thread.sleep(6000);
 		ClickonElement(user.getSearchBox());
+		Thread.sleep(2000);
 		passInput(user.getSearchBox(), getProperty(string));
 		driver.hideKeyboard();
 	}
@@ -38,7 +40,6 @@ public class AdminUserApproval extends Base {
 	@Then("the matching customer list is displayed as {string}")
 	public void theMatchingCustomerListIsDisplayedAs(String string) throws InterruptedException, Error {
 		 By EyeIcon1 = By.xpath("//*[starts-with(@content-desc,'pending')]/android.view.View[@content-desc='"+ getProperty(string) + "']/following-sibling::android.widget.ImageView[1]");
-
 		if (isElementAvailable(EyeIcon1)) {
 			System.out.println("user found");
 		} else {

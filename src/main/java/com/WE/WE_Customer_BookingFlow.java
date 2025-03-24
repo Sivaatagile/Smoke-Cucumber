@@ -74,8 +74,6 @@ public class WE_Customer_BookingFlow extends Base{
 		return    SlotPicker ;
 	}
 	
-	
-
 	@FindBy (xpath ="//android.view.View[@content-desc=\"Request Booking\"]")
 	private WebElement  RequestBooking  ;
 	public WebElement getRequestBooking() {
@@ -129,6 +127,7 @@ public class WE_Customer_BookingFlow extends Base{
 	public WebElement getUseAccountBalance() {
 		return  UseAccountBalance   ;
 	}
+	
 	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"Available Balance : £ \")]")
 	private WebElement  UseAccountAvailableBalance  ;
 	public WebElement getUseAccountAvailableBalance() {
@@ -306,4 +305,10 @@ public class WE_Customer_BookingFlow extends Base{
 	    SelectService = driver.findElement(By.xpath(dynamicXPath));
 	    return SelectService;
 	}
+	
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	}
 }

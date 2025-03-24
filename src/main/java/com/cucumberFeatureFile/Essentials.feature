@@ -1,68 +1,14 @@
-  Scenario: Launch application in emulator
+
+############    This feature file is for only creating the essentials by administrator -> 1. Check the every scenario 2.Pass the input by using property file   #######
+ 
+ Feature: Booking Application Essentials creating by administrator
+ Scenario: Launch application in emulator
     Given PropertyFile Loaded
     And  Set key values
     And Configure driver
     And Api configuration
     And Open the application
     Then Successfully navigated to the login screen
-  
-  Scenario: User signs up using email as customer
-    Given User clicks on the Sign Up button
-    When User enters their "SIGNUP_EMAIL" address
-    And User clicks on the Continue button
-    Then User receives an OTP in their email
-    When User enters the OTP received in the email
-    Then User should be signed up successfully
-
-  Scenario: User fills out their information after signing up
-    Given User has successfully signed up
-    When User is on the user info page
-    And User should see fields for first name, last name, gender, phone number, address line 1, address line 2, city/town, pincode, and country
-    And User enters their first name "SIGNUP_FIRSTNAME"
-    And User enters their last name "SIGNUP_LASTNAME"
-    And User selects their gender
-    And User enters their phone number "SIGNUP_PHONENUMBER"
-    And User enters address line 1 "SIGNUP_ADDRESSLINE"
-    And User enters address line 2 "SIGNUP_ADDRESSLINE"
-    And User enters their city/town "SIGNUP_CITYTOWN"
-    And User enters their pincode "SIGNUP_POSTCODE"
-    And User selects their country
-    And User clicks on the Continue button
-    And User verifies the snackbar after entering the user data
-    And User should be taken to the pet info page
-
-  Scenario: User fills out pet information after entering user info    
-    Given User navigates to the pet info page
-    When User should see fields for pet name, gender, size, breed, dietary issues, allergies, vet name, vet address, vet phone number, microchip details, contact person name, contact person's phone number, special instructions, feeding schedules, additional contacts, and behavioral information
-    And User enters the pet's name "PET_NAME"
-    And User selects the pet's gender
-    And User needs to select the birth of dog
-    And User selects the pet's size
-    And User selects the pet's breed
-    And User enters any dietary issues "PET_DIETARY_ISSUES"
-    And User enters any allergies "PET_ALLERGIES"
-    And User enters the vet's name "PET_VETNAME"
-    And User enters the vet's address "PET_VETADDRESS"
-    And User enters the vet's phone number "PET_VETPHONENUMBER"
-    And User enters the microchip number "PET_MICROCHIP"
-    And User enters the contact person's name "PET_CONTACT_PERSONNAME"
-    And User enters the contact person's phone number "PET_CONTACT_PERSONNUMBER"
-    And User enters any special instructions "PET_SPECIAL_INSTRUCTIONS"
-    And User enters the feeding schedule "PET_FEEDING_DETAILS"
-    And User enters any additional contacts "PET_ADDITIONAL_CONTACT"
-    And User provides behavioral information
-    And User clicks on the Save button    
-    And User verifies the snackbar after entering the pet data
-    And The pet information should be saved successfully
-
-  Scenario: User navigates to landing screen
-    Given User navigates to the landing page
-
-  Scenario: Clearing the application cache and opening the application
-    Given Admin clears the application cache
-    When Admin opens the application
-    Then the application launches successfully
-    And Admin is navigated to the login page (or home page if already logged in)
 
   Scenario: Admin login using email as (predefined account)
     Given Admin enters their predefined "PREDEFINED_ADMIN_EMAIL" address
@@ -73,9 +19,9 @@
   Scenario: Approving a signed-up customer request in Admin portal
     Given Admin clicks on the Users tab
     When Admin clicks on the Pending Requests showall option
-    And searches for the signup customer name 
-    Then the matching customer list is displayed
-    When Admin clicks on the customer name 
+    And searches for the signup customer name as "SIGNUP_FIRSTNAME"
+    Then the matching customer list is displayed as "SIGNUP_FIRSTNAME"
+    When Admin clicks on the customer name as "SIGNUP_FIRSTNAME"
     And scrolls down to find the Accept button and clicks it
     Then a confirmation popup is displayed then Admin clicks on the Confirm button in the popup
     Then User request is successfully approved
@@ -159,13 +105,12 @@
     And Admin taps the plus button to create a new service
     And Admin select the service while creating a service  
     When Admin enters "SERVICE_NAME" in the service name input field  
-    And Admin provides "Description" in the service description field  
+    And Admin provides "SERVICE_DESCRIPTION" in the service description field  
     And Admin fetches the overall slot list using the API  
-    And Admin sets the "Base Price" for 1 to 4 pets 
-    And Admin selects "Capacity Type" from the tab  
-    And Admin sets the "Maximum Capacity" for the service  
-    And Admin sets the "Maximum Capacity per Staff"  
-    And Admin sets the "Maximum Advance Booking Limit"  
+    And Admin sets the "BASE_PRICE_AMOUNT" for 1 to 4 pets 
+    And Admin selects "MAX_CAPACITY_SLOT" from the tab  
+    And Admin sets the "MAX_CAPACITY_STAFF" for the service  
+    And Admin sets the "MAX_ADVANCE_BOOKING_LIMIT"  
     And Admin provides "Service Validity From" and "Service Validity To" dates  
     And Admin taps the save button 
     Then The service should be created successfully  
@@ -221,12 +166,12 @@
     When Admin enters "ADDON_SERVICE_NAME" in the service name input field  
     And Admin provides "ADDON_SERVICE_DESCRIPTION" in the service description field  
     And Admin fetches the overall slot list using the API  
-    And Admin sets the "Base Price" for 1 to 4 pets 
+    And Admin sets the "BASE_PRICE_AMOUNT" for 1 to 4 pets 
     And Admin select the addon for this service
-    And Admin selects "Capacity Type" from the tab  
-    And Admin sets the "Maximum Capacity" for the service  
-    And Admin sets the "Maximum Capacity per Staff"  
-    And Admin sets the "Maximum Advance Booking Limit"  
+    And Admin selects "MAX_CAPACITY_SLOT" from the tab  
+    And Admin sets the "MAX_CAPACITY_SLOT" for the service  
+    And Admin sets the "MAX_CAPACITY_STAFF"  
+    And Admin sets the "MAX_ADVANCE_BOOKING_LIMIT"  
     And Admin provides "Service Validity From" and "Service Validity To" dates  
     And Admin taps the save button 
     And Admin verifies the snackbar after creating the new service with addon  
@@ -283,7 +228,7 @@
     And Admin opens the Manage Breed section
     Then Admin is navigated to the Breed list page
     When Admin clicks on the Plus button to add a new breed
-    And Admin enters Breed Name in the breed name field
+    And Admin enters "BREED_Name" in the breed name field
     And Admin taps the save button
     Then the new breed details should be successfully saved
     When Admin clicks on the Back button
@@ -294,7 +239,7 @@
     When Admin navigates to Manage Service Pools
     Then Admin is navigated to the service pools list page
     And Admin clicks on the Plus button to add a new pool
-    And Admin enters Pool Name 
+    And Admin enters Pool Name as "POOL_NAME"
     And Admin enters Pool Remarks 
     And Admin enters Pool Capacity 
     And Admin clicks on the Save button
@@ -304,7 +249,7 @@
     Then Admin is navigated back to the home page
   
   Scenario: Define a pricing rule for premium based on a single date.
-    Given the admin navigates to the Settings tab 
+    Given Admin navigates to the Settings tab 
     When the admin navigates to Pricing Rule 
     Then the admin is navigated to the pricing rule list page 
     And the admin clicks on the FAB button to add a new pricing rule  
@@ -317,12 +262,12 @@
     And the admin enters the pricing offset value
     And the admin clicks on the Save button  
     Then the new pricing rule details should be successfully saved
-    When the admin clicks on the Back button
-    And the admin taps the Home icon
+    When Admin clicks on the Back button
+    And Admin taps the Home icon
     Then the admin is navigated back to the home page
     
   Scenario: Define a pricing rule for discount based on a single date.
-    Given the admin navigates to the Settings tab 
+    Given Admin navigates to the Settings tab 
     When the admin navigates to Pricing Rule  
     Then the admin is navigated to the pricing rule list page
     And the admin clicks on the FAB button to add a new pricing rule  
@@ -335,12 +280,12 @@
     And the admin enters the pricing offset value
     And the admin clicks on the Save button
     Then the new pricing rule details should be successfully saved
-    When the admin clicks on the Back button
-    And the admin taps the Home icon
+    When Admin clicks on the Back button
+    And Admin taps the Home icon
     Then the admin is navigated back to the home page
     
   Scenario: Define a pricing rule for Not Available  based on a single date.
-    Given the admin navigates to the Settings tab 
+    Given Admin navigates to the Settings tab 
     When the admin navigates to Pricing Rule  
     Then the admin is navigated to the pricing rule list page
     And the admin clicks on the FAB button to add a new pricing rule  
@@ -351,8 +296,8 @@
     And the admin enters Pricing Rule type as Not available
     And the admin clicks on the Save button
 		Then the new pricing rule details should be successfully saved
-    When the admin clicks on the Back button
-    And the admin taps the Home icon
+    When Admin clicks on the Back button
+    And Admin taps the Home icon
     Then the admin is navigated back to the home page
   
   Scenario: Successfully logout Admin 

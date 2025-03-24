@@ -12,9 +12,7 @@ import io.cucumber.java.en.*;
 public class PetData extends Base {
 	static Random random = new Random();
 	WE_Info PetInfo = new WE_Info(driver);
-	
 	WE_Snackbar snackbar = new WE_Snackbar(driver);
-
 
 	@Given("User navigates to the pet info page")
 	public void theUserNavigatesToThePetInfoPage() throws InterruptedException {
@@ -23,7 +21,8 @@ public class PetData extends Base {
 		boolean isLocator2Present = !driver.findElements(PetInfo.AddpetCustomer).isEmpty();
 		if (isLocator1Present || isLocator2Present) {
 			System.out.println("Working fine");
-		} else {
+		}
+		else {
 			System.out.println("No locators found");
 		}
 	}
@@ -66,7 +65,8 @@ public class PetData extends Base {
 			System.out.println(randomIndex);
 			ClickonElement(PetInfo.getPetSizeList().get(randomIndex));
 			System.out.println("size found out");
-		} else {
+		} 
+		else {
 			System.out.println("Not enough elements to select a random one.");
 		}
 	}
@@ -75,14 +75,29 @@ public class PetData extends Base {
 	public void theUserSelectsThePetSBreed() throws InterruptedException {
 		ClickonElement(PetInfo.getBreed());
 		waitForElement(PetInfo.getBottomresetbutton());
-		int BREEDsize = PetInfo.getBreedlist().size();
+		if (PetInfo.isScrollViewAvailable()) {
+		int BREEDsize = PetInfo.getBreedlist1().size();
 		System.out.println("size of service  : " + BREEDsize);
-		if (BREEDsize > 0) {
+			if (BREEDsize > 0) {
 			int randomIndex = random.nextInt(BREEDsize - 1);
 			System.out.println(randomIndex);
-			ClickonElement(PetInfo.getBreedlist().get(randomIndex));
-		} else {
+			ClickonElement(PetInfo.getBreedlist1().get(randomIndex));
+			} 
+			else {
 			System.out.println("Not enough elements to select a random one.");
+			}
+		}
+		else {
+			int BREEDsize = PetInfo.getBreedlist().size();
+			System.out.println("size of service  : " + BREEDsize);
+			if (BREEDsize > 0) {
+				int randomIndex = random.nextInt(BREEDsize - 1);
+				System.out.println(randomIndex);
+				ClickonElement(PetInfo.getBreedlist().get(randomIndex));
+			} 
+			else {
+				System.out.println("Not enough elements to select a random one.");
+			}
 		}
 		if (isElementAvailable(PetInfo.getAdminNotes())) {
 			ClickonElement(PetInfo.getAdminNotes());
@@ -182,25 +197,23 @@ public class PetData extends Base {
 	
 	@When("User verifies the snackbar after entering the pet data")
 	public void theUserVerifiesTheSnackbarAfterEnteringThePetData() throws InterruptedException {
-		waitForElement(snackbar.getRecordCreatedSuccessfully());
-
-		
+		waitForElement(snackbar.getRecordCreatedSuccessfully());	
 	}
 
 	@When("The pet information should be saved successfully")
 	public void thePetInformationShouldBeSavedSuccessfully() throws InterruptedException {
 		if (isElementAvailable(snackbar.getRecordCreatedSuccessfully())) {
 			System.out.println("Snack bar verified successfully");
-//			Thread.sleep(2500);
 			if (isElementAvailable(PetInfo.getProfileWord())) {
 				System.out.println("admin created a pet for a customer completed successfully");
-			} else if (isElementAvailable(PetInfo.getcloseApp())) {
+			} 
+			else if (isElementAvailable(PetInfo.getcloseApp())) {
 				System.out.println("Customer signed up successfully");
 			}
-		}else {
+		}
+		else {
 			System.out.println("waste");
 		}
-
 	}
 
 	@Given("User navigates to the landing page")

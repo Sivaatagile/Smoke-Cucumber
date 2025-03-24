@@ -465,7 +465,6 @@ public class Api extends Base {
 	        System.out.println("Service List: " + ServiceNames);
 	}
 
-	
 	public  static  void universal_creditlimit() {
 		Response response = RestAssured.given()
                 .header("X-API-Version", "100")
@@ -477,6 +476,7 @@ public class Api extends Base {
 	         universalCreditLimit = jsonPath.getDouble("data[0].universal_credit_limit");
 	        System.out.println("Universal Credit Limit: " + universalCreditLimit);
 	}
+	
 	public static  void getserviceID(String serviceName) {
 		Response response = RestAssured.given().header("X-API-Version", "100").header("User-Agent", "PostmanRuntime")
 				.header("Content-Type", "application/json") // Add any necessary headers here

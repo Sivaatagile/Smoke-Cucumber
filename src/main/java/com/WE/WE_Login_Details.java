@@ -105,4 +105,10 @@ public class WE_Login_Details extends Base{
 		return    Signin ;
 	}
 	
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	}
+	
 }

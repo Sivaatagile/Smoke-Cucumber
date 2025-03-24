@@ -26,7 +26,6 @@ public class Admin_Settings extends Base {
 		passInput(settings.getBreedName(), getProperty("BREED_Name"));
 		ClickonElement(settings.getSaveBreed());
 		ClickonElement(settings.getback());
-
 	}
 
 	public static void CreatePool() {

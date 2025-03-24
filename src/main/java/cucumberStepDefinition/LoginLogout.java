@@ -23,8 +23,8 @@ public class LoginLogout extends Base {
 	@When("Admin clicks on the Continue button")
 	public void adminClicksOnTheContinueButton() {
 		ClickonElement(login.getContinueButton());
-
 	}
+	
 	@When("Admin enters the Predefined Otp {string}")
 	public void adminEntersThePredefinedOtp(String OTP) throws InterruptedException {
 		WE_Login_Details login = new WE_Login_Details(driver);
@@ -32,6 +32,7 @@ public class LoginLogout extends Base {
 		passInputUsingActions(login.getOTP(), getProperty(OTP));
 		driver.hideKeyboard();
 	}
+	
 	@Then("Admin should be logged in successfully")
 	public void adminShouldBeLoggedInSuccessfully() throws InterruptedException {
 		 Thread.sleep(10000);
@@ -41,10 +42,7 @@ public class LoginLogout extends Base {
 	@When("the user clicks on the Continue button")
 	public void theUserClicksOnTheContinueButton() {
 		ClickonElement(login.getContinueButton());
-
 	}
-	
-	
 	
 	@Given("Admin navigates to the Settings tab")
 	public void theAdminNavigatesToTheSettingsTab() throws InterruptedException {
@@ -69,7 +67,6 @@ public class LoginLogout extends Base {
 		passInput(login.getContinueWithEmail(), getProperty(customerEmail));
 		Thread.sleep(1000);
 		driver.hideKeyboard();
-
 	}
 
 	@When("the customer enters the Otp")
@@ -80,19 +77,16 @@ public class LoginLogout extends Base {
 		ClickonElement(login.getOTP());
 		Thread.sleep(2000);
 		passInputUsingActions(login.getOTP(), otp_Received);
-
 	}
 
 	@Given("the customer navigates to the Settings tab")
 	public void theCustomerNavigatesToTheSettingsTab() throws InterruptedException {
 		Thread.sleep(3500);
-
 		ClickonElement(login.getSettings());
 	}
 
 	@Given("the customer clicks on the logout button")
 	public void theCustomerClicksOnTheLogoutButton() {
-		
 		ClickonElement(login.getLogout());
 	}
 	
@@ -117,10 +111,9 @@ public class LoginLogout extends Base {
 	}
 	@When("the staff clicks on the Continue button")
 	public void theStaffClicksOnTheContinueButton() {
-		ClickonElement(login.getContinueButton());
-
-		
+		ClickonElement(login.getContinueButton());	
 	}
+	
 	@When("the staff enters the Otp")
 	public void theStaffEntersTheOtp() throws InterruptedException {
 		Thread.sleep(5000);
@@ -129,6 +122,7 @@ public class LoginLogout extends Base {
 		Thread.sleep(2000);
 		passInputUsingActions(login.getOTP(), otp_Received);
 	}
+	
 	@Then("the staff should be logged in successfully")
 	public void theStaffShouldBeLoggedInSuccessfully() throws InterruptedException {
 	   Thread.sleep(10000);

@@ -12,8 +12,6 @@ public class StepDefinition extends Base {
 
 	WE_Login_Details Login = new WE_Login_Details(driver);
 
-
-
 	@Given("Enter the Users valid E-mail adddress")
 	public void enterTheUsersValidEMailAdddress() throws InterruptedException {
 		System.out.println(Login.getContinueWithEmail());

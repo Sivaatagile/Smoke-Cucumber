@@ -62,8 +62,7 @@ public class AdminCreateSlot extends Base {
 		ClickonElement(slot.getSave());
 		Thread.sleep(2000);
 		if (isElementAvailable(slot.getOKbutton())) {
-			ClickonElement(slot.getOKbutton());
-			
+			ClickonElement(slot.getOKbutton());	
 		}
 	}
 	
