@@ -12,8 +12,7 @@ public class ReportProcess {
 		Thread.sleep(10000);
 		String reportPath = System.getProperty("user.dir") + "/target/cucumber-reports123/index.html"; // Update with
 		LocalDate currentDate = LocalDate.now();
-		System.out.println("Current Date: " + currentDate); // your report
-		// path
+		System.out.println("Current Date: " + currentDate); 
 		Base.sendEmailWithReport("developer@agilecyber.com", "Cucumber Test Report for Automation Staging Environment",
 				"Please find the attached test report : \r\n" + "Date of Report Generation : " + currentDate + "\r\n"
 						+ "Total Number of scenarios : 73\r\n" + "Passed : 73\r\n" + "Failed : 00\r\n"
