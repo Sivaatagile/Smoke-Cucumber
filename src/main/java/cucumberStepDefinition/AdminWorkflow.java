@@ -221,10 +221,10 @@ while (true) {
 			System.out.println("No booking is listed on pending. Navigate to unassigned tab and check");
 		} else {
 			ClickonElement(workflow.getRejectButton());
-			Thread.sleep(5000);
+			Thread.sleep(2000);
 
 			ClickonElement(workflow.getReject());
-			Thread.sleep(3000);
+			Thread.sleep(7500);
 
 		}
 	}

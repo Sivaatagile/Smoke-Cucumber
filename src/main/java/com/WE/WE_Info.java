@@ -20,7 +20,7 @@ public class WE_Info extends Base{
 	
 // --------------------------------------------------------------------------------  USER DATA	
 	
-@FindBy(xpath = "//*[starts-with(@hint,'First')]")
+   @FindBy(xpath = "//*[starts-with(@hint,'First')]")
    private WebElement FirstName;
    public WebElement getFirstName() {
        return FirstName;
@@ -360,5 +360,11 @@ public class WE_Info extends Base{
 	public WebElement getSnackbarAfterPetinfo() {
 	    return SnackbarAfterPetinfo;
 	}
+	
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	}
 	
 }

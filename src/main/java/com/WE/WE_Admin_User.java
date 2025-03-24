@@ -212,10 +212,10 @@ public class WE_Admin_User extends  Base{
 	}
 	
 	public static By StaffNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_STAFF_FIRST_NAME")));
+	
 	public static By CustomerNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_CUSTOMER_FIRSTNAME")));
+	
 	public static By AdminNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_ADMIN_FIRST_NAME")));
-
-	//android.view.View[contains(@content-desc,"Edit")]
 	
 	@FindBy (xpath ="//android.view.View[contains(@content-desc,\"Edit\")]")
 	private WebElement   Edit ;
@@ -233,7 +233,6 @@ public class WE_Admin_User extends  Base{
 	public WebElement getConfirm1() {
 		return   Confirm1  ;
 	}
-	
 	
 	@FindBy (xpath ="//*[starts-with(@content-desc,'Contact Number')]/following-sibling::android.widget.EditText[1]")
 	private WebElement   ContactNumber ;
@@ -278,7 +277,6 @@ public class WE_Admin_User extends  Base{
 	
 	public static By UserLocator1 = By.xpath("//*[starts-with(@content-desc,'pending')]/android.view.View[@content-desc='"+ getProperty("SIGNUP_FIRSTNAME") + "']");
 	
-
 	@FindBy (xpath ="//*[starts-with(@content-desc,'pending')]")
 	private List<WebElement>  UserPending    ;
 	public  List<WebElement> getUserPending() {
@@ -376,5 +374,10 @@ public class WE_Admin_User extends  Base{
 	}
 	
 	public static By trySearchingagain = By.xpath("//android.view.View[@content-desc=\"Try searching again using a different spelling or keyword.\"]");
+	
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
 	
 }

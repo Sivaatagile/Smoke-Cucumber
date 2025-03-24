@@ -120,4 +120,9 @@ public class WE_ADMIN_BOOKING extends Base{
 		return CheckAvailability;
 	}
 
+//	@FindBy (xpath ="")
+//	private WebElement    ;
+//	public WebElement get() {
+//		return     ;
+//	}
 }

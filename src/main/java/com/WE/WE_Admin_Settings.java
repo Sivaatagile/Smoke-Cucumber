@@ -540,60 +540,10 @@ public class WE_Admin_Settings extends Base{
 	public WebElement getpricingrule() {
 		return   pricingrule  ;
 	}
+	
 //	@FindBy (xpath ="")
 //	private WebElement    ;
 //	public WebElement get() {
 //		return     ;
-//	
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
-//	@FindBy (xpath ="")
-//	private WebElement    ;
-//	public WebElement get() {
-//		return     ;
-//	}
 	
 }

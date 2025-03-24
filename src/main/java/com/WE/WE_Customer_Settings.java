@@ -90,19 +90,6 @@ public class WE_Customer_Settings extends Base{
 		return scroll;
 	}
 	
-//	
-//	@FindBy(xpath = "")
-//	private WebElement ;
-//	public WebElement get() {
-//		return ;
-//	}
-//	
-//	@FindBy(xpath = "")
-//	private WebElement ;
-//	public WebElement get() {
-//		return ;
-//	}
-//	
 //	@FindBy(xpath = "")
 //	private WebElement ;
 //	public WebElement get() {
