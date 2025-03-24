@@ -44,7 +44,6 @@ public class AdminCreateAdmin extends Base {
 		driver.hideKeyboard();
 	}
 
-	
 	@When("Admin enters the email {string}")
 	public void theAdminEntersTheEmail(String AdminEmail) {
 		ClickonElement(user.getEmail());
@@ -125,12 +124,11 @@ public class AdminCreateAdmin extends Base {
 	@Then("the admin clicks on the Save button")
 	public void theAdminClicksOnTheSaveButton() {
 		ClickonElement(user.getSave());
-
 	}
+	
 	@Then("the admin is navigated back to the home page")
 	public void theAdminIsNavigatedBackToTheHomePage() {
 		ClickonElement(user.getHome());
-
 	}
 	
 	@Then("The new admin details should be successfully saved")

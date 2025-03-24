@@ -24,15 +24,14 @@ public class DELETE extends Base{
 	
 	@Then("the admin pick the category name from the list as {string}")
 	public void theAdminPickTheCategoryNameFromTheListAs(String string) throws InterruptedException, Exception {
-	    
-		 By  searchingCategoryName= By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty(string)));
+		By  searchingCategoryName= By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty(string)));
 		if (!isElementAvailable(searchingCategoryName)) {
 			slowscrolluntilelementfound(searchingCategoryName);
 			clickOnElementUsingBy(searchingCategoryName);
-		}else {
+		}
+		else {
 			clickOnElementUsingBy(searchingCategoryName);
 		}
-		
 	}
 	
 	
@@ -49,7 +48,6 @@ public class DELETE extends Base{
 		 By  Servicename= By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]/following-sibling::android.widget.ImageView[1]", getProperty(string)));
          clickOnElementUsingBy(Servicename);
          ClickonElement(Service.getConfirm1());
-		
 	}
 	
 	@Given("Admin searches for the service name in the search box as {string}")
@@ -58,20 +56,20 @@ public class DELETE extends Base{
 		ClickonElement(Service.getSearchBox());
 		passInput(Service.getSearchBox(), getProperty(string));
 	}
+	
 ////****************************************************DELETE ADDON
   
 	@Given("Admin wait for the addon filter as {string}")
 	public void adminWaitForTheAddonFilterAs(String string) throws InterruptedException {
 		By  Servicename= By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty(string)));
-        waitForElementViewable(Servicename);
-		
+        waitForElementViewable(Servicename);	
 	}
+	
 	@Given("Admin tap the delete icon of the addon as {string} and confirms the action")
 	public void adminTapTheDeleteIconOfTheAddonAsAndConfirmsTheAction(String string) throws InterruptedException {
 		By  Servicename= By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]/following-sibling::android.widget.ImageView[1]", getProperty(string)));
         clickOnElementUsingBy(Servicename);
-        ClickonElement(Service.getConfirm1());
-		
+        ClickonElement(Service.getConfirm1());	
 	}
 	
 	@Given("Admin searches for the Addon name in the search box as {string}")
@@ -88,20 +86,19 @@ public class DELETE extends Base{
 		 By  Slotname= By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty(string)));
          waitForElementViewable(Slotname);
 	}
+	
 	@Then("Admin tap the delete icon of the slot as {string} and confirms the action")
 	public void adminTapTheDeleteIconOfTheSlotAsAndConfirmsTheAction(String string) throws InterruptedException {
 		 By  slotname= By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]/preceding-sibling::android.widget.ImageView[1]", getProperty(string)));
          clickOnElementUsingBy(slotname);
          ClickonElement(Service.getDelete());
-		
 	}
+	
 	@Then("Admin searches for the slot name in the search box as {string}")
 	public void adminSearchesForTheSlotNameInTheSearchBoxAs(String string) throws InterruptedException {
 		Thread.sleep(1500);
-
 		ClickonElement(Service.getSearchBox());
-
 		passInput(Service.getSearchBox(), getProperty(string));
-		
 	}
+	
 }

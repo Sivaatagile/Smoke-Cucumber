@@ -176,6 +176,15 @@ public class Base {
 		public static double paylater;
 		public static double TallyAmount;
 		public static List<String> OverallFilteredDates;
+		public static List<String> TotalSlots;
+		public static String SelectedSlot;
+		public static String DiscountDATE;
+		public static String PremiumDATE;
+		public static String NotaAvailableDATE;
+		public static LocalDate ModifiedDate;
+		
+		
+		
 		
 //	**********     API DETAILS 
 	

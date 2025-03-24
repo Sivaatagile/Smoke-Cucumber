@@ -21,7 +21,8 @@ public class UserData extends Base {
 		boolean isLocator2Present = !driver.findElements(UserInfo.AddCustomer).isEmpty();
 		if (isLocator1Present || isLocator2Present) {
 			System.out.println("Working fine");
-		} else {
+		} 
+		else {
 			System.out.println("No locators found");
 		}
 	}
@@ -32,14 +33,14 @@ public class UserData extends Base {
 		boolean isLocator2Present = !driver.findElements(UserInfo.AddCustomer).isEmpty();
 		if (isLocator1Present || isLocator2Present) {
 			System.out.println("Working fine");
-		} else {
+		} 
+		else {
 			System.out.println("No locators found");
 		}
 	}
 
 	@When("User should see fields for first name, last name, gender, phone number, address line {int}, address line {int}, city\\/town, pincode, and country")
-	public void theUserShouldSeeFieldsForFirstNameLastNameGenderPhoneNumberAddressLineAddressLineCityTownPincodeAndCountry(
-			Integer int1, Integer int2) {
+	public void theUserShouldSeeFieldsForFirstNameLastNameGenderPhoneNumberAddressLineAddressLineCityTownPincodeAndCountry(Integer int1, Integer int2) {
 		System.out.println("Working Fine");
 	}
 
@@ -72,7 +73,6 @@ public class UserData extends Base {
 
 	@When("User enters address line {int} {string}")
 	public void theUserEntersAddressLine(Integer int1, String Addressline) {
-		// Determine the address line element dynamically based on the input integer
 		WebElement addressLineElement;
 		switch (int1) {
 		case 1:
@@ -81,11 +81,9 @@ public class UserData extends Base {
 		case 2:
 			addressLineElement = UserInfo.getAddressLine2();
 			break;
-		// Add more cases if needed
 		default:
 			throw new IllegalArgumentException("Invalid address line number: " + int1);
 		}
-		// Perform actions on the dynamically selected address line
 		ClickonElement(addressLineElement);
 		passInput(addressLineElement, getProperty("SIGNUP_ADDRESSLINE" + int1));
 		driver.hideKeyboard();
@@ -116,7 +114,6 @@ public class UserData extends Base {
 	@When("User verifies the snackbar after entering the user data")
 	public void theUserVerifiesTheSnackbarAfterEnteringTheUserData() throws InterruptedException {
 		waitForElement(snackbar.getRecordUpdatedSuccessfully());
-		
 	}
 	
 	@When("User should be taken to the pet info page")
@@ -130,14 +127,15 @@ public class UserData extends Base {
 			boolean isLocator2Present = !driver.findElements(PetInfo.AddpetCustomer).isEmpty();
 			if (isLocator1Present || isLocator2Present) {
 				System.out.println("Working fine");
-			} else {
+			} 
+			else {
 				System.out.println("No locators found");
 			}
 
-		}else {
+		}
+		else {
 			System.out.println("owaste");
 		}
-
 	}
 
 }

@@ -25,11 +25,8 @@ public class EDIT extends Base{
 	WE_Admin_Services slot = new WE_Admin_Services(driver);
 	Api api = new Api(driver);
 
-	
-
 ///  ***************************************************************************** EDIT  STAFF
 
-	
 	@Then("Admin searches for the staff name in the search box as {string}")
 	public void adminSearchesForTheStaffNameInTheSearchBoxAs(String StaffName) throws InterruptedException {
 	   By StaffNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty(StaffName)));
@@ -150,7 +147,6 @@ public class EDIT extends Base{
 		ClearonElement(user.getLastname());
 		passInput(user.getLastname(), getProperty(string2));
 		driver.hideKeyboard();
-
 	}
 
 	@When("Admin erases the Addressline for Customer {int} and enter the new address")
@@ -170,7 +166,6 @@ public class EDIT extends Base{
 		ClearonElement(addressLineElement);
 		passInput(addressLineElement, getProperty("EDIT_ADMIN_CUSTOMER_ADDRESSLINE_" + int1));
 		driver.hideKeyboard();
-
 	}
 	
 	@When("Admin erases the existing contact number for customer")
@@ -193,7 +188,6 @@ public class EDIT extends Base{
 	@Then("Admin searches for the Admin name in the search box as {string}")
 	public void adminSearchesForTheAdminNameInTheSearchBoxAs(String AdminName) throws InterruptedException {
 		By AdminNameAfterSearch = By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty(AdminName)));
-
 		ClickonElement(user.getSearchBox());
 		passInput(user.getSearchBox(), getProperty(AdminName));
 		Thread.sleep(3000);
@@ -208,7 +202,6 @@ public class EDIT extends Base{
 	
 	@When("Admin erases the Addressline for Admin {int} and enter the new address")
 	public void adminErasesTheAddresslineForAdminAndEnterTheNewAddress(Integer int1) {
-	    
 		WebElement addressLineElement;
 		switch (int1) {
 		case 1:
@@ -246,8 +239,6 @@ public class EDIT extends Base{
 	public void theAdminPickTheCategoryNameFromTheList() throws Exception {
 		Thread.sleep(5000);
 		By  searchingCategoryName= By.xpath(String.format("//android.view.View[@content-desc=\"%s\"]", getProperty("ADMIN_TAG_CATEGORY_NAME")));
-
-		
 		if (!isElementAvailable(searchingCategoryName)) {
 			slowscrolluntilelementfound(searchingCategoryName);
 			clickOnElementUsingBy(searchingCategoryName);
@@ -270,17 +261,15 @@ public class EDIT extends Base{
 		driver.hideKeyboard();
 		
 	}
+	
 	@When("Admin erases the existing maximum entity level as {string} and enter the new maximum entity level as {string}")
 	public void adminErasesTheExistingMaximumEntityLevelAsAndEnterTheNewMaximumEntityLevelAs(String string, String string2) {
 		ClickonElement(user.getMaximumEntityLevel());
 		ClearonElement(user.getMaximumEntityLevel());
 		passInput(user.getMaximumEntityLevel(), getProperty(string2));
 		driver.hideKeyboard();
-		
 	}
 
-	
-	
 	@Then("the admin erases the description of the tag")
 	public void theAdminErasesTheDescriptionOfTheTag() throws InterruptedException {
 		Thread.sleep(1000);
@@ -294,7 +283,6 @@ public class EDIT extends Base{
 		passInput(user.getDecsription(), getProperty("EDIT_ADMIN_TAG_CATEGORY_DESCRIPTION"));
 		driver.hideKeyboard();
 	}
-	
 	
 ////  ********************************************************************* EDIT  SERVICE	
    
@@ -359,7 +347,6 @@ public class EDIT extends Base{
 			driver.hideKeyboard();
 			Thread.sleep(500);
 		}
-
 	}
 	
 	@When("Admin erases the existing Service maximum capacity as {string} and enter the new Service maximum capacity as {string}")
@@ -370,7 +357,8 @@ public class EDIT extends Base{
 			ClearonElement(Service.getMaximum_capacity());
 			passInput(Service.getMaximum_capacity(), getProperty(string2));
 			driver.hideKeyboard();
-		}else {
+		}
+		else {
 			slowScroll();
 			ClickonElement(Service.getMaximum_capacity());
 			ClearonElement(Service.getMaximum_capacity());
@@ -417,6 +405,7 @@ public class EDIT extends Base{
 		passInput(addon.getAddon_name(), getProperty(string2));
 		driver.hideKeyboard();
 	}
+	
 	@When("Admin erases the existing Addon Description as {string} and enter the new Addon Descriprion as {string}")
 	public void adminErasesTheExistingAddonDescriptionAsAndEnterTheNewAddonDescriprionAs(String string, String string2) throws InterruptedException {
 		Thread.sleep(1500);
@@ -424,8 +413,8 @@ public class EDIT extends Base{
 		ClearonElement(addon.getAddon_Description_textbox());
 		passInput(addon.getAddon_Description_textbox(), getProperty(string2));
 		driver.hideKeyboard();
-
 	}
+	
 	@When("Admin erases the existing Addon Base price as {string} and enter the new Addon base price as {string}")
 	public void adminErasesTheExistingAddonBasePriceAsAndEnterTheNewAddonBasePriceAs(String string, String string2) throws Exception {
 		Thread.sleep(1500);
@@ -447,23 +436,22 @@ public class EDIT extends Base{
 			driver.hideKeyboard();
 			Thread.sleep(500);
 		}
-
 	}
+	
 	@When("Admin erases the existing Addon maximum capacity as {string} and enter the new Addon maximum capacity as {string}")
 	public void adminErasesTheExistingAddonMaximumCapacityAsAndEnterTheNewAddonMaximumCapacityAs(String string, String string2) {
 		ClickonElement(addon.getAddon_Maximum_capacity());
 		ClearonElement(addon.getAddon_Maximum_capacity());
 		passInput(addon.getAddon_Maximum_capacity(), getProperty(string2));
 		driver.hideKeyboard();
-
 	}
+	
 	@When("Admin erases the existing Addon maximum capacity per staff as {string} and enter the new Addon maximum capacity per staff as {string}")
 	public void adminErasesTheExistingAddonMaximumCapacityPerStaffAsAndEnterTheNewAddonMaximumCapacityPerStaffAs(String string, String string2) {
 		ClickonElement(addon.getAddon_Maximum_capacity_Per_Staff());
 		ClearonElement(addon.getAddon_Maximum_capacity_Per_Staff());
 		passInput(addon.getAddon_Maximum_capacity_Per_Staff(), getProperty(string2));
 		driver.hideKeyboard();
-
 	}
 	
 ////  ******************************************************** EDIT SLOT
@@ -472,15 +460,10 @@ public class EDIT extends Base{
 	@Then("Admin searches for the slot name in the search box as {string} and tap the slot")
 	public void adminSearchesForTheSlotNameInTheSearchBoxAsAndTapTheSlot(String string) throws InterruptedException {
 		Thread.sleep(1500);
-
 		ClickonElement(Service.getSearchBox());
-
 		passInput(Service.getSearchBox(), getProperty(string));
-		
 		clickOnElementUsingBy(Service.slotNameAfterSearch);
-	   
 	}
-	
 	
 	@When("Admin erases the existing slot Name as {string} and enter the new slot name as {string}")
 	public void adminErasesTheExistingSlotNameAsAndEnterTheNewSlotNameAs(String string, String string2) {
@@ -488,16 +471,16 @@ public class EDIT extends Base{
 		   ClearonElement(slot.getSlotName());
 			passInput(slot.getSlotName(), getProperty(string2));
 			driver.hideKeyboard();
-
 	}
+	
 	@When("Admin erases the existing slot Description as {string} and enter the new slot Descriprion as {string}")
 	public void adminErasesTheExistingSlotDescriptionAsAndEnterTheNewSlotDescriprionAs(String string, String string2) {
-
 		ClickonElement(slot.getDescriptionTextBox());
-		  ClearonElement(slot.getDescriptionTextBox());
+		 ClearonElement(slot.getDescriptionTextBox());
 		passInput(slot.getDescriptionTextBox(), getProperty(string2));
 		driver.hideKeyboard();
 	}
+	
 	@When("Admin change the start time of the slot")
 	public void adminChangeTheStartTimeOfTheSlot() throws Exception {
 		Thread.sleep(1000);
@@ -510,7 +493,6 @@ public class EDIT extends Base{
 		scrollUntilElementFound_DatePicker_Time1(slot.getSession(), slot.EditedSessionExpected);
 		Thread.sleep(1000);
 		ClickonElement(slot.getSelect());
-
 	}
 	
 }

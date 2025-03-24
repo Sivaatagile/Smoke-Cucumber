@@ -27,7 +27,6 @@ import com.frontend.Customer_Settings;
 import com.frontend.Edit;
 import com.frontend.Info;
 import com.frontend.Login_Details;
-import com.frontend.sample;
 
 import io.appium.java_client.android.options.UiAutomator2Options;
 	public class TestRun extends Base{
@@ -180,7 +179,6 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 //		Edit.EditSlot();
 		
 		
-		sample.Servicewd();
 		
 		
 		
