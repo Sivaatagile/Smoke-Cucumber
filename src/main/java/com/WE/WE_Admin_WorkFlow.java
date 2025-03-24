@@ -208,11 +208,18 @@ public class WE_Admin_WorkFlow extends Base{
 		return    TickButton ;
 	}
 	
-	@FindBy (xpath ="(//android.view.View[contains(@content-desc,'customer_name')]/android.widget.ImageView[@clickable='true'])[1]")
+	@FindBy (xpath ="(//android.view.View[contains(@content-desc,'customer_name')]/android.widget.ImageView[@clickable='true'])[2]")
 	private WebElement   RejectButton ;
 	public WebElement getRejectButton() {
 		return    RejectButton ;
 	}
+	
+	@FindBy (xpath ="//android.widget.Button[2]")
+	private WebElement   Reject ;
+	public WebElement getReject() {
+		return    Reject ;
+	}
+	
 	
 	public By getBookeddate() {
 		System.out.println(Booking.Selected_Slot);

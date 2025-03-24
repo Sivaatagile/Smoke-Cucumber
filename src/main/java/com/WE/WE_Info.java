@@ -166,10 +166,16 @@ public class WE_Info extends Base{
 	    return Breed;
 	}
 	
-	@FindBy(xpath = "//android.widget.ScrollView/android.view.View")
+	@FindBy(xpath = "//android.widget.EditText/following-sibling::android.view.View/android.view.View")
 	private List<WebElement> Breedlist;
 	public List<WebElement> getBreedlist() {
 	    return Breedlist;
+	}
+	
+	@FindBy(xpath = "//android.widget.ScrollView/android.view.View")
+	private List<WebElement> Breedlist1;
+	public List<WebElement> getBreedlist1() {
+	    return Breedlist1;
 	}
 
 	@FindBy(xpath = "//android.widget.Button[@content-desc='bottom_sheet_menuReset']")

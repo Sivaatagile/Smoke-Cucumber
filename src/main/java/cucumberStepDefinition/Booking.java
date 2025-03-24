@@ -145,15 +145,21 @@ public class Booking extends Base {
         api.getslotID(Selected_Slot);
         api.getcustomerID(getProperty("SIGNUP_EMAIL"));
         api.NotAvailableDates(api.serviceId, api.slotId, api.CustomerId, minimumDate,maximumDate );
-        List<LocalDate> remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
-        Collections.shuffle(remainingDates);
-        BookingDate = remainingDates.get(0);
-        System.out.println("jjjjjjjjj  : : "+BookingDate);
-//		BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
-//		System.out.println(
-//				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
-//		long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
-//		System.out.println("Number of days between the two dates: " + daysBetween);
+      
+        if (api.notAvailableDates==null) {
+        	BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
+    		System.out.println(
+    				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
+    		long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+    		System.out.println("Number of days between the two dates: " + daysBetween);
+		}else {
+			List<LocalDate> remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
+	        Collections.shuffle(remainingDates);
+	        BookingDate = remainingDates.get(0);
+	        System.out.println("jjjjjjjjj  : : "+BookingDate);
+		}
+        
+		
 		String BookingMonth = getMonthName(BookingDate);
 		BookingYear = BookingDate.getYear();
 		BookingMonthProperCase = BookingMonth.substring(0, 1) + BookingMonth.substring(1).toLowerCase();
@@ -762,6 +768,7 @@ public class Booking extends Base {
 							System.out.println(
 									"Total amount is greater than remaining credit. Navigating to payment page...");
 							Thread.sleep(10000);
+							waitForElement(booking.getStripeBack());
 							if (isElementAvailable(booking.getStripeBack())) {
 								if (totalAmount == 0.00) {
 									Stripe = true;
@@ -1129,10 +1136,28 @@ public class Booking extends Base {
         api.getslotID(Selected_Slot);
         api.getcustomerID(getProperty("SIGNUP_EMAIL"));
         api.NotAvailableDates(api.serviceId, api.slotId, api.CustomerId, minimumDate,maximumDate );
-        List<LocalDate> remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
-        Collections.shuffle(remainingDates);
-        BookingDate = remainingDates.get(0);
+     
+        if (api.notAvailableDates==null) {
+        	datelist = datelist(minAdvanceBookingDate, maxBookingDate);
+        	System.out.println("ffff :  "+datelist);
+        	BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
+    		System.out.println(
+    				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
+    		long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+    		System.out.println("Number of days between the two dates: " + daysBetween);
+		}else {
+			 remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
+	        Collections.shuffle(remainingDates);
+	        BookingDate = remainingDates.get(0);
+	        System.out.println("jjjjjjjjj  : : "+BookingDate);
+		}
         
+        
+        
+//        List<LocalDate> remainingDates = api.getRemainingDates(api.notAvailableDates, minAdvanceBookingDate, maxBookingDate);
+//        Collections.shuffle(remainingDates);
+//        BookingDate = remainingDates.get(0);
+//        
 //		BookingDate = getRandomDate(minAdvanceBookingDate, maxBookingDate);
 //		System.out.println(
 //				"Random date between " + minAdvanceBookingDate + " and " + maxBookingDate + ": " + BookingDate);
@@ -1193,27 +1218,56 @@ public class Booking extends Base {
 			}
 			System.out.println("Formatted Date: " + formattedDateStr);
 //			remainingDates
-			List<LocalDate> filteredDates = getFilteredDates(remainingDates, monthyear);
 			
-			System.out.println("--------------------->    "+filteredDates);
+			if (api.notAvailableDates==null) {
+				List<LocalDate> filteredDates = getFilteredDates(datelist, monthyear);
+			
+				System.out.println("--------------------->    "+filteredDates);
+				
+				
+				 DateTimeFormatter formatter111 = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
+			        OverallFilteredDates = new ArrayList<>();
+
+			        for (LocalDate date : filteredDates) {
+			            String formattedDateStr111 = date.format(formatter111);
+
+			            // Check if the day portion starts with "0" and remove it
+			            if (formattedDateStr111.charAt(formattedDateStr111.indexOf(",") + 6) == '0') {
+			                formattedDateStr111 = formattedDateStr111.replaceFirst(" 0", " ");
+			            }
+
+			            OverallFilteredDates.add(formattedDateStr111);
+			        }
+
+			        // Print formatted date list
+			        System.out.println("--->   "+OverallFilteredDates);
+			}else {
+				List<LocalDate> filteredDates = getFilteredDates(remainingDates, monthyear);
+			
+				System.out.println("--------------------->    "+filteredDates);
+				
+				
+				 DateTimeFormatter formatter111 = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
+			        OverallFilteredDates = new ArrayList<>();
+
+			        for (LocalDate date : filteredDates) {
+			            String formattedDateStr111 = date.format(formatter111);
+
+			            // Check if the day portion starts with "0" and remove it
+			            if (formattedDateStr111.charAt(formattedDateStr111.indexOf(",") + 6) == '0') {
+			                formattedDateStr111 = formattedDateStr111.replaceFirst(" 0", " ");
+			            }
+
+			            OverallFilteredDates.add(formattedDateStr111);
+			        }
+
+			        // Print formatted date list
+			        System.out.println("--->   "+OverallFilteredDates);
+			}
 			
 			
-			 DateTimeFormatter formatter111 = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
-		        OverallFilteredDates = new ArrayList<>();
-
-		        for (LocalDate date : filteredDates) {
-		            String formattedDateStr111 = date.format(formatter111);
-
-		            // Check if the day portion starts with "0" and remove it
-		            if (formattedDateStr111.charAt(formattedDateStr111.indexOf(",") + 6) == '0') {
-		                formattedDateStr111 = formattedDateStr111.replaceFirst(" 0", " ");
-		            }
-
-		            OverallFilteredDates.add(formattedDateStr111);
-		        }
-
-		        // Print formatted date list
-		        System.out.println("--->   "+OverallFilteredDates);
+			
+			
 			
 			
 			
@@ -1288,9 +1342,9 @@ public class Booking extends Base {
 	@When("the user scroll the date picker and selects the date")
 	public void theUserScrollTheDatePickerAndSelectsTheDate() throws Exception {
 		   By datelocator = By.xpath(String.format("//android.widget.SeekBar[@content-desc=\"%s\"]", AssortedDate));
-System.out.println(datelocator);
+            System.out.println(datelocator);
 		   Thread.sleep(2000);
-		scrollUntil(booking.getDatePicker(), datelocator);
+		   scrolldate(booking.getDatePicker(), datelocator);
 		
 		Thread.sleep(2000);
 		ClickonElement(booking.getRequestBooking());

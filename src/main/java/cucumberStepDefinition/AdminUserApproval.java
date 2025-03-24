@@ -29,8 +29,9 @@ public class AdminUserApproval extends Base {
 	}
 	@When("searches for the signup customer name as {string}")
 	public void searchesForTheSignupCustomerNameAs(String string) throws InterruptedException {
-		Thread.sleep(2000);
+		Thread.sleep(6000);
 		ClickonElement(user.getSearchBox());
+		Thread.sleep(2000);
 		passInput(user.getSearchBox(), getProperty(string));
 		driver.hideKeyboard();
 	}

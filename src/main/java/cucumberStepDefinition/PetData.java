@@ -75,15 +75,35 @@ public class PetData extends Base {
 	public void theUserSelectsThePetSBreed() throws InterruptedException {
 		ClickonElement(PetInfo.getBreed());
 		waitForElement(PetInfo.getBottomresetbutton());
-		int BREEDsize = PetInfo.getBreedlist().size();
+		
+		if (PetInfo.isScrollViewAvailable()) {
+			
+		int BREEDsize = PetInfo.getBreedlist1().size();
 		System.out.println("size of service  : " + BREEDsize);
 		if (BREEDsize > 0) {
 			int randomIndex = random.nextInt(BREEDsize - 1);
 			System.out.println(randomIndex);
-			ClickonElement(PetInfo.getBreedlist().get(randomIndex));
+			ClickonElement(PetInfo.getBreedlist1().get(randomIndex));
 		} else {
 			System.out.println("Not enough elements to select a random one.");
 		}
+		}else {
+			
+			
+			int BREEDsize = PetInfo.getBreedlist().size();
+			System.out.println("size of service  : " + BREEDsize);
+			if (BREEDsize > 0) {
+				int randomIndex = random.nextInt(BREEDsize - 1);
+				System.out.println(randomIndex);
+				ClickonElement(PetInfo.getBreedlist().get(randomIndex));
+			} else {
+				System.out.println("Not enough elements to select a random one.");
+			}
+			
+		}
+		
+		
+		
 		if (isElementAvailable(PetInfo.getAdminNotes())) {
 			ClickonElement(PetInfo.getAdminNotes());
 			passInput(PetInfo.getAdminNotes(), getProperty("ADMIN_NOTES"));
