@@ -360,7 +360,7 @@ public class Booking extends Base {
 								System.out.println("\033[1;93mStart the stripe card payment \033[0m");
 								ClickonElement(booking.getcard());
 								System.setProperty("webdriver.chrome.driver",
-										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+										workspacePath+"\\ChromeDriver\\chromedriver.exe");
 								ClickonElement(booking.getproceedtopayment());
 								System.out.println(
 										"Total amount is greater than remaining credit. Navigating to payment page...");
@@ -411,7 +411,7 @@ public class Booking extends Base {
 							if (isElementAvailable(booking.getBankTransfer())) {
 								ClickonElement(booking.getBankTransfer());
 								System.setProperty("webdriver.chrome.driver",
-										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+										workspacePath+"\\ChromeDriver\\chromedriver.exe");
 								ClickonElement(booking.getproceedtopayment());
 								Thread.sleep(10000);
 								waitForElement(booking.getCrezcoContinue());
@@ -433,7 +433,7 @@ public class Booking extends Base {
 								System.out.println("\033[1;93mStart the stripe card payment \033[0m");
 								ClickonElement(booking.getcard());
 								System.setProperty("webdriver.chrome.driver",
-										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+										workspacePath+"\\ChromeDriver\\chromedriver.exe");
 								ClickonElement(booking.getproceedtopayment());
 								System.out.println(
 										"Total amount is greater than remaining credit. Navigating to payment page...");
@@ -480,7 +480,7 @@ public class Booking extends Base {
 							if (isElementAvailable(booking.getBankTransfer())) {
 								ClickonElement(booking.getBankTransfer());
 								System.setProperty("webdriver.chrome.driver",
-										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+										workspacePath+"\\ChromeDriver\\chromedriver.exe");
 								ClickonElement(booking.getproceedtopayment());
 								Thread.sleep(10000);
 								waitForElement(booking.getCrezcoContinue());
@@ -505,7 +505,7 @@ public class Booking extends Base {
 								System.out.println("\033[1;93mStart the stripe card payment \033[0m");
 								ClickonElement(booking.getcard());
 								System.setProperty("webdriver.chrome.driver",
-										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+										workspacePath+"\\ChromeDriver\\chromedriver.exe");
 								ClickonElement(booking.getproceedtopayment());
 								System.out.println(
 										"Total amount is greater than remaining credit. Navigating to payment page...");
@@ -555,7 +555,7 @@ public class Booking extends Base {
 							if (isElementAvailable(booking.getBankTransfer())) {
 								ClickonElement(booking.getBankTransfer());
 								System.setProperty("webdriver.chrome.driver",
-										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+										workspacePath+"\\ChromeDriver\\chromedriver.exe");
 								ClickonElement(booking.getproceedtopayment());
 								Thread.sleep(10000);
 								waitForElement(booking.getCrezcoContinue());
@@ -575,7 +575,7 @@ public class Booking extends Base {
 							System.out.println("\033[1;93mStart the stripe card payment \033[0m");
 							ClickonElement(booking.getcard());
 							System.setProperty("webdriver.chrome.driver",
-									"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+									workspacePath+"\\ChromeDriver\\chromedriver.exe");
 							ClickonElement(booking.getproceedtopayment());
 							System.out.println(
 									"Total amount is greater than remaining credit. Navigating to payment page...");
@@ -622,7 +622,7 @@ public class Booking extends Base {
 						if (isElementAvailable(booking.getBankTransfer())) {
 							ClickonElement(booking.getBankTransfer());
 							System.setProperty("webdriver.chrome.driver",
-									"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+									workspacePath+"\\ChromeDriver\\chromedriver.exe");
 							ClickonElement(booking.getproceedtopayment());
 							Thread.sleep(10000);
 							waitForElement(booking.getCrezcoContinue());
@@ -668,7 +668,7 @@ public class Booking extends Base {
 								System.out.println("\033[1;93mStart the stripe card payment \033[0m");
 								ClickonElement(booking.getcard());
 								System.setProperty("webdriver.chrome.driver",
-										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+										workspacePath+"\\ChromeDriver\\chromedriver.exe");
 								ClickonElement(booking.getproceedtopayment());
 								System.out.println(
 										"Total amount is greater than remaining credit. Navigating to payment page...");
@@ -713,7 +713,7 @@ public class Booking extends Base {
 							if (isElementAvailable(booking.getBankTransfer())) {
 								ClickonElement(booking.getBankTransfer());
 								System.setProperty("webdriver.chrome.driver",
-										"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+										workspacePath+"\\ChromeDriver\\chromedriver.exe");
 								ClickonElement(booking.getproceedtopayment());
 								Thread.sleep(10000);
 								waitForElement(booking.getCrezcoContinue());
@@ -737,7 +737,7 @@ public class Booking extends Base {
 							System.out.println("\033[1;93mStart the stripe card payment \033[0m");
 							ClickonElement(booking.getcard());
 							System.setProperty("webdriver.chrome.driver",
-									"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+									workspacePath+"\\ChromeDriver\\chromedriver.exe");
 							ClickonElement(booking.getproceedtopayment());
 							System.out.println(
 									"Total amount is greater than remaining credit. Navigating to payment page...");
@@ -786,7 +786,7 @@ public class Booking extends Base {
 						if (isElementAvailable(booking.getBankTransfer())) {
 							ClickonElement(booking.getBankTransfer());
 							System.setProperty("webdriver.chrome.driver",
-									"C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+									workspacePath+"\\ChromeDriver\\chromedriver.exe");
 							ClickonElement(booking.getproceedtopayment());
 							Thread.sleep(10000);
 							waitForElement(booking.getCrezcoContinue());

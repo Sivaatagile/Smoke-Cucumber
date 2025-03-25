@@ -63,7 +63,7 @@ public class CustomerBookingFlowPricingRule extends Base {
 	}
 
 ////	*************************     DISCOUNT PRICINGRULE DATE
-	
+
 	@Given("the user is on the Customer Home Page")
 	public void theUserIsOnTheCustomerHomePage() throws InterruptedException {
 		waitForElement(booking.getassorted());
@@ -83,19 +83,17 @@ public class CustomerBookingFlowPricingRule extends Base {
 			discount = false;
 			notavailable = false;
 			System.out.println("STEP : 1");
-		} 
-		else if (PricingRuletype.equalsIgnoreCase("DISCOUNT")) {
+		} else if (PricingRuletype.equalsIgnoreCase("DISCOUNT")) {
 			discount = true;
 			premium = false;
 			notavailable = false;
 			System.out.println("STEP : 2");
-		}else if (PricingRuletype.equalsIgnoreCase("NOT AVAILABLE")) {
+		} else if (PricingRuletype.equalsIgnoreCase("NOT AVAILABLE")) {
 			discount = false;
 			premium = false;
 			notavailable = true;
 			System.out.println("STEP : 3");
-		}
-		else {
+		} else {
 			System.out.println("Invalid type: " + PricingRuletype);
 			discount = false;
 			premium = false;
@@ -147,7 +145,8 @@ public class CustomerBookingFlowPricingRule extends Base {
 
 	@When("the user gathering the pricingrule discount date from propertyfile")
 	public void theUserGatheringThePricingruleDiscountDateFromPropertyfile() {
-		DiscountDATE = MergePricingruleDate(getProperty("TO_Month_Discount_PricingRule"),getProperty("TO_Date_Discount_PricingRule"), getProperty("TO_Year_Discount_PricingRule"));
+		DiscountDATE = MergePricingruleDate(getProperty("TO_Month_Discount_PricingRule"),
+				getProperty("TO_Date_Discount_PricingRule"), getProperty("TO_Year_Discount_PricingRule"));
 	}
 
 	@When("the user opens the Calendar and navigates to the correct Month")
@@ -156,7 +155,7 @@ public class CustomerBookingFlowPricingRule extends Base {
 			ModifiedDate = printDate(DiscountDATE);
 		} else if (premium) {
 			ModifiedDate = printDate(PremiumDATE);
-		}else if (notavailable) {
+		} else if (notavailable) {
 			ModifiedDate = printDate(NotaAvailableDATE);
 		} else {
 
@@ -165,7 +164,8 @@ public class CustomerBookingFlowPricingRule extends Base {
 		int BookingYear = ModifiedDate.getYear();
 		String BookingMonthProperCase = BookingMonth.substring(0, 1) + BookingMonth.substring(1).toLowerCase();
 		Thread.sleep(1500);
-		String dynamicLocator = "//android.view.View[@content-desc='" + BookingMonthProperCase + " " + BookingYear+ "']";
+		String dynamicLocator = "//android.view.View[@content-desc='" + BookingMonthProperCase + " " + BookingYear
+				+ "']";
 		System.out.println("For dynamic locator   :  ----     " + dynamicLocator);
 		Thread.sleep(1500);
 		String fallbackLocatorFirstTime = "//android.view.View[@content-desc='booking_page_calenderWidget']/android.view.View[2]";
@@ -183,16 +183,14 @@ public class CustomerBookingFlowPricingRule extends Base {
 				if (isFirstTime) {
 					fallbackLocator = fallbackLocatorFirstTime;
 					isFirstTime = false; // Mark first time as done
-				} 
-				else {
+				} else {
 					fallbackLocator = fallbackLocatorSubsequentTimes;
 				}
 				try {
 					WebElement fallbackElement = driver.findElement(By.xpath(fallbackLocator));
 					fallbackElement.click();
 					System.out.println("Fallback element clicked (" + fallbackLocator + "), retrying...");
-				} 
-				catch (NoSuchElementException fallbackException) {
+				} catch (NoSuchElementException fallbackException) {
 					System.out.println("Fallback element not found, stopping.");
 					break;
 				}
@@ -203,7 +201,8 @@ public class CustomerBookingFlowPricingRule extends Base {
 	@When("the user selects a Date that falls under the Pricing Rule")
 	public void theUserSelectsADateThatFallsUnderThePricingRule() throws InterruptedException {
 		Thread.sleep(4000);
-		List<WebElement> calendarElements = driver.findElements(By.xpath("//android.view.View[@content-desc=\"booking_page_calenderWidget\"]/android.view.View/android.view.View/android.view.View/android.view.View"));
+		List<WebElement> calendarElements = driver.findElements(By.xpath(
+				"//android.view.View[@content-desc=\"booking_page_calenderWidget\"]/android.view.View/android.view.View/android.view.View/android.view.View"));
 		int size = calendarElements.size();
 		if (size > 7) {
 			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
@@ -214,7 +213,8 @@ public class CustomerBookingFlowPricingRule extends Base {
 			}
 			System.out.println("Formatted Date: " + formattedDateStr);
 			Thread.sleep(5000);
-			WebElement findElement = driver.findElement(By.xpath("//android.view.View[@content-desc='" + formattedDateStr + "']"));
+			WebElement findElement = driver
+					.findElement(By.xpath("//android.view.View[@content-desc='" + formattedDateStr + "']"));
 			findElement.click();
 			Thread.sleep(1000);
 			String Booked_Date123 = findElement.getAttribute("content-desc");
@@ -226,8 +226,7 @@ public class CustomerBookingFlowPricingRule extends Base {
 			System.out.println(Booked_Date);
 			String day = Booked_Date.split(" ")[2].replace(",", "");
 			System.out.println("Day: " + day);
-		} 
-		else {
+		} else {
 			System.out.println("There are less than 8 elements, cannot proceed.");
 		}
 	}
@@ -244,8 +243,7 @@ public class CustomerBookingFlowPricingRule extends Base {
 		System.out.println(elementAvailable);
 		if (elementAvailable) {
 			System.out.println("proceed with the bookings");
-		} 
-		else if (!elementAvailable) {
+		} else if (!elementAvailable) {
 			throw new Error("This is Not available date, So you can't proceed the bookings");
 		}
 		Booked_service = booking.getserviceName().getAttribute("content-desc");
@@ -266,12 +264,10 @@ public class CustomerBookingFlowPricingRule extends Base {
 		if (premium) {
 			isElementAvailable(booking.PremiumPricingRuleName);
 			System.out.println("Premium pricing applies successfully");
-		} 
-		else if (discount) {
+		} else if (discount) {
 			isElementAvailable(booking.DiscountPricingRuleName);
 			System.out.println("discount pricing applies successfully");
-		} 
-		else {
+		} else {
 			System.out.println("Normal booking ");
 		}
 	}
@@ -290,7 +286,8 @@ public class CustomerBookingFlowPricingRule extends Base {
 		if (totalAmount > remainingCredit) {
 			System.out.println("Total amount is greater than remaining credit. Navigating to payment page...");
 			ClickonElement(booking.getCheckBox());
-			System.setProperty("webdriver.chrome.driver","C:\\Users\\ACS\\eclipse-workspace\\Smoke-Cucumber\\ChromeDriver\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver",
+					workspacePath+"\\ChromeDriver\\chromedriver.exe");
 			ClickonElement(booking.getConfirmANDPay());
 			Thread.sleep(10000);
 			if (isElementAvailable(booking.getStripeBack())) {
@@ -308,8 +305,7 @@ public class CustomerBookingFlowPricingRule extends Base {
 					String nativecontext = new ArrayList<String>(hand).get(0); // Get web context
 					System.out.println("native  : " + nativecontext);
 					driver.context(nativecontext);
-				} 
-				else {
+				} else {
 					Stripe = true;
 					waitForElement(booking.getStripeBack());
 					Set<String> hand = driver.getContextHandles(); // Get context handles
@@ -324,8 +320,7 @@ public class CustomerBookingFlowPricingRule extends Base {
 					System.out.println("native  : " + nativecontext);
 					driver.context(nativecontext);
 				}
-			} 
-			else if (isElementAvailable(booking.getCrezcoPayment())) {
+			} else if (isElementAvailable(booking.getCrezcoPayment())) {
 				Crezco = true;
 				System.out.println("Crezco payment ");
 				Set<String> hand = driver.getContextHandles(); // Get context handles
@@ -337,8 +332,7 @@ public class CustomerBookingFlowPricingRule extends Base {
 				Thread.sleep(6000);
 				Crezco_Payment();
 			}
-		} 
-		else {
+		} else {
 			Stripe = false;
 			Crezco = false;
 			ClickonElement(booking.getCheckBox());
@@ -352,55 +346,55 @@ public class CustomerBookingFlowPricingRule extends Base {
 		ClickonElement(booking.getSucessfullpage_Newbooking());
 		System.out.println("Check the total amount and remaining credit amount  ");
 	}
-	
-	
+
 ////*************************     PREMIUM PRICINGRULE DATE
 
 	@When("the user fetches available time slots from the API for premium")
 	public void theUserFetchesAvailableTimeSlotsFromTheAPIForPremium() throws Exception {
-			Api.ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
-			int SlotCount = api.timeSlotsCount;
-			System.out.println("slot  :  " + SlotCount);
-			randomValue = random.nextInt(SlotCount);
-			System.out.println("Random value: " + randomValue);
-			Thread.sleep(4000);
-			for (int i = 1; i < randomValue; i++) {
-				scroll(booking.getseekbar());
-				System.out.println(i);
-				Thread.sleep(500); // waits for 500ms
-			}
-			Thread.sleep(2500);
-			Selected_Slot = booking.getseekbar().getAttribute("content-desc");
-			System.out.println(Selected_Slot);
-	}
-	
-	@When("the user gathering the pricingrule premium date from propertyfile")
-	public void theUserGatheringThePricingrulePremiumDateFromPropertyfile() {
-		PremiumDATE = MergePricingruleDate(getProperty("TO_Month_Premium_PricingRule"),getProperty("TO_Date_Premium_PricingRule"),getProperty("TO_Year_Premium_PricingRule"));
+		Api.ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
+		int SlotCount = api.timeSlotsCount;
+		System.out.println("slot  :  " + SlotCount);
+		randomValue = random.nextInt(SlotCount);
+		System.out.println("Random value: " + randomValue);
+		Thread.sleep(4000);
+		for (int i = 1; i < randomValue; i++) {
+			scroll(booking.getseekbar());
+			System.out.println(i);
+			Thread.sleep(500); // waits for 500ms
+		}
+		Thread.sleep(2500);
+		Selected_Slot = booking.getseekbar().getAttribute("content-desc");
+		System.out.println(Selected_Slot);
 	}
 
-	
+	@When("the user gathering the pricingrule premium date from propertyfile")
+	public void theUserGatheringThePricingrulePremiumDateFromPropertyfile() {
+		PremiumDATE = MergePricingruleDate(getProperty("TO_Month_Premium_PricingRule"),
+				getProperty("TO_Date_Premium_PricingRule"), getProperty("TO_Year_Premium_PricingRule"));
+	}
+
 	@When("the user fetches available time slots from the API for Not Available")
 	public void theUserFetchesAvailableTimeSlotsFromTheAPIForNotAvailable() throws Exception {
-			Api.ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
-			int SlotCount = api.timeSlotsCount;
-			System.out.println("slot  :  " + SlotCount);
-			randomValue = random.nextInt(SlotCount);
-			System.out.println("Random value: " + randomValue);
-			Thread.sleep(4000);
-			for (int i = 1; i < randomValue; i++) {
-				scroll(booking.getseekbar());
-				System.out.println(i);
-				Thread.sleep(500); // waits for 500ms
-			}
-			Thread.sleep(2500);
-			Selected_Slot = booking.getseekbar().getAttribute("content-desc");
-			System.out.println(Selected_Slot);
+		Api.ServiceSlotTimeCount(getProperty("SERVICE_NAME"));
+		int SlotCount = api.timeSlotsCount;
+		System.out.println("slot  :  " + SlotCount);
+		randomValue = random.nextInt(SlotCount);
+		System.out.println("Random value: " + randomValue);
+		Thread.sleep(4000);
+		for (int i = 1; i < randomValue; i++) {
+			scroll(booking.getseekbar());
+			System.out.println(i);
+			Thread.sleep(500); // waits for 500ms
+		}
+		Thread.sleep(2500);
+		Selected_Slot = booking.getseekbar().getAttribute("content-desc");
+		System.out.println(Selected_Slot);
 	}
-	
+
 	@When("the user gathering the pricingrule Not available date from propertyfile")
 	public void theUserGatheringThePricingruleNotAvailableDateFromPropertyfile() {
-		NotaAvailableDATE =  MergePricingruleDate(getProperty("TO_Month_PricingRule_NotAvailable"),getProperty("TO_Date_PricingRule_NotAvailable"),getProperty("TO_Year_PricingRule_NotAvailable"));
+		NotaAvailableDATE = MergePricingruleDate(getProperty("TO_Month_PricingRule_NotAvailable"),
+				getProperty("TO_Date_PricingRule_NotAvailable"), getProperty("TO_Year_PricingRule_NotAvailable"));
 	}
 
 }

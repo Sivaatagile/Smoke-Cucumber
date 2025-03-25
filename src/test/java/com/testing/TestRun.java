@@ -31,7 +31,12 @@ import com.frontend.Login_Details;
 import io.appium.java_client.android.options.UiAutomator2Options;
 	public class TestRun extends Base{
 	
+		public static String workspacePath = System.getProperty("user.dir");
+
+		
 	public static void main(String[] args) throws Exception {
+		
+		System.out.println(workspacePath);
 		
 		WE_Info info = new WE_Info(driver);
 		Api Api= new Api(driver);
