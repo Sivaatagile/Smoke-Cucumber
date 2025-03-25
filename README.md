@@ -39,7 +39,7 @@ If you are testing in an environment other than Staging or Automation Staging, f
 
 Navigate to `StepDefinition → Prerequests.java`.
 
-Set the API URL in the `.properties` file using the `uploadMethod()` function.
+Set the API URL in the `.properties` file using the `propertyfileLoaded()` function.
 
 **Step 2: Handling APK Versions**
 
